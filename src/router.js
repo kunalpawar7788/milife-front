@@ -1,11 +1,19 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+
+import store from './store';
 import Home from './views/Home.vue'
 import Login from './views/Login.vue'
+import Logout from './views/Logout.vue'
+import Registration from './views/Registration.vue'
+import ChangePassword from './views/ChangePassword.vue'
+import NotFoundComponent from './views/NotFoundComponent.vue'
+import Invitation from './views/Invitation.vue'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
+//export default new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
@@ -14,24 +22,25 @@ export default new Router({
           name: 'home',
           component: Home
       },
-      {
-          path: '/about',
-          name: 'about',
-          // route level code-splitting
-          // this generates a separate chunk (about.[hash].js) for this route
-          // which is lazy-loaded when the route is visited.
-          component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
-      },
-      // {
-      //     path: '/login',
-      //     name: 'login',
-      //     // route level code-splitting
-      //     // this generates a separate chunk (about.[hash].js) for this route
-      //     // which is lazy-loaded when the route is visited.
-      //     component: () => import(/* webpackChunkName: "about" */ './views/Login.vue')
-      // },
       { path: '/login', component: Login, name: 'login'},
-      //{ path: '*', component: NotFoundComponent },
+      { path: '/register', component: Registration, name: 'register'},
+      { path: '/logout', component: Logout, name: 'logout'},
+      { path: '/change-password', component: ChangePassword, name: "changepassword", meta: {requiresAuth: true}},
+      { path: '*', component: NotFoundComponent },
   ]
 }
 )
+
+router.beforeEach((to, from, next) => {
+    if(to.matched.some(record => record.meta.requiresAuth)) {
+        if (store.getters['auth/isLoggedIn']) {
+            next()
+            return
+        }
+        next('/login') 
+    } else {
+        next() 
+    }
+})
+
+export default router;

@@ -1,4 +1,3 @@
-// initial state
 import axios from 'axios';
 
 const state = {
@@ -9,7 +8,7 @@ const state = {
 
 // getters
 const getters = {
-    isLoggedIn: state => !!state.token,
+    isLoggedIn: state => !!state.token || state.token==="undefined",
     authStatus: state => state.status,
 }
 
@@ -18,7 +17,8 @@ const actions = {
     register({commit}, user){
         return new Promise((resolve, reject) => {
             commit('auth_request');
-            axios({url: process.env.VUE_APP_BASE_URL+'/register', data: user, method: 'POST' })
+            console.log('inside auth/rehister');
+            axios({url: process.env.VUE_APP_BASE_URL+'/api/auth/register', data: user, method: 'POST' })
                 .then(resp => {
                     const token = resp.data.token;
                     const user = resp.data.user;
@@ -38,10 +38,14 @@ const actions = {
         return new Promise((resolve, reject) => {
             commit('auth_request');
             axios({url: process.env.VUE_APP_BASE_URL + '/api/auth/login', data: user, method: 'POST' })
-            //HTTP.post('/auth/login', user)
                 .then(resp => {
-                    const token = resp.data.token;
-                    const user = resp.data.user;
+                    const token = resp.data.auth_token;
+                    const user = {
+                        first_name: resp.data.first_name,
+                        last_name: resp.data.last_name,
+                        number: resp.data.number,
+                        email: resp.data.email,
+                    };
                     localStorage.setItem('token', token);
                     axios.defaults.headers.common['Authorization'] = token;
                     commit('auth_success', token, user);
@@ -57,9 +61,19 @@ const actions = {
     logout({commit}){
         return new Promise((resolve, reject) => {
             commit('logout');
-            localStorage.removeItem('token');
-            delete axios.defaults.headers.common['Authorization'];
-            resolve();
+            axios({url: process.env.VUE_APP_BASE_URL + '/api/auth/logout', method: 'POST' })
+                .then(resp => {
+                    localStorage.removeItem('token');
+                    delete axios.defaults.headers.common['Authorization'];
+                    resolve();
+                    resolve(resp);
+                })
+                .catch(err => {
+                    commit('auth_error');
+                    localStorage.removeItem('token');
+                    reject(err);
+                });
+
         });
     }
 }
@@ -67,19 +81,19 @@ const actions = {
 // mutations
 const mutations = {
     auth_request(state){
-        state.status = 'loading'
+        state.status = 'loading';
     },
     auth_success(state, token, user){
-        state.status = 'success'
-        state.token = token
-        state.user = user
+        state.status = 'success';
+        state.token = token;
+        state.user = user;
     },
     auth_error(state){
-        state.status = 'error'
+        state.status = 'error';
     },
     logout(state){
-        state.status = ''
-        state.token = ''
+        state.status = '';
+        state.token = '';
     },
 }
 
