@@ -3,9 +3,9 @@
    <form class="login" @submit.prevent="login">
      <h1>Sign in</h1>
      <label>Email</label>
-     <input required v-model="email" type="email" placeholder="Name"/>
+     <input required v-model="email" type="email" placeholder="your.name@example.com"/>
      <label>Password</label>
-     <input required v-model="password" type="password" placeholder="Password"/>
+     <input required v-model="password" type="password" placeholder="P@55W0r|)"/>
      <hr/>
      <button type="submit">Login</button>
    </form>
@@ -14,6 +14,7 @@
 
 <script>
 export default {
+    name: "Login",
     data() {
         return {
             email: "",
