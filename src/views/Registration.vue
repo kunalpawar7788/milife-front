@@ -80,16 +80,16 @@ export default {
                 number: this.registration.number
             }
             this.$store.dispatch('auth/register', userdata)
-                .then(() => this.$router.push('/'))
+                .then(() => this.$router.push('confirm-email'))
                 .catch(err => console.log(err))
         }
     },
-    created: function(){
-    //beforeRouteUpdate (to, from, next) {
-        if (this.$store.getters['auth/isLoggedIn']) {
-            this.$router.push('/')
-        }
-    }
+//     created: function(){
+//     //beforeRouteUpdate (to, from, next) {
+//         if (this.$store.getters['auth/isLoggedIn']) {
+//             this.$router.push('/')
+//         }
+//     }
 }
 </script>
 

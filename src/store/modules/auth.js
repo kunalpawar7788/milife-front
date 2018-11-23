@@ -10,6 +10,8 @@ const state = {
 const getters = {
     isLoggedIn: state => !!state.token || state.token==="undefined",
     authStatus: state => state.status,
+    isTrainer: state => state.user.user_type='trainer',
+    emailVerified: state=>(state.user.is_active && false),
 }
 
 // actions
