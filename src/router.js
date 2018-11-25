@@ -10,7 +10,8 @@ import ChangePassword from './views/ChangePassword.vue'
 import NotFoundComponent from './views/NotFoundComponent.vue'
 import Invitation from './views/Invitation.vue'
 import ForgotPassword from './views/ForgotPassword.vue'
-import ConfirmEmail from './views/ConfirmEmail'
+//import ConfirmEmail from './views/ConfirmEmail'
+import VerifyUserEmail from './views/VerifyUserEmail.vue'
 
 Vue.use(Router)
 
@@ -22,16 +23,18 @@ const router = new Router({
       {
           path: '/',
           name: 'home',
-          component: Home
+          component: Home,
+          meta: {requiresAuth: true},
       },
       { path: '/login', component: Login, name: 'login', meta: {requiresAnon: true}},
-      { path: '/register', component: Registration, name: 'register', meta: {requiresAnon: true}},
-      { path: '/confirm-email', component: ConfirmEmail, name: "confirm-email", meta: {requiresAuth: true}},
+      { path: '/sign-up', component: Registration, name: 'sign-up', meta: {requiresAnon: true}},
+      //{ path: '/verify-user-email', component: VerifyUserEmail, name: "verification-mail-sent"},
+      { path: '/verify-user-email/:token', component: VerifyUserEmail, name: "verify-email-token"},
       { path: '/logout', component: Logout, name: 'logout'},
 
       { path: '/change-password', component: ChangePassword, name: "change-password", meta: {requiresAuth: true}},
       { path: '/forgot-password', component: ForgotPassword, name: "forgot-password", meta: {requiresAnon: true}},
-      
+
       { path: '*', component: NotFoundComponent },
 
   ]
@@ -43,6 +46,13 @@ router.beforeEach((to, from, next) => {
     let requiresAuth = to.matched.some(record => record.meta.requiresAuth)
     let requiresAnon = to.matched.some(record => record.meta.requiresAnon)
 
+
+    if (store.getters['auth/fetch_profile_flag']){
+        console.log('dispatching fetch profile from router');
+        store.dispatch("auth/fetch_profile");
+    }
+
+
     if(requiresAuth && !isLoggedIn){
         next('/login')
     }
@@ -50,17 +60,6 @@ router.beforeEach((to, from, next) => {
         next('/')
     }
     next()
-    // if(requiresAuth) {
-    //     if (isLoggedIn) {
-    //         next()
-    //         return
-    //     }
-    //     next('/login')
-    // } else if (requiresAnon){
-    // }
-    // } else {
-    //     next() 
-    // }
 })
 
 export default router;

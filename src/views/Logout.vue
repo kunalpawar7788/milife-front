@@ -12,9 +12,9 @@ export default {
     components: {},
     created: function(){
         this.$store.dispatch('auth/logout')
-            .then(() => this.$router.push('/'))
+            .then(() => this.$router.push('/login'))
             .catch(err => console.log(err))
-        this.$router.push('/')
+        //this.$router.push('/')
     }
 }
 </script>

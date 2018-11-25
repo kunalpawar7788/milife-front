@@ -8,10 +8,7 @@ Vue.config.productionTip = false
 
 
 if (process.env.NODE_ENV !== 'production') {
-    //require('dotenv').load();
-    console.log(process.env)
     require('dotenv').config()
-    console.log(process.env)
 }
 
 

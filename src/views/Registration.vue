@@ -25,7 +25,7 @@
       <p>
         <input id="confirmpassword" name="confirmpassword" type="password" v-model="registration.confirmpassword" placeholder="Confirm Password">
       </p>
-      
+      <p v-if="!this.passwordsMatch"> Passwords don't match !</p>
       <button @click.prevent="prev()">Previous</button>
       <button @click.prevent="next()">Next</button>
       
@@ -61,15 +61,22 @@ export default {
                 confirmpassword:null,
                 email:null,
                 number:null,
-            }
+            },
         }
+    },
+    computed: {
+        passwordsMatch: function(){
+            return this.registration.password === this.registration.confirmpassword;
+        },
     },
     methods: {
         prev() {
             this.step--;
         },
         next() {
-            this.step++;
+            if (this.passwordsMatch){
+                this.step++;
+            }
         },
         submit() {
             let userdata = {
@@ -80,7 +87,7 @@ export default {
                 number: this.registration.number
             }
             this.$store.dispatch('auth/register', userdata)
-                .then(() => this.$router.push('confirm-email'))
+                .then(() => this.$router.push('/'))
                 .catch(err => console.log(err))
         }
     },
