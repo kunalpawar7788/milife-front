@@ -14,7 +14,7 @@ const getters = {
     is_staff: state => state.user['is_staff'],
     isUserEmailVerified: state=>state.user['email_verified'],
     email: state=>state.user.email,
-    fetch_profile_flag: state => state.token && Object.keys(state.user).length === 0,
+    fetch_profile_flag: state => !!state.token && Object.keys(state.user).length === 0,
 };
 
 // actions
@@ -80,8 +80,24 @@ const actions = {
                 });
 
         });
-    }
-}
+    },
+    change_password({commit}, data){
+        const url = process.env.VUE_APP_BASE_URL+'/api/auth/password_change';
+        axios.defaults.headers.common['Authorization'] = "Token " + localStorage.getItem('token');
+        console.log(axios.defaults.headers.common['Authorization']);
+        return new Promise((resolve, reject) => {
+            axios({url: url, data: data, method: 'POST' })
+            .then(resp => {
+                //commit('email_verified');
+                console.log("password changed");
+            })
+            .catch(err => {
+                console.log(err);
+            });
+
+        });
+    },
+};
 
 // mutations
 const mutations = {

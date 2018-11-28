@@ -1,25 +1,41 @@
 <template>
-  <div>
-    <h1> Change Password </h1>
-       <form class="changepassword" @submit.prevent="changepassword">
-    <p> <input name="currentpassword" v-model="currentpassword" id="currentpassword" type="password" placeholder="Current Password"/></p>
-    <p> <input name="newpassword" v-model="newpassword"  id="newpassword" type="password" placeholder="New Password" /></p>
-    <p> <input name="confirmpassword" v-model="confirmpassword"  id="confirmpassword" type="password" placeholder="Confirm Password" /></p>
+<div>
+  <h1> Change Password </h1>
+  
+  <form class="changepassword" @submit.prevent="change_password">
+    <p> <input name="current_password" v-model="current_password" id="current_password" type="password" placeholder="Current Password"/></p>
+    <NewPassword v-model="new_password"></NewPassword>
     <button type="submit">Change Password</button>
-    </form>
-  </div>
+  </form>
+</div>
 </template>
 
 <script>
+import NewPassword from '@/components/NewPassword.vue';
+import axios from 'axios';
+import store from '@/store';
+
 export default {
     name: "ChangePassword",
     data() {
         return {
-            currentpassword: '',
-            newpassword: '',
-            confirmpassword: '',
+            current_password: '',
+            new_password: '',
+            
         }
     },
+    methods: {
+        change_password(){
+            const data = {current_password: this.current_password, new_password: this.new_password}
+            store.dispatch('auth/change_password', data);
+            this.$router.push('/');
+            
+        }
+    },
+    
+    components: {
+        NewPassword,
+    }
 }
 </script>
 

@@ -28,7 +28,10 @@ export default {
             .catch(err => {
                 this.step=4;
             });
-        store.dispatch("auth/fetch_profile");
+        if (store.getters['auth/fetch_profile_flag']){
+            console.log('dispatching fetch profile');
+            store.dispatch("auth/fetch_profile");
+        }
     }    
 }
 

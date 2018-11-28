@@ -9,8 +9,9 @@ import Registration from './views/Registration.vue'
 import ChangePassword from './views/ChangePassword.vue'
 import NotFoundComponent from './views/NotFoundComponent.vue'
 import Invitation from './views/Invitation.vue'
-import ForgotPassword from './views/ForgotPassword.vue'
+//import ResetPassword from './views/ResetPassword.vue'
 //import ConfirmEmail from './views/ConfirmEmail'
+import ResetPassword from "@/views/ResetPassword.vue"
 import VerifyUserEmail from './views/VerifyUserEmail.vue'
 
 Vue.use(Router)
@@ -32,8 +33,9 @@ const router = new Router({
       { path: '/verify-user-email/:token', component: VerifyUserEmail, name: "verify-email-token"},
       { path: '/logout', component: Logout, name: 'logout'},
 
-      { path: '/change-password', component: ChangePassword, name: "change-password", meta: {requiresAuth: true}},
-      { path: '/forgot-password', component: ForgotPassword, name: "forgot-password", meta: {requiresAnon: true}},
+      { path: '/change-password', component: ChangePassword, name: "change-password"}, // meta: {requiresAuth: true}},
+      { path: '/reset-password', component: ResetPassword, name: "reset-password-request", meta: {requiresAnon: true}},
+      { path: '/reset-password/:token', component: ResetPassword, name: "reset-password", meta: {requiresAnon: true}},
 
       { path: '*', component: NotFoundComponent },
 
