@@ -1,6 +1,11 @@
 <template>
 <div v-if="step === 1"> verifying ... </div>
-<div v-else-if="step === 2"> verified, please go home</div>
+<div v-else-if="step === 2">
+  <h1>Thank You</h1>
+  <h3>Your Email is confirmed</h3>
+  <router-link :to="{ name: 'home'}" class="button">Set me up for success</router-link>
+</div>
+
 <div v-else-if="step === 3"> oops something went wrong, try again? </div>
 
 </template>
@@ -23,7 +28,7 @@ export default {
             .then(resp => {
                 //commit('email_verified');
                 this.step=2;
-                this.$router.push('/')
+                //this.$router.push('/')
             })
             .catch(err => {
                 this.step=4;
