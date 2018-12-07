@@ -8,11 +8,13 @@ import Logout from './views/Logout.vue'
 import Registration from './views/Registration.vue'
 import ChangePassword from './views/ChangePassword.vue'
 import NotFoundComponent from './views/NotFoundComponent.vue'
-import Invitation from './views/Invitation.vue'
+//import Invitation from './views/Invitation.vue'
 //import ResetPassword from './views/ResetPassword.vue'
 //import ConfirmEmail from './views/ConfirmEmail'
 import ResetPassword from "@/views/ResetPassword.vue"
 import VerifyUserEmail from './views/VerifyUserEmail.vue'
+import Profile from '@/views/Profile.vue'
+import Test from '@/views/Test.vue'
 
 Vue.use(Router)
 
@@ -36,6 +38,9 @@ const router = new Router({
       { path: '/change-password', component: ChangePassword, name: "change-password"}, // meta: {requiresAuth: true}},
       { path: '/reset-password', component: ResetPassword, name: "reset-password-request", meta: {requiresAnon: true}},
       { path: '/reset-password/:token', component: ResetPassword, name: "reset-password", meta: {requiresAnon: true}},
+
+      { path: '/profile', component: Profile, name: "update-profile", meta: {requiresAuth: true}},
+      { path: '/test', component: Test, name: "testview", meta: {requiresAuth: true}},
 
       { path: '*', component: NotFoundComponent },
 

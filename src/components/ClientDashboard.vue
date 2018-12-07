@@ -1,7 +1,7 @@
 <template>
 <div class="client-dashboard">
 <h1> Client Dashboard</h1>
-
+The quick brown fox jumps over the lazy dog.
 </div>
 
 </template>

@@ -1,0 +1,24 @@
+$milife-green: #8AC53F;
+$milife-blue: #005273;
+$milife-magenta: #E37B59;
+
+$milife-icon: "../assets/images/milife-icon-white.svg";
+$milife-pwd-key: '../assets/images/password-key-icon.svg';
+$milife-confirm-email-icon: "../assets/images/confirm-email-icon.svg";
+$milife-next-arrow: "../assets/images/next-arrow.svg";
+
+//password-key-icon.svg
+//previous-arrow.svg
+//text-input-dropdown-arrow-white.svg
+//thank-you-tick-green.svg
+
+
+html {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background-color: $milife-blue;
+}
