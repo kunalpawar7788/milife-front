@@ -5,7 +5,7 @@
   <form class="changepassword" @submit.prevent="change_password">
     <p> <input name="current_password" v-model="current_password" id="current_password" type="password" placeholder="Current Password"/></p>
     <NewPassword v-model="new_password"></NewPassword>
-    <button type="submit">Change Password</button>
+    <button class="milife-button milife-button__fullsize" type="submit">Change Password</button>
   </form>
 </div>
 </template>

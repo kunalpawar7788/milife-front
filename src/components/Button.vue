@@ -1,6 +1,6 @@
 <template>
-<button class="milife-button" @click="onClick">
-  <slot>Button</slot>
+<button class="milife-button" @click.prevent="onClick">
+  <span><slot>Button</slot></span>
 </button>
 </template>
 
@@ -11,8 +11,8 @@ export default {
     props: {
         onClick: {
             type: Function,
-            required: true
-        }
+            required: false
+        },
     }
 }
 
@@ -23,20 +23,39 @@ export default {
     border: none;
     border-radius: 50px;
     height: 55px;
-    width: 320px;
     color: white;
     margin-top: 70px;
-    background-color: #8AC53F;
     margin-bottom: 20px;
-    padding-left: 20px;
-    font-size: 13pt;
-    text-align: left;
+    margin-left: 10px;
+    margin-right: 10px;
+    background-color: #8AC53F;    
+    font-size: 13pt;    
     outline: 0;
-    background-image: url($milife-next-arrow);
-    background-repeat: no-repeat;
-    background-position: 95% 50%;
+
+    &__next {
+        background-image: url($milife-next-arrow);
+        background-repeat: no-repeat;
+        background-position: 90% 50%;
+        text-align: left;
+        padding-left: 20px;
+    }
     
+    &__prev {
+        background-image: url($milife-previous-arrow);
+        background-repeat: no-repeat;
+        background-position: 10% 50%;
+        text-align: right;
+        padding-right: 20px;
+    }
+    &__fullsize {
+        width: 270px;
+    }
+    &__halfsize {
+        width: 140px;
+    }
+
 }
 
 </style>
+
 

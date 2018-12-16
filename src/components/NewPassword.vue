@@ -1,11 +1,11 @@
 <template>
 <div>
   <p>
-    <input id="password" type="password" :value="password" placeholder="Password" @input="update_password($event.target.value)" ref="password">
+    <input class="text-input" id="password" type="password" :value="password" placeholder="Password" @input="update_password($event.target.value)" ref="password">
   </p>
   
   <p>
-    <input id="confirmpassword" type="password" :value="confirmpassword" placeholder="Confirm Password" @input="update_password($event.target.value)" ref="confirmpassword">
+    <input class="text-input" id="confirmpassword" type="password" :value="confirmpassword" placeholder="Confirm Password" @input="update_password($event.target.value)" ref="confirmpassword">
   </p>
   <p v-if="!this.passwordsMatch"> Passwords don't match !</p>
 

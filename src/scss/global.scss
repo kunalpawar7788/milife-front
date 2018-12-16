@@ -7,7 +7,7 @@ $milife-pwd-key: '../assets/images/password-key-icon.svg';
 $milife-confirm-email-icon: "../assets/images/confirm-email-icon.svg";
 $milife-next-arrow: "../assets/images/next-arrow.svg";
 
-//password-key-icon.svg
+$milife-previous-arrow: "../assets/images/previous-arrow.svg";
 //previous-arrow.svg
 //text-input-dropdown-arrow-white.svg
 //thank-you-tick-green.svg
@@ -21,4 +21,22 @@ html {
 
 body{
     background-color: $milife-blue;
+}
+
+.text-input {
+    border: none;
+    border-radius: 50px;
+    color: grey;
+    height: 50px;
+    padding-left: 20px;
+    font-size: 15pt;
+    font-family: Monteserrat Regular;
+    width: 300px;
+    outline: none;
+    //padding-top: 20px;
+    margin-top: 20px;
+}
+
+.error-message{
+    color: $milife-magenta;
 }
