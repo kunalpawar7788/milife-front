@@ -38,7 +38,7 @@ const actions = {
     login({commit}, user){
         return new Promise((resolve, reject) => {
             commit('auth_request');
-            axios({url: process.env.VUE_APP_BASE_URL + '/api/auth/login', data: user, method: 'POST' })
+            axios({url: process.env.VUE_APP_BASE_URL + '/api/auth/login/', data: user, method: 'POST' })
                 .then(resp => {
                     commit('auth_success', resp.data);
                     axios.defaults.headers.common['Authorization'] = "Token " + resp.data.auth_token;
@@ -70,6 +70,7 @@ const actions = {
     },
     fetch_profile({commit}){
         return new Promise((resolve, reject) => {
+            axios.defaults.headers.common['Authorization'] = "Token " + localStorage.getItem('token');
             axios({url: process.env.VUE_APP_BASE_URL + '/api/me', method: 'GET' })
                 .then(resp => {
                     commit('profile_fetched', resp.data);
@@ -96,6 +97,17 @@ const actions = {
             });
 
         });
+    },
+    update_profile({commit}, data){
+        const url = process.env.VUE_APP_BASE_URL+'/api/me';
+        axios.defaults.headers.common['Authorization'] = "Token " + localStorage.getItem('token');
+        axios({url: url, data:data, method: 'PATCH'})
+            .then(resp => {
+                console.log("data updated");
+            })
+            .catch(err => {
+                console.log(err);
+            });
     },
 };
 
@@ -144,6 +156,12 @@ const mutations = {
             is_staff: data.is_staff,
             is_active: data.is_active,
             email_verified: data.email_verified,
+            weight_kg: data.weight_kg,
+            weight_unit: data.weight_unit,
+            height_cm: data.height_cm,
+            height_unit: data.height_unit,
+            date_of_birth: data.date_of_birth,
+            gender: data.gender,
         };
     }
 };
