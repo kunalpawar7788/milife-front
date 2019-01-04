@@ -1,6 +1,9 @@
 <template>
 <div class="container">
   <h1>User List</h1>
+  <div class="searchbox">
+    <input class="text-input" v-model="params.search" placeholder="search"  v-on:change="fetch_users">
+  </div>
   <div class="userlist" v-for="user of users">
     <div class="user" :id ="user.id">
       {{user.first_name}} | {{user.email}}
@@ -27,7 +30,7 @@ export default {
         fetch_users: function() {
             const url = process.env.VUE_APP_BASE_URL+'/api/users';
             axios.defaults.headers.common['Authorization'] = "Token " + localStorage.getItem('token');
-            axios({url: url, data:this.params, method: 'GET'})
+            axios({url: url, params:this.params, method: 'GET'})
                 .then(resp => {
                     this.error_message="";
                     this.errors={};
@@ -41,8 +44,7 @@ export default {
                     });
                     this.errors = errors;
                     
-                });
-
+                });            
         }
     },
     mounted() {
