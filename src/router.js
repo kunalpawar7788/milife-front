@@ -2,21 +2,22 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import store from './store';
-import Home from './views/Home.vue'
-import Login from './views/Login.vue'
-import Logout from './views/Logout.vue'
-import Registration from './views/Registration.vue'
-import ChangePassword from './views/ChangePassword.vue'
-import NotFoundComponent from './views/NotFoundComponent.vue'
-//import Invitation from './views/Invitation.vue'
+import Home from './views/Home.vue';
+import Login from './views/Login.vue';
+import Logout from './views/Logout.vue';
+import Registration from './views/Registration.vue';
+import ChangePassword from './views/ChangePassword.vue';
+import NotFoundComponent from './views/NotFoundComponent.vue';
+import Invitation from './views/Invitation.vue';
+import Unauthorized from '@/views/Unauthorized.vue';
 //import ResetPassword from './views/ResetPassword.vue'
 //import ConfirmEmail from './views/ConfirmEmail'
-import ResetPassword from "@/views/ResetPassword.vue"
-import VerifyUserEmail from './views/VerifyUserEmail.vue'
-import Profile from '@/views/Profile.vue'
-import Test from '@/views/Test.vue'
+import ResetPassword from "@/views/ResetPassword.vue";
+import VerifyUserEmail from './views/VerifyUserEmail.vue';
+import Profile from '@/views/Profile.vue';
+import Test from '@/views/Test.vue';
 
-Vue.use(Router)
+Vue.use(Router);
 
 const router = new Router({
 //export default new Router({
@@ -41,6 +42,9 @@ const router = new Router({
 
       { path: '/profile', component: Profile, name: "update-profile", meta: {requiresAuth: true}},
       { path: '/test', component: Test, name: "testview", meta: {requiresAuth: true}},
+      { path: '/invite', component: Invitation, name: "invite", meta: {requiresAdmin: true}},
+
+      { path: '/unauthorized', component: Unauthorized, name: "unauthorized", meta: {requiresAdmin: false}},
 
       { path: '*', component: NotFoundComponent },
 
@@ -49,9 +53,11 @@ const router = new Router({
 )
 
 router.beforeEach((to, from, next) => {
-    let isLoggedIn = store.getters['auth/isLoggedIn']
-    let requiresAuth = to.matched.some(record => record.meta.requiresAuth)
-    let requiresAnon = to.matched.some(record => record.meta.requiresAnon)
+    let isLoggedIn = store.getters['auth/isLoggedIn'];
+    let isAdmin = store.getters['auth/is_staff'];
+    let requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+    let requiresAnon = to.matched.some(record => record.meta.requiresAnon);
+    let requiresAdmin = to.matched.some(record => record.meta.requiresAdmin);
 
 
     if (store.getters['auth/fetch_profile_flag']){
@@ -61,12 +67,15 @@ router.beforeEach((to, from, next) => {
 
 
     if(requiresAuth && !isLoggedIn){
-        next('/login')
+        next('/login');
     }
     if(requiresAnon && isLoggedIn){
-        next('/')
+        next('/');
     }
-    next()
+    if(requiresAdmin && !isAdmin){
+        next('/unauthorized');
+    }
+    next();
 })
 
 export default router;
