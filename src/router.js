@@ -15,6 +15,7 @@ import Unauthorized from '@/views/Unauthorized.vue';
 import ResetPassword from "@/views/ResetPassword.vue";
 import VerifyUserEmail from './views/VerifyUserEmail.vue';
 import Profile from '@/views/Profile.vue';
+import UserList from '@/views/UserList.vue';
 import Test from '@/views/Test.vue';
 
 Vue.use(Router);
@@ -43,14 +44,13 @@ const router = new Router({
       { path: '/profile', component: Profile, name: "update-profile", meta: {requiresAuth: true}},
       { path: '/test', component: Test, name: "testview", meta: {requiresAuth: true}},
       { path: '/invite', component: Invitation, name: "invite", meta: {requiresAdmin: true}},
+      { path: '/users', component: UserList, name: "users", meta: {requiresAdmin: true}},
 
       { path: '/unauthorized', component: Unauthorized, name: "unauthorized", meta: {requiresAdmin: false}},
-
       { path: '*', component: NotFoundComponent },
 
   ]
-}
-)
+});
 
 router.beforeEach((to, from, next) => {
     let isLoggedIn = store.getters['auth/isLoggedIn'];
@@ -76,6 +76,6 @@ router.beforeEach((to, from, next) => {
         next('/unauthorized');
     }
     next();
-})
+});
 
 export default router;

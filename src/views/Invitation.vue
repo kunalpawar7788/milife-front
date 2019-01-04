@@ -44,7 +44,6 @@ export default {
     },
     methods: {
         send_invitation(){
-            console.log('there');
             let errors = {};
             const url = process.env.VUE_APP_BASE_URL+'/api/auth/invite_user/';
             axios.defaults.headers.common['Authorization'] = "Token " + localStorage.getItem('token');
