@@ -1,44 +1,44 @@
-    <template>
-    <div class="container">
-    <div v-if="!!token">
+<template>
+<div class="container">
+  <div v-if="!!token">
     <div class="logo">
-    <img src="@/assets/images/milife-icon-white.svg">
-    </div>
-
-    <div v-if="!password_changed">
-    <h1> Please choose your new password</h1>
-    <form class="resetpassword" @submit.prevent="reset_password">
-    <NewPassword v-model="newpassword"></NewPassword>
-    <p>{{error_message}}</p>
-    <button class="milife-button milife-button__fullsize" type="submit">Change Password</button>
-    </form>
-    </div>
-    <div v-else>
-    <h1>Password Changed Successfully</h1>
-    Please <router-link :to="{ name: 'login'}">click here</router-link> to login with your new password.
-    </div>
+      <img src="@/assets/images/milife-icon-white.svg">
     </div>
     
+    <div v-if="!password_changed">
+      <h1> Please choose your new password</h1>
+      <form class="resetpassword" @submit.prevent="reset_password">
+        <NewPassword v-model="newpassword"></NewPassword>
+        <p>{{error_message}}</p>
+        <button class="milife-button milife-button__fullsize" type="submit">Change Password</button>
+      </form>
+    </div>
     <div v-else>
+      <h1>Password Changed Successfully</h1>
+      Please <router-link :to="{ name: 'login'}">click here</router-link> to login with your new password.
+    </div>
+  </div>
+  
+  <div v-else>
     <div class="logo"> <img src="@/assets/images/confirm-email-icon.svg"></div>
     <div v-if="!email_sent">
-    <h1> Reset Your Password?</h1>
-    <p> You can reset your password by providing your registered email address below: </p>
-    <form class="sendresetpasswordmail" @submit.prevent="send_reset_password_mail">
-    <p><input class="text-input" id="email" name="email" type="email" v-model="email" placeholder="Email"></p>
-    <button class="milife-button milife-button__fullsize" type="submit">Change Password</button>
-    </form>
+      <h1> Reset Your Password?</h1>
+      <p> You can reset your password by providing your registered email address below: </p>
+      <form class="sendresetpasswordmail" @submit.prevent="send_reset_password_mail">
+        <p><input class="text-input" id="email" name="email" type="email" v-model="email" placeholder="Email"></p>
+        <button class="milife-button milife-button__fullsize" type="submit">Change Password</button>
+      </form>
     </div>
-    <div v-else>      
-    <h1> Email Sent</h1>
-    <h2> Please check your inbox </h2>
-    </div>    
+    <div v-else>
+      <h1> Email Sent</h1>
+      <h2> Please check your inbox </h2>
     </div>
-    </div>
-    </template>
+  </div>
+</div>
+</template>
 
-    <script>
-    import axios from 'axios';
+<script>
+import axios from 'axios';
 import store from '@/store';
 import NewPassword from '@/components/NewPassword.vue';
 
@@ -80,7 +80,7 @@ export default {
                 .catch(err => {
                     console.log(err);
                     this.error_message = err.response.data['errors'][0]['message'];
-
+                    
                 });
         }
     },
@@ -88,5 +88,5 @@ export default {
 }
 </script>
 
-    <style> </style>
+<style> </style>
 
