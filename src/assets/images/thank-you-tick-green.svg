@@ -1,19 +1,17 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 22.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 87 87" style="enable-background:new 0 0 87 87;" xml:space="preserve">
-<style type="text/css">
-	.st0{fill:#91BD2C;}
-</style>
-<title>Group 2</title>
-<desc>Created with Sketch.</desc>
-<g>
-	<path class="st0" d="M43.5,84v2.7c11.9,0,22.7-4.8,30.5-12.6c7.8-7.8,12.6-18.6,12.6-30.5c0-11.9-4.8-22.7-12.6-30.5
-		C66.2,5.2,55.4,0.3,43.5,0.3C31.6,0.3,20.8,5.2,13,13C5.2,20.8,0.3,31.6,0.3,43.5C0.3,55.4,5.2,66.2,13,74
-		c7.8,7.8,18.6,12.6,30.5,12.6V84v-2.7c-10.5,0-19.9-4.2-26.8-11.1C9.9,63.4,5.7,54,5.7,43.5c0-10.5,4.2-19.9,11.1-26.7
-		C23.6,9.9,33,5.7,43.5,5.7c10.5,0,19.9,4.2,26.8,11.1c6.9,6.9,11.1,16.3,11.1,26.7c0,10.5-4.2,19.9-11.1,26.8
-		C63.4,77.1,54,81.3,43.5,81.3V84z"/>
-	<path class="st0" d="M25.1,45.7l12.3,12l23-22.4c0.8-0.8,0.8-2,0-2.8l-1-1c-0.8-0.8-2-0.8-2.8,0L37.5,50.3l-7.2-7
-		c-0.8-0.8-2-0.7-2.8,0L25.1,45.7L25.1,45.7z"/>
-</g>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="87px" height="87px" viewBox="0 0 87 87" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.3 (57544) - http://www.bohemiancoding.com/sketch -->
+    <title>thank-you-tick-green</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="-Admin" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="4" transform="translate(-138.000000, -244.000000)" fill="#91BD2C" fill-rule="nonzero">
+            <g id="Group-3" transform="translate(49.000000, 205.000000)">
+                <g id="thank-you-tick-green" transform="translate(89.000000, 39.000000)">
+                    <path d="M43.5,84 L43.5,86.7 C55.4,86.7 66.2,81.9 74,74.1 C81.8,66.3 86.6,55.5 86.6,43.6 C86.6,31.7 81.8,20.9 74,13.1 C66.2,5.2 55.4,0.3 43.5,0.3 C31.6,0.3 20.8,5.2 13,13 C5.2,20.8 0.3,31.6 0.3,43.5 C0.3,55.4 5.2,66.2 13,74 C20.8,81.8 31.6,86.6 43.5,86.6 L43.5,84 L43.5,81.3 C33,81.3 23.6,77.1 16.7,70.2 C9.9,63.4 5.7,54 5.7,43.5 C5.7,33 9.9,23.6 16.8,16.8 C23.6,9.9 33,5.7 43.5,5.7 C54,5.7 63.4,9.9 70.3,16.8 C77.2,23.7 81.4,33.1 81.4,43.5 C81.4,54 77.2,63.4 70.3,70.3 C63.4,77.1 54,81.3 43.5,81.3 L43.5,84 Z" id="Shape"></path>
+                    <path d="M25.1,45.7 L37.4,57.7 L60.4,35.3 C61.2,34.5 61.2,33.3 60.4,32.5 L59.4,31.5 C58.6,30.7 57.4,30.7 56.6,31.5 L37.5,50.3 L30.3,43.3 C29.5,42.5 28.3,42.6 27.5,43.3 L25.1,45.7 Z" id="Shape"></path>
+                </g>
+            </g>
+        </g>
+    </g>
 </svg>

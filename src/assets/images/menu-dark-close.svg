@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="33px" height="33px" viewBox="0 0 33 33" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.3 (57544) - http://www.bohemiancoding.com/sketch -->
+    <title>Menbu Dark close</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Menbu-Dark-close" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group-3" fill="#FFFFFF" opacity="0.554241071">
+            <g id="Group">
+                <path d="M16.5531835,0 C7.46395413,0 0.0694311927,7.4099633 0.0694311927,16.5004037 C0.0694311927,25.5904404 7.46314679,33 16.5531835,33 L16.5543945,33 C25.6433211,33 33.0382477,25.589633 33.0382477,16.4995963 C33.0382477,7.40915596 25.6429174,0 16.5531835,0 Z M16.5535872,30.9859908 L16.5531835,30.9859908 C8.57444954,30.9859908 2.08344037,24.4787339 2.08344037,16.4995963 C2.08344037,8.52005505 8.57444954,2.02188073 16.5543945,2.02188073 C24.5339358,2.02188073 31.0234312,8.52479817 31.0234312,16.5043394 C31.0234312,24.4838807 24.532422,30.9859908 16.5535872,30.9859908 Z" id="Fill-1"></path>
+            </g>
+        </g>
+        <path d="M8.5,8.5 L24.5,23.5" id="Line" stroke="#FFFFFF" stroke-width="2" fill="#D8D8D8" stroke-linecap="round"></path>
+        <path d="M8.5,8.5 L24.5,23.5" id="Line" stroke="#FFFFFF" stroke-width="2" fill="#D8D8D8" stroke-linecap="round" transform="translate(16.500000, 16.000000) scale(-1, 1) translate(-16.500000, -16.000000) "></path>
+    </g>
+</svg>
