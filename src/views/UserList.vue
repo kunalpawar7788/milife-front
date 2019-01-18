@@ -1,30 +1,45 @@
 <template>
 <div class="container">
-  <h1>User List</h1>
+  <HeaderMenu/>
   <div class="searchbox">
-    <input class="text-input" v-model="params.search" placeholder="search"   v-on:keyup="fetch_users">
+    <input class="text-input" v-model="params.search" placeholder="Start typing to search" v-on:keyup="fetch_users">
   </div>
-  <div class="userlist" v-for="user of users">
-    <div class="user" :id ="user.id">
-      {{user.first_name}} | {{user.email}}
+  <div class="userlist-container">
+    <div class="userinfo" v-for="user of users" :id="user.id">
+      <div class="userinfo-grid">
+        <img src="user.image" v-if="user.image!=null"/>
+        <img src="@/assets/images/placeholder-profile.png"/>
+        <span> {{user.first_name}} {{user.last_name}}</span>
+        <p> ... </p>
+      </div>
+      
+      <div class="context-menu" v-if="active_context_menu_id==null">
+        <ul>
+          <li>Message</li>
+          <li>Manage</li>
+          <li>Remove</li>
+        </ul>
+      </div>
     </div>
+    
   </div>
-
+</div>
 </div>
 </template>
 
 <script>
 import axios from 'axios';
-
+import HeaderMenu from '@/components/HeaderMenu';
 export default {
     name: "UserList",
-    components: {},
-
+    components: {HeaderMenu, },
+    
     data() {
         return{
             params: {search: ''},
-            users: null,
-            }
+            users: [],
+            active_context_menu_id: null,
+        }
     },
     methods: {
         fetch_users: function() {
@@ -55,15 +70,67 @@ export default {
 
 </script>
 
-<style>
-  .user {
-  border: 1px solid red;
-  color: black;
-  background: white;
-  height: 50px;
-  border-radius: 20px;
-  margin: 5px;
-  padding: 5px;
- 
-  }
+<style lang="scss">
+.user {
+    border: 1px solid red;
+    color: black;
+    background: white;
+    height: 64px;
+    
+    border-radius: 20px;
+    margin: 5px;
+    padding: 15px;
+    font-size: 15pt;
+    font-family: Monteserrat Regular;
+    
+}
+.userinfo-grid{
+    display: grid;
+    grid-template-columns: 1fr 5fr 1fr;
+    background-color: white;
+    border-radius: 20px;
+    margin: 5px;
+    padding: 5px;
+    color: black;
+    
+    img {
+        height:60px;
+        padding: 5px;
+    }
+    
+    span{
+        font-size: 15pt;
+        align-self: center;
+        justify-self: left;
+        padding-left: 20px;
+        
+    }
+
+}
+.userinfo{
+    .context-menu {
+
+        height: 150px;
+        width: 200px;
+
+        border: 1px solid red;
+        position: relative;
+        top: -114px;
+        left: 144px;
+
+        z-index: 999;
+        color: black;
+        background-color: white;
+        margin-bottom: -150px;
+
+        ul {
+            list-style: none;
+            padding: 5px;
+
+            li {
+                padding: 5px;
+            }
+        }
+    }
+}
 </style>
