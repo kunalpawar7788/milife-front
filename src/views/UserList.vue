@@ -1,5 +1,5 @@
 <template>
-<div class="container">
+<div class="container" v-on:click="toggle_menu(null)">
   <HeaderMenu/>
   <div class="searchbox">
     <input class="text-input" v-model="params.search" placeholder="Start typing to search" v-on:keyup="fetch_users">
@@ -10,10 +10,10 @@
         <img src="user.image" v-if="user.image!=null"/>
         <img src="@/assets/images/placeholder-profile.png"/>
         <span> {{user.first_name}} {{user.last_name}}</span>
-        <p> ... </p>
+        <p v-on:click.stop="toggle_menu(user.id)"> ... </p>
       </div>
       
-      <div class="context-menu" v-if="active_context_menu_id==null">
+      <div class="context-menu" v-if="selected_user_id==user.id" >
         <ul>
           <li>Message</li>
           <li>Manage</li>
@@ -38,7 +38,7 @@ export default {
         return{
             params: {search: ''},
             users: [],
-            active_context_menu_id: null,
+            selected_user_id: null,
         }
     },
     methods: {
@@ -61,7 +61,11 @@ export default {
                     this.errors = errors;
                     
                 });            
+        },
+        toggle_menu: function(_id){
+            this.selected_user_id=_id;
         }
+
     },
     mounted() {
         this.fetch_users();
@@ -105,9 +109,14 @@ export default {
         padding-left: 20px;
         
     }
-
+    :focus{
+        background-color:$milife-green;
+    }
+    
+    
 }
 .userinfo{
+
     .context-menu {
 
         height: 150px;
