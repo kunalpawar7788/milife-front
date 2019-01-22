@@ -24,13 +24,12 @@ export default {
             showEmailVerification: !store.getters['auth/isUserEmailVerified'],
             isAuthenticated: store.getters['auth/isAuthenticated'],
             isTrainer: store.getters['auth/is_staff'],
-            
         }
     },
     components: {
         TrainerDashboard,
         ClientDashboard,
-        UserEmailVerificationPending,        
+        UserEmailVerificationPending,
     },
     created: function(){
         console.log('here:', store.getters['auth/fetch_profile_flag'])

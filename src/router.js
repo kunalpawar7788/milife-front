@@ -1,5 +1,5 @@
-import Vue from 'vue'
-import Router from 'vue-router'
+import Vue from 'vue';
+import Router from 'vue-router';
 
 import store from './store';
 import Home from './views/Home.vue';
@@ -16,7 +16,11 @@ import ResetPassword from "@/views/ResetPassword.vue";
 import VerifyUserEmail from './views/VerifyUserEmail.vue';
 import Profile from '@/views/Profile.vue';
 import UserList from '@/views/UserList.vue';
+import UserDetail from '@/views/UserDetail.vue';
 import Test from '@/views/Test.vue';
+import ComposeMessage from '@/views/ComposeMessage.vue';
+import ManageUser from '@/views/ManageUser.vue';
+import UserDocumentList from '@/views/UserDocumentList.vue';
 
 Vue.use(Router);
 
@@ -44,9 +48,14 @@ const router = new Router({
       { path: '/profile', component: Profile, name: "update-profile", meta: {requiresAuth: true}},
       { path: '/test', component: Test, name: "testview", meta: {requiresAuth: true}},
       { path: '/invite', component: Invitation, name: "invite", meta: {requiresAdmin: true}},
-      { path: '/users', component: UserList, name: "users", meta: {requiresAdmin: true}},
+      { path: '/users', component: UserList, name: "user-list", meta: {requiresAdmin: true}},
+      { path: '/users/:pk', component: UserDetail, name: "user-detail", meta: {requiresAdmin: true}},
+      { path: '/users/:pk/manage', component: ManageUser, name: "user-manage", meta: {requiresAdmin: true}},
+      { path: '/users/:pk/compose-message', component: ComposeMessage, name: "user-message", meta: {requiresAdmin: true}},
+      { path: '/users/:pk/documents', component: UserDocumentList, name: "user-message", meta: {requiresAdmin: true}},
 
       { path: '/unauthorized', component: Unauthorized, name: "unauthorized", meta: {requiresAdmin: false}},
+
       { path: '*', component: NotFoundComponent },
 
   ]
