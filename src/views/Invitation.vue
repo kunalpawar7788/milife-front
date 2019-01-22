@@ -1,5 +1,6 @@
 <template>
 <div class="containter">
+  <HeaderMenu />
   <h1> Invite a new trainee </h1>
   <div id="step1" v-if="step===1">
     <div class="invitation">
@@ -24,12 +25,14 @@
 </template>
 
 <script>
-  import axios from 'axios';
+import axios from 'axios';
+import HeaderMenu from '@/components/HeaderMenu';
 import FormError from '@/components/FormError.vue';
 export default {
     name: "Invitation",
     components: {
-        'FormError': FormError
+        'FormError': FormError,
+        'HeaderMenu': HeaderMenu
     },
     data() {
         return {
