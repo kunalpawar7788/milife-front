@@ -6,7 +6,7 @@
   </div>
   <div class="userlist-container">
     <div class="userinfo" v-for="user of users" :id="user.id">
-      <div class="userinfo-grid">
+      <div v-bind:class="[user.id==selected_user_id? 'user-selected':'', 'userinfo-grid']">
         <img src="user.image" v-if="user.image!=null"/>
         <img src="@/assets/images/placeholder-profile.png"/>
         <span> {{user.first_name}} {{user.last_name}}</span>
@@ -15,8 +15,9 @@
       
       <div class="context-menu" v-if="selected_user_id==user.id" >
         <ul>
-          <li>Message</li>
-          <li>Manage</li>
+          <li><router-link :to="{name: 'user-message', params:{'pk': user.id}}"> Message {{user.first_name}}</router-link></li>
+          <li><router-link :to="{name: 'user-manage', params:{'pk': user.id}}"> Manage </router-link></li>
+
           <li>Remove</li>
         </ul>
       </div>
@@ -63,7 +64,7 @@ export default {
                 });            
         },
         toggle_menu: function(_id){
-            this.selected_user_id=_id;
+            this.selected_user_id= this.selected_user_id==_id ? null : _id
         }
 
     },
@@ -71,7 +72,6 @@ export default {
         this.fetch_users();
     },
 }
-
 </script>
 
 <style lang="scss">
@@ -86,7 +86,6 @@ export default {
     padding: 15px;
     font-size: 15pt;
     font-family: Monteserrat Regular;
-    
 }
 .userinfo-grid{
     display: grid;
@@ -107,19 +106,15 @@ export default {
         align-self: center;
         justify-self: left;
         padding-left: 20px;
-        
     }
+
     :focus{
         background-color:$milife-green;
     }
-    
-    
 }
 .userinfo{
-
     .context-menu {
-
-        height: 150px;
+        //height: 150px;
         width: 200px;
 
         border: 1px solid red;
@@ -130,16 +125,38 @@ export default {
         z-index: 999;
         color: black;
         background-color: white;
-        margin-bottom: -150px;
+        margin-bottom: -105px;
 
         ul {
             list-style: none;
-            padding: 5px;
+            padding: 1px;
+            margin-block-start: 0;
+            margin-block-end: 0;
 
             li {
                 padding: 5px;
+
+                a {
+                    text-decoration: none !important;
+                    color: inherit;
+                    width: 100%;
+                    height: 100%;
+                    display: block;
+                             
+                }
+
+                &:hover {
+                    cursor: pointer;
+                    background: black;
+                    color: white;
+                }
             }
         }
     }
+}
+
+.user-selected{
+    background-color: $milife-green;
+
 }
 </style>
