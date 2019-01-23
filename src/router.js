@@ -52,7 +52,7 @@ const router = new Router({
       { path: '/users/:pk', component: UserDetail, name: "user-detail", meta: {requiresAdmin: true}},
       { path: '/users/:pk/manage', component: ManageUser, name: "user-manage", meta: {requiresAdmin: true}},
       { path: '/users/:pk/compose-message', component: ComposeMessage, name: "user-message", meta: {requiresAdmin: true}},
-      { path: '/users/:pk/documents', component: UserDocumentList, name: "user-message", meta: {requiresAdmin: true}},
+      { path: '/users/:pk/documents', component: UserDocumentList, name: "user-documents", meta: {requiresAdmin: true}},
 
       { path: '/unauthorized', component: Unauthorized, name: "unauthorized", meta: {requiresAdmin: false}},
 

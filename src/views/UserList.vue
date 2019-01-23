@@ -1,6 +1,5 @@
 <template>
 <div class="container" v-on:click="toggle_menu(null)">
-  <HeaderMenu/>
   <div class="searchbox">
     <input class="text-input" v-model="params.search" placeholder="Start typing to search" v-on:keyup="fetch_users">
   </div>
@@ -30,10 +29,9 @@
 
 <script>
 import axios from 'axios';
-import HeaderMenu from '@/components/HeaderMenu';
 export default {
     name: "UserList",
-    components: {HeaderMenu, },
+    components: {},
     
     data() {
         return{
@@ -51,7 +49,6 @@ export default {
                 .then(resp => {
                     this.error_message="";
                     this.errors={};
-                    this.step=2;
                     this.users= resp.data.results;
                     console.log(resp.data);
                 })

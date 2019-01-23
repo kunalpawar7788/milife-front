@@ -1,15 +1,15 @@
 <template>
 <div class="home">
+
   <div v-if="this.showEmailVerification"> <UserEmailVerificationPending /> </div>
   <div v-else-if="this.isTrainer"> <TrainerDashboard /></div>
-<div v-else> <ClientDashboard /> </div>
-
+  <div v-else> <ClientDashboard /> </div>
 </div>
-
 </template>
 
 <script>
 // @ is an alias to /src
+import HeaderMenu from '@/components/HeaderMenu.vue';
 import TrainerDashboard from '@/components/TrainerDashboard.vue'
 import ClientDashboard from '@/components/ClientDashboard.vue'
 import UserEmailVerificationPending from '@/components/UserEmailVerificationPending.vue'
@@ -30,6 +30,7 @@ export default {
         TrainerDashboard,
         ClientDashboard,
         UserEmailVerificationPending,
+        HeaderMenu,
     },
     created: function(){
         console.log('here:', store.getters['auth/fetch_profile_flag'])

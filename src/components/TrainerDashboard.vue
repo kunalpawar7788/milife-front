@@ -1,6 +1,5 @@
 <template>
 <div class="trainer-dashboard">
-  <HeaderMenu/>
   <div class="slab1">
     <div class="usercounts">
       <img class="image" id="icon-active" src="@/assets/images/activated-users.svg"/>
@@ -39,7 +38,6 @@
 
 <script>
 import store from '@/store'
-import HeaderMenu from '@/components/HeaderMenu';
 import axios from 'axios';
 
 export default {
@@ -47,10 +45,10 @@ export default {
     data() {
         return {
             status_d: {},
+            email: null,
         }
     },
     components: {
-        HeaderMenu,
     },
     methods: {
         invitation_status_count: function(){

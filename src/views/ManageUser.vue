@@ -1,29 +1,27 @@
 <template>
 <div class="manageuser-container">
-  <HeaderMenu></HeaderMenu>
   <img class="profile-photo" src="user.image" v-if="user.image!=null"/>
   <img class="profile-photo" src="@/assets/images/placeholder-profile.png"/>
   <div class="name"> {{user.first_name}} {{user.last_name}} </div>
   <div class="mu-buttons">
-    <div id="mu-1" class="mb"><router-link :to="{name: 'test', params:{'pk': user.id}}"> View Docs </router-link> </div>
-    <div id="mu-2" class="mb"><router-link :to="{name: 'test', params:{'pk': user.id}}"> Add Docs </router-link> </div>
-    <div id="mu-3" class="mb mb__full"><router-link :to="{name: 'test', params:{'pk': user.id}}"> Programme </router-link> </div>
-    <div id="mu-4" class="mb"><router-link :to="{name: 'test', params:{'pk': user.id}}"> Body Stats </router-link> </div>
-    <div id="mu-5" class="mb"><router-link :to="{name: 'test', params:{'pk': user.id}}"> Progress Chart </router-link> </div>
-    <div id="mu-6" class="mb"><router-link :to="{name: 'test', params:{'pk': user.id}}"> Message </router-link>  </div>
-    <div id="mu-7" class="mb"><router-link :to="{name: 'test', params:{'pk': user.id}}"> Add Checkin </router-link> </div>
-    <div id="mu-8" class="mb mb__full"><router-link :to="{name: 'test', params:{'pk': user.id}}"> Log Schedule Change </router-link> </div>
-    <div id="mu-9" class="mb mb__full"><router-link :to="{name: 'test', params:{'pk': user.id}}"> Meal Plan </router-link> </div>
+    <div id="mu-1" class="mb"><router-link :to="{name: 'user-documents', params:{'pk': user.id}}"> View Docs </router-link> </div>
+    <div id="mu-2" class="mb"><router-link :to="{name: 'testview', params:{'pk': user.id}}"> Add Docs </router-link> </div>
+    <div id="mu-3" class="mb mb__full"><router-link :to="{name: 'testview', params:{'pk': user.id}}"> Programme </router-link> </div>
+    <div id="mu-4" class="mb"><router-link :to="{name: 'testview', params:{'pk': user.id}}"> Body Stats </router-link> </div>
+    <div id="mu-5" class="mb"><router-link :to="{name: 'testview', params:{'pk': user.id}}"> Progress Chart </router-link> </div>
+    <div id="mu-6" class="mb"><router-link :to="{name: 'testview', params:{'pk': user.id}}"> Message </router-link>  </div>
+    <div id="mu-7" class="mb"><router-link :to="{name: 'testview', params:{'pk': user.id}}"> Add Checkin </router-link> </div>
+    <div id="mu-8" class="mb mb__full"><router-link :to="{name: 'testview', params:{'pk': user.id}}"> Log Schedule Change </router-link> </div>
+    <div id="mu-9" class="mb mb__full"><router-link :to="{name: 'testview', params:{'pk': user.id}}"> Meal Plan </router-link> </div>
   </div>
 </div>
 </template>
 
 <script>
 import axios from 'axios';
-import HeaderMenu from '@/components/HeaderMenu';
 export default {
     name: "ManageUser",
-    components: {HeaderMenu,},
+    components: {},
     data() {
         return {
             user: {},
