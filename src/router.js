@@ -21,7 +21,7 @@ import Test from '@/views/Test.vue';
 import ComposeMessage from '@/views/ComposeMessage.vue';
 import ManageUser from '@/views/ManageUser.vue';
 import UserDocumentList from '@/views/UserDocumentList.vue';
-
+import AddDocument from '@/views/AddDocument.vue';
 Vue.use(Router);
 
 const router = new Router({
@@ -53,6 +53,8 @@ const router = new Router({
       { path: '/users/:pk/manage', component: ManageUser, name: "user-manage", meta: {requiresAdmin: true}},
       { path: '/users/:pk/compose-message', component: ComposeMessage, name: "user-message", meta: {requiresAdmin: true}},
       { path: '/users/:pk/documents', component: UserDocumentList, name: "user-documents", meta: {requiresAdmin: true}},
+      { path: '/users/:pk/documents/add', component: AddDocument, name: "user-document-add", meta: {requiresAdmin: true}},
+
 
       { path: '/unauthorized', component: Unauthorized, name: "unauthorized", meta: {requiresAdmin: false}},
 
