@@ -3,13 +3,13 @@
   <div class="logo">
     <img src="@/assets/images/confirm-email-icon.svg">
   </div>
-  
+
   <div>
     <h1>Confirm your email address</h1>
     <p>We sent a confirmation email to <strong> {{this.email}}</strong></p>
     <p>Check your email and click on the continuation link to continue</p>
     <div v-if="this.email_sent"> One more mail sent, please check your inbox again.</div>
-    <div v-else> 
+    <div v-else>
       <button class="milife-button milife-button__fullsize" @click.prevent="resend_email()">Resend Email</button>
     </div>
   </div>
