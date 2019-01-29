@@ -42,7 +42,6 @@ const actions = {
                 .then(resp => {
                     commit('auth_success', resp.data);
                     axios.defaults.headers.common['Authorization'] = "Token " + resp.data.auth_token;
-
                     resolve(resp);
                 })
                 .catch(err => {
