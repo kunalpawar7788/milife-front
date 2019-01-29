@@ -39,8 +39,7 @@ export default {
             error_message: "",
         }
     },
-    
-    
+
     methods: {
         login: function () {
             let email = this.email 
@@ -48,6 +47,7 @@ export default {
             this.$store.dispatch('auth/login', { email, password })
                 .then(() => this.$router.push('/'))
                 .catch(err =>{
+                    console.log(err)
                     this.error_message = err.response.data['errors'][0]['message'];
                     console.log(this.error_message);
                 })
