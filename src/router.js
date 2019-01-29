@@ -15,6 +15,7 @@ import Unauthorized from '@/views/Unauthorized.vue';
 import ResetPassword from "@/views/ResetPassword.vue";
 import VerifyUserEmail from './views/VerifyUserEmail.vue';
 import Profile from '@/views/Profile.vue';
+import UserView from '@/views/UserView.vue';
 import UserList from '@/views/UserList.vue';
 import UserDetail from '@/views/UserDetail.vue';
 import Test from '@/views/Test.vue';
@@ -22,6 +23,7 @@ import ComposeMessage from '@/views/ComposeMessage.vue';
 import ManageUser from '@/views/ManageUser.vue';
 import UserDocumentList from '@/views/UserDocumentList.vue';
 import AddDocument from '@/views/AddDocument.vue';
+import EditDocument from '@/views/EditDocument.vue';
 Vue.use(Router);
 
 const router = new Router({
@@ -49,11 +51,19 @@ const router = new Router({
       { path: '/test', component: Test, name: "testview", meta: {requiresAuth: true}},
       { path: '/invite', component: Invitation, name: "invite", meta: {requiresAdmin: true}},
       { path: '/users', component: UserList, name: "user-list", meta: {requiresAdmin: true}},
-      { path: '/users/:pk', component: UserDetail, name: "user-detail", meta: {requiresAdmin: true}},
-      { path: '/users/:pk/manage', component: ManageUser, name: "user-manage", meta: {requiresAdmin: true}},
-      { path: '/users/:pk/compose-message', component: ComposeMessage, name: "user-message", meta: {requiresAdmin: true}},
-      { path: '/users/:pk/documents', component: UserDocumentList, name: "user-documents", meta: {requiresAdmin: true}},
-      { path: '/users/:pk/documents/add', component: AddDocument, name: "user-document-add", meta: {requiresAdmin: true}},
+      { path: '/users/:pk',
+        component: UserView,
+        name: "user-view",
+        meta: {requiresAdmin: true},
+        children:[
+            {path: '', component: UserDetail, name: "user-detail"},
+            { path: 'manage', component: ManageUser, name: "user-manage", meta: {requiresAdmin: true}},
+            { path: '/users/:pk/compose-message', component: ComposeMessage, name: "user-message", meta: {requiresAdmin: true}},
+            { path: '/users/:pk/documents', component: UserDocumentList, name: "user-documents", meta: {requiresAdmin: true}},
+            { path: '/users/:pk/documents/:doc_pk/edit', component: EditDocument, name: "user-document-edit", meta: {requiresAdmin: true}},
+            { path: '/users/:pk/documents/add', component: AddDocument, name: "user-document-add", meta: {requiresAdmin: true}},
+        ]
+      },
 
 
       { path: '/unauthorized', component: Unauthorized, name: "unauthorized", meta: {requiresAdmin: false}},

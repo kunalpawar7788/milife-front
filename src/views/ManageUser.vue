@@ -5,7 +5,7 @@
   <div class="name"> {{user.first_name}} {{user.last_name}} </div>
   <div class="mu-buttons">
     <div id="mu-1" class="mb"><router-link :to="{name: 'user-documents', params:{'pk': user.id}}"> View Docs </router-link> </div>
-    <div id="mu-2" class="mb"><router-link :to="{name: 'testview', params:{'pk': user.id}}"> Add Docs </router-link> </div>
+    <div id="mu-2" class="mb"><router-link :to="{name: 'user-document-add', params:{'pk': user.id}}"> Add Docs </router-link> </div>
     <div id="mu-3" class="mb mb__full"><router-link :to="{name: 'testview', params:{'pk': user.id}}"> Programme </router-link> </div>
     <div id="mu-4" class="mb"><router-link :to="{name: 'testview', params:{'pk': user.id}}"> Body Stats </router-link> </div>
     <div id="mu-5" class="mb"><router-link :to="{name: 'testview', params:{'pk': user.id}}"> Progress Chart </router-link> </div>
