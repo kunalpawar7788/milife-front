@@ -3,22 +3,18 @@
   <div class="searchbox">
     <input class="text-input" v-model="params.search" placeholder="Start typing to search" v-on:keyup="fetch_documents">
   </div>
-  
+
   <div class="documentlist" v-for="document in documents">
     <div class="document">
       <p>{{document.name}}</p>
-      <img src="@/assets/images/edit.svg" />
-      <img src="@/assets/images/look-open.svg" />
+      <router-link :to="{name: 'user-document-edit', params: {pk: document.user, doc_pk: document.id}}"> <img src="@/assets/images/edit.svg" /> </router-link>
+      <div @click="showalert('not implemented')"> <img src="@/assets/images/look-open.svg" /></div>
       <div @click="download_document(document)"> <img src="@/assets/images/download.svg" /></div>
-
-      
     </div>
-    
   </div>
-  
   <router-link tag="button" class="milife-button milife-button__fullsize" :to="{name:'user-document-add', params:{'pk': this.pk}}"> Add Document </router-link>
-  
-  
+
+
 </div>
 </template>
 
@@ -28,7 +24,6 @@ import axios from 'axios';
 export default {
     name: 'UserDocumentList',
     components: {},
-    
     data() {
         return {
             params: {'search': ''},
@@ -37,6 +32,10 @@ export default {
         }
     },
     methods: {
+        showalert(msg) {
+            alert(msg);
+        },
+
         download_document: function(d){
             axios({
                 url: d.document,
@@ -51,7 +50,7 @@ export default {
                 document.body.appendChild(link);
                 link.click();
             });
-            
+
         },
         fetch_documents: function() {
             const url = process.env.VUE_APP_BASE_URL+'/api/users/' + this.pk + '/documents';
@@ -61,23 +60,22 @@ export default {
                 .then(resp => {
                     this.error_message="";
                     this.errors={};
-                    this.documents= resp.data;
+                    this.documents= resp.data.results;
                     console.log(resp.data);
                 })
                 .catch(err => {
                     err.response.data['errors'].forEach((element, index, array) =>{
-                        errors[element['field']] = element['message']   
+                        errors[element['field']] = element['message']
                     });
                     this.errors = errors;
-                    
-                });            
+                });
         },
     },
-    
+
     mounted() {
         this.fetch_documents();
     },
-    
+
 }
 </script>
 
@@ -97,7 +95,5 @@ export default {
     p {
         justify-self: left;
     }
-    
 }
-
 </style>
