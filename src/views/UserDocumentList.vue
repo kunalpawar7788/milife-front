@@ -1,5 +1,6 @@
 <template>
 <div>
+  {{user.first_name}}
   <div class="searchbox">
     <input class="text-input" v-model="params.search" placeholder="Start typing to search" v-on:keyup="fetch_documents">
   </div>
@@ -24,6 +25,10 @@ import axios from 'axios';
 export default {
     name: 'UserDocumentList',
     components: {},
+    props: ['fobj_user', ],
+    computed: {
+        user() {return this.fobj_user;},
+    },
     data() {
         return {
             params: {'search': ''},

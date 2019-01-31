@@ -1,107 +1,179 @@
 <template>
-<form>
-  <div class="container-userdetail">
-    
-    <input id="first_name" class="input text-input" v-model="data.first_name"></input>
-    <input class="input text-input" v-model="data.last_name"></input>
-    
-    <input class="input text-input" v-model="data.email"></input>
-    <div class="input genderselect">
-      <multiselect
-        v-model="data.gender"
-        placeholder="Gender"
-        :options="gender_options">
-      </multiselect>
-    </div>
-    
-    <input class="input text-input" v-model="data.number"></input>
-    <button class="input milife-button milife-button__fullsize" @click.prevent="update_user()">Save</button>
-    
+<div class="container-userdetail">
+
+  <div class="input">
+    <datepicker
+      wrapper-class="profile-calendar"
+      input-class="text-input"
+      v-model="date_of_birth"
+      format="yyyy-MM-dd"
+      :typeable="true"
+      placeholder="Select Date of Birth">
+    </datepicker>
   </div>
-</form>
+
+  <input
+    id="first_name"
+    class="input text-input"
+    v-model="first_name"
+    placeholder="First Name"/>
+
+  <input
+    class="input text-input"
+    v-model="last_name"
+    placeholder = "Last Name" />
+
+  <input
+    class="input text-input"
+    v-model="email"
+    placeholder="Email" />
+
+  <div class="input genderselect">
+    <multiselect
+      v-model="gender"
+      placeholder="Gender"
+      :options="gender_options"
+      label="label"
+      track-by="value"
+      >
+    </multiselect>
+  </div>
+
+  <input
+    class="input text-input"
+    v-model="number"
+    placeholder="Number" />
+
+
+  <button class="input milife-button milife-button__fullsize" @click.prevent="update_user()">Save</button>
+</div>
+
 </template>
 
 <script>
-import axios from 'axios';
 import Multiselect from 'vue-multiselect';
+import Datepicker from 'vuejs-datepicker';
+
+import { createHelpers } from 'vuex-map-fields';
+
+const { mapFields } = createHelpers(
+    {
+        getterType: 'user/getField',
+        mutationType: 'user/updateField',
+    }
+);
 
 export default {
     name: "UserDetail",
-    components:{Multiselect,},
-    data() {
-        return {
-            gender_options: ['Male', 'Female', 'Would rather not say'],
-            pk:  this.$route.params.pk,
-            data: {
+    components:{Multiselect, Datepicker},
+
+    computed: {
+        ...mapFields([
+            'user.first_name',
+            'user.last_name',
+            'user.email',
+            'user.number',
+        ]),
+        gender: {
+            get(){
+                var d = {
+                    M: {label: 'Male', value: 'M',},
+                    F: {label: 'Female', value: 'F'},
+                    N: {label: 'Would rather not say', value: 'N'},
+                };
+
+                return d[this.$store.state.user.user['gender']] || {};
             },
-        }
-    },
-    
-    methods: {
-        update_user: function(){
-            const url = process.env.VUE_APP_BASE_URL+'/api/users/' + this.pk; 
-            axios.defaults.headers.common['Authorization'] = "Token " + localStorage.getItem('token');
-            
-            axios({url: url, data:this.data, method: 'PATCH'})
-                .then(resp => {
-                    this.error_message="";
-                    this.errors={};
-                    console.log(resp.data);
-                })
-                .catch(err => {
-                    err.response.data['errors'].forEach((element, index, array) =>{
-                        errors[element['field']] = element['message']
-                    });
-                    this.errors = errors;
-                });
-            
+            set(value){
+                this.$store.commit("user/update_gender_field", value);
+            }
         },
-        fetch_user: function(pk){
-            const url = process.env.VUE_APP_BASE_URL+'/api/users/' + this.pk; 
-            axios.defaults.headers.common['Authorization'] = "Token " + localStorage.getItem('token');
-            
-            axios({url: url, params:this.params, method: 'GET'})
-                .then(resp => {
-                    this.error_message="";
-                    this.errors={};
-                    this.data = resp.data;
-                    console.log(resp.data);
-                })
-                .catch(err => {
-                    err.response.data['errors'].forEach((element, index, array) =>{
-                        errors[element['field']] = element['message']
-                    });
-                    this.errors = errors;                    
-                });
-        }
+
+        date_of_birth: {
+            get() {
+                return this.$store.state.user.user.date_of_birth;
+            },
+
+            set(value) {
+                this.$store.commit("user/update_date_of_birth_field", value);
+            }
+        },
+
     },
     mounted() {
-        this.fetch_user();
+        this.$store.dispatch("user/fetch_user", this.pk);
     },
+
+    data() {
+        return {
+            //gender_options: ['Male', 'Female', 'Would rather not say'],
+            gender_options: [
+                {label: 'Male', value: 'M',},
+                {label: 'Female', value: 'F'},
+                {label: 'Would rather not say', value: 'N'},
+            ],
+            pk:  this.$route.params.pk,
+        }
+    },
+
+    methods: {
+        update_user: function(){
+            this.$store.dispatch("user/update_user");
+        },
+    },
+
 }
 </script>
 
-<style>
-  .input {
-  grid-column-start: 2;
-  grid-column-end: 2;
-  border: 1px solid red;
-  margin: 10px
-  }
+<style lang="scss">
+.container-userdetail {
+    .input {
+        grid-column-start: 2;
+        grid-column-end: 2;
+        margin: 10px
+    }
 
-  #first_name {
-  
-  }
+    .multiselect{
+        height: 52px;
+        width: 320px;
+        margin: auto;
+        .multiselect__select{
+            top: 10px;
+            right: 10px;
+        }
 
-  .container-userdetail{
-  display: grid;
-  /*grid-template-columns: 40px 50px auto 50px 40px;*/
-  grid-template-columns: 1fr 10fr 1fr;
-  justify-items: center;
+        .multiselect__tags {
+            border-radius: 50px;
+            height: 52px;
+            width: 320px;
+            padding-top: 14px;
+        }
+
+    }
 
 
-  }
-  
+    #first_name {
+
+    }
+
+    .container-userdetail{
+        display: grid;
+        /*grid-template-columns: 40px 50px auto 50px 40px;*/
+        grid-template-columns: 1fr 10fr 1fr;
+        justify-items: center;
+
+
+    }
+
+    .profile-calendar {
+        color: $milife-green;
+        span.cell:hover{
+        }
+        span.cell:active{
+            color: white;
+            background-color: $milife-green;
+        }
+
+    }
+}
 </style>
-
-

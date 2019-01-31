@@ -21,37 +21,17 @@
 import axios from 'axios';
 export default {
     name: "ManageUser",
+    props: ['fobj_user', ],
+    computed: {
+        user() {return this.fobj_user;},
+    },
+
     components: {},
     data() {
         return {
-            user: {},
             pk:  this.$route.params.pk,
         }
     },
-    
-    methods: {
-        fetch_user: function(pk){
-            const url = process.env.VUE_APP_BASE_URL+'/api/users/' + this.pk; 
-            axios.defaults.headers.common['Authorization'] = "Token " + localStorage.getItem('token');
-            
-            axios({url: url, params:this.params, method: 'GET'})
-                .then(resp => {
-                    this.error_message="";
-                    this.errors={};
-                    this.user= resp.data;
-                })
-                .catch(err => {
-                    err.response.data['errors'].forEach((element, index, array) =>{
-                        errors[element['field']] = element['message']
-                    });
-                    this.errors = errors;                    
-                });
-        }
-    },
-    mounted() {
-        this.fetch_user();
-    },
-    
 }
 </script>
 
@@ -61,7 +41,7 @@ export default {
     img.profile-photo{
         height: 100px;
     }
-    
+
 }
 
 .mu-buttons{
@@ -75,7 +55,7 @@ export default {
             border-radius: 10px;
             margin: 10px;
             text-align: left;
-            padding: 15px 0px 10px 1em;            
+            padding: 15px 0px 10px 1em;
             display: block;
         }
 
@@ -85,7 +65,7 @@ export default {
         }
         a:active{
             background-color: darken($milife-green, 20%);
-            color: lighten(white, 10%) 
+            color: lighten(white, 10%)
         }
 
     }
