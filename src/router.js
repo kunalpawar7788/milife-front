@@ -53,14 +53,13 @@ const router = new Router({
       { path: '/users', component: UserList, name: "user-list", meta: {requiresAdmin: true}},
       { path: '/users/:pk',
         component: UserView,
-        name: "user-view",
         meta: {requiresAdmin: true},
         children:[
             {path: '', component: UserDetail, name: "user-detail"},
             { path: 'manage', component: ManageUser, name: "user-manage", meta: {requiresAdmin: true}},
-            { path: '/users/:pk/compose-message', component: ComposeMessage, name: "user-message", meta: {requiresAdmin: true}},
-            { path: '/users/:pk/documents', component: UserDocumentList, name: "user-documents", meta: {requiresAdmin: true}},
-            { path: '/users/:pk/documents/:doc_pk/edit', component: EditDocument, name: "user-document-edit", meta: {requiresAdmin: true}},
+            { path: 'compose-message', component: ComposeMessage, name: "user-message", meta: {requiresAdmin: true}},
+            { path: 'documents', component: UserDocumentList, name: "user-documents", meta: {requiresAdmin: true}},
+            { path: 'documents/:doc_pk/edit', component: EditDocument, name: "user-document-edit", meta: {requiresAdmin: true}},
             { path: '/users/:pk/documents/add', component: AddDocument, name: "user-document-add", meta: {requiresAdmin: true}},
         ]
       },
