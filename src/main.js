@@ -5,6 +5,9 @@ import axios from 'axios';
 import store from './store';
 import './registerServiceWorker';
 import AsyncComputed from 'vue-async-computed';
+import Vuelidate from 'vuelidate';
+Vue.use(Vuelidate);
+
 
 Vue.use(AsyncComputed);
 Vue.prototype.$http = axios;
