@@ -1,25 +1,48 @@
 <template>
+
 <div class="choicefield-container">
-  <div class="choice-container" v-if="choice_menu_open">
-    <div
-      v-bind:class="[selected==choice? 'selected': '']"
-      v-for="choice in choices"
-      v-on:click="select_choice(choice)"
-      >
-      {{choice}}
-    </div>
+  <div class="label"> <label> Height </label></div>
+  <div
+    v-if="choice_menu_open"
+    :class="[selected=='metric'? 'selected': '', 'choices', 'metric' ]"
+    v-on:click="select_choice('metric')"
+    >
+    Metric
   </div>
   
-  <div class="input-fields" v-else>
-    <div class="menu-button" v-on:click="choice_menu_open=true">
-      <p>{{selected}}</p>
-    </div>
-    <input v-if="selected=='imperial'" class="feet" type="number" v-model="feet" placeholder="feet" suffix="'" />
-    <input v-if="selected=='imperial'" class="inches" type="number" v-model="inches" placeholder="inches" suffix='\"' />
-    <input v-if="selected=='metric'" class="cms" type="number" v-model="cms" placeholder="cms" suffix="cms"/>
-    
+  <div
+    v-if="choice_menu_open"
+    :class="[selected=='imperial'? 'selected': '', 'choices', 'imperial' ]"
+    v-on:click="select_choice('imperial')"
+    >
+    Imperial
+  </div>
+  
+  
+  
+  <div
+    :class="[choice_menu_open? 'hidden' : '', 'menu-button']"
+    v-on:click="choice_menu_open=true">
+    <p>{{selected}}</p>
+  </div>
+  <div
+    v-if="selected=='imperial' && !choice_menu_open"
+    class="feet">
+
+    <input type="number" v-model="feet" placeholder="feet" />
+  </div>
+  
+  <div
+    v-if="selected=='imperial' && !choice_menu_open"
+    class="inches">
+    <input type="number" v-model="inches" placeholder="inches"/>
   </div>
 
+  <div
+    v-if="selected=='metric' && !choice_menu_open"
+    class="cms">
+    <input type="number" v-model="cms" placeholder="cms" />
+  </div>
 </div>
 </template>
 
@@ -125,84 +148,101 @@ and the unit chosen by the user.
 </script>
 
 <style lang="scss">
+
+.hidden {
+    display: none;
+}
+
 div.choicefield-container{
-    border: 1px dotted yellow;
+    width: 320px;
+    margin: 0 auto;
     border-radius: 50px;
     height: 50px;
     font-size: 15pt;
     font-family: Monteserrat Regular;
     
-    div.choice-container {
-        /* grid-template-columns: */
-        grid-template-columns: repeat(auto-fit, minmax(100px,1fr));
-        display: grid;
-        grid-gap: 1px;
-        
-        div {
-            background-color: white;
-            color: black;            
-            font-size: 15pt;
-            padding: 12px;
-            border: none;
-
-            &:hover {
-                background-color: lighten($milife-green, 20%);
-            }
-            &.selected{
-                background-color: $milife-green;
-            }
-            
-            &:nth-child(1){
-                border-radius: 50px 0px 0px 50px;
-            }
-            
-            &:nth-last-child(1){
-                border-radius: 0px 50px 50px 0px;
-            }
-            
-            
+    display: grid;
+    grid-template-columns: 1fr 10px repeat(4, 1fr);
+    grid-gap: 1px;
+    
+    div.label{
+        grid-column: 1/span 2;
+        align-self: center;
+        justify-self: left;
+    }
+    div.feet {
+        grid-column: 5 / span 1;
+    }
+    div.inches{
+        grid-column: 6/ span 1;
+        input{
+            border-radius: 0px 50px 50px 0px;
         }
+    }
+    div.cms{
+        grid-column: 5/span 2;
+        input {
+            border-radius: 0px 50px 50px 0px;
+        }
+        
     }
     
-    div.input-fields {
+    div.menu-button{
+        grid-column:3 / span 2;        
+        background-color: $milife-green;
+        color: white;
         height: inherit;
-        grid-template-columns: 50% repeat(auto-fit, minmax(10px,1fr));
-        display: grid;
-        grid-gap: 1px;
+        border-radius: 50px 0px 0px 50px;
         
-        input {
-            text-align: center;
-            font-size: 15pt;
-            font-family: Monteserrat Regular;
-            border: none;
-            padding: none;
-
-        }
-        :nth-child(1){
-            border-radius: 50px 0px 0px 50px;
+        
+        &:hover{
+            background-color: lighten($milife-green, 20%);
         }
         
-        :nth-last-child(1){
-            border-radius: 0px 50px 50px 0px;
-            }
-        
-        .menu-button{
-            background-color: $milife-green;
-            color: white;
-            height: inherit;
-
-
-
-            &:hover{
-                background-color: lighten($milife-green, 20%);
-            }
-            
-            p{
-                margin-top: 10px;
-            }
+        p{
+            margin-top: 10px;
         }
-
+        
     }
+    div.metric{
+        grid-column: 3 / span 2;
+        border-radius: 50px 0px 0px 50px;
+    }
+    
+    div.imperial {
+        grid-column: 5/ span 2;
+        border-radius: 0px 50px 50px 0px;
+    }
+
+    div.choices{
+        background-color: white;
+        color: black;            
+        font-size: 15pt;
+        padding: 12px;
+        border: none;
+        
+        &:hover {
+            background-color: lighten($milife-green, 20%);
+        }
+        &.selected{
+            background-color: $milife-green;
+        }
+        
+    }
+    
+    
+    
+    * input {
+        text-align: center;
+        font-size: 15pt;
+        font-family: Monteserrat Regular;
+        border: none;
+        padding: none;
+        width: 100%;
+        height:100%                          
+    }
+
 }
 
 </style>
+text-input

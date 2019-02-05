@@ -1,6 +1,6 @@
 <template>
 <div class="container-userdetail">
-
+  
   <div class="input">
     <datepicker
       wrapper-class="profile-calendar"
@@ -11,23 +11,33 @@
       placeholder="Select Date of Birth">
     </datepicker>
   </div>
-
-  <input
-    id="first_name"
-    class="input text-input"
-    v-model="first_name"
-    placeholder="First Name"/>
-
-  <input
-    class="input text-input"
-    v-model="last_name"
-    placeholder = "Last Name" />
-
-  <input
-    class="input text-input"
-    v-model="email"
-    placeholder="Email" />
-
+  
+  <div>
+    <input
+      id="first_name"
+      class="input text-input"
+      v-model="first_name"
+      placeholder="First Name"/>
+  </div>
+  
+  
+  <div>
+    <input
+      class="input text-input"
+      v-model="last_name"
+      placeholder = "Last Name" />
+  </div>
+  
+  
+  <div>
+    <input
+      class="input text-input"
+      v-model="email"
+      placeholder="Email" />
+    
+  </div>
+  
+  
   <div class="input genderselect">
     <multiselect
       v-model="gender"
@@ -38,14 +48,19 @@
       >
     </multiselect>
   </div>
-
-  <input
+  
+  <div> <input
     class="input text-input"
     v-model="number"
-    placeholder="Number" />
+          placeholder="Number" />
+  </div>
 
-
-  <button class="input milife-button milife-button__fullsize" @click.prevent="update_user()">Save</button>
+  
+  <div class="heightinput-container">
+    <HeightInput v-model=height> </HeightInput>
+  </div>
+  
+  <div> <button class="input milife-button milife-button__fullsize" @click.prevent="update_user()">Save</button></div>
 </div>
 
 </template>
@@ -53,7 +68,7 @@
 <script>
 import Multiselect from 'vue-multiselect';
 import Datepicker from 'vuejs-datepicker';
-
+import HeightInput from '@/components/HeightInput.vue';
 import { createHelpers } from 'vuex-map-fields';
 
 const { mapFields } = createHelpers(
@@ -65,8 +80,8 @@ const { mapFields } = createHelpers(
 
 export default {
     name: "UserDetail",
-    components:{Multiselect, Datepicker},
-
+    components:{Multiselect, Datepicker, HeightInput},
+    
     computed: {
         ...mapFields([
             'user.first_name',
@@ -81,29 +96,29 @@ export default {
                     F: {label: 'Female', value: 'F'},
                     N: {label: 'Would rather not say', value: 'N'},
                 };
-
+                
                 return d[this.$store.state.user.user['gender']] || {};
             },
             set(value){
                 this.$store.commit("user/update_gender_field", value);
             }
         },
-
+        
         date_of_birth: {
             get() {
                 return this.$store.state.user.user.date_of_birth;
             },
-
+            
             set(value) {
                 this.$store.commit("user/update_date_of_birth_field", value);
             }
         },
-
+        
     },
     mounted() {
         this.$store.dispatch("user/fetch_user", this.pk);
     },
-
+    
     data() {
         return {
             //gender_options: ['Male', 'Female', 'Would rather not say'],
@@ -113,67 +128,67 @@ export default {
                 {label: 'Would rather not say', value: 'N'},
             ],
             pk:  this.$route.params.pk,
+            height: {
+                preferred_unit: 'metric',
+                measurement_si: 0,
+            }
         }
     },
-
+    
     methods: {
         update_user: function(){
             this.$store.dispatch("user/update_user");
         },
     },
-
+    
 }
 </script>
 
 <style lang="scss">
 .container-userdetail {
-    .input {
-        grid-column-start: 2;
-        grid-column-end: 2;
-        margin: 10px
-    }
-
-    .multiselect{
-        height: 52px;
-        width: 320px;
-        margin: auto;
-        .multiselect__select{
-            top: 10px;
-            right: 10px;
-        }
-
-        .multiselect__tags {
-            border-radius: 50px;
+    display: grid;
+    grid-template-columns: 2fr 3fr 2fr;
+    grid-auto-rows: 70px;
+    justify-items: center;
+    align-items: center;
+    
+    div {
+                
+        grid-column: 2 / span 1;
+        
+        .multiselect{
             height: 52px;
             width: 320px;
-            padding-top: 14px;
+            margin: auto;
+            .multiselect__select{
+                top: 10px;
+                right: 10px;
+            }
+            
+            .multiselect__tags {
+                border-radius: 50px;
+                height: 52px;
+                width: 320px;
+                padding-top: 14px;
+            }
+            
         }
-
-    }
-
-
-    #first_name {
-
-    }
-
-    .container-userdetail{
-        display: grid;
-        /*grid-template-columns: 40px 50px auto 50px 40px;*/
-        grid-template-columns: 1fr 10fr 1fr;
-        justify-items: center;
-
-
-    }
-
-    .profile-calendar {
-        color: $milife-green;
-        span.cell:hover{
+                
+        #first_name {
+            
         }
-        span.cell:active{
-            color: white;
-            background-color: $milife-green;
+        
+        .profile-calendar {
+            color: $milife-green;
+            margin: 0 auto;
+            span.cell:hover{
+            }
+            span.cell:active{
+                color: white;
+                background-color: $milife-green;
+            }
+            
         }
-
     }
 }
 </style>
