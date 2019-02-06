@@ -91,6 +91,11 @@ const mutations = {
         state.user.gender = field['value'];
     },
 
+    update_height_field(state, field){
+        state.user.height_cm = field['magnitude_si'];
+        state.user.height_unit = field['preferred_unit'];
+    },
+
     USER_FETCH_SUCCESS(state, data){
         Object.assign(state.user, data);
     },

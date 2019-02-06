@@ -49,15 +49,16 @@
     </multiselect>
   </div>
   
-  <div> <input
-    class="input text-input"
-    v-model="number"
-          placeholder="Number" />
+  <div>
+    <input
+      class="input text-input"
+      v-model="number"
+      placeholder="Number" />
   </div>
-
+  
   
   <div class="heightinput-container">
-    <HeightInput v-model=height> </HeightInput>
+    <HeightInput v-model="height"> </HeightInput>
   </div>
   
   <div> <button class="input milife-button milife-button__fullsize" @click.prevent="update_user()">Save</button></div>
@@ -114,6 +115,20 @@ export default {
             }
         },
         
+        height: {
+            get() {
+                return {
+                    magnitude_si: this.$store.state.user.user.height_cm,
+                    preferred_unit: this.$store.state.user.user.height_unit || 'metric',
+                };
+            },
+            
+            set(value) {
+                this.$store.commit("user/update_height_field", value);
+            }
+
+        }
+        
     },
     mounted() {
         this.$store.dispatch("user/fetch_user", this.pk);
@@ -128,10 +143,6 @@ export default {
                 {label: 'Would rather not say', value: 'N'},
             ],
             pk:  this.$route.params.pk,
-            height: {
-                preferred_unit: 'metric',
-                measurement_si: 0,
-            }
         }
     },
     
@@ -153,7 +164,7 @@ export default {
     align-items: center;
     
     div {
-                
+        
         grid-column: 2 / span 1;
         
         .multiselect{
@@ -173,7 +184,7 @@ export default {
             }
             
         }
-                
+        
         #first_name {
             
         }
