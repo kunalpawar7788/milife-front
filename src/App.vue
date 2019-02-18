@@ -1,5 +1,8 @@
 <template>
-<div id="app">
+<div
+id="app"
+:class="[theme=='blue'?'bluebackground':'whitebackground']"
+>
     <HeaderMenu v-if="this.isAuthenticated"></HeaderMenu>
     <router-view/>
   </div>
@@ -19,15 +22,20 @@ export default {
             isTrainer: store.getters['auth/is_staff'],
         }
     },
+    computed: {
+        theme: {
+            get() {return this.$store.state.theme.theme;},
+        }
+    },
     components: {
         HeaderMenu,
     },
     created: function(){
-
         if (store.getters['auth/fetch_profile_flag']){
             console.log('dispatching fetch profile');
             store.dispatch("auth/fetch_profile");
         }
+
     }
 }
 </script>
@@ -41,6 +49,10 @@ export default {
     text-align: center;
     color: #ffffff;
     text-align: center;
+    padding:8px;
+    margin: 0;
+    min-height: 100%;
+
 }
 .button{
     background-color: #8AC53F;
@@ -65,4 +77,12 @@ export default {
     }
   }
 }
+.whitebackground {
+    background-color: white;
+}
+
+.bluebackground {
+    background-color: $milife-blue;
+}
+
 </style>

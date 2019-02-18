@@ -38,6 +38,10 @@ export default {
             console.log('dispatching fetch profile');
             store.dispatch("auth/fetch_profile");
         }
+    },
+    mounted: function(){
+        console.log('settingthemewhite');
+        this.$store.dispatch("theme/set_theme_white");
     }
 }
 </script>

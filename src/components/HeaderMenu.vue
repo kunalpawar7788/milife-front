@@ -1,17 +1,16 @@
 <template>
 <div class="container-header">
   <div class="nav-header">
-    <div v-on:click="$router.go(-1)">
+    <div v-on:click="go_back()">
       <img src="@/assets/images/back-green-button.svg"/>
     </div>
-    <div>
+    <div v-on:click="go_to_dashboard()">
       <router-link :to="{ name: 'home'}">
-        <img src="@/assets/images/dashboard-white.svg"/>
+        <img :src="dashboard_icon"/>
       </router-link>
     </div>
-    <div id="sidebar-menu" v-on:click="sidebar_visible = !sidebar_visible">
-      <img v-if="sidebar_visible" src="@/assets/images/menu-dark-close.svg">
-      <img v-else src="@/assets/images/menu-white.svg">
+    <div id="sidebar-menu" v-on:click="toggle_menu()">
+      <img :src="sidebar_menu_icon" />
     </div>
   </div>
   <div class="sidebar-menu" v-if="sidebar_visible">
@@ -46,13 +45,61 @@ export default {
         return {
             sidebar_visible: false,
             isTrainer: store.getters['auth/is_staff'],
+            original_theme: null,
         }
     },
     methods: {
+        go_to_dashboard: function(){
+            this.hide_menu();
+            this.$router.go({name: 'home'});
+        },
+        go_back: function(){
+            this.hide_menu();
+            this.$router.go(-1);
+        },
+        hide_menu: function(){
+            var original_theme = this.original_theme;
+            this.$store.dispatch('theme/set_theme', {original_theme});
+            this.sidebar_visible = false;            
+        },
         toggle_menu: function(){
-            this.sidebar_visible = !this.sidebar_visible;
+            if (!this.sidebar_visible){
+                this.original_theme = this.$store.state.theme.theme;
+                this.sidebar_visible = true;
+                this.$store.dispatch('theme/set_theme_blue');
+            }
+            else 
+                this.hide_menu();
         },
     },
+
+    computed: {
+        theme: {
+            get() {return this.$store.state.theme.theme;},
+        },
+        sidebar_menu_icon:{
+            get() {
+                if (this.sidebar_visible)
+                    return require("@/assets/images/menu-dark-close.svg");
+                if (this.theme=='blue')
+                    return require("@/assets/images/menu-white.svg");
+                else
+                    return require("@/assets/images/menu-dark.svg");
+                
+                
+            }
+        },
+        dashboard_icon: {
+            get() {
+                if (this.theme=='blue')
+                    return require("@/assets/images/dashboard-white.svg");
+                else
+                    return require("@/assets/images/dashboard-dark.svg");
+
+            }
+        }
+    },
+    
 }
 
 </script>
