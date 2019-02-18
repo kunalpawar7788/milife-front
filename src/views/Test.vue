@@ -1,42 +1,40 @@
 
 <template>
-  <div class="container">
-    <div class="large-12 medium-12 small-12 cell">
-      <label>File
-        <input type="file" id="file" ref="file" v-on:change="handleFileUpload()"/>
-      </label>
-      <br>
-      <progress max="100" :value.prop="uploadPercentage"></progress>
-      <br>
-      <button v-on:click="submitFile()">Submit</button>
-    </div>
+    <div class="container">
+    <WeightChart> </WeightChart>
   </div>
 </template>
 
 <script>
+
 import axios from 'axios';
 
+import HeightInput from '@/components/HeightInput';
+import WeightChart from '@/components/WeightChart';
 export default {
-    components: {},
-    
+    components: {
+        WeightChart,
+    },
+
     name: "Test",
-    
+
     data(){
         return {
+
             file: '',
-            uploadPercentage: 0
+            uploadPercentage: 0,
+            height: {
+                magnitude_si: 160,
+                preferred_unit: 'imperial'},
         }
     },
-    
+
     methods: {
 
         handleFileUpload(){
             this.file = this.$refs.file.files[0];
-},
+        },
         submitFile(){
-        /*
-    Initialize the form data
-  */
   let formData = new FormData();
 
   /*
@@ -52,8 +50,7 @@ export default {
         axios.defaults.headers.common['Authorization'] = "Token " + localStorage.getItem('token');
 
         axios.post( '/api/users/7733be10-001f-4ead-bbab-d2c3bd7f4e58/documents',
-
-    formData,
+                    formData,
     {
       headers: {
           'Content-Type': 'multipart/form-data'
@@ -68,7 +65,12 @@ export default {
   .catch(function(){
     console.log('FAILURE!!');
   });
-    }},
+        }},
+
+    created:  function() {
+        console.log('hlehbleh');
+        console.log(this.$http.get('http://httpbin.org/get'));
+    },
 
 }
 
@@ -77,4 +79,8 @@ export default {
 
 </script>
 
-<style> </style>
+    <style>
+
+
+</style>
+e

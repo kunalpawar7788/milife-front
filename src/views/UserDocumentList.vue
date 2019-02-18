@@ -40,7 +40,7 @@ export default {
         showalert(msg) {
             alert(msg);
         },
-
+        
         download_document: function(d){
             axios({
                 url: d.document,
@@ -55,7 +55,7 @@ export default {
                 document.body.appendChild(link);
                 link.click();
             });
-
+            
         },
         fetch_documents: function() {
             const url = process.env.VUE_APP_BASE_URL+'/api/users/' + this.pk + '/documents';
@@ -76,9 +76,10 @@ export default {
                 });
         },
     },
-
+    
     mounted() {
         this.fetch_documents();
+        this.$store.dispatch("theme/set_theme_blue");
     },
 
 }

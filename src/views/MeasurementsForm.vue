@@ -1,6 +1,6 @@
 <template>
 <div>
-  Measurement input form
+
 </div>
 
 </template>
@@ -10,7 +10,11 @@ export default {
     name: "MeasureemntsInput",
     data() {
         return {}
-    }
+    },
+    mounted() {
+        this.$store.dispatch("theme/set_theme_white");
+    },
+    
   }
 </script>
 

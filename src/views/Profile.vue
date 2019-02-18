@@ -52,17 +52,18 @@ export default {
     mounted: function(){
         console.log(this.$store.state.auth.user.email);
         this.profile_data.date_of_birth = this.$store.state.auth.user.date_of_birth;
+        this.$store.dispatch("theme/set_theme_blue");
         
     },
-    
+
     methods: {
         update_profile(){
             this.$store.dispatch('auth/update_profile', this.profile_data)
                 .then(() => console.log('update_profile'))
                 .catch(err => console.log(err))
-            
+
         },
-        
+
     },
 }
 
@@ -76,14 +77,14 @@ export default {
         width: 200px;
     }
     .birthdateinput {
-        
+
     }
     .vdp-datepicker {
         text-align: center;
         padding-top: 20px;
-        
+
         color: #8AC53F;
-        
+
         input {
             color: red;
             border: none;
@@ -99,7 +100,7 @@ export default {
             margin-top: 20px;
         }
     }
-    
+
     .genderselect {
         height: 50px;
         width: 300px;
@@ -107,7 +108,7 @@ export default {
         .multiselect__tags {
             border-radius: 50px;
         }
-        
+
     }
     .multiselect__tags{
         border-radius: 50px;
@@ -116,13 +117,13 @@ export default {
         padding-left: 20px;
         font-size: 15pt;
         font-family: Monteserrat Regular;
-        
+
     }
     .multiselect__select{
         padding: 30px 8px;
     }
-    
-    
+
+
     .vdp-datepicker__calendar {
         margin: auto;
         position: inherit;

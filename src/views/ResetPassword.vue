@@ -4,7 +4,7 @@
     <div class="logo">
       <img src="@/assets/images/milife-icon-white.svg">
     </div>
-    
+
     <div v-if="!password_changed">
       <h1> Please choose your new password</h1>
       <form class="resetpassword" @submit.prevent="reset_password">
@@ -18,7 +18,7 @@
       Please <router-link :to="{ name: 'login'}">click here</router-link> to login with your new password.
     </div>
   </div>
-  
+
   <div v-else>
     <div class="logo"> <img src="@/assets/images/confirm-email-icon.svg"></div>
     <div v-if="!email_sent">
@@ -80,13 +80,16 @@ export default {
                 .catch(err => {
                     console.log(err);
                     this.error_message = err.response.data['errors'][0]['message'];
-                    
+
                 });
         }
     },
-    components: {NewPassword}
+    components: {NewPassword},
+    mounted() {
+        this.$store.dispatch("theme/set_theme_blue");
+    },
+
 }
 </script>
 
 <style> </style>
-

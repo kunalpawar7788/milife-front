@@ -3,11 +3,11 @@
   <p>
     <input class="text-input" id="password" type="password" :value="password" placeholder="Password" @input="update_password($event.target.value)" ref="password">
   </p>
-  
+
   <p>
     <input class="text-input" id="confirmpassword" type="password" :value="confirmpassword" placeholder="Confirm Password" @input="update_password($event.target.value)" ref="confirmpassword">
   </p>
-  <p v-if="!this.passwordsMatch"> Passwords don't match !</p>
+  <p v-if="!this.passwordsMatch"> Passwords don\'t match !</p>
 
 </div>
 
@@ -21,7 +21,7 @@ export default {
         return {
             password: null,
             confirmpassword: null
-            
+
         }
     },
     methods: {

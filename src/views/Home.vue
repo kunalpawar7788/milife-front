@@ -40,7 +40,6 @@ export default {
         }
     },
     mounted: function(){
-        console.log('settingthemewhite');
         this.$store.dispatch("theme/set_theme_white");
     }
 }

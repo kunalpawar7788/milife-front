@@ -1,7 +1,7 @@
 <template>
 <div>
   <h1> Change Password </h1>
-  
+
   <form class="changepassword" @submit.prevent="change_password">
     <p> <input name="current_password" v-model="current_password" id="current_password" type="password" placeholder="Current Password"/></p>
     <NewPassword v-model="new_password"></NewPassword>
@@ -21,7 +21,7 @@ export default {
         return {
             current_password: '',
             new_password: '',
-            
+
         }
     },
     methods: {
@@ -29,13 +29,17 @@ export default {
             const data = {current_password: this.current_password, new_password: this.new_password}
             store.dispatch('auth/change_password', data);
             this.$router.push('/');
-            
+
         }
     },
-    
+
     components: {
         NewPassword,
-    }
+    },
+    mounted() {
+        this.$store.dispatch("theme/set_theme_blue");
+    },
+
 }
 </script>
 

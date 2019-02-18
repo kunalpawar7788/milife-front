@@ -63,11 +63,13 @@ export default {
         toggle_menu: function(_id){
             this.selected_user_id= this.selected_user_id==_id ? null : _id
         }
-
+        
     },
     mounted() {
         this.fetch_users();
+        this.$store.dispatch("theme/set_theme_blue");
     },
+
 }
 </script>
 

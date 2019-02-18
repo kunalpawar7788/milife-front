@@ -126,12 +126,13 @@ export default {
             set(value) {
                 this.$store.commit("user/update_height_field", value);
             }
-
+            
         }
         
     },
     mounted() {
         this.$store.dispatch("user/fetch_user", this.pk);
+        this.$store.dispatch("theme/set_theme_blue");
     },
     
     data() {
@@ -144,11 +145,13 @@ export default {
             ],
             pk:  this.$route.params.pk,
         }
+
     },
     
     methods: {
         update_user: function(){
             this.$store.dispatch("user/update_user");
+            console.log('bleh');
         },
     },
     
@@ -162,7 +165,6 @@ export default {
     grid-auto-rows: 70px;
     justify-items: center;
     align-items: center;
-    
     div {
         
         grid-column: 2 / span 1;

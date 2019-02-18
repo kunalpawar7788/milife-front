@@ -60,8 +60,8 @@
 </template>
 
 <script>
-  import ErrorMessage from '@/components/ErrorMessage.vue'
-  import FormError from '@/components/FormError.vue'
+import ErrorMessage from '@/components/ErrorMessage.vue'
+import FormError from '@/components/FormError.vue'
 
 export default {
     name: "Registration",
@@ -112,7 +112,7 @@ export default {
                     this.$router.push('/');
                     this.error_message = "";
                     this.errors = {};
-
+                    
                 })
                 .catch(err => {
                     console.log(err.response.data);
@@ -128,6 +128,10 @@ export default {
                 });
         }
     },
+    mounted() {
+        this.$store.dispatch("theme/set_theme_blue");
+    },
+
     //     created: function(){
     //     //beforeRouteUpdate (to, from, next) {
     //         if (this.$store.getters['auth/isLoggedIn']) {

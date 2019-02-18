@@ -3,7 +3,7 @@
 <div v-else-if="step === 2">
   <h1>Thank You</h1>
   <h3>Your Email is confirmed</h3>
-  <router-link :to="{ name: 'home'}" class="button">Set me up for success</router-link>
+  <router-link :to="{ name: 'home'}" class="button">Set me up for success</router-link>w3
 </div>
 
 <div v-else-if="step === 3"> oops something went wrong, try again? </div>
@@ -37,7 +37,11 @@ export default {
             console.log('dispatching fetch profile');
             store.dispatch("auth/fetch_profile");
         }
-    }    
+    },
+    mounted() {
+        this.$store.dispatch("theme/set_theme_blue");
+    },
+
 }
 
 </script>

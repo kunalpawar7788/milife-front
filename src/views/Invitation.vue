@@ -43,7 +43,7 @@ export default {
         }
     },
     methods: {
-        send_invitation(){
+        send_invitation: function(){
             let errors = {};
             const url = process.env.VUE_APP_BASE_URL+'/api/auth/invite_user/';
             axios.defaults.headers.common['Authorization'] = "Token " + localStorage.getItem('token');
@@ -62,7 +62,10 @@ export default {
                     
                 });
         }
-    }
+    },
+    mounted() {
+        this.$store.dispatch("theme/set_theme_blue");
+    },
 }
 
 </script>
