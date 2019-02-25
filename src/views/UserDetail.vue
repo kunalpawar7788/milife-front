@@ -1,6 +1,6 @@
 <template>
 <div class="container-userdetail">
-  
+
   <div class="input">
     <datepicker
       wrapper-class="profile-calendar"
@@ -11,7 +11,7 @@
       placeholder="Select Date of Birth">
     </datepicker>
   </div>
-  
+
   <div>
     <input
       id="first_name"
@@ -19,25 +19,25 @@
       v-model="first_name"
       placeholder="First Name"/>
   </div>
-  
-  
+
+
   <div>
     <input
       class="input text-input"
       v-model="last_name"
       placeholder = "Last Name" />
   </div>
-  
-  
+
+
   <div>
     <input
       class="input text-input"
       v-model="email"
       placeholder="Email" />
-    
+
   </div>
-  
-  
+
+
   <div class="input genderselect">
     <multiselect
       v-model="gender"
@@ -48,19 +48,19 @@
       >
     </multiselect>
   </div>
-  
+
   <div>
     <input
       class="input text-input"
       v-model="number"
       placeholder="Number" />
   </div>
-  
-  
+
+
   <div class="heightinput-container">
     <HeightInput v-model="height"> </HeightInput>
   </div>
-  
+
   <div> <button class="input milife-button milife-button__fullsize" @click.prevent="update_user()">Save</button></div>
 </div>
 
@@ -82,7 +82,7 @@ const { mapFields } = createHelpers(
 export default {
     name: "UserDetail",
     components:{Multiselect, Datepicker, HeightInput},
-    
+
     computed: {
         ...mapFields([
             'user.first_name',
@@ -97,24 +97,24 @@ export default {
                     F: {label: 'Female', value: 'F'},
                     N: {label: 'Would rather not say', value: 'N'},
                 };
-                
+
                 return d[this.$store.state.user.user['gender']] || {};
             },
             set(value){
                 this.$store.commit("user/update_gender_field", value);
             }
         },
-        
+
         date_of_birth: {
             get() {
                 return this.$store.state.user.user.date_of_birth;
             },
-            
+
             set(value) {
                 this.$store.commit("user/update_date_of_birth_field", value);
             }
         },
-        
+
         height: {
             get() {
                 return {
@@ -122,19 +122,19 @@ export default {
                     preferred_unit: this.$store.state.user.user.height_unit || 'metric',
                 };
             },
-            
+
             set(value) {
                 this.$store.commit("user/update_height_field", value);
             }
-            
+
         }
-        
+
     },
     mounted() {
         this.$store.dispatch("user/fetch_user", this.pk);
         this.$store.dispatch("theme/set_theme_blue");
     },
-    
+
     data() {
         return {
             //gender_options: ['Male', 'Female', 'Would rather not say'],
@@ -147,14 +147,14 @@ export default {
         }
 
     },
-    
+
     methods: {
         update_user: function(){
             this.$store.dispatch("user/update_user");
             console.log('bleh');
         },
     },
-    
+
 }
 </script>
 
@@ -166,9 +166,9 @@ export default {
     justify-items: center;
     align-items: center;
     div {
-        
+
         grid-column: 2 / span 1;
-        
+
         .multiselect{
             height: 52px;
             width: 320px;
@@ -177,20 +177,20 @@ export default {
                 top: 10px;
                 right: 10px;
             }
-            
+
             .multiselect__tags {
                 border-radius: 50px;
                 height: 52px;
                 width: 320px;
                 padding-top: 14px;
             }
-            
+
         }
-        
+
         #first_name {
-            
+
         }
-        
+
         .profile-calendar {
             color: $milife-green;
             margin: 0 auto;
@@ -200,7 +200,7 @@ export default {
                 color: white;
                 background-color: $milife-green;
             }
-            
+
         }
     }
 }
