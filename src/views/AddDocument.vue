@@ -1,6 +1,8 @@
 <template>
 <div class="add-document">
-  <input class="fileupload" id="file" ref="file" type="file" v-on:change="handleFileUpload()"> </input>
+    <input class="fileupload" id="file" ref="file" type="file" v-on:change="handleFileUpload()"> </input>
+    <input class="" id="name" > </input>
+
   <button v-on:click="submitFile()"> Save </button>
 </div>
 
@@ -24,14 +26,14 @@ export default{
         handleFileUpload(){
             this.file = this.$refs.file.files[0];
         },
-        
+
         submitFile(){
             let formData = new FormData();
             let url = "/api/users/" + this.pk + "/documents"
             formData.append('document', this.file);
-            formData.append('name2', 'bleh');
+            formData.append('name', 'bleh');
 
-            axios.defaults.headers.common['Authorization'] = "Token " + localStorage.getItem('token');            
+            axios.defaults.headers.common['Authorization'] = "Token " + localStorage.getItem('token');
             axios.post(
                 url,
                 formData,
@@ -51,8 +53,7 @@ export default{
 
         }},
 
-        
-    }
-    
-</script>
 
+    }
+
+</script>
