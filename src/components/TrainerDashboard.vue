@@ -87,7 +87,10 @@ export default {
 .usercounts {
     display: grid;
     grid-template-columns: 2fr 1fr 5fr;
-    
+background-color: $milife-blue;
+padding-top: 20px;
+padding-bottom: 20px;
+border-radius: 20px;
     height: 20%;
 }
 .usercounts>.count{

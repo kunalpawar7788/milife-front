@@ -1,8 +1,9 @@
 
 <template>
-    <div class="container">
-    <WeightChart> </WeightChart>
-  </div>
+<div class="container">
+
+  <BodyTypeProgressionChart></BodyTypeProgressionChart>
+</div>
 </template>
 
 <script>
@@ -11,9 +12,11 @@ import axios from 'axios';
 
 import HeightInput from '@/components/HeightInput';
 import WeightChart from '@/components/WeightChart';
+import BodyTypeProgressionChart from "@/components/progress-chart/BodyTypeProgressionChart.vue";
 export default {
     components: {
         WeightChart,
+        BodyTypeProgressionChart
     },
 
     name: "Test",
