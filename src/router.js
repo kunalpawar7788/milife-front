@@ -22,9 +22,8 @@ import Test from '@/views/Test.vue';
 import GraphTest from '@/views/GraphTest.vue';
 import ComposeMessage from '@/views/ComposeMessage.vue';
 import ManageUser from '@/views/ManageUser.vue';
-import UserDocumentList from '@/views/UserDocumentList.vue';
-import AddDocument from '@/views/AddDocument.vue';
-import EditDocument from '@/views/EditDocument.vue';
+import DocumentList from '@/views/userdocument/DocumentList.vue';
+import AddDocument from '@/views/userdocument/AddDocument.vue';
 import ProgressChart from '@/views/ProgressChart.vue';
 import MeasurementsForm from '@/views/MeasurementsForm';
 
@@ -63,8 +62,8 @@ const router = new Router({
             {path: '', component: UserDetail, name: "user-detail"},
             { path: 'manage', component: ManageUser, name: "user-manage", meta: {requiresAdmin: true}},
             { path: 'compose-message', component: ComposeMessage, name: "user-message", meta: {requiresAdmin: true}},
-            { path: 'documents', component: UserDocumentList, name: "user-documents", meta: {requiresAdmin: true}},
-            { path: 'documents/:doc_pk/edit', component: EditDocument, name: "user-document-edit", meta: {requiresAdmin: true}},
+            { path: 'documents', component: DocumentList, name: "user-documents", meta: {requiresAdmin: true}},
+            { path: 'documents/:doc_pk/edit', component: AddDocument, name: "user-document-edit", meta: {requiresAdmin: true}},
             { path: 'documents/add', component: AddDocument, name: "user-document-add", meta: {requiresAdmin: true}},
             { path: 'progress-chart', component: ProgressChart, name: "progress-chart", meta: {requiresAdmin: true}},
             { path: 'add-checkin', component: MeasurementsForm , name: "add-checkin", meta: {requiresAdmin: true}},

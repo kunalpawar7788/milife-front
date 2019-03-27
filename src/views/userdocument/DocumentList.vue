@@ -4,11 +4,11 @@
   <div class="searchbox">
     <input class="text-input" v-model="params.search" placeholder="Start typing to search" v-on:keyup="fetch_documents">
   </div>
-
+  
   <div class="documentlist" v-for="document in documents">
     <div class="document">
       <p>{{document.name}}</p>
-      <router-link :to="{name: 'user-document-edit', params: {pk: document.user, doc_pk: document.id}}"> <img src="@/assets/images/edit.svg" /> </router-link>
+      <router-link :to="{name: 'user-document-edit', params: {pk: fobj_user.id, doc_pk: document.id}}"> <img src="@/assets/images/edit.svg" /> </router-link>
       <div @click="showalert('not implemented')"> <img src="@/assets/images/look-open.svg" /></div>
       <div @click="download_document(document)"> <img src="@/assets/images/download.svg" /></div>
     </div>
@@ -23,7 +23,7 @@
 import axios from 'axios';
 
 export default {
-    name: 'UserDocumentList',
+    name: 'DocumentList',
     components: {},
     props: ['fobj_user', ],
     computed: {
@@ -40,7 +40,7 @@ export default {
         showalert(msg) {
             alert(msg);
         },
-        
+
         download_document: function(d){
             axios({
                 url: d.document,
@@ -55,7 +55,7 @@ export default {
                 document.body.appendChild(link);
                 link.click();
             });
-            
+
         },
         fetch_documents: function() {
             const url = process.env.VUE_APP_BASE_URL+'/api/users/' + this.pk + '/documents';
@@ -76,7 +76,7 @@ export default {
                 });
         },
     },
-    
+
     mounted() {
         this.fetch_documents();
         this.$store.dispatch("theme/set_theme_blue");
