@@ -4,12 +4,16 @@
     <input class="text-input" v-model="params.search" placeholder="Start typing to search" v-on:keyup="fetch_users">
   </div>
   <div class="userlist-container">
-    <div class="userinfo" v-for="user of users" :id="user.id">
+    <div
+      class="userinfo"
+      v-for="user of users"
+      :id="user.id"
+      v-on:click="goto_manage_user(user.id)">
       <div v-bind:class="[user.id==selected_user_id? 'user-selected':'', 'userinfo-grid']">
         <img src="user.image" v-if="user.image!=null"/>
         <img src="@/assets/images/placeholder-profile.png"/>
         <span> {{user.first_name}} {{user.last_name}}</span>
-        <p v-on:click.stop="toggle_menu(user.id)"> ... </p>
+        <!-- <p v-on:click.stop="toggle_menu(user.id)"> ... </p> -->
       </div>
       
       <div class="context-menu" v-if="selected_user_id==user.id" >
@@ -41,6 +45,9 @@ export default {
         }
     },
     methods: {
+        goto_manage_user: function(user_id){
+            this.$router.push({name: 'user-manage', params:{'pk': user_id}});
+        },
         fetch_users: function() {
             const url = process.env.VUE_APP_BASE_URL+'/api/users';
             axios.defaults.headers.common['Authorization'] = "Token " + localStorage.getItem('token');
