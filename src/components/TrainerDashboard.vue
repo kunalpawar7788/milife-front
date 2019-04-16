@@ -1,5 +1,6 @@
 <template>
 <div class="trainer-dashboard">
+  <section class="slab1">
   <div class="slab1">
     <div class="usercounts">
       <img class="image" id="icon-active" src="@/assets/images/activated-users.svg"/>
@@ -14,25 +15,26 @@
       <router-link :to="{name: 'user-list'}">View All Users ></router-link>
     </div>
   </div>
+  </section>
   <div id="td-inviteuser">
     <span> </span>
     <span class="cta"> <router-link :to="{ name: 'invite'}">INVITE A USER </router-link></span>
     <span class="arrow"> > </span>
   </div>
-
+  
   <div id="td-search">
-     <router-link :to="{ name: 'user-list'}">
-    <p>Search A User</p>
-    <input class="text-input" required v-model="email" type="email" placeholder="start typing to search"/>
+    <router-link :to="{ name: 'user-list'}">
+      <p>Search A User</p>
+      <input class="text-input" required v-model="email" type="email" placeholder="start typing to search"/>
     </router-link>
   </div>
   <div id="td-upload-csv">
     <span> </span>
     <span class="cta"> <router-link :to="{ name: 'invite'}"> UPLOAD CSV</router-link></span>
     <span class="arrow"> + </span>
-
+    
   </div>
-
+  
 </div>  
 </template>
 
@@ -78,19 +80,23 @@ export default {
 <style lang="scss">
 
 .trainer-dashboard {
-    
+    section.slab1{
+        background-color: $milife-blue;
+        border-radius: 20px;
+        padding: 10px;
+    }
 }
-.slab1 {
-    border: 1px solid white;
-    padding: 10px;
-}
+/* .slab1 { */
+/*     border: 1px solid white; */
+/*     padding: 10px; */
+/* } */
 .usercounts {
     display: grid;
     grid-template-columns: 2fr 1fr 5fr;
-background-color: $milife-blue;
-padding-top: 20px;
-padding-bottom: 20px;
-border-radius: 20px;
+    background-color: $milife-blue;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-radius: 20px;
     height: 20%;
 }
 .usercounts>.count{
@@ -99,6 +105,7 @@ border-radius: 20px;
     align-self: center;
     padding: 5px 2px;
     font-weight: bold;
+    color: white;
 }
 .usercounts>.image {
     justify-self: end;
@@ -144,7 +151,7 @@ border-radius: 20px;
     font-size: 20pt;
 }
 #td-search>a>input{
-margin-top: 5px;
+    margin-top: 5px;
 }
 .user-list-link{
     margin: 10px 1px;
