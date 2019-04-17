@@ -57,7 +57,6 @@ export default {
                     this.error_message="";
                     this.errors={};
                     this.users= resp.data.results;
-                    console.log(resp.data);
                 })
                 .catch(err => {
                     err.response.data['errors'].forEach((element, index, array) =>{
@@ -113,7 +112,7 @@ export default {
         justify-self: left;
         padding-left: 20px;
     }
-
+    
     :focus{
         background-color:$milife-green;
     }
@@ -122,35 +121,35 @@ export default {
     .context-menu {
         //height: 150px;
         width: 200px;
-
+        
         border: 1px solid red;
         position: relative;
         top: -114px;
         left: 144px;
-
+        
         z-index: 999;
         color: black;
         background-color: white;
         margin-bottom: -105px;
-
+        
         ul {
             list-style: none;
             padding: 1px;
             margin-block-start: 0;
             margin-block-end: 0;
-
+            
             li {
                 padding: 5px;
-
+                
                 a {
                     text-decoration: none !important;
                     color: inherit;
                     width: 100%;
                     height: 100%;
                     display: block;
-                             
+                    
                 }
-
+                
                 &:hover {
                     cursor: pointer;
                     background: black;
@@ -163,6 +162,6 @@ export default {
 
 .user-selected{
     background-color: $milife-green;
-
+    
 }
 </style>
