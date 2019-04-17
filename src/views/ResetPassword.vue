@@ -57,7 +57,7 @@ export default {
     },
     methods: {
         send_reset_password_mail() {
-            const url = process.env.VUE_APP_BASE_URL+'/api/auth/password_reset';
+            const url = process.env.VUE_APP_BASE_URL+'/api/auth/password_reset/';
             axios({url: url, data:{email: this.email}, method: 'POST'})
                 .then(resp => {
                     //commit('email_verified');
@@ -69,7 +69,7 @@ export default {
                 });
         },
         reset_password(){
-            const url = process.env.VUE_APP_BASE_URL+'/api/auth/password_reset_confirm';
+            const url = process.env.VUE_APP_BASE_URL+'/api/auth/password_reset_confirm/';
             const data = {token: this.token, new_password: this.newpassword}
             axios({url: url, data:data, method: 'POST'})
                 .then(resp => {
