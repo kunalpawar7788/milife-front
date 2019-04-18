@@ -1,18 +1,11 @@
 <template>
 <div class="add-document-container" v-if="status=='success'">
 
-    <div>
-      <input
-        type="text"
-        class="input text-input"
-        :value="full_name"
-        disabled=true
-        >
-    </input>
-    </div>
+    <SelectedUserDisplay :fobj_user="fobj_user"> </SelectedUserDisplay>
 
     <div>
-      <div v-if="file"> <p>{{file}}</p>
+    <div v-if="file">
+    <p>{{file}}</p>
 
       </div>
       <input v-else
@@ -58,6 +51,7 @@
     <div>
       <button class="button" @click="upsert_document()"> Save </button>
     </div>
+    <div v-on:click="goto_document_list"> Cancel </div>
   </div>
   <div v-else>
     {{status}}
@@ -71,11 +65,12 @@
 import store from '@/store';
 import axios from 'axios';
 import Multiselect from 'vue-multiselect';
+import SelectedUserDisplay from '@/components/SelectedUserDisplay';
 
 export default {
     name: "AddDocument",
     props: ['fobj_user', ],
-    components: {Multiselect, },
+    components: {Multiselect, SelectedUserDisplay},
     computed: {
         user() {return this.fobj_user;},
         full_name() {
@@ -181,6 +176,9 @@ export default {
 
 
     methods: {
+        goto_document_list(){
+            this.$router.push({name: "user-documents", params:{pk: this.user_id}})
+        },
         handleFileSelect: function(){
             this.doc.file = this.$refs.file.files[0];
         },
@@ -256,6 +254,7 @@ export default {
     div{
         grid-column: 2;
         width: 100%;
+        padding-top: 10px;
 
     }
     * p{
