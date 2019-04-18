@@ -20,29 +20,29 @@
 import SliderMenu from "@/components/progress-chart/SliderMenu.vue";
 import BodyTypeProgressionChart from "@/components/progress-chart/BodyTypeProgressionChart.vue";
 export default {
-    
+
     name:"ProgressChart",
     components: {SliderMenu, BodyTypeProgressionChart},
     data() {
         return {
             start_date: new Date(2018,1,10),
             end_date: new Date(2019,1,1),
-            
+
             selected_month_year: {}
-            
+
         }
     },
     methods: {
         set_month: function(event) {
             this.selected_month_year = event
         },
-        
+
     },
     mounted() {
         this.$store.dispatch("theme/set_theme_blue");
     },
 
-    
+
 }
 </script>
 
@@ -51,7 +51,7 @@ export default {
     overflow: hidden;
     display: grid;
     grid-template-columns: 1fr 80% 1fr;
-    
+
     .menu{
         grid-column: 2;
     }
