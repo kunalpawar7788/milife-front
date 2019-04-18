@@ -84,6 +84,7 @@ const actions = {
                 }.bind(this)
             })
                 .then(resp => {
+                    commit('CHECKIN_FETCH_SUCCESS', resp.data);
                     console.log('success', resp.data);
                     resolve(resp);
                 }).catch(err => {
