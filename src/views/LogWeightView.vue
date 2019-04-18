@@ -1,0 +1,89 @@
+<template>
+<section class="log-weight-view-container">
+  <header><h3> Log Weight </h3></header>
+  <center>
+    <LogWeightComponent :fobj_user="user"></LogWeightComponent>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Weight</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="wl in weight_logs">
+          <td style="border-right: 2px solid grey">{{wl.measured_on}}</td>
+          <td>{{wl.weight}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </center>
+</section>
+</template>
+
+<script>
+import LogWeightComponent from "@/components/LogWeightComponent";
+export default {
+    name: "LogWeightView",
+    props: ['fobj_user', ],
+    components: {
+        LogWeightComponent,
+    },
+    computed: {
+        user() {
+            console.log(this.$store.state.auth.user);
+            var d = Object.assign({}, this.$store.state.auth.user);
+            return d;
+        },
+    },
+    watch: {
+
+    },
+
+    data() {
+        return {
+            status: "initiated",
+            error_message: "",
+            errors: {},
+            weight_logs: [],
+        };
+    },
+
+    methods: {
+        fetch_weight_log: function() {
+            const url = process.env.VUE_APP_BASE_URL+'/api/users/' + this.user.id + "/weight";
+            this.$http({url: url, method: 'GET'})
+                .then(resp => {
+                    this.status='success';
+                    this.error_message="";
+                    this.errors={};
+                    this.weight_logs = resp.data.results;
+                })
+                .catch(err => {
+                    this.status='error';
+                    console.log(err);
+                });
+
+        },
+    },
+    mounted() {
+        this.$store.dispatch("auth/fetch_profile");
+        console.log(this.fobj_user);
+        this.fetch_weight_log();
+
+    }
+}
+</script>
+
+
+
+<style lang="scss">
+.log-weight-view-container {
+    color: black;
+    input {
+        border: 1px solid lighten(grey, 20%);
+    }
+
+}
+</style>
