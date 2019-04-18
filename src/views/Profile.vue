@@ -40,7 +40,6 @@ export default {
                 gender: "",
             }
         }
-
     },
 
     created: function(){
@@ -128,5 +127,4 @@ export default {
         position: inherit;
     }
 }
-
 </style>
