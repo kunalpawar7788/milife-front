@@ -53,7 +53,7 @@ const actions = {
     logout({commit}){
         return new Promise((resolve, reject) => {
             commit('logout');
-            axios({url: process.env.VUE_APP_BASE_URL + '/api/auth/logout', method: 'POST' })
+            axios({url: process.env.VUE_APP_BASE_URL + '/api/auth/logout/', method: 'POST' })
                 .then(resp => {
                     localStorage.removeItem('token');
                     delete axios.defaults.headers.common['Authorization'];
@@ -148,6 +148,7 @@ const mutations = {
 
     profile_fetched(state, data){
         state.user = {
+            id: data.id,
             first_name: data.first_name,
             last_name: data.last_name,
             number: data.number,
