@@ -18,14 +18,16 @@ export default {
         console.log('flag', store.getters['auth/isUserEmailVerified']);
         return {
             showEmailVerification: !store.getters['auth/isUserEmailVerified'],
-            isAuthenticated: store.getters['auth/isAuthenticated'],
             isTrainer: store.getters['auth/is_staff'],
         }
     },
     computed: {
         theme: {
             get() {return this.$store.state.theme.theme;},
-        }
+        },
+        isAuthenticated(){
+            return store.getters['auth/isAuthenticated'];
+        },
     },
     components: {
         HeaderMenu,
@@ -63,6 +65,9 @@ export default {
     font-size: 15pt;
     &:hover {
         color: white;
+    }
+    &:active {
+        background-color: darken($milife-green, 20%);
     }
 
 }
