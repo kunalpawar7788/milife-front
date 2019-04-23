@@ -99,7 +99,7 @@ export default {
             start_date: '',
             target_date: '',
             start_weight: '',
-            end_weight: '',
+            target_weight: '',
         };
     },
     
