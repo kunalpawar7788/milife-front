@@ -1,11 +1,13 @@
 <template>
 <section class="add-user-container">
-  <header><h3>Add New User </h3> </header>
-  <UserAddEditComponent :fobj_user="{}"></UserAddEditComponent>
+  <header><h3>Edit User</h3> </header>
+  
+  <template v-if="user">
+    <UserAddEditComponent v-bind:fobj_user="user"></UserAddEditComponent>
+  </template>
   <h3>
     <router-link :to="{name: 'home'}"> Cancel </router-link>
   </h3>
-
 </section>
 </template>
 
@@ -16,17 +18,32 @@ import moment from 'moment';
 import UserAddEditComponent from "@/components/UserAddEditComponent.vue";
 
 export default {
-    name: "AddUserView",
+    name: "EditUserView",
+
+    props: ['fobj_user', ],
+
     components: {
         Multiselect,
         Datepicker,
         UserAddEditComponent,
     },
+    computed: {
+        user() {
+            console.log('computed', this.fobj_user);
+            return this.fobj_user;
+
+        },
+    },
 
     data() {
-        return {}
+        return {
+        }
     },
     methods: {
+
+    },
+    created() {
+        console.log('here', this.fobj_user);
     },
 }
 </script>
