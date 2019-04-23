@@ -7,10 +7,9 @@
   </div>
   <div class="picture-preview"  v-else-if="value">
     <img v-bind:src="value"> </img>
-    <label v-on:click="reset">reset won\&quott work</label>
   </div>
 
-  <div class="picture-selector" v-else>
+  <div class="picture-selector">
     <input type="file" v-on:change="read_url($event.target)">
   </div>
 </div>
