@@ -25,10 +25,12 @@ export default{
 
 <style lang="scss">
 .disabled-input-text {
+
     input{
         background-color: lighten(grey, 40%);
         text-align: center;
         padding-left: 0;
+        margin: 10px 0px 10px 0px000;
 
     }
 }
