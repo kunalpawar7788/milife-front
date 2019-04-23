@@ -50,14 +50,14 @@
 export default {
 
     name: 'WeightInput',
-    components: [],
+    components: {},
     props: ['value',],
 
     data() {
         return {
             choice_menu_open: false,
             choices: ['imperial', 'metric'],
-            selected: this.value.preferred_unit,
+            preferred_unit: "",
             magnitude_si: 0,
             stones2kg: 6.35,
             pounds2kg: 0.45,
@@ -106,6 +106,15 @@ export default {
     },
 
     computed: {
+        selected: {
+            get(){
+                return this.preferred_unit || this.value.preferred_unit;
+            },
+            set(value) {
+                this.preferred_unit = value
+            },
+        },
+
         kgs: {
             get() {return this.value.magnitude_si;},
             set(value){

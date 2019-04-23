@@ -9,7 +9,7 @@
     >
     Metric
   </div>
-  
+
   <div
     v-if="choice_menu_open"
     :class="[selected=='imperial'? 'selected': '', 'choices', 'imperial' ]"
@@ -17,9 +17,6 @@
     >
     Imperial
   </div>
-  
-  
-  
   <div
     :class="[choice_menu_open? 'hidden' : '', 'menu-button']"
     v-on:click="choice_menu_open=true">
@@ -31,7 +28,7 @@
 
     <input type="number" v-model="feet" placeholder="feet" />
   </div>
-  
+
   <div
     v-if="selected=='imperial' && !choice_menu_open"
     class="inches">
@@ -47,8 +44,6 @@
 </template>
 
 <script>
-import CustomInput from '@/components/CustomInput';
-
 export default {
     /*this should give out two parameters only:
 namely, height in centimeters
@@ -57,19 +52,19 @@ and the unit chosen by the user.
 */
 
     name: 'HeightInput',
-    components: [CustomInput, ],
     props: ['value',],
 
     data() {
         return {
             choice_menu_open: false,
             choices: ['imperial', 'metric'],
-            selected: this.value.preferred_unit,
+            preferred_unit: "",
             magnitude_si: 0,
             feet2cm: 30.48,
             inch2cm: 2.54,
         }
     },
+
     methods: {
         select_choice : function (choice) {
             this.selected = choice;
@@ -82,7 +77,7 @@ and the unit chosen by the user.
 
         emit_result: function() {
             this.$emit('input', {
-                preferred_unit: this.selected,
+                preferred_unit: this.preferred_unit,
                 magnitude_si: this.round_off2(this.magnitude_si)
 
             });
@@ -90,7 +85,7 @@ and the unit chosen by the user.
 
         get_cm_from_feet: function(feet){
             console.log('cm from feet',feet,  feet * this.feet2cm);
-            return feet * this.feet2cm;           
+            return feet * this.feet2cm;
         },
         get_cm_from_inches: function(inches){
             console.log('cm from inches', inches,  inches * this.inch2cm);
@@ -111,8 +106,16 @@ and the unit chosen by the user.
             return Math.round(value*100)/100
         },
     },
-    
+
     computed: {
+        selected: {
+            get(){
+                return this.preferred_unit || this.value.preferred_unit;
+            },
+            set(value) {
+                this.preferred_unit = value
+            },
+        },
         cms: {
             get() {return this.value.magnitude_si;},
             set(value){
@@ -160,11 +163,11 @@ div.choicefield-container{
     height: 50px;
     font-size: 15pt;
     font-family: Monteserrat Regular;
-    
+
     display: grid;
     grid-template-columns: 1fr 10px repeat(4, 1fr);
     grid-gap: 1px;
-    
+
     div.label{
         grid-column: 1/span 2;
         align-self: center;
@@ -184,31 +187,31 @@ div.choicefield-container{
         input {
             border-radius: 0px 50px 50px 0px;
         }
-        
+
     }
-    
+
     div.menu-button{
-        grid-column:3 / span 2;        
+        grid-column:3 / span 2;
         background-color: $milife-green;
         color: white;
         height: inherit;
         border-radius: 50px 0px 0px 50px;
-        
-        
+
+
         &:hover{
             background-color: lighten($milife-green, 20%);
         }
-        
+
         p{
             margin-top: 10px;
         }
-        
+
     }
     div.metric{
         grid-column: 3 / span 2;
         border-radius: 50px 0px 0px 50px;
     }
-    
+
     div.imperial {
         grid-column: 5/ span 2;
         border-radius: 0px 50px 50px 0px;
@@ -216,22 +219,22 @@ div.choicefield-container{
 
     div.choices{
         background-color: white;
-        color: black;            
+        color: black;
         font-size: 15pt;
         padding: 12px;
         border: none;
-        
+
         &:hover {
             background-color: lighten($milife-green, 20%);
         }
         &.selected{
             background-color: $milife-green;
         }
-        
+
     }
-    
-    
-    
+
+
+
     * input {
         text-align: center;
         font-size: 15pt;
@@ -239,10 +242,9 @@ div.choicefield-container{
         border: none;
         padding: none;
         width: 100%;
-        height:100%                          
+        height:100%
     }
 
 }
 
 </style>
-
