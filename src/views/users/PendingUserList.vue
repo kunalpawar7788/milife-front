@@ -1,5 +1,5 @@
 <template>
-<FilteredUserList email_verified="False"></FilteredUserList>
+<FilteredUserList invited="False"></FilteredUserList>
 </template>
 
 <script>

@@ -25,7 +25,7 @@
     <input
       class="input text-input"
       v-model="last_name"
-      placeholder = "Last Name" />
+      placeholder="Last Name" />
   </div>
 
 
@@ -34,7 +34,6 @@
       class="input text-input"
       v-model="email"
       placeholder="Email" />
-
   </div>
 
 

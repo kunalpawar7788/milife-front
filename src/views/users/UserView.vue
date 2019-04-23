@@ -17,7 +17,7 @@ export default {
         fetch_user: function(pk){
             const url = process.env.VUE_APP_BASE_URL+'/api/users/' + this.pk;
             this.$http.defaults.headers.common['Authorization'] = "Token " + localStorage.getItem('token');
-            
+
             return new Promise((resolve, reject) => {
                 this.$http({url: url, params:this.params, method: 'GET'})
                     .then(resp => {
@@ -26,11 +26,9 @@ export default {
                         reject(err);
                     });
             });
-            
         },
-        
     },
-    
+
     asyncComputed: {
         user:{
             get () {
@@ -42,7 +40,5 @@ export default {
     mounted() {
         this.$store.dispatch("theme/set_theme_blue");
     },
-
-
 }
 </script>
