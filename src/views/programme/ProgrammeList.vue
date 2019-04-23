@@ -57,7 +57,7 @@ export default {
             this.$router.push({name: "programme-add"});
         },
         goto_programme_detail: function(programme_pk){
-            this.$router.push({name: "programme-detail", params:{programme_pk: programme_pk}});
+            this.$router.push({name: "programme-detail", params:{programme_pk: programme_pk, pk: this.fobj_user.id}});
         }
     },
     mounted() {

@@ -10,11 +10,11 @@
       :minute-interval="15"
       :value="sessions[day]"
       @change="set_time($event, day)"
-      >     
+      >
     </timepicker>
 
   </div>
-  <div class="button" v-on:click="upsert_programme">save </div>
+  <div class="button" v-on:click="upsert_programme()">save </div>
 </div>
 
 </template>
@@ -49,10 +49,7 @@ export default{
                 Saturday: {HH:'', mm:''},
                 Sunday: {HH:'', mm:''},
             },
-            
-            
         }
-        
     },
     computed: {
         user() {return this.fobj_user;},
@@ -73,7 +70,7 @@ export default{
             var base_url = process.env.VUE_APP_BASE_URL+'/api/users/' + this.user_pk + "/programmes";
             return this.programme_pk?  base_url + "/" + this.programme_pk: base_url;
         },
-        
+
     },
     methods: {
         fetch_programme: function(user_pk, programme_pk){
@@ -83,7 +80,7 @@ export default{
                     this.status='success';
                     this.error_message="";
                     this.errors={};
-                    
+
                     for(var day in this.sessions) {
                         var value = resp.data['sessions'][day]
                         if (value) {
@@ -99,26 +96,27 @@ export default{
                 .catch(err => {
                     this.status="error";
                     console.log(err);
-                });                        
-            
+                });
+
         },
         set_time: function(event, day){
             var value = {'HH': event.data['HH'], 'mm': event.data['mm']};
             console.log(event, value, day);
             this.sessions[day] = value;
         },
-        upsert_progrfamme: function(){
+
+        upsert_programme: function(){
             return new Promise((resolve, reject) => {
                 var data = {
                     user: this.user_pk,
                     sessions: this.sessions,
                 };
-                
+
                 this.$http({url: this.upsert_url, method: this.upsert_method, data: data})
                     .then(resp => {
                         resolve(resp);
                         this.$router.go('-1');
-                        
+
                     })
                     .catch(err => {
                         this.status='error';
@@ -126,12 +124,9 @@ export default{
                         reject(err);
                     });
             });
-            
         },
-        
-        
     },
-    created() {
+    mounted() {
         this.$store.dispatch("theme/set_theme_white");
         if (this.programme_pk) {
             this.status='loading';
@@ -152,7 +147,7 @@ div.programme-edit-sessions-container {
         grid-row-gap: 10px;
         justify-items: center;
         margin-top: 10px;
-        
+
         div.day {
             grid-column: 2;
             align-self: center;

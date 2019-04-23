@@ -28,7 +28,7 @@
     <header class="session-heading"><p>REGULAR SESSIONS</p></header>
     <div class="sessions-container">
       <div class="sessions">
-        <div v-for="(s,index in sessions" class="session">
+        <div v-for="(s,index) in sessions" class="session">
           <span> <strong>{{s.day}}</strong> </span><br>
           <span>{{s.time}} </span>
         </div>
@@ -93,7 +93,7 @@ export default {
     },
     methods: {
         goto_edit_session: function(programme_pk){
-            this.$router.push({name: "programme-edit-sessions", params: {"programme_pk": programme_pk}});
+            this.$router.push({name: "programme-edit-sessions", params: {"programme_pk": programme_pk,  pk: this.fobj_user.id}});
         },
         goto_edit_programme: function(programme_pk){
             this.$router.push({name: "programme-edit", params: {"programme_pk": this.$route.params.programme_pk}});
