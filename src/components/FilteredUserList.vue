@@ -11,8 +11,8 @@
       v-on:click="goto_manage_user(user.id)">
 
       <div class="userinfo-grid">
-        <img src="user.image" v-if="user.image!=null"/>
-        <img src="@/assets/images/placeholder-profile.png"/>
+        <img :src="user.image" v-if="user.image!=null"/>
+        <img v-else src="@/assets/images/placeholder-profile.png"/>
         <span> {{user.first_name}} {{user.last_name}}</span>
       </div>
     </div>
