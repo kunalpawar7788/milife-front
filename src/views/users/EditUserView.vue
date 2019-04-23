@@ -1,7 +1,7 @@
 <template>
 <section class="add-user-container">
   <header><h3>Edit User</h3> </header>
-  
+
   <template v-if="user">
     <UserAddEditComponent v-bind:fobj_user="user"></UserAddEditComponent>
   </template>
