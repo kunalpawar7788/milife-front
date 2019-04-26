@@ -10,7 +10,6 @@ import ChangePassword from './views/ChangePassword.vue';
 import NotFoundComponent from './views/NotFoundComponent.vue';
 import Invitation from './views/Invitation.vue';
 import Unauthorized from '@/views/Unauthorized.vue';
-//import ResetPassword from './views/ResetPassword.vue'
 //import ConfirmEmail from './views/ConfirmEmail'
 import ResetPassword from "@/views/ResetPassword.vue";
 import VerifyUserEmail from './views/VerifyUserEmail.vue';
@@ -28,6 +27,7 @@ import ProgressChart from '@/views/ProgressChart.vue';
 import MeasurementsForm from '@/views/MeasurementsForm';
 import TargetWeightsView from '@/views/TargetWeightsView.vue';
 
+import ProgrammeView from "@/views/programme/ProgrammeView.vue";
 import ProgrammeList from '@/views/programme/ProgrammeList.vue';
 import ProgrammeDetail from '@/views/programme/ProgrammeDetail.vue';
 import ProgrammeAddEdit from '@/views/programme/ProgrammeAddEdit.vue';
@@ -36,8 +36,11 @@ import HolidayAdd from '@/views/programme/HolidayAdd.vue';
 import BankSessionAdd from '@/views/programme/BankSessionAdd.vue';
 import LogWeightView from '@/views/LogWeightView.vue';
 import AddUserView from '@/views/users/AddUserView.vue';
+import EditUserView from '@/views/users/EditUserView.vue';
 import UploadCSVView from "@/views/UploadCSVView.vue";
 import PendingUserList from "@/views/users/PendingUserList.vue";
+import AddEditMealPlan from "@/views/mealplan/AddEditMealPlan.vue";
+
 
 Vue.use(Router);
 
@@ -76,9 +79,10 @@ const router = new Router({
         meta: {requiresAdmin: true},
         children:[
             {path: '', component: UserDetail, name: "user-detail"},
+            { path: 'edit', component: EditUserView, name: "user-edit", meta: {requiresAdmin: true}},
             { path: 'manage', component: ManageUser, name: "user-manage", meta: {requiresAdmin: true}},
             { path: 'target-weights', component: TargetWeightsView, name: "target-weights", meta: {requiresAdmin: true}},
-            { path: 'compose-message', component: ComposeMessage, name: "user-message", meta: {requiresAdmin: true}},
+            { path: 'compose-message', component: ComposeMessage, name: "compose-message", meta: {requiresAdmin: true}},
             { path: 'documents', component: DocumentList, name: "user-documents", meta: {requiresAdmin: true}},
             { path: 'documents/:doc_pk/edit', component: AddDocument, name: "user-document-edit", meta: {requiresAdmin: true}},
             { path: 'documents/add', component: AddDocument, name: "user-document-add", meta: {requiresAdmin: true}},
@@ -87,7 +91,9 @@ const router = new Router({
             { path: 'programmes', component: ProgrammeList, name: "programme-list", meta: {requiresAdmin: true}},
             { path: 'programmes/add', component: ProgrammeAddEdit, name: "programme-add", meta: {requiresAdmin: true}},
             { path: 'log-weight', component: LogWeightView, name: "admin-log-weight", meta: {requiresAuth: true}},
+            { path: 'mealplan', component: AddEditMealPlan, name: "mealplan-edit", meta: {requiresAuth: true}},
             { path: 'programmes/:programme_pk',
+              component: ProgrammeView,
               meta: {requiresAdmin: true},
               children: [
                   { path: '', component: ProgrammeDetail, name: "programme-detail", meta: {requiresAdmin: true}},

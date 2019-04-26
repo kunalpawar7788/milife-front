@@ -20,7 +20,7 @@
   <div class="mu-buttons link-sink-2">
     <div id="mu-3" class="mb mb__full"><router-link :to="{name: 'programme-list', params:{pk: user.id}}"> Programmes </router-link> </div>
     <div id="mu-5" class="mb mb__full"><router-link :to="{name: 'progress-chart', params:{pk: user.id}}"> View Stats and Charts </router-link> </div>
-    <div id="mu-9" class="mb"><router-link :to="{name: 'testview', params:{pk: user.id}}"> Meal Plan </router-link> </div>
+    <div id="mu-9" class="mb"><router-link :to="{name: 'mealplan-edit', params:{pk: user.id}}"> Meal Plan </router-link> </div>
     <div id="mu-1" class="mb"><router-link :to="{name: 'user-documents', params:{pk: user.id}}"> View Docs </router-link> </div>
 
   </div>
