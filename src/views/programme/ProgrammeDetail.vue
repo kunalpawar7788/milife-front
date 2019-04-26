@@ -50,7 +50,7 @@ import SelectedUserDisplay from '@/components/SelectedUserDisplay';
 export default {
     name: 'ProgrammeDetail',
     props: ['fobj_user',],
-    
+
     components: {SelectedUserDisplay, },
     computed: {
         sessions: function() {
@@ -64,10 +64,10 @@ export default {
                 'Saturday',
                 'Sunday',
             ];
-            
+
             for(var i in days){
                 var day = days[i];
-                
+
                 if (this.programme.hasOwnProperty('sessions') && this.programme.sessions.hasOwnProperty(day)){
                     var time = JSON.parse(this.programme.sessions[day].replace(/'/g, '"'));
                     var hh = time['HH'];
@@ -79,10 +79,10 @@ export default {
                 }
             }
             return d;
-            
+
         }
     },
-    
+
     data() {
         return {
             user_pk: this.$route.params.pk,
@@ -108,6 +108,7 @@ export default {
                     this.errors={};
                     this.programme = resp.data;
                     this.fetch_coach(this.programme.coach);
+                    this.$store.dispatch("theme/set_theme_white");
                 })
                 .catch(err => {
                     this.status='error';
@@ -128,10 +129,8 @@ export default {
 
 
     },
-    mounted() {
+    created() {
         this.fetch_programme(this.$route.params.pk, this.$route.params.programme_pk);
-
-        this.$store.dispatch("theme/set_theme_white");
     },
 
 }
@@ -142,7 +141,7 @@ export default {
     background-color: white;
     display: grid;
     grid-template-columns: 1fr repeat(10, 1fr) 1fr;
-    
+
     .middle-column{
         grid-column: 2/11;
         grid-row: 1;
