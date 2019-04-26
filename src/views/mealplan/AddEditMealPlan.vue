@@ -161,10 +161,11 @@ export default {
         fetch_mealplan: function(){
             this.$http({url: this.mealplan_url, method: 'GET'})
                 .then(resp => {
+
                     if(resp.data.results.length == 1){
-                        this.status="success";
                         this.data = Object.assign({}, resp.data.results[0]);
                     }
+                    this.status="success";
                 })
                 .catch(err => {
                     this.status='error';
