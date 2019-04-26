@@ -156,7 +156,6 @@ export default {
         gender_options_d() {
             var d = {};
             for(var i=0; i < this.gender_options.length; i++) {
-                console.log(i, this.gender_options[i])
                 d[this.gender_options[i]['value']] = this.gender_options[i];
             }
             return d;
@@ -165,7 +164,6 @@ export default {
         gender: {
             get(){
                 var val = this.data.gender || this.fobj_user.gender;
-                console.log('getting gender', val, this.data.gender, this.fobj_user.gender);
                 return this.gender_options_d[val];
             },
             set(value){
@@ -305,8 +303,9 @@ export default {
     },
 
     created() {
-        if(this.fobj_user) {
-            this.data = Object.assign({}, this.fobj_user);
+        var fobj_user = Object.assign({}, this.fobj_user);
+        if(fobj_user.id) {
+            this.data=fobj_user;
         };
 
     },
