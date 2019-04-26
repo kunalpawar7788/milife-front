@@ -144,13 +144,17 @@ export default {
         };
     },
     computed: {
+        user() {
+            var fobj_user = Object.assign({}, this.fobj_user);
+            return fobj_user;
+        },
         upsert_method() {
-            return this.fobj_user? 'PATCH' : 'POST';
+            return this.user.id? 'PATCH' : 'POST';
         },
 
         upsert_url() {
             var base_url = process.env.VUE_APP_BASE_URL+'/api/users';
-            return this.fobj_user? base_url + "/" + this.fobj_user.id: base_url;
+            return this.user.id? base_url + "/" + this.user.id: base_url;
         },
 
         gender_options_d() {
