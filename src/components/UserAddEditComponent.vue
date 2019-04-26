@@ -98,7 +98,7 @@
 
 
   <button class="button" v-on:click="upsert_user"> Save </button>
-  {{errors}}
+
 </section>
 </template>
 
