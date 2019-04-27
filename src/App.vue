@@ -1,11 +1,12 @@
 <template>
 <div
-id="app"
-:class="[theme=='blue'?'bluebackground':'whitebackground']"
->
-    <HeaderMenu v-if="this.isAuthenticated"></HeaderMenu>
-    <router-view/>
-  </div>
+  id="app"
+  :class="[theme=='blue'?'bluebackground':'whitebackground']"
+  >
+  <vue-progress-bar> </vue-progress-bar>
+  <HeaderMenu v-if="this.isAuthenticated"></HeaderMenu>
+  <router-view/>
+</div>
 </template>
 
 <script>
