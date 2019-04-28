@@ -8,6 +8,9 @@ import AsyncComputed from 'vue-async-computed';
 import Vuelidate from 'vuelidate';
 import VueProgressBar from 'vue-progressbar';
 
+import _ from 'lodash';
+Object.defineProperty(Vue.prototype, '$_', { value: _ });
+
 Vue.use(Vuelidate);
 
 const progressbar_options = {
