@@ -43,9 +43,6 @@
 </template>
 
 <script>
-import store from '@/store'
-import axios from 'axios';
-
 export default {
     name: 'TrainerDashboard',
     data() {
@@ -68,19 +65,20 @@ export default {
         },
         invitation_status_count: function(){
             const url = process.env.VUE_APP_BASE_URL+'/api/counts/email_verification_status';
-            axios.defaults.headers.common['Authorization'] = "Token " + localStorage.getItem('token');
-            axios({url: url, params:this.params, method: 'GET'})
-                .then(resp => {
-                    this.errors={};
-                    this.step=2;
-                    this.status_d = resp.data
-                })
-                .catch(err => {
-                    err.response.data['errors'].forEach((element, index, array) =>{
-                        errors[element['field']] = element['message']
+            return new Promise((resolve, reject) => {
+                this.$http({url: url, params:this.params, method: 'GET'})
+                    .then(resp => {
+                        this.errors={};
+                        this.step=2;
+                        this.status_d = resp.data;
+                    })
+                    .catch(err => {
+                        err.response.data['errors'].forEach((element, index, array) =>{
+                            errors[element['field']] = element['message']
+                        });
+                        this.errors = errors;
                     });
-                    this.errors = errors;
-                });
+            });
         }
     },
     mounted() {
