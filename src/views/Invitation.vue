@@ -24,7 +24,6 @@
 </template>
 
 <script>
-import axios from 'axios';
 import FormError from '@/components/FormError.vue';
 export default {
     name: "Invitation",
@@ -46,8 +45,7 @@ export default {
         send_invitation: function(){
             let errors = {};
             const url = process.env.VUE_APP_BASE_URL+'/api/auth/invite_user/';
-            axios.defaults.headers.common['Authorization'] = "Token " + localStorage.getItem('token');
-            axios({url: url, data:this.invite_data, method: 'POST'})
+            this.$http({url: url, data:this.invite_data, method: 'POST'})
                 .then(resp => {
                     this.error_message="";
                     this.errors={};

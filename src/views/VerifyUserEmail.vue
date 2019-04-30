@@ -11,7 +11,6 @@
 </template>
 
 <script>
-import axios from 'axios';
 import store from '@/store';
 export default {
     name: "VerifyUserEmail",
@@ -24,7 +23,7 @@ export default {
     created: function(){
         const url = process.env.VUE_APP_BASE_URL+'/api/auth/verify_user_email';
         const token = this.$route.params.token;
-        axios({url: url, data:{token: token}, method: 'POST'})
+        this.$http({url: url, data:{token: token}, method: 'POST'})
             .then(resp => {
                 //commit('email_verified');
                 this.step=2;

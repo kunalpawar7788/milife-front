@@ -12,7 +12,6 @@
 
 <script>
 import NewPassword from '@/components/NewPassword.vue';
-import axios from 'axios';
 import store from '@/store';
 
 export default {
