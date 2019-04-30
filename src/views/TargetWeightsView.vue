@@ -59,7 +59,7 @@
     </thead>
     <tbody>
       <tr v-for="tw in target_weights">
-        <td class="date">{{tw.set_on}}</td>
+        <td class="date">{{tw.target_date}}</td>
         <td class="weight">{{ tw.target_weight}}</td>
       </tr>
     </tbody>
@@ -96,7 +96,7 @@ export default {
     data() {
         return {
             target_weights_l: [],
-            start_date: '',
+            start_date: new Date(),
             target_date: '',
             start_weight: '',
             target_weight: '',
@@ -120,8 +120,11 @@ export default {
         },
         add_target_weight: function(){
             var data = {
-                target_weight: this.weight,
-                set_on: moment(this.set_on).format('YYYY-MM-DD'),
+                target_weight: this.target_weight,
+                target_date: moment(this.target_date).format('YYYY-MM-DD'),
+                start_date: moment(this.start_date).format('YYYY-MM-DD'),
+                start_weight: this.target_weight,
+
             }
             const url = process.env.VUE_APP_BASE_URL+'/api/users/' + this.user_pk + "/target-weights";
             this.$http({url: url, data: data, method: 'POST'})

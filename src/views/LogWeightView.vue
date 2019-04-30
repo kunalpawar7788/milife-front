@@ -19,21 +19,34 @@
       </tbody>
     </table>
   </center>
+
+  <WeightSummaryCard :fobj_user="user"></WeightSummaryCard>
 </section>
 </template>
 
 <script>
 import LogWeightComponent from "@/components/LogWeightComponent";
+import WeightChart from "@/components/WeightChart";
+import WeightSummaryCard from "@/components/WeightSummaryCard";
+
 export default {
     name: "LogWeightView",
     props: ['fobj_user', ],
     components: {
         LogWeightComponent,
+        WeightChart,
+        WeightSummaryCard,
     },
     computed: {
         user() {
-            console.log(this.$store.state.auth.user);
-            var d = Object.assign({}, this.$store.state.auth.user);
+
+            if(this.$route.params.pk){
+                var d = Object.assign({}, this.fobj_user);
+            }
+            else {
+                var d = Object.assign({}, this.$store.state.auth.user);
+            }
+            console.log(d);
             return d;
         },
     },
@@ -70,7 +83,7 @@ export default {
     mounted() {
         this.$store.dispatch("auth/fetch_profile");
         console.log(this.fobj_user);
-        this.fetch_weight_log();
+        //this.fetch_weight_log();
 
     }
 }
