@@ -97,7 +97,8 @@
   <WeightInput v-model="weight"></WeightInput>
 
 
-  <button class="button" v-on:click="upsert_user"> Save </button>
+  <button v-promise-btn class="button" v-on:click="upsert_user"> Save </button>
+
 
 </section>
 </template>
@@ -256,28 +257,6 @@ export default {
         },
     },
     methods: {
-        add_user: function(){
-            const url = process.env.VUE_APP_BASE_URL+'/api/users';
-            var data = {
-                email: this.email,
-                first_name: this.first_name,
-                last_name: this.last_name,
-                number: this.number,
-                gender: this.selected_gender['value'],
-                date_of_birth: moment(this.date_of_birth).format("YYYY-MM-DD"),
-            };
-            this.$http({url: url, data:data, method: 'POST'})
-                .then(resp => {
-                    this.status='success';
-                    this.error_message="";
-                    this.errors={};
-                    this.$router.go({name: 'home'});
-                })
-                .catch(err => {
-                    this.status='error';
-                    this.errors=resp.data;
-                });
-        },
         upsert_user: function(){
             let formData = new FormData();
             for(var key in this.data){
@@ -290,18 +269,22 @@ export default {
                 formData.append('image', this.data.image);
             };
 
+            return new Promise((resolve, reject) => {
+                this.$http({url: this.upsert_url, data:formData, method: this.upsert_method})
+                    .then(resp => {
+                        this.status='success';
+                        this.error_message="";
+                        this.errors={};
+                        //this.$router.go({name: 'home'});
+                        resolve(resp);
+                    })
+                    .catch(err => {
+                        this.status='error';
+                        this.errors=err.data;
+                        reject(err);
+                    });
+            });
 
-            this.$http({url: this.upsert_url, data:formData, method: this.upsert_method})
-                .then(resp => {
-                    this.status='success';
-                    this.error_message="";
-                    this.errors={};
-                    //this.$router.go({name: 'home'});
-                })
-                .catch(err => {
-                    this.status='error';
-                    this.errors=err.data;
-                });
         },
 
     },

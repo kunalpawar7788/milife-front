@@ -7,6 +7,9 @@ import './registerServiceWorker';
 import AsyncComputed from 'vue-async-computed';
 import Vuelidate from 'vuelidate';
 import VueProgressBar from 'vue-progressbar';
+import VuePromiseBtn from 'vue-promise-btn';
+import 'vue-promise-btn/dist/vue-promise-btn.css';
+Vue.use(VuePromiseBtn);
 
 import _ from 'lodash';
 Object.defineProperty(Vue.prototype, '$_', { value: _ });
@@ -60,4 +63,11 @@ Vue.prototype.$http.interceptors.request.use(config => {
 Vue.prototype.$http.interceptors.response.use(response => {
     Vue.prototype.$Progress.finish(); // finish when a response is received
     return response;
+}, error => {
+    Vue.prototype.$Progress.fail();
+
+    // vueApp.loading = false;
+    // vueApp.errors = error.response.data.errors || { "none": [error.response.data.message] };
+    // vueApp.error = true;
+    return Promise.reject(error);
 });
