@@ -63,7 +63,6 @@
 
 <script>
 import store from '@/store';
-import axios from 'axios';
 import Multiselect from 'vue-multiselect';
 import SelectedUserDisplay from '@/components/SelectedUserDisplay';
 
@@ -200,8 +199,6 @@ export default {
         },
 
         upsert_document: function() {
-            axios.defaults.headers.common['Authorization'] = "Token " + localStorage.getItem('token');
-
             let formData = new FormData();
             if (! this.document_id){
                 formData.append('document', this.doc.file);
@@ -211,7 +208,7 @@ export default {
             formData.append('kind', this.doc.kind);
 
             new Promise((resolve, reject) => {
-                axios({
+                this.$http({
                     url: this.upsert_url,
                     data: formData,
                     method: this.upsert_method,
