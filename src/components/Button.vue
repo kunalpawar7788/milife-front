@@ -1,6 +1,6 @@
 <template>
-<button class="milife-button" @click="onClick">
-  <span><slot>Button</slot></span>
+<button class="milife-button" @click="invoke">
+  <span><slot> save{{busy}}</slot></span>
 </button>
 </template>
 
@@ -18,7 +18,28 @@ export default {
             required: false,
 
         },
-    }
+    },
+    data() {
+        return {
+            busy: false,
+        };
+    },
+
+    methods: {
+        invoke: function(){
+            this.busy=true;
+            return new Promise((resolve, reject) => {
+                this.onClick()
+                    .then({
+                        this.busy=false;
+                    })
+                    .catch({
+                        this.busye=false;
+                    })
+
+            });
+        },
+    },
 }
 
 </script>

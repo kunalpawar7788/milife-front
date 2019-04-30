@@ -27,7 +27,7 @@ export default {
     components: {Datepicker, WeightInput},
     data() {
         return {
-            measured_on: Date(),
+            measured_on: new Date(),
             weight: {
                 magnitude_si: 0,
                 preferred_unit: 'imperial'

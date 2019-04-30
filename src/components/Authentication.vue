@@ -23,12 +23,10 @@
 
 <script>
 import store from '@/store';
-import MilifeButton from '@/components/Button.vue'
 import ErrorMessage from '@/components/ErrorMessage.vue'
 
 export default {
     components: {
-        MilifeButton,
         ErrorMessage,
     },
     name: "Authentication",

@@ -74,7 +74,6 @@ export default {
                     this.errors={};
                     this.step=2;
                     this.status_d = resp.data
-                    console.log(resp.data);
                 })
                 .catch(err => {
                     err.response.data['errors'].forEach((element, index, array) =>{
