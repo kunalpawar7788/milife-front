@@ -2,44 +2,83 @@ import Vue from 'vue';
 import Router from 'vue-router';
 
 import store from './store';
-import Home from './views/Home.vue';
-import Login from './views/Login.vue';
-import Logout from './views/Logout.vue';
-import Registration from './views/Registration.vue';
-import ChangePassword from './views/ChangePassword.vue';
-import NotFoundComponent from './views/NotFoundComponent.vue';
-import Invitation from './views/Invitation.vue';
-import Unauthorized from '@/views/Unauthorized.vue';
-//import ConfirmEmail from './views/ConfirmEmail'
-import ResetPassword from "@/views/ResetPassword.vue";
-import VerifyUserEmail from './views/VerifyUserEmail.vue';
-import Profile from '@/views/Profile.vue';
-import UserView from '@/views/users/UserView.vue';
-import UserList from '@/views/users/UserList.vue';
-import UserDetail from '@/views/users/UserDetail.vue';
-import Test from '@/views/Test.vue';
-import GraphTest from '@/views/GraphTest.vue';
-import ComposeMessage from '@/views/ComposeMessage.vue';
-import ManageUser from '@/views/users/ManageUser.vue';
-import DocumentList from '@/views/userdocument/DocumentList.vue';
-import AddDocument from '@/views/userdocument/AddDocument.vue';
-import ProgressChart from '@/views/ProgressChart.vue';
-import MeasurementsForm from '@/views/MeasurementsForm';
-import TargetWeightsView from '@/views/TargetWeightsView.vue';
 
-import ProgrammeView from "@/views/programme/ProgrammeView.vue";
-import ProgrammeList from '@/views/programme/ProgrammeList.vue';
-import ProgrammeDetail from '@/views/programme/ProgrammeDetail.vue';
-import ProgrammeAddEdit from '@/views/programme/ProgrammeAddEdit.vue';
-import ProgrammeEditSessions from '@/views/programme/ProgrammeEditSessions.vue';
-import HolidayAdd from '@/views/programme/HolidayAdd.vue';
-import BankSessionAdd from '@/views/programme/BankSessionAdd.vue';
-import LogWeightView from '@/views/LogWeightView.vue';
-import AddUserView from '@/views/users/AddUserView.vue';
-import EditUserView from '@/views/users/EditUserView.vue';
-import UploadCSVView from "@/views/UploadCSVView.vue";
-import PendingUserList from "@/views/users/PendingUserList.vue";
-import AddEditMealPlan from "@/views/mealplan/AddEditMealPlan.vue";
+// import Home from './views/Home.vue';
+// import Login from './views/Login.vue';
+// import Logout from './views/Logout.vue';
+// import Registration from './views/Registration.vue';
+// import ChangePassword from './views/ChangePassword.vue';
+// import NotFoundComponent from './views/NotFoundComponent.vue';
+// import Invitation from './views/Invitation.vue';
+// import Unauthorized from '@/views/Unauthorized.vue';
+// //import ConfirmEmail from './views/ConfirmEmail'
+// import ResetPassword from "@/views/ResetPassword.vue";
+// import VerifyUserEmail from './views/VerifyUserEmail.vue';
+// import Profile from '@/views/Profile.vue';
+// import UserView from '@/views/users/UserView.vue';
+// import UserList from '@/views/users/UserList.vue';
+// import UserDetail from '@/views/users/UserDetail.vue';
+// import Test from '@/views/Test.vue';
+// import GraphTest from '@/views/GraphTest.vue';
+// import ComposeMessage from '@/views/ComposeMessage.vue';
+// import ManageUser from '@/views/users/ManageUser.vue';
+// import DocumentList from '@/views/userdocument/DocumentList.vue';
+// import AddDocument from '@/views/userdocument/AddDocument.vue';
+// import ViewDocument from '@/views/userdocument/ViewDocument.vue';
+// import ProgressChart from '@/views/ProgressChart.vue';
+// import MeasurementsForm from '@/views/MeasurementsForm';
+// import TargetWeightsView from '@/views/TargetWeightsView.vue';
+// import ProgrammeView from "@/views/programme/ProgrammeView.vue";
+// import ProgrammeList from '@/views/programme/ProgrammeList.vue';
+// import ProgrammeDetail from '@/views/programme/ProgrammeDetail.vue';
+// import ProgrammeAddEdit from '@/views/programme/ProgrammeAddEdit.vue';
+// import ProgrammeEditSessions from '@/views/programme/ProgrammeEditSessions.vue';
+// import HolidayAdd from '@/views/programme/HolidayAdd.vue';
+// import BankSessionAdd from '@/views/programme/BankSessionAdd.vue';
+// import LogWeightView from '@/views/LogWeightView.vue';
+// import AddUserView from '@/views/users/AddUserView.vue';
+// import EditUserView from '@/views/users/EditUserView.vue';
+// import UploadCSVView from "@/views/UploadCSVView.vue";
+// import PendingUserList from "@/views/users/PendingUserList.vue";
+// import AddEditMealPlan from "@/views/mealplan/AddEditMealPlan.vue";
+
+const Home =()=> import('./views/Home.vue');
+const Login =()=> import('./views/Login.vue');
+const Logout =()=> import('./views/Logout.vue');
+const Registration =()=> import('./views/Registration.vue');
+const ChangePassword =()=> import('./views/ChangePassword.vue');
+const NotFoundComponent =()=> import('./views/NotFoundComponent.vue');
+const Invitation =()=> import('./views/Invitation.vue');
+const Unauthorized =()=> import('@/views/Unauthorized.vue');
+const ResetPassword =()=> import("@/views/ResetPassword.vue");
+const VerifyUserEmail =()=> import('./views/VerifyUserEmail.vue');
+const Profile =()=> import('@/views/Profile.vue');
+const UserView =()=> import('@/views/users/UserView.vue');
+const UserList =()=> import('@/views/users/UserList.vue');
+const UserDetail =()=> import('@/views/users/UserDetail.vue');
+const Test =()=> import('@/views/Test.vue');
+const GraphTest =()=> import('@/views/GraphTest.vue');
+const ComposeMessage =()=> import('@/views/ComposeMessage.vue');
+const ManageUser =()=> import('@/views/users/ManageUser.vue');
+const DocumentList =()=> import('@/views/userdocument/DocumentList.vue');
+const AddDocument =()=> import('@/views/userdocument/AddDocument.vue');
+const ViewDocument =()=> import('@/views/userdocument/ViewDocument.vue');
+const ProgressChart =()=> import('@/views/ProgressChart.vue');
+const MeasurementsForm =()=> import('@/views/MeasurementsForm');
+const TargetWeightsView =()=> import('@/views/TargetWeightsView.vue');
+const ProgrammeView =()=> import("@/views/programme/ProgrammeView.vue");
+const ProgrammeList =()=> import('@/views/programme/ProgrammeList.vue');
+const ProgrammeDetail =()=> import('@/views/programme/ProgrammeDetail.vue');
+const ProgrammeAddEdit =()=> import('@/views/programme/ProgrammeAddEdit.vue');
+const ProgrammeEditSessions =()=> import('@/views/programme/ProgrammeEditSessions.vue');
+const HolidayAdd =()=> import('@/views/programme/HolidayAdd.vue');
+const BankSessionAdd =()=> import('@/views/programme/BankSessionAdd.vue');
+const LogWeightView =()=> import('@/views/LogWeightView.vue');
+const AddUserView =()=> import('@/views/users/AddUserView.vue');
+const EditUserView =()=> import('@/views/users/EditUserView.vue');
+const UploadCSVView =()=> import("@/views/UploadCSVView.vue");
+const PendingUserList =()=> import("@/views/users/PendingUserList.vue");
+const AddEditMealPlan =()=> import("@/views/mealplan/AddEditMealPlan.vue");
 
 
 Vue.use(Router);
@@ -85,6 +124,7 @@ const router = new Router({
             { path: 'compose-message', component: ComposeMessage, name: "compose-message", meta: {requiresAdmin: true}},
             { path: 'documents', component: DocumentList, name: "user-documents", meta: {requiresAdmin: true}},
             { path: 'documents/:doc_pk/edit', component: AddDocument, name: "user-document-edit", meta: {requiresAdmin: true}},
+            { path: 'documents/:doc_pk', component: ViewDocument, name: "user-document-view", meta: {requiresAdmin: true}},
             { path: 'documents/add', component: AddDocument, name: "user-document-add", meta: {requiresAdmin: true}},
             { path: 'progress-chart', component: ProgressChart, name: "progress-chart", meta: {requiresAdmin: true}},
             { path: 'add-checkin', component: MeasurementsForm , name: "add-checkin", meta: {requiresAdmin: true}},
