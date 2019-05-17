@@ -3,7 +3,7 @@ module.exports = {
         loaderOptions: {
             sass: {
                 data: `
-                    @import "~@/scss/_typo.scss";
+                    @import "~@/assets/fonts/Montserrat.css";
                     @import "~@/scss/global.scss";
                 `
             }
