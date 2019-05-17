@@ -38,9 +38,9 @@ export default {
             }
             return this.$_.orderBy(d, 'x');
         },
-        
+
         target_data(){
-            
+
         },
         all_dates() {
             var d= [];
@@ -52,18 +52,18 @@ export default {
             }
             // console.log(d);
             // console.log(d.sort());
-            
+
             return d.sort();
         }
     },
     methods:{
-        
+
         load_chart3: function() {
-            
+
             var margin = {top: 10, right: 10, bottom: 30, left: 30},
                 width = this.width - margin.left - margin.right,
                 height = this.height - margin.top - margin.bottom;
-            
+
             var x = d3.scaleTime()
                 .range([0, width])
                 .domain([new Date(this.all_dates[0]), new Date(this.all_dates.slice(-1)[0])]);

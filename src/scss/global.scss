@@ -2,6 +2,9 @@ $milife-green: #8AC53F;
 $milife-blue: #005273;
 $milife-magenta: #E37B59;
 $milife-grey: #9b9b9b;
+$milife-orange: #fcb216;
+$milife-yellow: #ffdd00;
+$milife-yellow2: #EACF23;
 
 $milife-icon: "../assets/images/milife-icon-white.svg";
 $milife-pwd-key: '../assets/images/password-key-icon.svg';
@@ -18,6 +21,7 @@ $milife-menu-close-icon: "../assets/images/menu-dark-close.svg";
 //previous-arrow.svg
 //text-input-dropdown-arrow-white.svg
 //thank-you-tick-green.svg
+
 
 
 html {
@@ -46,7 +50,7 @@ body{
     //padding-left: 20px;
     text-indent: 20px;
     font-size: 15pt;
-    font-family: Monteserrat Regular;
+    font-family: Montserrat Regular;
     width: 300px;
     outline: none;
     //padding-top: 20px;
@@ -85,3 +89,140 @@ input[type='number'] {
 // input[type='number']:hover::-webkit-outer-spin-button {
 //     -webkit-appearance: none; 
 //     margin: 0; }
+
+.bg-blue {
+    background-color: $milife-blue;
+}
+.bg-green{
+    background-color: $milife-green;
+}
+.bg-orange{
+    background-color: $milife-orange;
+}
+.bg-magenta {
+    background-color: $milife-magenta;
+}
+.bg-grey{
+    background-color: $milife-grey;
+}
+.bg-white{
+    background-color: white;
+}
+.bg-yellow {
+    background-color: $milife-yellow;
+}
+.bg-yellow2 {
+    background-color: $milife-yellow2;
+}
+
+//font-color
+.fc-blue {
+    color: $milife-blue;
+}
+.fc-green{
+    color: $milife-green;
+}
+.fc-orange{
+    color: $milife-orange;
+}
+.fc-magenta {
+    color: $milife-magenta;
+}
+.fc-grey{
+    color: $milife-grey;
+}
+.fc-white{
+    color: white;
+}
+.fc-yellow {
+    color: $milife-yellow;
+}
+.fc-yellow2{
+    color: $milife-yellow2;
+}
+.fc-black {
+    color: black;
+}
+.fc-darkgrey{
+    color: #5c5c5c;
+}
+
+
+.br-10{
+    border-radius: 10px;
+}
+
+.br-20{
+    border-radius: 20px;
+}
+.br-50{
+    border-radius: 50px;
+}
+
+
+.mt-10{
+    margin-top: 10px;
+}
+
+.ml-10{
+    margin-left: 10px;
+}
+.pl-10{
+    padding-left: 10px;
+}
+.pl-20{
+    padding-left: 20px;
+}
+
+.pr-10{
+    padding-right: 10px;
+}
+.pr-20 {
+    padding-right: 20px;
+}
+.pd-20 {
+    padding: 20px;
+}
+.pd-10 {
+    padding: 10px;
+}
+
+//heading-font1
+.heading-1{
+    font-size: 35pt;
+    font-weight: normal;
+    font-style: normal;
+    letter-spacing: 0.32pt;
+    line-height: 43pt;
+}
+.heading-2{
+    font-weight: 600;
+    font-style: normal;
+    letter-spacing: .44pt;
+    line-height: 22pt;
+}
+
+.label-1{
+    font-weight: normal;
+    font-style: normal;
+    font-size: 18pt;
+    letter-spacing: 0.22pt;
+    line-height: 22pt;
+}
+
+.fw-600{
+    font-weight: 600;
+}
+
+.fw-500{
+    font-weight: 500;
+}
+
+.opacity-34{
+    opacity: .34;
+}
+
+.flex-spacebetween {
+    display: flex;
+    justify-content: space-between;
+}

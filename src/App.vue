@@ -45,16 +45,16 @@ export default {
 
 <style lang="scss">
 #app {
-    font-family: Monteserrat Regular; /* 'Avenir', Helvetica, Arial, sans-serif;*/
+    font-family: Montserrat; /* 'Avenir', Helvetica, Arial, sans-serif;*/
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #ffffff;
     text-align: center;
-    padding:8px;
+
     margin: 0;
     min-height: 100%;
-
+    max-width: 500px;
 }
 .button{
     background-color: #8AC53F;

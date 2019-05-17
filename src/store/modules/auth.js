@@ -125,6 +125,14 @@ const mutations = {
             is_staff: data.is_staff,
             is_active: data.is_active,
             email_verified: data.email_verified,
+            id: data.id,
+            weight_kg: data.weight_kg,
+            weight_unit: data.weight_unit,
+            height_cm: data.height_cm,
+            height_unit: data.height_unit,
+            date_of_birth: data.date_of_birth,
+            gender: data.gender,
+
         };
         state.token = data.auth_token;
         localStorage.setItem('token', data.auth_token);

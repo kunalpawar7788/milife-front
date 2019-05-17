@@ -1,22 +1,300 @@
 <template>
-<div class="client-dashboard">
-<h1> Client Dashboard</h1>
-The quick brown fox jumps over the lazy dog.
-</div>
+<div class="client-dashboard" ref="clientdashboard" v-if="status=='ready'">
+  <section class="weight_summary bg-blue br-20 mt-10" ref="weightSummarySection">
+    <div class="body">
+      <div class="left-half">
+        <div class="current_weight heading-1">
+          <template v-if="current_weight">{{current_weight.weight}}</template> kg
+        </div>
+        <div class="target_weight label-1">
+          <template v-if="current_target"> Target {{current_target.weight}} kg </template>
+          <template v-else> Target -- </template>
+          Kg
+        </div>
+      </div>
+      <MiniWeightChart
+        :height="chart_height"
+        :width="chart_width"
+        :weight_log="weight_log"
+        :target_weights="target_weights"
+        ></MiniWeightChart>
+    </div>
+    <footer>
+      View Detailed Chart &gt
+    </footer>
+  </section>
+  
+  <section class="calorie-summary bg-green br-20 mt-10">
+    <div class="calorie-target">
+      {{data.calorie}}
+    </div>
+    <div class="message">
+      Calorie Target
+    </div>
+    <div class="link">
+      View Breakdown &gt
+    </div>
+  </section>
+  
+  <section class="progress-report-summary ">
+    <table class="bg-yellow br-20 mt-10 fc-darkgrey">
+      <thead class="fc-black">
+        <tr>
+          <th> </th>
+          <th>{{this.pr[1].month}}</th>
+          <th>{{this.pr[0].month}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td> Body Fat</td>
+          <td class="fw-500">{{this.pr[1].body_fat}}</td>
+          <td class="fw-500">{{this.pr[0].body_fat}}</td>
+        </tr>
+        <tr>
+          <td> % Body Fat</td>
+          <td class="fw-500">{{this.pr[1].percentage_body_fat}}<span class="opacity-34">%</span></td>
+          <td class="fw-500">{{this.pr[0].percentage_body_fat}}<span class="opacity-34">%</span></td>
+        </tr>
+        <tr>
+          <td> Muscle Mass</td>
+          <td class="fw-500">{{this.pr[1].muscle_mass}}</td>
+          <td class="fw-500">{{this.pr[0].muscle_mass}}</td>
+        </tr>
+        <tr>
+          <td> % Muscle Mass</td>
+          <td class="fw-500">{{this.pr[1].percentage_muscle_mass}}<span class="opacity-34">%</span> </td>
+          <td class="fw-500">{{this.pr[0].percentage_muscle_mass}}<span class="opacity-34">%</span> </td>
+        </tr>
 
+        <tr class="fc-black">
+          <td class="bg-yellow2">
+            <span class="pl-10">Starts from
+              <template  v-if="this.data.programme" > {{this.data.programme.start_date}} </template>
+            </span>
+          </td >
+          <td class="bg-yellow2" colspan="2">
+            <span class="pr-10">View more &gt</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <div class="last-line flex-spacebetween">
+    <section class="message-button bg-green br-50 mt-10 flex-spacebetween">
+      <span class="pd-20"> Messages </span>
+      <span class="pd-20"> {{this.data.messages_count}}</span>
+    </section>
+
+    <section class="log-weight-cta bg-magenta br-10 mt-10 ml-10">
+
+    </section>
+  </div>
+</div>
 </template>
 
 <script>
 import store from '@/store'
+import MiniWeightChart from "@/components/MiniWeightChart.vue";
 
 export default {
     name: 'ClientDashboard',
     data() {
         return {
+            data:{},
+            status: 'initial',
         }
     },
     components: {
+        MiniWeightChart,
+    },
+
+    computed: {
+        chart_height: function() {
+            return screen.height * 0.14;
+        },
+        chart_width: function() {
+            return screen.width * 0.45;
+        },
+        user: function(){
+            var d = Object.assign({}, this.$store.state.auth.user);
+            console.log(d);
+            return d;
+        },
+        weight_log: function(){
+            return this.$_.orderBy(this.data.weight_log, 'measured_on');
+        },
+        current_weight: function(){
+            return this.$_.last(this.weight_log);
+        },
+
+        target_weights: function(){
+            return this.$_.orderBy(this.data.target_weight, 'target_date');
+        },
+
+        current_target: function(){
+            var d = {};
+            for(var i=0; i<this.target_weights.length; i++){
+                d[this.target_weights[i].target_date] = this.target_weights[i].target_weight;
+            }
+            return  d[new Date()];
+        },
+        pr: function(){
+            return this.data.progress_report;
+        },
+
+    },
+
+    methods: {
+        fetch_dashboard_data: function() {
+            const url = process.env.VUE_APP_BASE_URL+'/api/dashboard/' + this.user.id;
+            this.$http({url: url, params:this.params, method: 'GET'})
+                .then(resp => {
+                    this.data = resp.data;
+                    this.status = "ready";
+                })
+                .catch(err => {
+                    this.status='error';
+                    console.log(err);
+                });
+        },
+    },
+    mounted(){
+        console.log(this.chart_width);
+    },
+    created(){
+        this.fetch_dashboard_data();
+
     },
 
 }
 </script>
+
+<style lang="scss">
+.left-half{
+    margin: auto;
+    width: 50%;
+}
+.client-dashboard{
+    padding: 10px;
+}
+section.weight_summary{
+    height: 22vh;
+    display:flex;
+    flex-direction: column;
+    .body {
+        align-self: stretch;
+        height: 80%;
+        display: flex;
+    }
+    .current_weight {
+        /* color: white; */
+        /* font-size: 35pt; */
+    }
+    .target_weight {
+        color: white;
+        font-size: 18pt;
+    }
+    
+    footer {
+        align-self: flex-end;
+        border-top: 1px solid white;
+        width: 100%;
+        padding: 5px;
+        color: white;
+    }
+    
+    * {
+        /* border: 1px solid red; */
+    }
+}
+
+section.calorie-summary{
+    margin-top: 10px;
+    height: 10vh;
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    grid-template-rows: 1fr 1fr;
+    
+    * {
+        color: white;
+    }
+    
+    .calorie-target {
+        grid-column: 1 / 1;
+        grid-row: 1/ span 2;
+        justify-self: center;
+        align-self: center;
+        font-size: 34pt;
+        letter-spacing: .31px;
+    }
+    
+    .message {
+        align-self: end;
+        font-size: 18px;
+    }
+    .link {
+        align-self: start;
+        font-size: 14px;
+    }
+}
+section.progress-report-summary{
+    /* height: 30vh; */
+    table {
+        width: 100%;        
+        border-collapse: collapse;
+        * {
+            padding: 5px;
+        }
+
+        
+        th{
+            text-align:left;
+        }
+        
+        td{
+            text-align: left;
+            @extend .pd-10;
+            padding-left: 20px;
+        }
+        td:first-child{
+            width: 50%;
+        }
+        td:not(:first-child){
+            width: 25%;
+        }
+        tbody  tr:not(:last-child) {
+            border-bottom: 1px solid white;
+        }
+
+        tbody tr:last-child{
+            td:first-child {
+                border-radius: 0px 0px 0px 20px;
+            }
+            td:last-child{
+                border-radius: 0px 0px 20px 0px;
+                text-align: right;
+            }
+
+        }
+    }
+}
+
+section.message-button {
+    width: 80%;
+    div {
+        margin: 0 auto;
+        span {
+            padding-left: 30px;
+        }
+    }
+}
+
+section.log-weight-cta{
+    height: 70px;
+    width: 70px;
+}
+div.last-line{
+}
+</style>
