@@ -146,7 +146,6 @@ export default {
         this.$store.dispatch("theme/set_theme_white");
         this.fetch_target_weights();
     },
-    
 }
 </script>
 
