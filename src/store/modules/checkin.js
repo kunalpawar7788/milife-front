@@ -33,7 +33,6 @@ const getters = {
 const actions = {
     fetch_checkin_for_user_by_date({state, commit}){
         const endpoint = "/api/users/" + state.user_id + "/checkin/" + moment(state.checkin_date).format("YYYY-MM-DD");
-        console.log(state, endpoint);
         const url = process.env.VUE_APP_BASE_URL + endpoint;
         axios.defaults.headers.common['Authorization'] = "Token " + localStorage.getItem('token');
         return new Promise((resolve, reject) => {
@@ -57,7 +56,6 @@ const actions = {
         var method = 'POST';
         var endpoint = "/api/users/" + state.user_id + "/checkin";
         if (state.id) {
-            console.log(state.id);
             method = 'PATCH';
             endpoint = "/api/users/" + state.user_id + "/checkin/" + formatted_date;
         }
@@ -70,7 +68,6 @@ const actions = {
         }
         formData.append('photo_front_profile',state.photo_front_profile );
         formData.append('photo_side_profile', state.photo_side_profile);
-        console.log(payload);
         return new Promise((resolve, reject) => {
             axios({
                 url: url,
@@ -85,10 +82,8 @@ const actions = {
             })
                 .then(resp => {
                     commit('CHECKIN_FETCH_SUCCESS', resp.data);
-                    console.log('success', resp.data);
                     resolve(resp);
                 }).catch(err => {
-                    console.log('failure', err)
                     reject(err);
                 });
         });
