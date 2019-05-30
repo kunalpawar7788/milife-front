@@ -54,7 +54,7 @@ export default {
 
     margin: 0;
     min-height: 100%;
-    max-width: 500px;
+    /* max-width: 500px; */
 }
 .button{
     background-color: #8AC53F;
