@@ -1,5 +1,5 @@
 <template>
-<div class="bodytypechart-container">
+<div class="bodytypechart-container" v-if="datapoints">
 
   <svg :width="canvas_width" :height="canvas_width">
     <g>
@@ -55,9 +55,10 @@ import * as d3 from 'd3';
 
 export default{
     name: "BodyTypeProgressionChart",
+    props: ['datapoints', 'gender'],
     data() {
         return {
-            datapoints: [
+            dataoints: [
                 {date: "2018-08-08", bmi: 25, bfp: 30},
                 {date: "2018-11-08", bmi: 0, bfp: 25},
                 {date: "2018-11-08", bmi: 27, bfp: 27},
@@ -74,7 +75,7 @@ export default{
             margin_right: 10,
             min_x: 10,
             max_x: 40,
-            gender: "F",
+            // gender: "F",
 
             grid_m:[
                 {x1: 10, y1: 15, x2: 40, y2:15},
@@ -162,13 +163,14 @@ export default{
     },
     components: {},
     computed: {
+
         gridlines: function(){return this.gender==='F'? this.grid_f: this.grid_m},
         labels: function(){return this.gender==='F'? this.labels_f: this.labels_m},
         width: function(){return this.canvas_width - this.margin_left - this.margin_right;},
         height: function(){return this.canvas_height - this.margin_top - this.margin_bottom;},
 
-        min_y: function(){return this.gender==="F"? 10 : 5},
-        max_y: function(){return this.gender==="F"? 50 : 40},
+        min_y: function(){return this.gender=="F"? 10 : 5},
+        max_y: function(){return this.gender=="F"? 50 : 40},
 
         coords: function(){
             return this.datapoints.map(node => {
@@ -227,13 +229,14 @@ export default{
 
         load_plot: function(){
             var svgContainer = d3.select("svg");
+            console.log(this.datapoints)
             var line = d3.line()
                 .x(function(d) {
-                    console.log('x', this.x);
+                    console.log('x', this.x(d.bmi));
                     return this.x(d.bmi)}
                    .bind(this))
                 .y(function(d) {
-                    //console.log(d.y, y(d.y));
+                    console.log('y', this.y(d.bfp));
                     return this.y(d.bfp)}.bind(this));
 
             svgContainer.append("path")
@@ -245,101 +248,10 @@ export default{
 
 
         },
-        load_chart: function(d) {
-
-            var canvas_width = 300;
-            let canvas_height =  300;
-
-            var margin = {top: 10, right: 10, bottom: 30, left: 30},
-                width = canvas_width - margin.left - margin.right,
-                height = canvas_height - margin.top - margin.bottom;
-
-            var max_bmi = Math.ceil(Math.max.apply(Math, d.map(function(o) { return o.bmi; }))/10) * 10;
-            var min_bmi = Math.floor(Math.min.apply(Math, d.map(function(o) { return o.bmi; }))/10) * 10;
-
-            var x = d3.scaleLinear()
-                .domain([min_bmi, max_bmi])
-                .range([0,width])
-
-            var dummy = d3.scaleLinear().domain([this.min_bmi, this.max_bmi]).range([0,this.width]);
-            // console.log('this here>>>', dummy(10), this.min_bmi, this.max_bmi, this.width);
-
-            var max_bfp = Math.ceil(Math.max.apply(Math, d.map(function(o) { return o.bfp; }))/10) * 10;
-            var min_bfp = Math.floor(Math.min.apply(Math, d.map(function(o) { return o.bfp; }))/10) * 10;
-
-            var y = d3.scaleLinear()
-                .domain([min_bfp, max_bfp])
-                .range([height,0])
-
-            var xAxis = d3.axisBottom()
-                .scale(x)
-
-            var xMinorAxis = d3.axisBottom()
-                .scale(x)
-                .ticks(d3.timeHours,12)
-
-            var yAxis = d3.axisLeft()
-                .scale(y)
-
-
-            var svgContainer = d3.select("svg")
-                .style("border", "1px solid");
-
-            svgContainer.append("g")
-                .classed("x-axis", true)
-                .attr("transform", function() {
-                    // console.log(height- margin.bottom)
-                    const temp = height +margin.top
-                    return "translate(" + margin.left + "," + temp + ")";
-                })
-               .call(xAxis);
-
-            svgContainer.append("g")
-                .classed("y-axis", true)
-                .attr("transform", function() {
-                    return "translate(" + margin.left + "," + margin.top + ")";
-                })
-                .call(yAxis);
-
-            var line = d3.line()
-                .x(function(d) {
-                    //console.log(d.x, x(new Date(d.x)));
-                    return x(d.bmi)})
-                .y(function(d) {
-                    //console.log(d.y, y(d.y));
-                    return y(d.bfp);});
-
-            // var points = d3.circle()
-            //     .x(function(d) {return x(d.bmi)})
-            //     .y(function(d) {return y(d.bfp)})
-
-            svgContainer.append("path")
-                .classed("line-chart", true)
-                .attr("d", line(d))
-                .attr("fill", "none")
-                .attr("transform", function() {
-                    return "translate(" + margin.left + "," + margin.top + ")";
-                });
-
-            // svgContainer.append("circle")
-            //     .data(d)
-            //     .attr("cx", function(dd){
-            //         console.log("bleh>>>",dd.bmi, x(dd.bmi));
-            //         return x(dd.bmi);})
-            //     .attr("cy", function(d){return y(d.bfp)})
-            //     .attr("r", 10)
-
-            //     .attr("transform", function() {
-            //         return "translate(" + margin.left + "," + margin.top + ")";
-            //     });
-
-        }
     },
     mounted() {
-        // console.log('>>> here');
         this.load_axes();
         this.load_plot();
-        //this.load_chart(this.datapoints);
     },
 }
 </script>
@@ -353,7 +265,7 @@ export default{
 .bodytypechart-container {
     svg {
         margin: 25px;
-        background-color: darken($milife-blue, 10%);
+        background-color: darken($milife-blue, 1%);
 
         path {
             fill: none;
@@ -369,7 +281,7 @@ export default{
         .labels{
             text-anchor: middle;
             font-size: 10px;
-            fill: white;
+            fill: lighten($milife-blue, 20%);
             stroke: none;
         }
     }

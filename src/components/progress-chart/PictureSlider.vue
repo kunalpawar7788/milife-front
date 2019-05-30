@@ -7,8 +7,10 @@
 <script>
 export default{
     name: "PictureSlider",
-  }
+}
 </script>
 
 <style lang="scss">
+.picture-slider{
+}
 </style>

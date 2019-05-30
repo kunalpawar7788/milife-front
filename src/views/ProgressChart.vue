@@ -1,55 +1,174 @@
 <template>
-<div class="progresschart-container">
-
+<div class="progresschart-container pl-10 pr-10" v-if="status=='ready'">
   <div class="menu">
     <SliderMenu
-      v-bind:start_date="start_date"
-      v-bind:end_date="end_date"
-      v-on:input="set_month($event)"
+      v-bind:checkin_dates="checkin_dates"
+      v-model="selected_checkin_date"
       ></SliderMenu>
   </div>
-  <br />
-  <div class="debug">
-    {{selected_month_year}}
+  <PictureSlider></PictureSlider>
+  <BodyTypeProgressionChart
+    v-if="body_type_progression_data.length > 0"
+    :datapoints="body_type_progression_data"
+    :gender="user.gender"
+    >
+  </BodyTypeProgressionChart>
+
+  <div class="button" v-on:click="goto_commentry"> View Commentry </div>
+
+  <h3> Charts & Stats </h3>
+  <StatsAndCharts
+    :progress_report="progress_report_by_date"
+    :selected_checkin_date="selected_checkin_date"
+    :checkin_dates="checkin_dates"
+    v-if="selected_checkin_date!=null"
+    >
+  </StatsAndCharts>
+  <div class="button" v-on:click="download_report">
+    Download Report
   </div>
-  <BodyTypeProgressionChart> </BodyTypeProgressionChart>
 </div>
 </template>
 
 <script>
+import moment from 'moment';
 import SliderMenu from "@/components/progress-chart/SliderMenu.vue";
 import BodyTypeProgressionChart from "@/components/progress-chart/BodyTypeProgressionChart.vue";
-export default {
+import StatsAndCharts from "@/components/progress-chart/StatsAndCharts.vue";
+import PictureSlider from "@/components/progress-chart/PictureSlider.vue";
 
+export default {
     name:"ProgressChart",
-    components: {SliderMenu, BodyTypeProgressionChart},
+    props: ["fobj_user",],
+    components: {SliderMenu, BodyTypeProgressionChart, StatsAndCharts, PictureSlider},
     data() {
         return {
-            start_date: new Date(2018,1,10),
-            end_date: new Date(2019,1,1),
-
-            selected_month_year: {}
-
+            errors: {},
+            progress_report: {},
+            selected_checkin_date: null,
+            status: "waiting"
         }
     },
-    methods: {
-        set_month: function(event) {
-            this.selected_month_year = event
+
+    computed: {
+        checkin_dates_frequency_d: function(){
+            var counts = {}
+            this.$_.forEach(this.progress_report, function(o){
+                var month_year = moment(o.date_of_checkin, "YYYY-MM-DD").format("MM-YYYY");
+                if (counts[month_year] == null){
+                    counts[month_year] = 1;
+                }
+                else {
+                    counts[month_year] += 1;
+                }
+            })
+            return counts;
+        },
+        checkin_dates: function(){
+            var d = []
+            this.$_.forEach(this.progress_report, function(o){
+                var mobj = moment(o.date_of_checkin, "YYYY-MM-DD"),
+                    month_year = mobj.format("MM-YYYY");
+                d.push({
+                    mobj: mobj,
+                    frequency: this.checkin_dates_frequency_d[month_year],
+                    id: mobj.format("YYYY-MM-DD"),
+                })
+            }.bind(this))
+            // for(var i=0; i<this.progress_report.length; i++){
+            //     {
+            //         moment: moment(this.progress_report[i].date_of_checkin, 'YYYY-MM-DD'),
+
+            //         label: moment.format("")
+
+            //     }
+            //     d.push(moment(this.progress_report[i].date_of_checkin, 'YYYY-MM-DD'));
+            // }
+            // d.sort(this.date_sort_asc);
+            // return d;
+            return this.$_.sortBy(d, function(o){return o.m_obj})
         },
 
+        user: function() {
+            var user = Object.assign({}, this.$store.state.auth.user);
+            if(this.$route.params.pk){
+                user = Object.assign({}, this.fobj_user);
+            }
+            return user;
+        },
+        body_type_progression_data: function(){
+            var l = [];
+            this.$_.forEach(this.progress_report, function(value){
+                l.push({
+                    'date': value.date_of_checkin,
+                    'bmi': parseFloat(value.body_mass_index),
+                    'bfp': parseFloat(value.percentage_body_fat),
+                });
+            }.bind(this));
+            return l;
+        },
+        progress_report_by_date: function() {
+            var d = {};
+            this.$_.forEach(this.progress_report, function(value){
+                d[value.date_of_checkin] = value;
+            }.bind(this));
+            return d;
+        },
+    },
+
+    methods: {
+        goto_commentry: function(){
+            console.log('Implement this> view commentry');
+            //this.$router.push({name: 'upload-csv'});
+        },
+        download_report:function(){
+            alert('not implemented');
+        },
+        date_sort_asc: function (date1, date2) {
+            // This is a comparison function that will result in dates being sorted in
+            // ASCENDING order. As you can see, JavaScript's native comparison operators
+            // can be used to compare dates. This was news to me.
+            if (date1 > date2) return 1;
+            if (date1 < date2) return -1;
+            return 0;
+        },
+        date_sort_desc: function (date1, date2) {
+            // This is a comparison function that will result in dates being sorted in
+            // DESCENDING order.
+            if (date1 > date2) return -1;
+            if (date1 < date2) return 1;
+            return 0;
+        },
+        fetch_progress_report: function(){
+            const url = process.env.VUE_APP_BASE_URL+'/api/users/' + this.user.id + "/progress-report";
+            this.status = "initial"
+            this.$http({url: url, method: 'GET'})
+                .then(resp => {
+                    this.error_message="";
+                    this.errors={};
+                    this.progress_report= resp.data.results;
+                    this.status="ready"
+                })
+                .catch(err => {
+                    this.errors = errors;
+                    this.status="error";
+                });
+        }
     },
     mounted() {
         this.$store.dispatch("theme/set_theme_blue");
+        this.fetch_progress_report();
     },
-
-
+    created() {},
 }
+
+
 </script>
 
 <style lang="scss">
 .progresschart-container{
     overflow: hidden;
-    display: grid;
+    /* display: grid; */
     grid-template-columns: 1fr 80% 1fr;
 
     .menu{
@@ -65,6 +184,5 @@ export default {
     svg {
         grid-column: 1 3;
     }
-
 }
 </style>
