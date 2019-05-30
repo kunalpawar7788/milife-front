@@ -95,6 +95,9 @@ const router = new Router({
           meta: {requiresAuth: true},
       },
       { path: '/login', component: Login, name: 'login', meta: {requiresAnon: true}},
+
+      {path: '/progress-chart', component: ProgressChart, name:'self-progress-chart', meta:{requiresAuth: true}},
+
       { path: '/add-user', component: AddUserView, name: 'add-user', meta: {requiresAdmin: true}},
       { path: '/upload-csv', component: UploadCSVView, name: 'upload-csv', meta: {requiresAdmin: true}},
       { path: '/sign-up', component: Registration, name: 'sign-up', meta: {requiresAnon: true}},
