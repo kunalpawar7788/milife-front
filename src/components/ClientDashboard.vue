@@ -19,11 +19,11 @@
         :target_weights="target_weights"
         ></MiniWeightChart>
     </div>
-    <footer>
+    <footer v-on:click="goto_detailed_weight_chart">
       View Detailed Chart &gt
     </footer>
   </section>
-  
+
   <section class="calorie-summary bg-green br-20 mt-10">
     <div class="calorie-target">
       {{data.calorie}}
@@ -31,11 +31,11 @@
     <div class="message">
       Calorie Target
     </div>
-    <div class="link">
+    <div class="link" v-on:click="goto_view_meal_breakdown">
       View Breakdown &gt
     </div>
   </section>
-  
+
   <section class="progress-report-summary ">
     <table class="bg-yellow br-20 mt-10 fc-darkgrey">
       <thead class="fc-black">
@@ -73,7 +73,7 @@
               <template  v-if="this.data.programme" > {{this.data.programme.start_date}} </template>
             </span>
           </td >
-          <td class="bg-yellow2" colspan="2">
+          <td class="bg-yellow2" colspan="2" v-on:click="goto_detailed_report">
             <span class="pr-10">View more &gt</span>
           </td>
         </tr>
@@ -82,12 +82,18 @@
   </section>
 
   <div class="last-line flex-spacebetween">
-    <section class="message-button bg-green br-50 mt-10 flex-spacebetween">
+    <section
+      class="message-button bg-green br-50 mt-10 flex-spacebetween"
+      v-on:click="goto_message_list"
+      >
       <span class="pd-20"> Messages </span>
       <span class="pd-20"> {{this.data.messages_count}}</span>
     </section>
 
-    <section class="log-weight-cta bg-magenta br-10 mt-10 ml-10">
+    <section
+      class="log-weight-cta bg-magenta br-10 mt-10 ml-10"
+      v-on:click="goto_log_weight"
+      >
 
     </section>
   </div>
@@ -147,6 +153,24 @@ export default {
     },
 
     methods: {
+        goto_detailed_weight_chart: function(){
+            console.log('detiled weight chart');
+
+        },
+        goto_message_list: function(){
+            console.log('messages list');
+        },
+        goto_log_weight: function(){
+            console.log('log_weight');
+
+        },
+        goto_view_meal_breakdown: function(){
+            console.log('meal_breakdown');
+        },
+        goto_detailed_report: function(){
+            console.log('detailed_report');
+            this.$router.push({name: 'self-progress-chart'});
+        },
         fetch_dashboard_data: function() {
             const url = process.env.VUE_APP_BASE_URL+'/api/dashboard/' + this.user.id;
             this.$http({url: url, params:this.params, method: 'GET'})
@@ -196,7 +220,7 @@ section.weight_summary{
         color: white;
         font-size: 18pt;
     }
-    
+
     footer {
         align-self: flex-end;
         border-top: 1px solid white;
@@ -204,7 +228,7 @@ section.weight_summary{
         padding: 5px;
         color: white;
     }
-    
+
     * {
         /* border: 1px solid red; */
     }
@@ -216,11 +240,11 @@ section.calorie-summary{
     display: grid;
     grid-template-columns: 2fr 3fr;
     grid-template-rows: 1fr 1fr;
-    
+
     * {
         color: white;
     }
-    
+
     .calorie-target {
         grid-column: 1 / 1;
         grid-row: 1/ span 2;
@@ -229,7 +253,7 @@ section.calorie-summary{
         font-size: 34pt;
         letter-spacing: .31px;
     }
-    
+
     .message {
         align-self: end;
         font-size: 18px;
@@ -242,17 +266,17 @@ section.calorie-summary{
 section.progress-report-summary{
     /* height: 30vh; */
     table {
-        width: 100%;        
+        width: 100%;
         border-collapse: collapse;
         * {
             padding: 5px;
         }
 
-        
+
         th{
             text-align:left;
         }
-        
+
         td{
             text-align: left;
             @extend .pd-10;
