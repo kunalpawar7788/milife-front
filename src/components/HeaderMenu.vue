@@ -5,9 +5,7 @@
       <img src="@/assets/images/back-green-button.svg"/>
     </div>
     <div v-on:click="go_to_dashboard()">
-      <router-link :to="{ name: 'home'}">
         <img :src="dashboard_icon"/>
-      </router-link>
     </div>
     <div id="sidebar-menu" v-on:click="toggle_menu()">
       <img :src="sidebar_menu_icon" />
@@ -51,7 +49,7 @@ export default {
     methods: {
         go_to_dashboard: function(){
             this.hide_menu();
-            this.$router.go({name: 'home'});
+            this.$router.push({name: 'home'});
         },
         go_back: function(){
             this.hide_menu();
