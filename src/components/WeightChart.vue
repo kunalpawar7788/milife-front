@@ -154,7 +154,7 @@ export default {
             margin: 25px;
             background-color: darken($milife-blue, 10%);
 
-            path {
+            .line-chart {
                 fill: none;
                 /* stroke: #76BF8A; */
                 stroke: red;
