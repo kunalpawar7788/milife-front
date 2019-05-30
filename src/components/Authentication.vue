@@ -3,7 +3,6 @@
   <div class="logo">
     <img src="@/assets/images/milife-icon-white.svg">
   </div>
-
    <form class="loginform" @submit.prevent="login">
      <input class="text-input" required v-model="email" type="email" placeholder="your.name@example.com"/>
      <br>
@@ -35,6 +34,7 @@ export default {
             email: "",
             password: "",
             error_message: "",
+            error: null,
         }
     },
 
@@ -45,6 +45,7 @@ export default {
             this.$store.dispatch('auth/login', { email, password })
                 .then(() => this.$router.push('/'))
                 .catch(err =>{
+                    this.error = err;
                     console.log(err)
                     this.error_message = err.response.data['errors'][0]['message'];
                     console.log(this.error_message);
