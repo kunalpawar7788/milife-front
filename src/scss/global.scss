@@ -1,5 +1,6 @@
 $milife-green: #8AC53F;
 $milife-blue: #005273;
+$milife-lightblue: lighten($milife-blue, 10%);
 $milife-magenta: #E37B59;
 $milife-grey: #9b9b9b;
 $milife-orange: #fcb216;
@@ -93,6 +94,9 @@ input[type='number'] {
 .bg-blue {
     background-color: $milife-blue;
 }
+.bg-lightblue {
+    background-color: $milife-lightblue;
+}
 .bg-green{
     background-color: $milife-green;
 }
@@ -130,6 +134,9 @@ input[type='number'] {
 }
 .fc-grey{
     color: $milife-grey;
+}
+.fc-lightblue {
+    color: $milife-lightblue;
 }
 .fc-white{
     color: white;
@@ -170,6 +177,9 @@ input[type='number'] {
 .pl-10{
     padding-left: 10px;
 }
+.pr-10{
+    padding-right: 10px;
+}
 .pl-20{
     padding-left: 20px;
 }
@@ -209,6 +219,49 @@ input[type='number'] {
     letter-spacing: 0.22pt;
     line-height: 22pt;
 }
+
+.fn-11{
+    font-weight: normal;
+    font-style: normal;
+    font-size: 10pt;
+    letter-spacing: normal;
+    line-height: 12pt;
+}
+
+
+.fn-12{
+    font-weight: normal;
+    font-style: normal;
+    font-size: 12pt;
+    letter-spacing: normal;
+    line-height: 14pt;
+}
+
+
+.fn-14{
+    font-weight: normal;
+    font-style: normal;
+    font-size: 14pt;
+    letter-spacing: normal;
+    line-height: 18pt;
+}
+
+.fn-18{
+    font-weight: normal;
+    font-style: normal;
+    font-size: 18pt;
+    letter-spacing: 0.22pt;
+    line-height: 22pt;
+}
+
+.fn-16{
+    font-weight: normal;
+    font-style: normal;
+    font-size: 16pt;
+    letter-spacing: 0.19pt;
+    line-height: 19pt;
+}
+
 
 .fw-600{
     font-weight: 600;
