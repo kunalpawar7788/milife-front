@@ -93,3 +93,4 @@ section.compose-message-container {
     }
 }
 </style>
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>

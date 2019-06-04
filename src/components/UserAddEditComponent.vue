@@ -5,18 +5,7 @@
 
   <div>
     <input
-      class="text-input"
-      type="text"
-      v-model="accuniq_id"
-      placeholder="Accuniq Id"
-      >
-    </input>
-  </div>
-
-
-  <div>
-    <input
-      class="text-input"
+      :class="{'text-input': true, 'has-error': errors.email}"
       type="text"
       v-model="email"
       placeholder="Email"
@@ -276,6 +265,7 @@ export default {
                         this.error_message="";
                         this.errors={};
                         //this.$router.go({name: 'home'});
+                        this.$router.go(-1);
                         resolve(resp);
                     })
                     .catch(err => {
@@ -312,3 +302,4 @@ section.user-add-edit-container {
     }
 }
 </style>
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
