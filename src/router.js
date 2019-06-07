@@ -79,7 +79,7 @@ const EditUserView =()=> import('@/views/users/EditUserView.vue');
 const UploadCSVView =()=> import("@/views/UploadCSVView.vue");
 const PendingUserList =()=> import("@/views/users/PendingUserList.vue");
 const AddEditMealPlan =()=> import("@/views/mealplan/AddEditMealPlan.vue");
-
+const CheckinForm =()=> import("@/views/CheckinForm.vue");
 
 Vue.use(Router);
 
@@ -130,7 +130,7 @@ const router = new Router({
             { path: 'documents/:doc_pk', component: ViewDocument, name: "user-document-view", meta: {requiresAdmin: true}},
             { path: 'documents/add', component: AddDocument, name: "user-document-add", meta: {requiresAdmin: true}},
             { path: 'progress-chart', component: ProgressChart, name: "progress-chart", meta: {requiresAdmin: true}},
-            { path: 'add-checkin', component: MeasurementsForm , name: "add-checkin", meta: {requiresAdmin: true}},
+            { path: 'add-checkin', component: CheckinForm , name: "add-checkin", meta: {requiresAdmin: true}},
             { path: 'programmes', component: ProgrammeList, name: "programme-list", meta: {requiresAdmin: true}},
             { path: 'programmes/add', component: ProgrammeAddEdit, name: "programme-add", meta: {requiresAdmin: true}},
             { path: 'log-weight', component: LogWeightView, name: "admin-log-weight", meta: {requiresAuth: true}},
