@@ -6,7 +6,9 @@
       v-model="selected_checkin_date"
       ></SliderMenu>
   </div>
-  <PictureSlider></PictureSlider>
+  <PictureSlider
+    v-bind:pictures="pictures"
+    ></PictureSlider>
   <BodyTypeProgressionChart
     v-if="body_type_progression_data.length > 0"
     :datapoints="body_type_progression_data"
@@ -51,6 +53,18 @@ export default {
     },
 
     computed: {
+        pictures: function(){
+            if (this.progress_report.length>0 && this.selected_checkin_date !=null){
+                return {
+                    original_front_profile: this.progress_report[0].photo_front_profile,
+                    original_side_profile: this.progress_report[0].photo_side_profile,
+                    current_side_profile: this.progress_report_by_date[this.selected_checkin_date].photo_side_profile,
+                    current_front_profile: this.progress_report_by_date[this.selected_checkin_date].photo_front_profile,
+                };
+            }
+            return {};
+
+        },
         checkin_dates_frequency_d: function(){
             var counts = {}
             this.$_.forEach(this.progress_report, function(o){
