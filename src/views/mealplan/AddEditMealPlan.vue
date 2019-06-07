@@ -19,9 +19,27 @@
       <tbody>
         <tr>
           <td>% of calories</td>
-          <td :class="[is_daily_breakup_valid? 'green-border': 'red-border']"><NumberInput name="fat" v-on:input="update_daily_breakup($event,'fat') " :value="daily_breakup.fat" placeholder="" :min="1" :max="100"></NumberInput></td>
-          <td :class="[is_daily_breakup_valid? 'green-border': 'red-border']"><NumberInput name="carbohydrates" v-on:input="update_daily_breakup($event,'carbohydrates') " :value="daily_breakup.carbohydrates" placeholder="" :min="1" :max="100"></NumberInput></td>
-          <td :class="[is_daily_breakup_valid? 'green-border': 'red-border']"><NumberInput name="protein" v-on:input="update_daily_breakup($event,'protein') " :value="daily_breakup.protein" placeholder="" :min="1" :max="100"></NumberInput></td>
+          <td :class="[is_daily_breakup_valid? 'green-border': 'red-border']">
+            <NumberInput
+              name="fat"
+              v-on:input="update_daily_breakup(Number($event),'fat') "
+              :value="daily_breakup.fat"
+              placeholder="" :min="1" :max="100">
+          </NumberInput></td>
+          <td :class="[is_daily_breakup_valid? 'green-border': 'red-border']">
+            <NumberInput
+              name="carbohydrates"
+              v-on:input="update_daily_breakup(Number($event),'carbohydrates') "
+              :value="daily_breakup.carbohydrates"
+              placeholder="" :min="1" :max="100">
+          </NumberInput></td>
+          <td :class="[is_daily_breakup_valid? 'green-border': 'red-border']">
+            <NumberInput
+              name="protein"
+              v-on:input="update_daily_breakup(Number($event),'protein')"
+              :value="daily_breakup.protein"
+              placeholder="" :min="1" :max="100">
+          </NumberInput></td>
         </tr>
         <tr>
           <td>Calories</td>
@@ -52,9 +70,25 @@
       <tbody>
         <tr v-for="(mb, index) in data.meal_breakup">
           <td><input type="text" v-on:input="update_meal_breakup($event.target.value, 'name', index)" /></td>
-          <td><NumberInput placeholder="" :min="1" :max="100" v-on:input="update_meal_breakup($event,'fat', index)" v-bind:value="meal_breakup[index].fat" > </NumberInput></td>
-          <td><NumberInput placeholder="" :min="1" :max="100" v-on:input="update_meal_breakup($event,'carbohydrates', index)" v-bind:value="meal_breakup[index].carbohydrates" > </NumberInput></td>
-          <td><NumberInput placeholder="" :min="1" :max="100" v-on:input="update_meal_breakup($event,'protein', index)" v-bind:value="meal_breakup[index].protein"> </NumberInput></td>
+          <td><NumberInput
+                placeholder=""
+                :min="1"
+                :max="100"
+                v-on:input="update_meal_breakup(Number($event),'fat', index)"
+                v-bind:value="meal_breakup[index].fat" >
+          </NumberInput></td>
+          <td><NumberInput
+                placeholder=""
+                :min="1" :max="100"
+                v-on:input="update_meal_breakup(Number($event),'carbohydrates', index)"
+                v-bind:value="meal_breakup[index].carbohydrates" >
+          </NumberInput></td>
+          <td><NumberInput
+                placeholder=""
+                :min="1" :max="100"
+                v-on:input="update_meal_breakup(Number($event),'protein', index)"
+                v-bind:value="meal_breakup[index].protein">
+          </NumberInput></td>
         </tr>
 
         <tr>
@@ -189,11 +223,11 @@ export default {
         },
 
         update_meal_breakup: function(value, field, index){
-            this.data.meal_breakup[index][field] = Number(value);
+            this.data.meal_breakup[index][field] = value;
         },
 
         update_daily_breakup: function(value, field){
-            this.data.daily_breakup[field] = Number(value);
+            this.data.daily_breakup[field] = value;
         },
     },
     created() {
