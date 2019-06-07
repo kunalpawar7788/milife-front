@@ -163,7 +163,7 @@ export default {
                     .then(resp => {
                         resolve(resp);
                         this.$router.go(-1);
-                    }h).catch(err => {
+                    }).catch(err => {
                         reject(err);
                     });
             });
