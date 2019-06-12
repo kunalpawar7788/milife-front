@@ -215,6 +215,7 @@ export default {
                 .catch(err => {
                     this.status='error';
                     console.log(err);
+                    this.$route.go(-1);
                 });
         },
 
