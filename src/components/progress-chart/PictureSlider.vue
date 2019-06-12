@@ -27,7 +27,7 @@
 
     </div>
     <div class="picture">
-      <img :src="pictures.current_front_profile"
+      <img :src="pictures.current_side_profile"
            alt="NA"
            />
     </div>
@@ -56,7 +56,7 @@ export default{
     margin-top: 30px;
     display: flex;
     .picture{
-        height: 250px;
+        height: 350px;
         width: 47%;
 
         img {
