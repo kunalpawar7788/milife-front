@@ -32,7 +32,7 @@
     <div id="mu-7" class="mb mb__full"><router-link :to="{name: 'add-checkin', params: {pk: user.id}}"> Add Checkin </router-link></div>
     <div id="mu-8" class="mb mb__full"><router-link :to="{name: 'testview', params: {pk: user.id}}"> Log Schedule Change </router-link> </div>
 
-    <div id="mu-9" class="mb mb__full"><router-link :to="{name: 'target-weights', params:{'pk' : user.id}}"> Adjust Target Weights</router-link> </div>
+    <div id="mu-9" class="mb mb__full"><router-link :to="{name: 'bulk-weight-update', params:{'pk' : user.id}}"> Update Weight or Target</router-link> </div>
 
   </div>
   <div class="link-sink-1">

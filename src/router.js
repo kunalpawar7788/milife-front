@@ -65,7 +65,7 @@ const AddDocument =()=> import('@/views/userdocument/AddDocument.vue');
 const ViewDocument =()=> import('@/views/userdocument/ViewDocument.vue');
 const ProgressChart =()=> import('@/views/ProgressChart.vue');
 const MeasurementsForm =()=> import('@/views/MeasurementsForm');
-const TargetWeightsView =()=> import('@/views/TargetWeightsView.vue');
+const BulkWeightUpdateView = () => import('@/views/BulkWeightUpdateView.vue');
 const ProgrammeView =()=> import("@/views/programme/ProgrammeView.vue");
 const ProgrammeList =()=> import('@/views/programme/ProgrammeList.vue');
 const ProgrammeDetail =()=> import('@/views/programme/ProgrammeDetail.vue');
@@ -123,7 +123,9 @@ const router = new Router({
             {path: '', component: UserDetail, name: "user-detail"},
             { path: 'edit', component: EditUserView, name: "user-edit", meta: {requiresAdmin: true}},
             { path: 'manage', component: ManageUser, name: "user-manage", meta: {requiresAdmin: true}},
-            { path: 'target-weights', component: TargetWeightsView, name: "target-weights", meta: {requiresAdmin: true}},
+            // { path: 'target-weights', component: TargetWeightsView, name: "target-weights", meta: {requiresAdmin: true}},
+            { path: 'bulk-weight-update', component: BulkWeightUpdateView, name: "bulk-weight-update", meta: {requiresAdmin: true}},
+
             { path: 'compose-message', component: ComposeMessage, name: "compose-message", meta: {requiresAdmin: true}},
             { path: 'documents', component: DocumentList, name: "user-documents", meta: {requiresAdmin: true}},
             { path: 'documents/:doc_pk/edit', component: AddDocument, name: "user-document-edit", meta: {requiresAdmin: true}},
