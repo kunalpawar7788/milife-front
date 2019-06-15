@@ -65,23 +65,13 @@ export default{
 
         }
     }
+
     .arrow-div {
         margin-left: auto;
         width: 6%;
         display: flex;
-        align-items: center;
-    }
-    [class^=arr-]{  /* Arrows @RCB */
-        border:       solid currentColor;
-        border-width: 0 .2em .2em 0;
-        display:      inline-block;
-        padding:      .20em;
-    }
-    .arr-right {transform:rotate(-45deg);}
-    .arr-left  {transform:rotate(135deg);}
-    .arr-up    {transform:rotate(-135deg);}
-    .arr-down  {transform:rotate(45deg);}
-
+    align-items: center;
+}
 
 
 }
