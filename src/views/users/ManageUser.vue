@@ -1,5 +1,5 @@
 <template>
-<div class="manageuser-container">
+<div class="manageuser-container ">
   <loading :active.sync="is_loading"
            :can-cancel="false"
            :is-full-page="true"> </loading>
@@ -9,35 +9,41 @@
     <img class="profile-photo" src="@/assets/images/placeholder-profile.png" v-else/>
   </div>
   <div class="name"> {{user.first_name}} {{user.last_name}} </div>
-  <div class="edit-link-container" v-on:click="goto_edit_user"> Edit details &nbsp &gt </div>
+
+  <div
+    class="edit-link-container fn-12"
+    v-on:click="goto_edit_user"> Edit details <div class="arr-right"> </div>
+  </div>
   <div class="link-sink-1">
-    <span class="left-link" v-on:click="invite_user">
-      <template v-if="fobj_user.invited"> Resend Invite &gt </template>
-      <template v-else> Send Invite &gt</template>
+    <span class="left-link fn-12" v-on:click="invite_user">
+      <template v-if="fobj_user.invited"> Resend Invite  </template>
+      <template v-else> Send Invite <div class="arr-right"> </div> </template>
     </span>
-    <span class="right-link" v-on:click="goto_reset_password"> Reset Password &gt </span>
+    <span class="right-link fn-12"
+          v-on:click="goto_reset_password"> Reset Password
+      <div class="arr-right"> </div>
+    </span>
   </div>
   <div class="mu-buttons link-sink-2">
-    <div id="mu-3" class="mb mb__full"><router-link :to="{name: 'programme-list', params:{pk: user.id}}"> Programmes </router-link> </div>
-    <div id="mu-5" class="mb mb__full"><router-link :to="{name: 'progress-chart', params:{pk: user.id}}"> View Stats and Charts </router-link> </div>
-    <div id="mu-9" class="mb"><router-link :to="{name: 'mealplan-edit', params:{pk: user.id}}"> Meal Plan </router-link> </div>
-    <div id="mu-1" class="mb"><router-link :to="{name: 'user-documents', params:{pk: user.id}}"> View Docs </router-link> </div>
+    <div id="mu-3" class="mb mb__full fn-12"><router-link :to="{name: 'programme-list', params:{pk: user.id}}"> Programmes </router-link> </div>
+    <div id="mu-5" class="mb mb__full fn-12"><router-link :to="{name: 'progress-chart', params:{pk: user.id}}"> View Stats and Charts </router-link> </div>
+    <div id="mu-9" class="mb fn-12"><router-link :to="{name: 'mealplan-edit', params:{pk: user.id}}"> Meal Plan </router-link> </div>
+    <div id="mu-1" class="mb fn-12"><router-link :to="{name: 'user-documents', params:{pk: user.id}}"> View Docs </router-link>
+    </div>
+
 
   </div>
 
   <div class="mu-buttons link-sink-3">
-
-
-    <div id="mu-6" class="mb mb__full"><router-link :to="{name: 'compose-message', params: {pk: user.id}}"> Message </router-link>  </div>
-    <div id="mu-7" class="mb mb__full"><router-link :to="{name: 'add-checkin', params: {pk: user.id}}"> Add Checkin </router-link></div>
-    <div id="mu-8" class="mb mb__full"><router-link :to="{name: 'testview', params: {pk: user.id}}"> Log Schedule Change </router-link> </div>
-
-    <div id="mu-9" class="mb mb__full"><router-link :to="{name: 'bulk-weight-update', params:{'pk' : user.id}}"> Update Weight or Target</router-link> </div>
+    <div id="mu-6" class="mb mb__full fn-12"><router-link :to="{name: 'compose-message', params: {pk: user.id}}"> Message </router-link>  </div>
+    <div id="mu-7" class="mb mb__full fn-12"><router-link :to="{name: 'add-checkin', params: {pk: user.id}}"> Add Checkin </router-link></div>
+    <div id="mu-8" class="mb mb__full fn-12"><router-link :to="{name: 'testview', params: {pk: user.id}}"> Log Schedule Change </router-link> </div>
+    <div id="mu-9" class="mb mb__full fn-12 "><router-link :to="{name: 'bulk-weight-update', params:{'pk' : user.id}}"> Update Weight or Target</router-link> </div>
 
   </div>
-  <div class="link-sink-1">
-    <span class="center">Delete User</span>
 
+  <div class="link-sink-1">
+    <span class="center fn-12 fc-magenta">Delete User</span>
   </div>
 </div>
 </template>
@@ -141,8 +147,6 @@ export default {
     div.edit-link-container{
         color: white;
         margin-top: 20px;
-        font-weight: normal;
-        font-size: 16pt;
     }
 
     div.link-sink-1 {
@@ -154,11 +158,7 @@ export default {
         grid-column-layout: 1fr 1fr;
         margin-top: 20px;
 
-        font-size: 15pt;
-
         span {
-            font-weight: 500;
-            font-size: 16pt;
             place-self: center;
         }
         .left-link {
@@ -174,14 +174,12 @@ export default {
     div.link-sink-2 {
         padding-top: 10px;
         padding-bottom: 10px;
-
-        font-size: 15pt;
     }
 
 
     div.link-sink-3 {
         background-color: darken($milife-blue, 10%);
-        font-size: 15pt;
+
     }
 }
 
@@ -199,7 +197,7 @@ export default {
             border-radius: 10px;
             margin: 10px;
             text-align: left;
-            padding: 15px 0px 10px 1em;
+            padding: 20px 0px 10px 1em;
             display: block;
         }
 
