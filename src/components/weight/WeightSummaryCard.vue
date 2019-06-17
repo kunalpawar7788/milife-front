@@ -1,24 +1,132 @@
 <template>
-<div class="weight-summary-card">
-  
-</div>
+
+<section class="weight-summary-card bg-darkblue br-20 mt-10" ref="weightSummarySection">
+<template v-if="status=='ready'">
+    <div class="body">
+      <div class="left-half">
+        <div class="current_weight heading-1">
+          <template v-if="current_weight">{{current_weight.weight}}</template> kg
+        </div>
+        <div class="target_weight label-1">
+          <template v-if="current_target"> Target {{current_target.weight}} kg </template>
+          <template v-else> Target -- </template>
+          Kg
+        </div>
+      </div>
+      <MiniWeightChart
+        :height="chart_height"
+        :width="chart_width"
+        :weight_log="weight_log"
+        :target_weights="target_weights"
+        ></MiniWeightChart>
+    </div>
+    <footer v-on:click="goto_detailed_weight_chart">
+      View Detailed Chart &gt
+    </footer>
+    </template>
+  </section>
 </template>
 
 <script>
+import MiniWeightChart from "@/components/MiniWeightChart.vue";
 export default {
     name: "WeightSummaryCard",
+    components: {MiniWeightChart, },
     data() {
         return {
+            status: 'initial',
+            data: "",
         };
     },
-    props: {},
-    computed: {},
-    methods: {},
+    props: ['fobj_user', ],
+    computed: {
+        user: function() {return this.fobj_user;},
+        chart_height: function() {
+            return screen.height * 0.14;
+        },
+        chart_width: function() {
+            return window.innerWidth * 0.45;
+        },
+        weight_log: function(){
+            return this.$_.orderBy(this.data.weight_log, 'measured_on');
+        },
+        current_weight: function(){
+            return this.$_.last(this.weight_log);
+        },
+        
+        target_weights: function(){
+            return this.$_.orderBy(this.data.target_weight, 'target_date');
+        },
+        
+        current_target: function(){
+            var d = {};
+            for(var i=0; i<this.target_weights.length; i++){
+                d[this.target_weights[i].target_date] = this.target_weights[i].target_weight;
+            }
+            return  d[new Date()];
+        },
+        
+    },
+    methods: {
+        goto_detailed_weight_chart: function(){
+            console.log('detiled weight chart');
+            
+        },
+
+        fetch_weight_chart_data: function() {
+            const url = process.env.VUE_APP_BASE_URL+'/api/users/' + this.user.id + '/weight-chart';
+            this.$http({url: url, params:this.params, method: 'GET'})
+                .then(resp => {
+                    this.data = resp.data;
+                    this.status = "ready";
+                })
+                .catch(err => {
+                    this.status='error';
+                    console.log(err);
+                });
+        },
+
+    },
+    created: function() {
+        this.fetch_weight_chart_data();
+    },
 }
 </script>
 
 <style lang="scss">
+  .left-half{
+    margin: auto;
+    width: 50%;
+}
+
 .weight-summary-card {
+    height: 22vh;
+    display:flex;
+    flex-direction: column;
+    .body {
+        align-self: stretch;
+        height: 80%;
+        display: flex;
+    }
+    .current_weight {
+        /* color: white; */
+        /* font-size: 35pt; */
+    }
+    .target_weight {
+        color: white;
+        font-size: 18pt;
+    }
     
+    footer {
+        align-self: flex-end;
+        border-top: 1px solid white;
+        width: 100%;
+        padding: 5px;
+        color: white;
+    }
+    
+    * {
+        /* border: 1px solid red; */
+    }
 }
 </style>

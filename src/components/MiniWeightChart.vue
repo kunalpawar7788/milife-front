@@ -1,9 +1,10 @@
 <template>
+
 <div class="weight-chart">
+
   <svg id="weightChartSvg"
        :height="height"
        :width="width"
-
     preserveAspectRatio="xMidYMid meet">
     >
   </svg>
@@ -93,7 +94,7 @@ export default {
                 .scale(y)
 
 
-            var svgContainer = d3.select("svg");
+            var svgContainer = d3.select("svg#weightChartSvg");
             // .attr("width", this.width)
             // .attr("height", this.height);
             //.style("border", "1px solid");
@@ -203,7 +204,7 @@ export default {
 	      position: absolute;
 	      top: 0;
 	      left: 0;
-        background-color: $milife-blue;
+        /* background-color: darken($milife-blue, 10%); */
         margin: 10px auto;
         .target-line {
             stroke: $milife-orange;
@@ -211,7 +212,6 @@ export default {
         }
         .weight-line {
             stroke: $milife-green;
-
         }
         path {
             fill: none;

@@ -24,6 +24,7 @@
       <div class="arr-right"> </div>
     </span>
   </div>
+  <WeightSummaryCard :fobj_user="user"> </WeightSummaryCard>
   <div class="mu-buttons link-sink-2">
     <div id="mu-3" class="mb mb__full fn-12"><router-link :to="{name: 'programme-list', params:{pk: user.id}}"> Programmes </router-link> </div>
     <div id="mu-5" class="mb mb__full fn-12"><router-link :to="{name: 'progress-chart', params:{pk: user.id}}"> View Stats and Charts </router-link> </div>
@@ -51,11 +52,12 @@
 <script>
 import Loading from "vue-loading-overlay";
 import 'vue-loading-overlay/dist/vue-loading.css';
+import WeightSummaryCard from "@/components/weight/WeightSummaryCard.vue";
 
 export default {
     name: "ManageUser",
     props: ['fobj_user', ],
-    components: {Loading, },
+    components: {Loading, WeightSummaryCard},
     computed: {
         user() {return this.fobj_user;},
         is_loading(){

@@ -1,28 +1,6 @@
 <template>
 <div class="client-dashboard" ref="clientdashboard" v-if="status=='ready'">
-  <section class="weight_summary bg-blue br-20 mt-10" ref="weightSummarySection">
-    <div class="body">
-      <div class="left-half">
-        <div class="current_weight heading-1">
-          <template v-if="current_weight">{{current_weight.weight}}</template> kg
-        </div>
-        <div class="target_weight label-1">
-          <template v-if="current_target"> Target {{current_target.weight}} kg </template>
-          <template v-else> Target -- </template>
-          Kg
-        </div>
-      </div>
-      <MiniWeightChart
-        :height="chart_height"
-        :width="chart_width"
-        :weight_log="weight_log"
-        :target_weights="target_weights"
-        ></MiniWeightChart>
-    </div>
-    <footer v-on:click="goto_detailed_weight_chart">
-      View Detailed Chart &gt
-    </footer>
-  </section>
+  <WeightSummaryCard :fobj_user="user"> </WeightSummaryCard>
 
   <section class="calorie-summary bg-green br-20 mt-10">
     <div class="calorie-target">
@@ -102,7 +80,7 @@
 
 <script>
 import store from '@/store'
-import MiniWeightChart from "@/components/MiniWeightChart.vue";
+import WeightSummaryCard from "@/components/weight/WeightSummaryCard.vue";
 
 export default {
     name: 'ClientDashboard',
@@ -113,43 +91,18 @@ export default {
         }
     },
     components: {
-        MiniWeightChart,
+        WeightSummaryCard,
     },
 
     computed: {
-        chart_height: function() {
-            return screen.height * 0.14;
-        },
-        chart_width: function() {
-            return screen.width * 0.45;
-        },
         user: function(){
             var d = Object.assign({}, this.$store.state.auth.user);
             console.log(d);
             return d;
         },
-        weight_log: function(){
-            return this.$_.orderBy(this.data.weight_log, 'measured_on');
-        },
-        current_weight: function(){
-            return this.$_.last(this.weight_log);
-        },
-
-        target_weights: function(){
-            return this.$_.orderBy(this.data.target_weight, 'target_date');
-        },
-
-        current_target: function(){
-            var d = {};
-            for(var i=0; i<this.target_weights.length; i++){
-                d[this.target_weights[i].target_date] = this.target_weights[i].target_weight;
-            }
-            return  d[new Date()];
-        },
         pr: function(){
             return this.data.progress_report;
         },
-
     },
 
     methods: {
