@@ -54,14 +54,16 @@ export default {
         target_weights() {
             return this.target_weights_l;
         },
+
         submit_url: function() {
             const base_url = process.env.VUE_APP_BASE_URL + '/api/';
             if (this.mode=="target"){
-                return base_url + "bulk-target-weight";
+                return base_url + "bulk-target-weights/";
             }
-            return base_url + "bulk-weight";
+            return base_url + "bulk-weights/";
             
         },
+
         submit_payload: function(){
             if (this.mode=='target'){
                 return this.date_target_weight_l;
@@ -119,7 +121,7 @@ export default {
         bulk_upsert_weights: function(){
             this.$http({url: this.submit_url, data: this.submit_payload, method: 'POST'})
                 .then(resp => {
-                    this.$route.go(-1);
+                    this.$router.go(-1);
                 })
                 .catch(err=>{
                     //TODO: show error message via toast?
