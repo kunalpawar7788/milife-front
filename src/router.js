@@ -3,45 +3,6 @@ import Router from 'vue-router';
 
 import store from './store';
 
-// import Home from './views/Home.vue';
-// import Login from './views/Login.vue';
-// import Logout from './views/Logout.vue';
-// import Registration from './views/Registration.vue';
-// import ChangePassword from './views/ChangePassword.vue';
-// import NotFoundComponent from './views/NotFoundComponent.vue';
-// import Invitation from './views/Invitation.vue';
-// import Unauthorized from '@/views/Unauthorized.vue';
-// //import ConfirmEmail from './views/ConfirmEmail'
-// import ResetPassword from "@/views/ResetPassword.vue";
-// import VerifyUserEmail from './views/VerifyUserEmail.vue';
-// import Profile from '@/views/Profile.vue';
-// import UserView from '@/views/users/UserView.vue';
-// import UserList from '@/views/users/UserList.vue';
-// import UserDetail from '@/views/users/UserDetail.vue';
-// import Test from '@/views/Test.vue';
-// import GraphTest from '@/views/GraphTest.vue';
-// import ComposeMessage from '@/views/ComposeMessage.vue';
-// import ManageUser from '@/views/users/ManageUser.vue';
-// import DocumentList from '@/views/userdocument/DocumentList.vue';
-// import AddDocument from '@/views/userdocument/AddDocument.vue';
-// import ViewDocument from '@/views/userdocument/ViewDocument.vue';
-// import ProgressChart from '@/views/ProgressChart.vue';
-// import MeasurementsForm from '@/views/MeasurementsForm';
-// import TargetWeightsView from '@/views/TargetWeightsView.vue';
-// import ProgrammeView from "@/views/programme/ProgrammeView.vue";
-// import ProgrammeList from '@/views/programme/ProgrammeList.vue';
-// import ProgrammeDetail from '@/views/programme/ProgrammeDetail.vue';
-// import ProgrammeAddEdit from '@/views/programme/ProgrammeAddEdit.vue';
-// import ProgrammeEditSessions from '@/views/programme/ProgrammeEditSessions.vue';
-// import HolidayAdd from '@/views/programme/HolidayAdd.vue';
-// import BankSessionAdd from '@/views/programme/BankSessionAdd.vue';
-// import LogWeightView from '@/views/LogWeightView.vue';
-// import AddUserView from '@/views/users/AddUserView.vue';
-// import EditUserView from '@/views/users/EditUserView.vue';
-// import UploadCSVView from "@/views/UploadCSVView.vue";
-// import PendingUserList from "@/views/users/PendingUserList.vue";
-// import AddEditMealPlan from "@/views/mealplan/AddEditMealPlan.vue";
-
 const Home =()=> import('./views/Home.vue');
 const Login =()=> import('./views/Login.vue');
 const Logout =()=> import('./views/Logout.vue');
@@ -80,6 +41,7 @@ const UploadCSVView =()=> import("@/views/UploadCSVView.vue");
 const PendingUserList =()=> import("@/views/users/PendingUserList.vue");
 const AddEditMealPlan =()=> import("@/views/mealplan/AddEditMealPlan.vue");
 const CheckinForm =()=> import("@/views/CheckinForm.vue");
+const WeightProgressChart =()=> import ("@/views/WeightProgressChart.vue");
 
 Vue.use(Router);
 
@@ -116,6 +78,12 @@ const router = new Router({
       { path: '/pending-invitations', component: PendingUserList, name: "pending-invitations", meta: {requiresAdmin: true}},
       { path: '/invite', component: Invitation, name: "invite", meta: {requiresAdmin: true}},
       { path: '/users', component: UserList, name: "user-list", meta: {requiresAdmin: true}},
+      { path: '/weight-progress-chart',
+        component: WeightProgressChart,
+        name: 'weight-progress-chart-self',
+        meta: {requiresAuth: true}
+      },
+
       { path: '/users/:pk',
         component: UserView,
         meta: {requiresAdmin: true},
@@ -136,6 +104,12 @@ const router = new Router({
             { path: 'programmes', component: ProgrammeList, name: "programme-list", meta: {requiresAdmin: true}},
             { path: 'programmes/add', component: ProgrammeAddEdit, name: "programme-add", meta: {requiresAdmin: true}},
             { path: 'log-weight', component: LogWeightView, name: "admin-log-weight", meta: {requiresAuth: true}},
+            {
+                path: 'weight-progress-chart',
+                component: WeightProgressChart,
+                name: 'weight-progress-chart-admin-view',
+                meta: {requiresAdmin: true}
+            },
             { path: 'mealplan', component: AddEditMealPlan, name: "mealplan-edit", meta: {requiresAuth: true}},
             { path: 'programmes/:programme_pk',
               component: ProgrammeView,

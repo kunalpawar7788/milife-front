@@ -69,7 +69,9 @@ export default {
     },
     methods: {
         goto_detailed_weight_chart: function(){
+            // if this.fobj_user.
             console.log('detiled weight chart');
+            this.$router.push({name: "weight-progress-chart-admin-view", params: ""})
             
         },
 
