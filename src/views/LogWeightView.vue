@@ -27,7 +27,7 @@
 <script>
 import LogWeightComponent from "@/components/LogWeightComponent";
 import WeightChart from "@/components/WeightChart";
-import WeightSummaryCard from "@/components/WeightSummaryCard";
+import WeightSummaryCard from "@/components/weight/WeightSummaryCard";
 
 export default {
     name: "LogWeightView",
