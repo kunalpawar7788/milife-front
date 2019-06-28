@@ -45,7 +45,7 @@ export default {
             return screen.height * 0.14;
         },
         chart_width: function() {
-            return window.innerWidth * 0.45;
+            return window.innerWidth * 0.50;
         },
         weight_log: function(){
             return this.$_.orderBy(this.data.weight_log, 'measured_on');
@@ -105,6 +105,7 @@ export default {
     height: 22vh;
     display:flex;
     flex-direction: column;
+    padding: 1px 10px 1px 10px;
     .body {
         align-self: stretch;
         height: 80%;

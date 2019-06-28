@@ -1,11 +1,10 @@
 <template>
-
-<div class="weight-chart">
-
+<div class="weight-chart" id="meh" v-bind:style="{ width: width+'px' }">
   <svg id="weightChartSvg"
        :height="height"
        :width="width"
-    preserveAspectRatio="xMidYMid meet">
+
+       preserveAspectRatio="xMidYMid meet">
     >
   </svg>
 </div>
@@ -17,7 +16,7 @@ import * as d3 from 'd3';
 
 export default {
     name: 'MiniWeightChart',
-    props: ['weight_log', 'height', 'width', 'target_weights'],
+    props: ['weight_log', 'height', 'width', 'target_weights', 'show_axes'],
     data() {
         return {
         }
@@ -67,12 +66,31 @@ export default {
             return d;
         }
     },
-    methods:{
+    methods: {
+        insertLinebreaks:  function (d) {
+            var el = d3.select(this);
+            var words = d.description.split(' ');
+            el.text('');
+
+            for (var i = 0; i < words.length; i++) {
+                var tspan = el.append('tspan').text(words[i]);
+                if (i > 0)
+                    tspan.attr('x', 0).attr('dy', '15');
+            }
+        },
+
 
         load_chart3: function() {
+            var numberOfTicks = 6;
 
-            var margin = {top: 1, right: 1, bottom: 1, left: 1},
-                width = this.width - margin.left - margin.right,
+            if(this.show_axes){
+                var margin = {top: 1, right: 1, bottom: 30, left: 20};
+            }
+            else {
+                var margin = {top: 1, right: 1, bottom: 1, left: 1};
+            }
+
+            var width = this.width - margin.left - margin.right,
                 height = this.height - margin.top - margin.bottom;
 
             var x = d3.scaleTime()
@@ -85,39 +103,41 @@ export default {
 
             var xAxis = d3.axisBottom()
                 .scale(x)
+                .ticks(numberOfTicks)
+                .tickFormat(d3.timeFormat("%d %b  %Y"))
 
             var xMinorAxis = d3.axisBottom()
                 .scale(x)
-	              .ticks(d3.timeHours,24)
+	              .ticks(numberOfTicks)
 
             var yAxis = d3.axisLeft()
                 .scale(y)
 
-
-            var svgContainer = d3.select("svg#weightChartSvg");
+            var svgContainer = d3.select("#weightChartSvg");
             // .attr("width", this.width)
             // .attr("height", this.height);
             //.style("border", "1px solid");
 
-            // svgContainer.append("g")
-            //     .classed("x-axis", true)
-            //     .attr("transform", function() {
-            //         // console.log(height- margin.bottom)
-            //         const temp = height +margin.top
-            //         return "translate(" + margin.left + "," + temp + ")";
-            //     })
-            //     .call(xAxis);
+            if (this.show_axes) {
+                svgContainer.append("g")
+                    .classed("x-axis", true)
+                    .attr("transform", function() {
+                        // console.log(height- margin.bottom)
+                        const temp = height +margin.top
+                        return "translate(" + margin.left + "," + temp + ")";
+                    })
+                    .call(xAxis);
 
 
-            // svgContainer.append("g")
-            //     .classed("y-axis", true)
-            //     .attr("transform", function() {
-            //         return "translate(" + margin.left + "," + margin.top + ")";
-            //     })
-            //     .call(yAxis);
+                svgContainer.append("g")
+                    .classed("y-axis", true)
+                    .attr("transform", function() {
+                        return "translate(" + margin.left + "," + margin.top + ")";
+                    })
+                    .call(yAxis);
+            }
 
             //Draw a grid
-            var numberOfTicks = 6;
 
             var yAxisGrid = yAxis.ticks(numberOfTicks)
                 .tickSize(-width, 0)
@@ -176,10 +196,27 @@ export default {
                     return "translate(" + margin.left + "," + margin.top + ")";
                 });
 
+            var insertLinebreaks=  function (d) {
+                console.log(d3.select(this).text(), typeof(d), 'bleh');
+                var el = d3.select(this);
+                var words = d3.select(this).text().split('  ');
+                el.text('');
+
+                for (var i = 0; i < words.length; i++) {
+                    var tspan = el.append('tspan').text(words[i]);
+                    if (i > 0)
+                        tspan.attr('x', 0).attr('dy', '10');
+                }
+            }
+
+
+            console.log(svgContainer.selectAll('g.x-axis g text'));
+            svgContainer.selectAll('g.x-axis g text').each(insertLinebreaks);
+
         },
 
-
     },
+
     created: function(){
 
     },
@@ -193,18 +230,18 @@ export default {
 
 <style lang="scss">
 .weight-chart {
-    /* width: 50%; */
     display: inline-block;
 	  position: relative;
-	  width: 50%;
+	  /* width: 50%; */
 	  vertical-align: middle;
 	  overflow: hidden;
+
     svg {
 	      display: inline-block;
 	      position: absolute;
 	      top: 0;
 	      left: 0;
-        /* background-color: darken($milife-blue, 10%); */
+        background-color: $milife-blue;
         margin: 10px auto;
         .target-line {
             stroke: $milife-orange;
@@ -212,6 +249,7 @@ export default {
         }
         .weight-line {
             stroke: $milife-green;
+
         }
         path {
             fill: none;

@@ -173,11 +173,15 @@ input[type='number'] {
     border-radius: 50px;
 }
 
-
+.margin-auto {
+    margin: auto;
+}
 .mt-10{
     margin-top: 10px;
 }
-
+.ml-0{
+    margin-left: 0px;
+}
 .ml-10{
     margin-left: 10px;
 }
@@ -203,7 +207,9 @@ input[type='number'] {
 .pd-10 {
     padding: 10px;
 }
-
+.width-80 {
+    width: 80%;
+}
 //heading-font1
 .heading-1{
     font-size: 35pt;
@@ -298,3 +304,8 @@ input[type='number'] {
 .arr-left  {transform:rotate(135deg);}
 .arr-up    {transform:rotate(-135deg);}
 .arr-down  {transform:rotate(45deg);}
+
+
+.border-box{
+    box-sizing: border-box;
+}
