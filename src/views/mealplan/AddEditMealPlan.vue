@@ -67,9 +67,13 @@
         <th>Protein</th>
       </thead
 
-      <tbody>
-        <tr v-for="(mb, index) in data.meal_breakup">
-          <td><input type="text" v-on:input="update_meal_breakup($event.target.value, 'name', index)" /></td>
+      <tbody v-if="status!='loading'">
+        <tr v-for="(mb, index) in meal_breakup">
+          <td><input
+                type="text"
+                v-on:input="update_meal_breakup($event.target.value, 'name', index)"
+                v-bind:value="meal_breakup[index].name"
+                /></td>
           <td><NumberInput
                 placeholder=""
                 :min="1"
@@ -144,7 +148,10 @@ export default {
         },
 
         meal_breakup() {
-            return this.data.meal_breakup;
+            var x = Object.assign({}, this.data.meal_breakup);
+            console.log('meal breakup', x[0].name);
+            return x
+            // return this.data.meal_breakup;
         },
 
         upsert_method(){
@@ -196,8 +203,10 @@ export default {
             this.$http({url: this.mealplan_url, method: 'GET'})
                 .then(resp => {
 
+                    console.log(resp.data.results, '<<<here');
                     if(resp.data.results.length == 1){
                         this.data = Object.assign({}, resp.data.results[0]);
+                        console.log(this.data, '<<<here');
                     }
                     this.status="success";
                 })
@@ -211,11 +220,12 @@ export default {
         submit_mealplan: function(){
             this.$http({url: this.mealplan_url, method: this.upsert_method, data:this.data})
                 .then(resp => {
+                    this.$route.go(-1);
                 })
                 .catch(err => {
                     this.status='error';
                     console.log(err);
-                    this.$route.go(-1);
+
                 });
         },
 
