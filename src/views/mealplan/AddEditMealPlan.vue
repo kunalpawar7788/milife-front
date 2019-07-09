@@ -220,7 +220,7 @@ export default {
         submit_mealplan: function(){
             this.$http({url: this.mealplan_url, method: this.upsert_method, data:this.data})
                 .then(resp => {
-                    this.$route.go(-1);
+                    this.$router.go(-1);
                 })
                 .catch(err => {
                     this.status='error';
