@@ -36,18 +36,10 @@
 
   </p>
 
-  <div v-if="allow_comment">
-    <textarea
-      cols="30"
-      id=""
-      name=""
-      rows="10"
-      v-model="message"
-      class="br-20 width-80 border-box pd-10">
-    </textarea>
-
-    <div class="button margin-auto pd-10 br-10 width-80" v-on:click="submit_comment()"> Save </div>
-  </div>
+  <AddCoachCommentComponent
+    :fobj_user="fobj_user"
+    kind="weekly-commentry"
+    ></AddCoachCommentComponent>
 
 </section>
 
@@ -56,11 +48,14 @@
 <script>
 import WeightChart from "@/components/WeightChart.vue";
 import MiniWeightChart from "@/components/MiniWeightChart.vue";
+import AddCoachCommentComponent from "@/components/AddCoachCommentComponent.vue";
+
 import moment from 'moment';
 export default {
     // weekly commentry screen.
     name: "WeightProgressChart",
     components: {
+        AddCoachCommentComponent,
         MiniWeightChart,
     },
 
@@ -69,8 +64,6 @@ export default {
         return {
             status: 'initial',
             data: "",
-            allow_comment: true,
-            message: "",
             comments: {},
         };
     },
@@ -118,6 +111,9 @@ export default {
             var today = moment();
             var target_date = moment(this.$_.last(this.target_weights).target_date, 'YYYY-MM-DD');
             var days_left = target_date.diff(today, 'days')
+            if (days_left <=0) {
+                days_left = 1;
+            }
 
             var val = 7*this.left_to_lose / days_left;
             return this.round_off2(val);
@@ -128,27 +124,6 @@ export default {
     methods: {
         round_off2: value => Math.round(value*100)/100,
 
-        submit_comment: function(){
-            return new Promise((resolve, reject) => {
-                const url = process.env.VUE_APP_BASE_URL+'/api/users/' + this.user.id + "/message";
-                var data = {
-                    content: this.message,
-                    kind: "weekly-commentry"
-                }
-
-                this.$http({url: url, method: "POST", data: data})
-                    .then(resp => {
-                        resolve(resp);
-                        this.$router.go('-1');
-                    })
-                    .catch(err => {
-                        this.status='error';
-                        console.log(err);
-                        reject(err);
-                    });
-            });
-
-        },
         fetch_previous_comment: function(){
             const url = process.env.VUE_APP_BASE_URL+'/api/users/' + this.user.id + '/message';
             var params = {

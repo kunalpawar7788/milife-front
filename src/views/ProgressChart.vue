@@ -29,6 +29,11 @@
   <div class="button" v-on:click="download_report">
     Download Report
   </div>
+  <AddCoachCommentComponent
+    :fobj_user="fobj_user"
+    kind="checkin-commentry"
+    >
+  </AddCoachCommentComponent>
 </div>
 </template>
 
@@ -38,11 +43,18 @@ import SliderMenu from "@/components/progress-chart/SliderMenu.vue";
 import BodyTypeProgressionChart from "@/components/progress-chart/BodyTypeProgressionChart.vue";
 import StatsAndCharts from "@/components/progress-chart/StatsAndCharts.vue";
 import PictureSlider from "@/components/progress-chart/PictureSlider.vue";
+import AddCoachCommentComponent from "@/components/AddCoachCommentComponent.vue";
 
 export default {
     name:"ProgressChart",
     props: ["fobj_user",],
-    components: {SliderMenu, BodyTypeProgressionChart, StatsAndCharts, PictureSlider},
+    components: {
+        SliderMenu,
+        BodyTypeProgressionChart,
+        StatsAndCharts,
+        PictureSlider,
+        AddCoachCommentComponent,
+    },
     data() {
         return {
             errors: {},
@@ -89,17 +101,7 @@ export default {
                     id: mobj.format("YYYY-MM-DD"),
                 })
             }.bind(this))
-            // for(var i=0; i<this.progress_report.length; i++){
-            //     {
-            //         moment: moment(this.progress_report[i].date_of_checkin, 'YYYY-MM-DD'),
 
-            //         label: moment.format("")
-
-            //     }
-            //     d.push(moment(this.progress_report[i].date_of_checkin, 'YYYY-MM-DD'));
-            // }
-            // d.sort(this.date_sort_asc);
-            // return d;
             return this.$_.sortBy(d, function(o){return o.m_obj})
         },
 

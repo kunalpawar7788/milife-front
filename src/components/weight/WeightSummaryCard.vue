@@ -8,9 +8,9 @@
           <template v-if="current_weight">{{current_weight.weight}}</template> kg
         </div>
         <div class="target_weight label-1">
-          <template v-if="current_target"> Target {{current_target.weight}} kg </template>
+          <template v-if="current_target"> Target {{current_target}} kg </template>
           <template v-else> Target -- </template>
-          Kg
+
         </div>
       </div>
       <MiniWeightChart
@@ -29,6 +29,7 @@
 
 <script>
 import MiniWeightChart from "@/components/MiniWeightChart.vue";
+import moment from 'moment';
 export default {
     name: "WeightSummaryCard",
     components: {MiniWeightChart, },
@@ -53,26 +54,26 @@ export default {
         current_weight: function(){
             return this.$_.last(this.weight_log);
         },
-        
+
         target_weights: function(){
             return this.$_.orderBy(this.data.target_weight, 'target_date');
         },
-        
+
         current_target: function(){
             var d = {};
             for(var i=0; i<this.target_weights.length; i++){
                 d[this.target_weights[i].target_date] = this.target_weights[i].target_weight;
             }
-            return  d[new Date()];
+            return  d[moment().format("YYYY-MM-DD")];
         },
-        
+
     },
     methods: {
         goto_detailed_weight_chart: function(){
             // if this.fobj_user.
             console.log('detiled weight chart');
             this.$router.push({name: "weight-progress-chart-admin-view", params: ""})
-            
+
         },
 
         fetch_weight_chart_data: function() {
@@ -119,7 +120,7 @@ export default {
         color: white;
         font-size: 18pt;
     }
-    
+
     footer {
         align-self: flex-end;
         border-top: 1px solid white;
@@ -127,7 +128,7 @@ export default {
         padding: 5px;
         color: white;
     }
-    
+
     * {
         /* border: 1px solid red; */
     }
