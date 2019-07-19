@@ -12,7 +12,6 @@
 
     <div class="button margin-auto pd-10 br-10 width-80" v-on:click="submit_comment()"> Save </div>
   </div>
-{{allow_comment}}
 </section>
 </template>
 

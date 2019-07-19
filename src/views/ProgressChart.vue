@@ -29,11 +29,11 @@
   <div class="button" v-on:click="download_report">
     Download Report
   </div>
-  <AddCoachCommentComponent
+  <AddCoachCheckinComment v-if="checkin_comment!={}"
     :fobj_user="fobj_user"
-    kind="checkin-commentry"
+    :message_obj="checkin_comment"
     >
-  </AddCoachCommentComponent>
+  </AddCoachCheckinComment>
 </div>
 </template>
 
@@ -43,7 +43,8 @@ import SliderMenu from "@/components/progress-chart/SliderMenu.vue";
 import BodyTypeProgressionChart from "@/components/progress-chart/BodyTypeProgressionChart.vue";
 import StatsAndCharts from "@/components/progress-chart/StatsAndCharts.vue";
 import PictureSlider from "@/components/progress-chart/PictureSlider.vue";
-import AddCoachCommentComponent from "@/components/AddCoachCommentComponent.vue";
+//import AddCoachCommentComponent from "@/components/AddCoachCommentComponent.vue";
+import AddCoachCheckinComment from "@/components/progress-chart/AddCoachCheckinComment.vue";
 
 export default {
     name:"ProgressChart",
@@ -53,7 +54,7 @@ export default {
         BodyTypeProgressionChart,
         StatsAndCharts,
         PictureSlider,
-        AddCoachCommentComponent,
+        AddCoachCheckinComment,
     },
     data() {
         return {
@@ -65,6 +66,15 @@ export default {
     },
 
     computed: {
+        checkin_comment: function(){
+            var selected_progress_report = this.progress_report_by_date[this.selected_checkin_date]
+            if (selected_progress_report) {
+                return selected_progress_report.comment;
+            }
+            else {
+                return {};
+            }
+        },
         pictures: function(){
             if (this.progress_report.length>0 && this.selected_checkin_date !=null){
                 return {
