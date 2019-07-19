@@ -69,7 +69,19 @@ export default {
     },
 
     computed: {
-        user: function() {return this.fobj_user;},
+        is_admin: function() {
+            return this.$store.state.auth.user.is_staff;
+        },
+
+        user: function() {
+            if (this.fobj_user && this.is_admin) {
+                return this.fobj_user;
+            }
+            else {
+                console.log( 'userid', this.$store.state.auth.user.id);
+                return this.$store.state.auth.user;
+            }
+        },
         user_pk: function(){
         },
         chart_height: function() {
@@ -159,6 +171,7 @@ export default {
     created() {
         this.fetch_weight_chart_data();
         this.fetch_previous_comment();
+        this.$store.dispatch("theme/set_theme_blue");
     },
     mounted() {},
 

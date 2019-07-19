@@ -41,6 +41,9 @@ export default {
     },
     props: ['fobj_user', ],
     computed: {
+        is_admin: function() {
+            return this.$store.state.auth.user.is_staff;
+        },
         user: function() {return this.fobj_user;},
         chart_height: function() {
             return screen.height * 0.14;
@@ -70,9 +73,16 @@ export default {
     },
     methods: {
         goto_detailed_weight_chart: function(){
-            // if this.fobj_user.
-            console.log('detiled weight chart');
-            this.$router.push({name: "weight-progress-chart-admin-view", params: ""})
+
+            if (this.is_admin) {
+                console.log('detiled weight chart');
+                this.$router.push({name: "weight-progress-chart-admin-view", params: ""});
+
+            }
+            else {
+                this.$router.push({name: "weight-progress-chart-self", params: ""});
+            }
+
 
         },
 
