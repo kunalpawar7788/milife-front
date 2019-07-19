@@ -7,7 +7,7 @@
     <div>{{programme.name}}</div>
   </div>
 
-  <div class="edit-link" v-on:click="goto_edit_programme(programme.id)"> EDIT > </div>
+  <div class="edit-link fc-black" v-on:click="goto_edit_programme(programme.id)"> EDIT > </div>
 
   <div class="start_date info_block">
     <label> START DATE </label>
