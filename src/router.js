@@ -42,6 +42,8 @@ const PendingUserList =()=> import("@/views/users/PendingUserList.vue");
 const AddEditMealPlan =()=> import("@/views/mealplan/AddEditMealPlan.vue");
 const CheckinForm =()=> import("@/views/CheckinForm.vue");
 const WeightProgressChart =()=> import ("@/views/WeightProgressChart.vue");
+const MessageListView =()=> import ("@/views/MessageListView.vue");
+const MyDetailsView =()=> import ("@/views/MyDetailsView.vue");
 
 Vue.use(Router);
 
@@ -72,7 +74,6 @@ const router = new Router({
       { path: '/reset-password/:token', component: ResetPassword, name: "reset-password", meta: {requiresAnon: true}},
 
       { path: '/profile', component: Profile, name: "update-profile", meta: {requiresAuth: true}},
-      { path: '/log-weight', component: LogWeightView, name: "log-weight", meta: {requiresAuth: true}},
       { path: '/test', component: Test, name: "testview", meta: {requiresAuth: true}},
       { path: '/graphtest', component: GraphTest, name: "graphtestview", meta: {requiresAuth: false}},
       { path: '/pending-invitations', component: PendingUserList, name: "pending-invitations", meta: {requiresAdmin: true}},
@@ -83,6 +84,28 @@ const router = new Router({
         name: 'weight-progress-chart-self',
         meta: {requiresAuth: true}
       },
+      { path: '/messages',
+        component: MessageListView,
+        name: 'message-list-view',
+        meta: {requiresAuth: true},
+      },
+      { path: '/log-weight',
+        component: LogWeightView,
+        name: 'log-weight-view-self',
+        meta: {requiresAuth: true},
+      },
+      { path: '/my-details',
+        component: MyDetailsView,
+        name: 'my-details-view',
+        meta: {requiresAuth: true},
+      },
+      {
+          path: '/my-programmes',
+          component: ProgrammeList,
+          name: "my-programmes",
+          meta: {requiresAuth: true}
+      },
+
 
       { path: '/users/:pk',
         component: UserView,

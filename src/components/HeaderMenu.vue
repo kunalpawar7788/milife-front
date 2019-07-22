@@ -13,22 +13,50 @@
   </div>
   <div class="sidebar-menu" v-if="sidebar_visible">
     <ul class="menu-list" v-if="isTrainer">
-      <li class="menu-item"><router-link :to="{ name: 'home'}">Dashboard </router-link></li>
-      <li class="menu-item"><router-link :to="{ name: 'invite'}">Invite Users </router-link></li>
-      <li class="menu-item"><router-link :to="{name: 'user-list'}">Users</router-link></li>
-      <li class="menu-item">Upload CSV </li>
-      <li class="menu-item"><router-link :to="{name: 'logout'}">Sign out</router-link></li>
+      <li class="menu-item" v-on:click="hide_menu">
+        <router-link :to="{ name: 'home'}">Dashboard </router-link>
+      </li>
+      <li class="menu-item" v-on:click="hide_menu">
+        <router-link :to="{ name: 'invite'}">Invite Users </router-link>
+      </li>
+      <li class="menu-item" v-on:click="hide_menu">
+        <router-link :to="{name: 'user-list'}">Users</router-link>
+      </li>
+      <li class="menu-item" v-on:click="hide_menu">
+        <router-link :to="{name: 'upload-csv'}">Upload CSV</router-link>
+      </li>
+      <li class="menu-item" v-on:click="hide_menu">
+        <router-link :to="{name: 'logout'}">Sign out</router-link>
+      </li>
     </ul>
     <ul class="menu-list" v-else>
-      <li class="menu-item"><router-link :to="{name: 'home'}">Dashboard </router-link></li>
-      <li class="menu-item"><router-link :to="{name: 'home'}">Your Details</router-link></li>
-      <li class="menu-item"><router-link :to="{name: 'home'}">Programme Summary</router-link></li>
-      <li class="menu-item"><router-link :to="{name: 'home'}">Your Documents</router-link></li>
-      <li class="menu-item"><router-link :to="{name: 'home'}">Log Weight</router-link></li>
-      <li class="menu-item"><router-link :to="{name: 'home'}">Charts</router-link></li>
-      <li class="menu-item"><router-link :to="{name: 'home'}">Calorie Breakdown</router-link></li>
-      <li class="menu-item"><router-link :to="{name: 'home'}">Report Stats</router-link></li>
-      <li class="menu-item"><router-link :to="{name: 'logout'}">Sign out</router-link></li>
+      <li class="menu-item" v-on:click="hide_menu">
+        <router-link :to="{name: 'home'}">Dashboard </router-link>
+      </li>
+      <li class="menu-item" v-on:click="hide_menu">
+        <router-link :to="{name: 'my-details-view'}">Your Details</router-link>
+      </li>
+      <li class="menu-item" v-on:click="hide_menu">
+        <router-link :to="{name: 'home'}">Programme Summary</router-link>
+      </li>
+      <li class="menu-item" v-on:click="hide_menu">
+        <router-link :to="{name: 'home'}">Your Documents</router-link>
+      </li>
+      <li class="menu-item" v-on:click="hide_menu">
+        <router-link :to="{name: 'log-weight-view-self'}">Log Weight</router-link>
+      </li>
+      <li class="menu-item" v-on:click="hide_menu">
+        <router-link :to="{name: 'home'}">Charts</router-link>
+      </li>
+      <li class="menu-item" v-on:click="hide_menu" >
+        <router-link :to="{name: 'home'}">Calorie Breakdown</router-link>
+      </li>
+      <li class="menu-item" v-on:click="hide_menu">
+        <router-link :to="{name: 'home'}">Report Stats</router-link>
+      </li>
+      <li class="menu-item" v-on:click="hide_menu">
+        <router-link :to="{name: 'logout'}">Sign out</router-link>
+      </li>
     </ul>
   </div>
 </div>
@@ -38,7 +66,7 @@
 import store from "@/store";
 export default {
     name: "HeaderMenu",
-    
+
     data() {
         return {
             sidebar_visible: false,
@@ -58,7 +86,7 @@ export default {
         hide_menu: function(){
             var original_theme = this.original_theme;
             this.$store.dispatch('theme/set_theme', {original_theme});
-            this.sidebar_visible = false;            
+            this.sidebar_visible = false;
         },
         toggle_menu: function(){
             if (!this.sidebar_visible){
@@ -66,7 +94,7 @@ export default {
                 this.sidebar_visible = true;
                 this.$store.dispatch('theme/set_theme_blue');
             }
-            else 
+            else
                 this.hide_menu();
         },
     },
@@ -83,8 +111,8 @@ export default {
                     return require("@/assets/images/menu-white.svg");
                 else
                     return require("@/assets/images/menu-dark.svg");
-                
-                
+
+
             }
         },
         dashboard_icon: {
@@ -97,7 +125,7 @@ export default {
             }
         }
     },
-    
+
 }
 
 </script>
@@ -123,7 +151,7 @@ export default {
     background-color: $milife-blue;
     width: 99%;
     height: 90%;
-    
+
 }
 
 button {

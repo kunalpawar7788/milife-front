@@ -112,8 +112,10 @@ export default {
         },
         goto_message_list: function(){
             console.log('messages list');
+            this.$router.push({name: 'message-list-view'});
         },
         goto_log_weight: function(){
+            this.$router.push({name: 'log-weight-view-self'});
             console.log('log_weight');
 
         },

@@ -2,9 +2,12 @@
 <section class="log-weight-view-container">
   <header><h3> Log Weight </h3></header>
   <center>
-    <LogWeightComponent :fobj_user="user"></LogWeightComponent>
+    <LogWeightComponent
+      :fobj_user="user"
+      v-on:weight-updated="fetch_weight_log"
+      ></LogWeightComponent>
 
-    <table>
+    <table class="weight-table">
       <thead>
         <tr>
           <th>Date</th>
@@ -20,7 +23,7 @@
     </table>
   </center>
 
-  <WeightSummaryCard :fobj_user="user"></WeightSummaryCard>
+  <WeightSummaryCard :fobj_user="user" v-if="false"></WeightSummaryCard>
 </section>
 </template>
 
@@ -83,7 +86,8 @@ export default {
     mounted() {
         this.$store.dispatch("auth/fetch_profile");
         console.log(this.fobj_user);
-        //this.fetch_weight_log();
+        this.fetch_weight_log();
+        // this.$store.dispatch("theme/set_theme_blue");
 
     }
 }
@@ -98,5 +102,9 @@ export default {
         border: 1px solid lighten(grey, 20%);
     }
 
+    .weight-table{
+        padding-top: 20px;
+
+    }
 }
 </style>

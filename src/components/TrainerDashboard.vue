@@ -49,6 +49,7 @@ export default {
         return {
             status_d: {},
             email: null,
+            errors: null,
         }
     },
     components: {

@@ -46,6 +46,8 @@ export default {
                     this.status='success';
                     this.error_message="";
                     this.errors={};
+                    this.$emit("weight-updated");
+
                 })
                 .catch(err => {
                     this.status='error';
