@@ -19,7 +19,11 @@
 
   </div>
 
-  <div class="button middle-column" v-on:click="goto_add_programme()"> Add Programme </div>
+  <div
+    v-if="is_admin"
+    class="button middle-column"
+    v-on:click="goto_add_programme()"> Add Programme
+  </div>
 </div>
 
 </template>
@@ -33,10 +37,24 @@ export default {
 
     data() {
         return {
-            user_pk: this.$route.params.pk,
+            //user_pk: this.$route.params.pk,
             programmes: [],
             status: '',
         }
+    },
+    computed: {
+        user_pk: function(){
+            if (this.$route.params.pk) {
+                return this.$route.params.pk;
+            }
+            else {
+                return this.$store.state.auth.user.id;
+            }
+        },
+        is_admin: function() {
+            return this.$store.state.auth.user.is_staff;
+        },
+
     },
     methods: {
         fetch_programmes: function(){
