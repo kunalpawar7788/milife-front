@@ -106,6 +106,12 @@ const router = new Router({
           meta: {requiresAuth: true}
       },
 
+      { path: '/my-programmes/:programme_pk',
+        component: ProgrammeDetail,
+        name: 'my-programme-detail',
+        meta: {requiresAuth: true},
+      },
+
 
       { path: '/users/:pk',
         component: UserView,

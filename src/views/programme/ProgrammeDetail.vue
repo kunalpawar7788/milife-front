@@ -1,13 +1,19 @@
 <template>
 <div class="programme-detail-container" v-if="status=='success'">
-  <SelectedUserDisplay class="middle-column" :fobj_user="fobj_user"> </SelectedUserDisplay>
+  <SelectedUserDisplay
+    v-if="fobj_user"
+    class="middle-column"
+    :fobj_user="fobj_user"> </SelectedUserDisplay>
 
   <div class="programme_name info_block">
     <label> PROGRAMME </label>
     <div>{{programme.name}}</div>
   </div>
 
-  <div class="edit-link fc-black" v-on:click="goto_edit_programme(programme.id)"> EDIT > </div>
+  <div
+    v-if="is_admin"
+    class="edit-link fc-black"
+    v-on:click="goto_edit_programme(programme.id)"> EDIT &gt </div>
 
   <div class="start_date info_block">
     <label> START DATE </label>
@@ -34,7 +40,12 @@
         </div>
       </div>
     </div>
-    <div class="link" v-on:click="goto_edit_session(programme.id)"><p>Edit Session > </p></div>
+    <div
+      class="link"
+      v-if="is_admin"
+      v-on:click="goto_edit_session(programme.id)">
+      <p>Edit Session > </p>
+    </div>
   </section>
 
   <section class="holidays"> </section>
@@ -80,12 +91,22 @@ export default {
             }
             return d;
 
-        }
+        },
+        user_pk: function(){
+            if (this.$route.params.pk) {
+                return this.$route.params.pk;
+            }
+            else {
+                return this.$store.state.auth.user.id;
+            }
+        },
+        is_admin: function() {
+            return this.$store.state.auth.user.is_staff;
+        },
     },
 
     data() {
         return {
-            user_pk: this.$route.params.pk,
             programme: {},
             coach: "",
             status: 'loading',
@@ -99,8 +120,8 @@ export default {
             this.$router.push({name: "programme-edit", params: {"programme_pk": this.$route.params.programme_pk}});
         },
 
-        fetch_programme: function(user_pk, programme_pk){
-            const url = process.env.VUE_APP_BASE_URL+'/api/users/' + user_pk + "/programmes/" + programme_pk;
+        fetch_programme: function(programme_pk){
+            const url = process.env.VUE_APP_BASE_URL+'/api/users/' + this.user_pk + "/programmes/" + programme_pk;
             this.$http({url: url, params:this.params, method: 'GET'})
                 .then(resp => {
                     this.status='success';
@@ -130,7 +151,8 @@ export default {
 
     },
     created() {
-        this.fetch_programme(this.$route.params.pk, this.$route.params.programme_pk);
+        console.log('pogramme detail');
+        this.fetch_programme(this.$route.params.programme_pk);
     },
 
 }

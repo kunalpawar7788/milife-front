@@ -1,6 +1,10 @@
 <template>
 <div id="programme-list-container">
-  <SelectedUserDisplay class="middle-column" :fobj_user="fobj_user"> </SelectedUserDisplay>
+  <SelectedUserDisplay
+    v-if="fobj_user"
+    class="middle-column"
+    :fobj_user="fobj_user">
+  </SelectedUserDisplay>
   <div v-for="programme in programmes"
        class="programme-item middle-column"
        v-on:click="goto_programme_detail(programme.id)"
@@ -34,7 +38,7 @@ export default {
     name: 'ProgrammeList',
     props: ['fobj_user', ],
     components: {SelectedUserDisplay},
-
+    
     data() {
         return {
             //user_pk: this.$route.params.pk,
@@ -54,7 +58,7 @@ export default {
         is_admin: function() {
             return this.$store.state.auth.user.is_staff;
         },
-
+        
     },
     methods: {
         fetch_programmes: function(){
@@ -75,7 +79,14 @@ export default {
             this.$router.push({name: "programme-add"});
         },
         goto_programme_detail: function(programme_pk){
-            this.$router.push({name: "programme-detail", params:{programme_pk: programme_pk, pk: this.fobj_user.id}});
+            const route_name = this.is_admin ? 'programme-detail' : 'my-programme-detail';
+            this.$router.push(
+                {
+                    name: route_name,
+                    params:{programme_pk: programme_pk, pk: this.user_pk}
+                }
+            )
+
         }
     },
     mounted() {
