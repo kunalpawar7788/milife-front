@@ -1,6 +1,11 @@
 <template>
 <div>
-    <SelectedUserDisplay class="middle-column" :fobj_user="fobj_user"> </SelectedUserDisplay>
+  <SelectedUserDisplay
+    class="middle-column"
+    v-if="is_admin"
+    :fobj_user="fobj_user">
+  </SelectedUserDisplay>
+
   <div class="searchbox">
     <input class="text-input" v-model="params.search" placeholder="Start typing to search" v-on:keyup="fetch_documents">
   </div>
@@ -8,12 +13,22 @@
   <div class="documentlist" v-for="document in documents">
     <div class="document">
       <p>{{document.name}}</p>
-      <router-link :to="{name: 'user-document-edit', params: {pk: fobj_user.id, doc_pk: document.id}}"> <img src="@/assets/images/edit.svg" /> </router-link>
+      <router-link
+        v-if="is_admin"
+        :to="{name: 'user-document-edit', params: {pk: user_pk, doc_pk: document.id}}">
+        <img src="@/assets/images/edit.svg" />
+      </router-link>
+      <div v-else></div>
       <div @click="showalert('not implemented')"> <img src="@/assets/images/look-open.svg" /></div>
       <div @click="download_document(document)"> <img src="@/assets/images/download.svg" /></div>
     </div>
   </div>
-  <router-link tag="button" class="milife-button milife-button__fullsize" :to="{name:'user-document-add', params:{'pk': this.pk}}"> Add Document </router-link>
+  <router-link
+    tag="button"
+    v-if="is_admin"
+    class="milife-button milife-button__fullsize"
+    :to="{name:'user-document-add', params:{'pk': user_pk}}"> Add Document
+  </router-link>
 
 
 </div>
@@ -26,9 +41,7 @@ export default {
     name: 'DocumentList',
     components: {SelectedUserDisplay,},
     props: ['fobj_user', ],
-    computed: {
-        user() {return this.fobj_user;},
-    },
+
     data() {
         return {
             params: {'search': ''},
@@ -36,6 +49,29 @@ export default {
             documents: {},
         }
     },
+    computed: {
+        user: function() {
+            var user = Object.assign({}, this.$store.state.auth.user);
+            if(this.$route.params.pk){
+                user = Object.assign({}, this.fobj_user);
+            }
+            return user;
+        },
+
+        user_pk: function(){
+            if (this.$route.params.pk) {
+                return this.$route.params.pk;
+            }
+            else {
+                return this.$store.state.auth.user.id;
+            }
+        },
+        is_admin: function() {
+            return this.$store.state.auth.user.is_staff;
+        },
+        
+    },
+
     methods: {
         showalert(msg) {
             alert(msg);
@@ -60,7 +96,7 @@ export default {
 
         },
         fetch_documents: function() {
-            const url = process.env.VUE_APP_BASE_URL+'/api/users/' + this.pk + '/documents';
+            const url = process.env.VUE_APP_BASE_URL+'/api/users/' + this.user_pk + '/documents';
             this.users = {};
             return new Promise((resolve, reject) => {
                 this.$http({url: url, params:this.params, method: 'GET'})

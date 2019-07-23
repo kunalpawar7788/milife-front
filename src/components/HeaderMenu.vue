@@ -40,19 +40,19 @@
         <router-link :to="{name: 'my-programmes'}">Programme Summary</router-link>
       </li>
       <li class="menu-item" v-on:click="hide_menu">
-        <router-link :to="{name: 'home'}">Your Documents</router-link>
+        <router-link :to="{name: 'my-documents'}">Your Documents</router-link>
       </li>
       <li class="menu-item" v-on:click="hide_menu">
         <router-link :to="{name: 'log-weight-view-self'}">Log Weight</router-link>
       </li>
       <li class="menu-item" v-on:click="hide_menu">
-        <router-link :to="{name: 'home'}">Charts and Stats</router-link>
+        <router-link :to="{name: 'my-progress-chart'}">Charts and Stats</router-link>
       </li>
       <li class="menu-item" v-on:click="hide_menu" >
         <router-link :to="{name: 'home'}">Calorie Breakdown</router-link>
       </li>
       <li class="menu-item" v-on:click="hide_menu">
-        <router-link :to="{name: 'home'}">Report Stats</router-link>
+        <router-link :to="{name: 'message-list-view'}">Messages</router-link>
       </li>
       <li class="menu-item" v-on:click="hide_menu">
         <router-link :to="{name: 'logout'}">Sign out</router-link>

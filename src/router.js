@@ -112,6 +112,22 @@ const router = new Router({
         meta: {requiresAuth: true},
       },
 
+      { path: '/my-progress-chart',
+        component: ProgressChart,
+        name: "my-progress-chart",
+        meta: {requiresAuth: true}
+      },
+
+      { path: '/my-documents',
+        component: DocumentList,
+        name: "my-documents",
+        meta: {requiresAuth: true}
+      },
+      { path: 'my-documents/:doc_pk',
+        component: ViewDocument,
+        name: "my-document-view",
+        meta: {requiresAuth: true}
+      },
 
       { path: '/users/:pk',
         component: UserView,
