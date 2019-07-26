@@ -106,24 +106,16 @@ export default {
     },
 
     methods: {
-        goto_detailed_weight_chart: function(){
-            console.log('detiled weight chart');
-
-        },
         goto_message_list: function(){
-            console.log('messages list');
             this.$router.push({name: 'message-list-view'});
         },
         goto_log_weight: function(){
             this.$router.push({name: 'log-weight-view-self'});
-            console.log('log_weight');
-
         },
         goto_view_meal_breakdown: function(){
-            console.log('meal_breakdown');
+            this.$router.push({name: 'my-mealplan-summary'});
         },
         goto_detailed_report: function(){
-            console.log('detailed_report');
             this.$router.push({name: 'self-progress-chart'});
         },
         fetch_dashboard_data: function() {
