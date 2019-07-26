@@ -7,7 +7,7 @@
 
   <div v-if="status=='success'">
     <h3>Macronutrient Breakdown</h3>
-    <table class="macronutrient">
+    <table class="macronutrient fc-black">
       <thead>
         <th>
         </th>

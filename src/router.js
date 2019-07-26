@@ -25,7 +25,7 @@ const DocumentList =()=> import('@/views/userdocument/DocumentList.vue');
 const AddDocument =()=> import('@/views/userdocument/AddDocument.vue');
 const ViewDocument =()=> import('@/views/userdocument/ViewDocument.vue');
 const ProgressChart =()=> import('@/views/ProgressChart.vue');
-const MeasurementsForm =()=> import('@/views/MeasurementsForm');
+//const MeasurementsForm =()=> import('@/views/MeasurementsForm.vue');
 const BulkWeightUpdateView = () => import('@/views/BulkWeightUpdateView.vue');
 const ProgrammeView =()=> import("@/views/programme/ProgrammeView.vue");
 const ProgrammeList =()=> import('@/views/programme/ProgrammeList.vue');
@@ -41,10 +41,10 @@ const UploadCSVView =()=> import("@/views/UploadCSVView.vue");
 const PendingUserList =()=> import("@/views/users/PendingUserList.vue");
 const AddEditMealPlan =()=> import("@/views/mealplan/AddEditMealPlan.vue");
 const CheckinForm =()=> import("@/views/CheckinForm.vue");
-const WeightProgressChart =()=> import ("@/views/WeightProgressChart.vue");
-const MessageListView =()=> import ("@/views/MessageListView.vue");
-const MyDetailsView =()=> import ("@/views/MyDetailsView.vue");
-
+const WeightProgressChart =()=> import("@/views/WeightProgressChart.vue");
+const MessageListView =()=> import("@/views/MessageListView.vue");
+const MyDetailsView =()=> import("@/views/MyDetailsView.vue");
+const MealPlanSummary =()=> import("@/views/mealplan/MealPlanSummary.vue");
 Vue.use(Router);
 
 const router = new Router({
@@ -123,12 +123,16 @@ const router = new Router({
         name: "my-documents",
         meta: {requiresAuth: true}
       },
-      { path: 'my-documents/:doc_pk',
+      { path: '/my-documents/:doc_pk',
         component: ViewDocument,
         name: "my-document-view",
         meta: {requiresAuth: true}
       },
-
+      { path: '/mealplan',
+        component: MealPlanSummary,
+        name: 'my-mealplan-summary',
+        meta: {requiresAuth: true},
+      },
       { path: '/users/:pk',
         component: UserView,
         meta: {requiresAdmin: true},
@@ -155,7 +159,8 @@ const router = new Router({
                 name: 'weight-progress-chart-admin-view',
                 meta: {requiresAdmin: true}
             },
-            { path: 'mealplan', component: AddEditMealPlan, name: "mealplan-edit", meta: {requiresAuth: true}},
+            { path: 'mealplan-edit', component: AddEditMealPlan, name: "mealplan-edit", meta: {requiresAuth: true}},
+            { path: 'mealplan', component: MealPlanSummary, name: "mealplan-summary", meta: {requiresAuth: true}},
             { path: 'programmes/:programme_pk',
               component: ProgrammeView,
               meta: {requiresAdmin: true},
@@ -191,7 +196,6 @@ router.beforeEach((to, from, next) => {
 
 
     if (store.getters['auth/fetch_profile_flag']){
-        console.log('dispatching fetch profile from router');
         store.dispatch("auth/fetch_profile");
     }
 
