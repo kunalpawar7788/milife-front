@@ -63,7 +63,7 @@
 
   </div>
 </div>
-<div v-else> oops, err or err or </div>
+<div v-else> loading ... </div>
 </template>
 
 <script>
@@ -97,7 +97,7 @@ export default {
             this.$router.push({name: 'message-list-view'});
         },
         goto_edit_details: function(){
-            //this.$router.push({});
+            this.$router.push({name: 'my-profile'});
         },
         goto_view_documents: function(){
             this.$router.push({name: 'my-documents'});

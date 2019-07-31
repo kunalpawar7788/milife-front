@@ -14,6 +14,7 @@ const Unauthorized =()=> import('@/views/Unauthorized.vue');
 const ResetPassword =()=> import("@/views/ResetPassword.vue");
 const VerifyUserEmail =()=> import('./views/VerifyUserEmail.vue');
 const Profile =()=> import('@/views/Profile.vue');
+const MyProfile =()=> import('@/views/client/MyProfile.vue');
 const UserView =()=> import('@/views/users/UserView.vue');
 const UserList =()=> import('@/views/users/UserList.vue');
 const UserDetail =()=> import('@/views/users/UserDetail.vue');
@@ -74,7 +75,9 @@ const router = new Router({
       { path: '/reset-password', component: ResetPassword, name: "reset-password-request", meta: {requiresAnon: true}},
       { path: '/reset-password/:token', component: ResetPassword, name: "reset-password", meta: {requiresAnon: true}},
 
-      { path: '/profile', component: Profile, name: "update-profile", meta: {requiresAuth: true}},
+      // { path: '/profile', component: Profile, name: "update-profile", meta: {requiresAuth: true}},
+      { path: '/my-profile', component: MyProfile, name: "my-profile", meta: {requiresAuth: true}},
+
       { path: '/test', component: Test, name: "testview", meta: {requiresAuth: true}},
       { path: '/graphtest', component: GraphTest, name: "graphtestview", meta: {requiresAuth: false}},
       { path: '/pending-invitations', component: PendingUserList, name: "pending-invitations", meta: {requiresAdmin: true}},
