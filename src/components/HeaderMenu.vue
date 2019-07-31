@@ -49,7 +49,7 @@
         <router-link :to="{name: 'my-progress-chart'}">Charts and Stats</router-link>
       </li>
       <li class="menu-item" v-on:click="hide_menu" >
-        <router-link :to="{name: 'home'}">Calorie Breakdown</router-link>
+        <router-link :to="{name: 'my-mealplan-summary'}">Calorie Breakdown</router-link>
       </li>
       <li class="menu-item" v-on:click="hide_menu">
         <router-link :to="{name: 'message-list-view'}">Messages</router-link>
