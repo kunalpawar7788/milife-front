@@ -15,6 +15,7 @@ const ResetPassword =()=> import("@/views/ResetPassword.vue");
 const VerifyUserEmail =()=> import('./views/VerifyUserEmail.vue');
 const Profile =()=> import('@/views/Profile.vue');
 const MyProfile =()=> import('@/views/client/MyProfile.vue');
+const UpdateProfilePictureView =()=> import('@/views/client/UpdateProfilePictureView.vue');
 const UserView =()=> import('@/views/users/UserView.vue');
 const UserList =()=> import('@/views/users/UserList.vue');
 const UserDetail =()=> import('@/views/users/UserDetail.vue');
@@ -77,6 +78,7 @@ const router = new Router({
 
       // { path: '/profile', component: Profile, name: "update-profile", meta: {requiresAuth: true}},
       { path: '/my-profile', component: MyProfile, name: "my-profile", meta: {requiresAuth: true}},
+      { path: '/my-profile-picture', component: UpdateProfilePictureView, name: "update-profile-picture", meta: {requiresAuth: true}},
 
       { path: '/test', component: Test, name: "testview", meta: {requiresAuth: true}},
       { path: '/graphtest', component: GraphTest, name: "graphtestview", meta: {requiresAuth: false}},

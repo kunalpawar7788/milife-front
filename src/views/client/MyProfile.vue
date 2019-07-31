@@ -1,27 +1,180 @@
 <template>
-  <div id="my-profile-edit-container">
-
-    <h1> Edit Profile </h1>
+<div id="my-profile-edit-container"
+     v-if="profile_api_status=='success'"
+     >
+  <h3> Edit Profile Details </h3>
+  <div class="cropped-profile-photo">
+    <img class="profile-photo" :src="profile.image" v-if="profile.image!=null"/>
+    <img class="profile-photo" src="@/assets/images/placeholder-profile.png" v-else/>
   </div>
+  <div class="pd-10"
+       v-on:click="goto_update_profile_picture">
+    Update Profile Picture <div class="arr-right fc-green"> </div>
+  </div>
+  <div class="genderselect">
+    <multiselect
+      v-model="gender"
+      placeholder="Gender"
+      :options="gender_options"
+      label="label"
+      track-by="value"
+      >
+    </multiselect>
+  </div>
+
+  <div>
+    <datepicker
+      wrapper-class="datepicker"
+      input-class="text-input"
+      v-model="date_of_birth"
+      format="yyyy-MM-dd"
+      :typeable="true"
+      placeholder="Select Date of Birth"
+      >
+    </datepicker>
+  </div>
+
+  <HeightInput v-model="height"></HeightInput>
+      <WeightInput v-model="weight"></WeightInput>
+
+  <button v-promise-btn class="button width-80" v-on:click="update_profile"> Save </button>
+
+
+</div>
+<div v-else> loading ... </div>
 </template>
 
 <script>
+import Multiselect from 'vue-multiselect';
+import Datepicker from 'vuejs-datepicker';
+import HeightInput from "@/components/HeightInput.vue";
+import WeightInput from "@/components/WeightInput.vue";
+
+import moment from 'moment';
 export default {
     name: "MyProfile",
-    components: [],
-    props: {},
+    components: { Multiselect, Datepicker, HeightInput, WeightInput },
+    props: [],
     data() {
         return {
+            profile_api_status: null,
+            profile: {
+                image: "",
+                is_staff: "",
+                is_active: "",
+                accuniq_id: "",
+                email: "",
+                first_name: "",
+                last_name: "",
+                number: "",
+                gender: "",
+                date_of_birth: "",
+
+                height_cm: "",
+                height_unit: "",
+
+                weight_kg: "",
+                weight_unit: "",
+            },
+            errors: {},
+            gender_options: [
+                {label: 'Male', value: 'M',},
+                {label: 'Female', value: 'F'},
+                {label: 'Would rather not say', value: 'N'},
+            ],
+
         };
     },
     computed: {
 
+        gender_options_d() {
+            var d = {};
+            for(var i=0; i < this.gender_options.length; i++) {
+                d[this.gender_options[i]['value']] = this.gender_options[i];
+            }
+            return d;
+        },
+
+        gender: {
+            get(){
+                var val = this.profile.gender;
+                return this.gender_options_d[val];
+            },
+            set(value){
+                var d = Object.assign({}, value);
+                this.profile.gender = d['value'];
+            },
+        },
+
+        date_of_birth: {
+            get() {return this.profile.date_of_birth ;},
+            set(value) {this.profile.date_of_birth =  moment(value).format("YYYY-MM-DD");}
+        },
+
+        height: {
+            get() {
+                var preferred_unit =  this.profile.height_unit || 'metric';
+                return {
+                    magnitude_si: this.profile.height_cm ,
+                    preferred_unit: preferred_unit,
+                };
+            },
+            set(value) {
+                this.profile.height_cm = value['magnitude_si'];
+                this.profile.height_unit = value['preferred_unit'];
+            }
+        },
+
+        weight: {
+            get() {
+                return {
+                    magnitude_si: this.profile.weight_kg ,
+                    preferred_unit: this.profile.weight_unit  || 'metric',
+                };
+            },
+            set(value) {
+                this.profile.weight_kg = value['magnitude_si'];
+                this.profile.weight_unit = value['preferred_unit'];
+            }
+
+        },
+
+
     },
     methods: {
+        goto_update_profile_picture: function() {
+            this.$router.push({name: "update-profile-picture"})
+        },
+        fetch_profile: function(){
+            this.$http({url: process.env.VUE_APP_BASE_URL + '/api/me', method: 'GET' })
+                .then(resp => {
+                    this.profile = resp.data;
+                    this.profile_api_status='success';
+                    //resolve(resp);
+                })
+                .catch(err => {
+                    this.profile_api_status="error";
+                    //reject(err);
+                });
+        },
+        update_profile: function(){
+            this.$http({url: process.env.VUE_APP_BASE_URL + '/api/me/', method: 'PATCH', data: this.profile })
+                .then(resp => {
+                    this.$router.go(-1);
+
+                    //resolve(resp);
+                })
+                .catch(err => {
+                    this.profile_api_status="error";
+                    //reject(err);
+                });
+
+        },
 
     },
     created() {
         this.$store.dispatch("theme/set_theme_blue");
+        this.fetch_profile();
     },
     mounted(){
 
@@ -31,6 +184,32 @@ export default {
 
 <style lang="scss">
 #my-profile-edit-container {
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    grid-template-columns: 1fr;
+    grid-gap: 10px;
+
+    .genderselect {
+        width: 80%;
+    }
+
+    *.datepicker {
+        color: $milife-green;
+        margin: 0 auto;
+        width: 100%;
+        span.cell:hover{
+        }
+        span.cell:active{
+            color: white;
+            background-color: $milife-green;
+        }
+
+    }
+    .profile-photo {
+        height: 200px;
+    }
 
 }
 </style>
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
