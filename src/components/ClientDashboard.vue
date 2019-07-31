@@ -62,10 +62,11 @@
   <div class="last-line flex-spacebetween">
     <section
       class="message-button bg-green br-50 mt-10 flex-spacebetween"
-      v-on:click="goto_message_list"
-      >
+      v-on:click="goto_message_list">
       <span class="pd-20"> Messages </span>
-      <span class="pd-20"> {{this.data.messages_count}}</span>
+      <span class="mr-20 mt-15">
+        <MessageCountBubble> {{data.messages_count}} </MessageCountBubble>
+      </span>
     </section>
 
     <section
@@ -81,6 +82,7 @@
 <script>
 import store from '@/store'
 import WeightSummaryCard from "@/components/weight/WeightSummaryCard.vue";
+import MessageCountBubble from '@/components/MessageCountBubble.vue';
 
 export default {
     name: 'ClientDashboard',
@@ -92,6 +94,7 @@ export default {
     },
     components: {
         WeightSummaryCard,
+        MessageCountBubble,
     },
 
     computed: {
