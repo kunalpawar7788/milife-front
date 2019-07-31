@@ -59,7 +59,7 @@
 
     <h3>Meal Percentages</h3>
 
-    <table class="meal-percentages">
+    <table class="meal-percentages fc-black">
       <thead>
         <th>Meal Name</th>
         <th>Fat</th>
