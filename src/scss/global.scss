@@ -160,6 +160,9 @@ input[type='number'] {
 .fc-darkgrey{
     color: #5c5c5c;
 }
+.fc-bluegrey{
+    color:#6F7C8E;
+}
 
 
 .br-10{
@@ -176,14 +179,35 @@ input[type='number'] {
 .margin-auto {
     margin: auto;
 }
+.margin-zero-auto {
+    margin: 0 auto;
+}
+
 .mt-10{
     margin-top: 10px;
 }
+.margin-10{
+    margin: 10px;
+}
+
 .ml-0{
     margin-left: 0px;
 }
 .ml-10{
     margin-left: 10px;
+}
+.ml-20{
+    margin-left: 20px;
+}
+
+.mr-20{
+    margin-right: 20px;
+}
+.mt-15{
+    margin-top: 15px;
+}
+.mt-20 {
+    margin-top: 20px;
 }
 .pl-10{
     padding-left: 10px;
@@ -207,9 +231,29 @@ input[type='number'] {
 .pd-10 {
     padding: 10px;
 }
+.pd-5 {
+    padding: 5px;
+}
+.pt-10 {
+    padding-top: 10px;
+}
+.pb-10 {
+    padding-bottom:10px;
+}
+.height-80 {
+    height: 80%;
+}
+.height-100 {
+    height: 100%;
+}
+
 .width-80 {
     width: 80%;
 }
+.width-100 {
+    width: 100%;
+}
+
 .width-90 {
     width: 90%;
 }
@@ -312,4 +356,22 @@ input[type='number'] {
 
 .border-box{
     box-sizing: border-box;
+}
+.float-left {
+    float: left;
+}
+.ta-left {
+    text-align: left;
+}
+.overflow-ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }

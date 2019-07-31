@@ -1,33 +1,27 @@
 <template>
-<div class="messages-list-view">
-  <input
-    class="text-input"
-    v-model="search_keyword"
-    placeholder="Start typing to search"
-    v-on:keyup="fetch_messages">
+<div class="messages-view">
   <div v-if="status=='success'">
     <div
-      class="message-card bg-white margin-10 fc-black width-90 br-10 pd-10"
-      v-for="message in display_messages"
-      v-on:click="goto_view_message(message.id)"
-      >
-      <div class="sender-image">
+      class="message-card bg-white margin-10 fc-black width-90 br-10 pd-10">
+      <div class="sender-image" v-if="false">
         <div class="unread-dot bg-blue br-50" v-if="message.read==false"> </div>
         <img :src="message.sender.image" v-if="message.sender.image" />
         <div class="image-alternate bg-green fc-white fn-18 br-10" v-else >
           {{message.sender.first_name.charAt(0).toUpperCase()}}
         </div>
       </div>
-      <div class="sender-name-block">
-        <div class="fn-16 fc-black ta-left">
+      <div class="sender-name-block ">
+        <div class="fn-16 fc-darkgrey ta-left fw-600  margin-10">
           {{message.sender.first_name}} {{message.sender.last_name}}
         </div>
-        <span class="fn-11 fc-grey ta-left">
+        <div class="fn-11 fc-grey ta-left margin-10">
           {{message.modified_at}}
-        </span>
+        </div>
       </div>
-      <div class="grid-span-both-columns float-left fc-bluegrey fw-600">{{message_kind_label(message.kind)}}</div>
-      <div class="grid-span-both-columns float-left fc-bluegrey overflow-ellipsis width-90 message-content">
+      <div class="grid-span-both-columns float-left fc-bluegrey fw-600 margin-10">
+        {{message_kind_label(message.kind)}}
+      </div>
+      <div class="grid-span-both-columns float-left fc-bluegrey width-90 message-content ta-left margin-10 fn-14">
         {{message.content}}
       </div>
     </div>
@@ -38,11 +32,11 @@
 
 <script>
 export default {
-    name: "MessageListView",
+    name: "MessageView",
     props: [],
     data() {
         return {
-            messages: {},
+            message: {},
             status: "initial",
             search_keyword: "",
             kind_label: {
@@ -50,17 +44,17 @@ export default {
                 "weekly-commentry": "Weekly Commentry",
                 misc: "Miscellaneous",
             },
-
+            
         }
     },
     components: {
-
+        
     },
     computed: {
         is_admin: function() {
             return this.$store.state.auth.user.is_staff;
         },
-
+        
         user: function() {
             if (this.fobj_user && this.is_admin) {
                 return this.fobj_user;
@@ -70,23 +64,26 @@ export default {
                 return this.$store.state.auth.user;
             }
         },
-        messages_url: function() {
-            return  process.env.VUE_APP_BASE_URL+'/api/users/' + this.user.id + '/message';
+        message_pk: function(){
+            return this.$route.params.message_pk
         },
-
+        
+        messages_url: function() {
+            return  process.env.VUE_APP_BASE_URL+'/api/users/' + this.user.id + '/message/' + this.message_pk;
+        },
+        
         display_messages: function() {
             return this.$_.filter(this.messages, function(o){
                 return o.content != "";
             })
         },
     },
-
+    
     methods: {
-        fetch_messages: function() {
-            var params = {search: this.search_keyword};
-            this.$http({url: this.messages_url, params: params, method: 'GET'})
+        fetch_message: function() {
+            this.$http({url: this.messages_url, method: 'GET'})
                 .then(resp => {
-                    this.messages = resp.data.results;
+                    this.message = resp.data;
                     this.status="success";
                 })
                 .catch(err => {
@@ -94,19 +91,32 @@ export default {
                     console.log(err);
                 });
         },
+        mark_read: function(){
+            if(this.is_admin){
+                return;
+            }
+            this.$http({url: this.messages_url, method: 'PATCH', data: {read: true}})
+                .then(resp => {
+                    console.log('marked read');
+
+                })
+                .catch(err => {
+                    this.status='error';
+                    console.log(err);
+                });
+
+        },
         message_kind_label: function(kind) {
             return this.kind_label[kind];
-        },
-        goto_view_message: function(message_pk){
-            this.$router.push({name:'message-view', params: {pk: this.user.id, message_pk: message_pk}});
         },
     },
 
     created() {
-        this.$store.dispatch("theme/set_theme_blue");
+        this.$store.dispatch("theme/set_theme_white");
     },
     mounted() {
-        this.fetch_messages();
+        this.fetch_message();
+        this.mark_read();
     },
 }
 </script>
@@ -114,29 +124,13 @@ export default {
 <style lang="scss">
 .messages-list-view {
     .message-card{
-        display: grid;
-        height: 100px;
-        grid-template-columns: [column1-start] 1fr 9fr [column2-end];
-        grid-template-rows: 2fr 1fr 1fr;
-        grid-row-gap: 5px;
-        grid-column-gap: 10px;
-        align-items: center;
-    }
-    .image-alternate {
-        /* width: fit-content; */
-        padding: 5px 10px 5px 10px;
-    }
-    .sender-image {
-        width: 40px;
-        align-self: center;
-        justify-self: center;
-    }
-    .unread-dot {
-        width:10px;
-        height: 10px;
-        position: absolute;
-        margin-top: 15px;
-        margin-left: -3px;
+        /* display: grid; */
+        /* height: 100px; */
+        /* grid-template-columns: [column1-start] 1fr 9fr [column2-end]; */
+        /* grid-template-rows: 2fr 1fr 1fr; */
+        /* grid-row-gap: 5px; */
+        /* grid-column-gap: 10px; */
+        /* align-items: center; */
     }
     .sender-name-block{
         display: flex;

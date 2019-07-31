@@ -43,6 +43,7 @@ const AddEditMealPlan =()=> import("@/views/mealplan/AddEditMealPlan.vue");
 const CheckinForm =()=> import("@/views/CheckinForm.vue");
 const WeightProgressChart =()=> import("@/views/WeightProgressChart.vue");
 const MessageListView =()=> import("@/views/MessageListView.vue");
+const MessageView =()=> import("@/views/MessageView.vue");
 const MyDetailsView =()=> import("@/views/MyDetailsView.vue");
 const MealPlanSummary =()=> import("@/views/mealplan/MealPlanSummary.vue");
 Vue.use(Router);
@@ -89,6 +90,12 @@ const router = new Router({
         name: 'message-list-view',
         meta: {requiresAuth: true},
       },
+      { path: '/messages/:message_pk',
+        component: MessageView,
+        name: 'message-view',
+        meta: {requiresAuth: true},
+      },
+
       { path: '/log-weight',
         component: LogWeightView,
         name: 'log-weight-view-self',
