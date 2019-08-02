@@ -19,7 +19,7 @@
         <img src="@/assets/images/edit.svg" />
       </router-link>
       <div v-else></div>
-      <div @click="showalert('not implemented')"> <img src="@/assets/images/look-open.svg" /></div>
+      <div @click="goto_view_document(document.id)"> <img src="@/assets/images/look-open.svg" /></div>
       <div @click="download_document(document)"> <img src="@/assets/images/download.svg" /></div>
     </div>
   </div>
@@ -69,14 +69,23 @@ export default {
         is_admin: function() {
             return this.$store.state.auth.user.is_staff;
         },
-        
+
     },
 
     methods: {
         showalert(msg) {
             alert(msg);
         },
-
+        goto_view_document: function(document_pk){
+            console.log('going', document_pk);
+            var params= {doc_pk: document_pk};
+            var view = "my-document-view";
+            if (this.is_admin){
+                params['pk'] = this.user_pk;
+                view = 'user-document-view';
+            }
+            this.$router.push({name: view , params: params});
+        },
         download_document: function(d){
             return new Promise((resolve, reject) => {
                 this.$http({
@@ -97,7 +106,6 @@ export default {
         },
         fetch_documents: function() {
             const url = process.env.VUE_APP_BASE_URL+'/api/users/' + this.user_pk + '/documents';
-            this.users = {};
             return new Promise((resolve, reject) => {
                 this.$http({url: url, params:this.params, method: 'GET'})
                     .then(resp => {
