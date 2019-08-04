@@ -1,7 +1,7 @@
 <template>
 <div
   id="app"
-  :class="[theme=='blue'?'bluebackground':'whitebackground']"
+  :class="[theme=='blue'?'bluebackground':'whitebackground',]"
   >
   <vue-progress-bar> </vue-progress-bar>
   <HeaderMenu v-if="this.isAuthenticated"></HeaderMenu>
@@ -55,21 +55,6 @@ export default {
     margin: 0;
     min-height: 100%;
     /* max-width: 500px; */
-}
-.button{
-    background-color: #8AC53F;
-    border: None;
-    border-radius: 50px;
-    padding: 25px;
-    color: grey;
-    font-size: 15pt;
-    &:hover {
-        color: white;
-    }
-    &:active {
-        background-color: darken($milife-green, 20%);
-    }
-
 }
 
 #nav {

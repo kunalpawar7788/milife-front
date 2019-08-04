@@ -1,5 +1,7 @@
 <template>
-<Authentication />
+<div class="flex-center height-100">
+  <Authentication />
+</div>
 </template>
 
 <script>
@@ -18,6 +20,9 @@ export default {
     mounted() {
         this.$store.dispatch("theme/set_theme_blue");
     },
-    
+
 }
 </script>
+
+<style lang="scss">
+</style>

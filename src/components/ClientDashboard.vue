@@ -47,8 +47,8 @@
 
         <tr class="fc-black">
           <td class="bg-yellow2">
-            <span class="pl-10">Starts from
-              <template  v-if="this.data.programme" > {{this.data.programme.start_date}} </template>
+            <span class="">Stats from
+              <template  v-if="this.data.programme" > {{this.data.first_checkin.date_of_checkin}} </template>
             </span>
           </td >
           <td class="bg-yellow2" colspan="2" v-on:click="goto_detailed_report">
