@@ -1,6 +1,5 @@
 <template>
 <div id="view-document-container" v-if="status=='success'">
-	<div> <input v-model.number="page" type="number" style="width: 5em"> / {{numPages}}</div>
 	<div class="width-90">
 		<div v-if="loadedRatio > 0 && loadedRatio < 1" style="background-color: green; color: white; text-align: center" :style="{ width: loadedRatio * 100 + '%' }">{{ Math.floor(loadedRatio * 100) }}%</div>
     <pdf v-if="show" ref="pdf"  :src="src" :page="page" :rotate="rotate" @password="password" @progress="loadedRatio = $event" @error="error" @num-pages="numPages = $event" @link-clicked="page = $event"></pdf>
