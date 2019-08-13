@@ -112,7 +112,7 @@ export default {
                 })
             }.bind(this))
 
-            return this.$_.sortBy(d, function(o){return o.m_obj})
+            return this.$_.sortBy(d, function(o){return o.mobj})
         },
 
         user: function() {
