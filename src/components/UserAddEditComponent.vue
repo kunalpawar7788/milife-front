@@ -1,11 +1,16 @@
 <template>
 <section class="user-add-edit-container">
 
-  <PictureSelector v-model="image"> </PictureSelector>
+  <PictureSelector
+    v-model="image"
+    v-on:cropping="cropping=true"
+    v-on:cropped="cropping=false"
+    > </PictureSelector>
 
+<div v-if="cropping==false">
   <div>
     <input
-      :class="{'text-input': true, 'has-error': errors.email}"
+      :class="{'text-input': true, 'has-error': false}"
       type="text"
       v-model="email"
       placeholder="Email"
@@ -87,7 +92,7 @@
 
 
   <button v-promise-btn class="button" v-on:click="upsert_user"> Save </button>
-
+</div>
 
 </section>
 </template>
@@ -131,6 +136,7 @@ export default {
                 {label: 'Female', value: 'F'},
                 {label: 'Would rather not say', value: 'N'},
             ],
+            cropping: false,
         };
     },
     computed: {
@@ -247,15 +253,20 @@ export default {
     },
     methods: {
         upsert_user: function(){
+            console.log('>>> here, trying to upsert user');
             let formData = new FormData();
             for(var key in this.data){
+                if (key=="image") {continue;}
                 if(this.data[key]){
                     formData.append(key, this.data[key]);
                 };
+
             };
 
-            if(this.data.image){
-                formData.append('image', this.data.image);
+            if(this.data.image && typeof this.data.image != 'string'){
+                console.log(this.data.image);
+
+                formData.append('image', this.data.image, 'something.png');
             };
 
             return new Promise((resolve, reject) => {
@@ -264,8 +275,7 @@ export default {
                         this.status='success';
                         this.error_message="";
                         this.errors={};
-                        //this.$router.go({name: 'home'});
-                        this.$router.go(-1);
+                        this.$router.push({name: "user-manage", params: {pk: resp.data.id} });
                         resolve(resp);
                     })
                     .catch(err => {

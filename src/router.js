@@ -15,7 +15,7 @@ const ResetPassword =()=> import("@/views/ResetPassword.vue");
 const VerifyUserEmail =()=> import('./views/VerifyUserEmail.vue');
 const Profile =()=> import('@/views/Profile.vue');
 const MyProfile =()=> import('@/views/client/MyProfile.vue');
-const UpdateProfilePictureView =()=> import('@/views/client/UpdateProfilePictureView.vue');
+const UpdateProfilePictureView =()=> import('@/views/UpdateProfilePictureView.vue');
 const UserView =()=> import('@/views/users/UserView.vue');
 const UserList =()=> import('@/views/users/UserList.vue');
 const UserDetail =()=> import('@/views/users/UserDetail.vue');
@@ -48,6 +48,8 @@ const MessageListView =()=> import("@/views/MessageListView.vue");
 const MessageView =()=> import("@/views/MessageView.vue");
 const MyDetailsView =()=> import("@/views/MyDetailsView.vue");
 const MealPlanSummary =()=> import("@/views/mealplan/MealPlanSummary.vue");
+
+
 Vue.use(Router);
 
 const router = new Router({
@@ -152,6 +154,10 @@ const router = new Router({
             {path: '', component: UserDetail, name: "user-detail"},
             { path: 'edit', component: EditUserView, name: "user-edit", meta: {requiresAdmin: true}},
             { path: 'manage', component: ManageUser, name: "user-manage", meta: {requiresAdmin: true}},
+            { path: '/update-profile-picture', component: UpdateProfilePictureView, name: "admin-update-profile-picture", meta: {requiresAdmin: true}},
+
+            { path: 'a', component: UpdateProfilePictureView, name: "a", meta: {requiresAdmin: true}},
+
             // { path: 'target-weights', component: TargetWeightsView, name: "target-weights", meta: {requiresAdmin: true}},
             { path: 'bulk-weight-update', component: BulkWeightUpdateView, name: "bulk-weight-update", meta: {requiresAdmin: true}},
 
