@@ -16,7 +16,11 @@
     >
   </BodyTypeProgressionChart>
 
-  <div class="button" v-on:click="goto_commentry"> View Commentry </div>
+  <AddCoachCheckinComment v-if="checkin_comment!={}"
+    :fobj_user="fobj_user"
+    :message_obj="checkin_comment"
+    >
+  </AddCoachCheckinComment>
 
   <h3> Charts & Stats </h3>
   <StatsAndCharts
@@ -29,11 +33,6 @@
   <div class="button" v-on:click="download_report">
     Download Report
   </div>
-  <AddCoachCheckinComment v-if="checkin_comment!={}"
-    :fobj_user="fobj_user"
-    :message_obj="checkin_comment"
-    >
-  </AddCoachCheckinComment>
 </div>
 </template>
 
