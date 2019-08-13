@@ -63,7 +63,10 @@
 
   </div>
 </div>
-<div v-else> loading ... </div>
+<div v-else>
+  <template v-if="error"> error </template>
+  <template v-else> loading ... </template>
+</div>
 </template>
 
 <script>
@@ -82,6 +85,9 @@ export default {
     computed: {
         status: function(){
             return this.profile_api_status =='success' && this.messages_api_status=='success';
+        },
+        error: function(){
+            return this.profile_api_status =='error' || this.messages_api_status=='error';
         },
         is_admin: function(){
             return store.getters['auth/is_staff']
