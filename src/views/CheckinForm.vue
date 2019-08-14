@@ -6,7 +6,7 @@
       wrapper-class="checkin-datepicker"
       input-class="text-input"
       v-model="checkin_date"
-      format="yyyy-MM-dd"
+      format="dd/MM/yyyy"
       :typeable="true"
       placeholder="Select Date of Checkin"
       v-on:input="reload"

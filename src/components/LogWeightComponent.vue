@@ -5,7 +5,7 @@
       wrapper-class="start-datepicker"
       input-class="text-input"
       v-model="measured_on"
-      format="yyyy-MM-dd"
+      format="dd/MM/yyyy"
       :typeable="true"
       placeholder="Date of measurement"
       >

@@ -9,7 +9,12 @@
         </div>
         <div class="heightinput"><input v-model="profile_data.height_cm" type="text" class="text-input" placeholder="your height in cm"></div>
         <div class="weightinput"><input  v-model="profile_data.weight_kg" type="text" class="text-input" placholder="your weight in kg"></div>
-        <div class="birthdateinput"><datepicker v-model="profile_data.date_of_birth"></datepicker></div>
+        <div class="birthdateinput">
+          <datepicker
+            v-model="profile_data.date_of_birth"
+            format="dd/MM/yyyy"
+            ></datepicker>
+        </div>
         <button type="submit" class="milife-button milife-button__fullsize">Update</button>
       </form>
     </div>

@@ -6,7 +6,7 @@
       wrapper-class="profile-calendar"
       input-class="text-input"
       v-model="date_of_birth"
-      format="yyyy-MM-dd"
+      format="dd/MM/yyyy"
       :typeable="true"
       placeholder="Select Date of Birth">
     </datepicker>
