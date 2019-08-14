@@ -123,11 +123,11 @@ export default {
                 formData.append(key, payload[key]);
             }
             if (this.photo_front_profile){
-                formData.append('photo_front_profile',this.photo_front_profile );
+                formData.append('photo_front_profile',this.photo_front_profile, 'frontprofile.png' );
             }
 
             if(this.photo_side_profile){
-                formData.append('photo_side_profile', this.photo_side_profile);
+                formData.append('photo_side_profile', this.photo_side_profile, 'sideprofile.png');
             }
 
             return formData;
