@@ -25,12 +25,21 @@
     <div class="flex-center">
       <div class="pd-10">
         <label for="height" class="fc-magenta">HEIGHT</label>
-        <div class="fc-black"> {{profile.height_cm}} cm </div>
+        <div class="fc-black" v-if="profile.height_cm">
+          <template v-if="height_unit=='metric'">
+
+            {{Math.round(profile.height_cm)}} cm
+          </template>
+          <template v-else>
+            {{get_feet_from_cm(profile.height_cm/30.48)}}' {{Math.round(get_inches_from_cm(profile.height_cm))}}"
+          </template>
+        </div>
+
       </div>
 
       <div class="pd-10">
         <label for="dob" class="fc-magenta">DATE OF BIRTH</label>
-        <div class="fc-black"> {{profile.date_of_birth}}</div>
+        <div class="fc-black"> {{display_date(profile.date_of_birth)}}</div>
       </div>
 
       <div class="pd-10">
@@ -71,6 +80,7 @@
 
 <script>
 import MessageCountBubble from '@/components/MessageCountBubble.vue';
+import moment from "moment";
 export default {
     name: "MyDetailsView",
     components: {MessageCountBubble, },
@@ -80,6 +90,8 @@ export default {
             messages_api_status: 'initial',
             messages_count: 0,
             profile: {},
+            feet2cm: 30.48,
+            inch2cm: 2.54,
         }
     },
     computed: {
@@ -97,8 +109,25 @@ export default {
             return user;
         },
     },
-
+    
     methods: {
+        display_date: function(date_str){
+            return moment(date_str).format("DD/MM/YYYY");
+        },
+        get_feet_from_cm: function(cm){
+            console.log('get_feet_from_cm', cm, Math.floor(cm / this.feet2cm));
+            return Math.floor(cm / this.feet2cm);
+            
+        },
+
+        get_inches_from_cm: function(cm){
+            var value = cm / this.inch2cm;
+            if (cm >= this.feet2cm){
+                value = cm / this.feet2cm % 1 * 12;
+            }
+            console.log('get_inches_from_cm', cm, Math.floor(cm / this.feet2cm));
+            return Math.round(value*100)/100
+        },            
         goto_message_list: function() {
             this.$router.push({name: 'message-list-view'});
         },
