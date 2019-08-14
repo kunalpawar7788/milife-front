@@ -2,6 +2,7 @@
 <div class="picture-selector-container">
   <div v-if="cropping" class="fullscreen">
     <Cropper
+s      v-if="circle_stencil"
       :src="image_preview"
       v-on:change="onChange"
       ref="cropper"
@@ -13,6 +14,15 @@
 		                 maxAspectRatio: 10/8
 	                   }"
       />
+
+    <Cropper v-else
+             :src="image_preview"
+             v-on:change="onChange"
+             ref="cropper"
+             minHeight="20"
+             minWidth="20"
+      />
+
     <button class="button" v-on:click="finish_cropping"> Crop </button>
   </div>
   <div v-else>
@@ -77,7 +87,16 @@ function b64toBlob(b64Data, contentType, sliceSize) {
 
 export default {
     name: "PictureSelector",
-    props: ['id', 'label', 'value'],
+    props: {
+        id: String,
+        label: String,
+        value: [String, Blob],
+        circle_stencil: {
+            type: Boolean,
+            default: false,
+        },
+    },
+
     components: {Cropper, CircleStencil, },
     data() {
         return {
@@ -91,6 +110,7 @@ export default {
             cropping: false,
             cropped_image: null,
             new_image: null,
+
         }
     },
     computed: {

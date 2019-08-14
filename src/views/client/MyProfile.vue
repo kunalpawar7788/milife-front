@@ -138,7 +138,16 @@ export default {
             }
 
         },
-
+        payload: function(){
+            return {
+                gender: this.profile.gender,
+                date_of_birth: this.profile.date_of_birth,
+                height_cm: this.profile.height_cm,
+                height_unit: this.profile.height_unit,
+                weight_kg: this.profile.weight_kg,
+                weight_unit: this.profile.weight_unit,
+            }
+        },
 
     },
     methods: {
@@ -158,7 +167,12 @@ export default {
                 });
         },
         update_profile: function(){
-            this.$http({url: process.env.VUE_APP_BASE_URL + '/api/me/', method: 'PATCH', data: this.profile })
+            this.$http(
+                {
+                    url: process.env.VUE_APP_BASE_URL + '/api/me/',
+                    method: 'PATCH',
+                    data: this.payload
+                })
                 .then(resp => {
                     this.$router.go(-1);
 

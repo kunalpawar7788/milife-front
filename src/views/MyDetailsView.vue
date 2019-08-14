@@ -166,6 +166,7 @@ export default {
         max-height: 150px;
         width: auto;
         margin: auto;
+        border-radius: 50%;
     }
     section.message-button {
         width: 80%;

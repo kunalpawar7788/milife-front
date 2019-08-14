@@ -5,6 +5,7 @@
     v-model="image"
     v-on:cropping="cropping=true"
     v-on:cropped="cropping=false"
+    :circle_stencil="true"
     > </PictureSelector>
 
 <div v-if="cropping==false">
@@ -253,7 +254,6 @@ export default {
     },
     methods: {
         upsert_user: function(){
-            console.log('>>> here, trying to upsert user');
             let formData = new FormData();
             for(var key in this.data){
                 if (key=="image") {continue;}
@@ -264,8 +264,6 @@ export default {
             };
 
             if(this.data.image && typeof this.data.image != 'string'){
-                console.log(this.data.image);
-
                 formData.append('image', this.data.image, 'something.png');
             };
 
