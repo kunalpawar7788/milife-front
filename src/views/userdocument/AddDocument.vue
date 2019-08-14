@@ -3,7 +3,7 @@
 
     <SelectedUserDisplay :fobj_user="fobj_user"> </SelectedUserDisplay>
 
-    <div>
+    <div class="fc-black">
     <div v-if="file">
     <p>{{file}}</p>
 
