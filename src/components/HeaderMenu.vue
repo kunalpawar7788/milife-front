@@ -87,12 +87,14 @@ export default {
             var original_theme = this.original_theme;
             this.$store.dispatch('theme/set_theme', {original_theme});
             this.sidebar_visible = false;
+            this.$emit("menu-close");
         },
         toggle_menu: function(){
             if (!this.sidebar_visible){
                 this.original_theme = this.$store.state.theme.theme;
                 this.sidebar_visible = true;
                 this.$store.dispatch('theme/set_theme_blue');
+                this.$emit('menu-open');
             }
             else
                 this.hide_menu();
@@ -132,7 +134,7 @@ export default {
 
 <style lang="scss">
 .container-headermenu {
-    border: 1px solid white;
+    /* border: 1px solid white; */
 }
 .nav-header{
     display: grid;
@@ -142,15 +144,18 @@ export default {
     margin-bottom: 10px;
 }
 .sidebar-menu {
-    border: 1px solid white;
+    /* border: 1px solid white; */
     text-align: left;
     z-index: 10;
-    position: absolute;
-    top: 520;
-    left: 0;
-    background-color: $milife-blue;
+    /* position: absolute; */
+    /* top: 520; */
+    /* left: 0; */
+    /* background-color: $milife-blue; */
+    max-width:600px;
     width: 99%;
     height: 90%;
+    margin-left: auto;
+    margin-right: auto;
 
 }
 

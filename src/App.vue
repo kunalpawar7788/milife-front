@@ -4,8 +4,12 @@
   :class="[theme=='blue'?'bluebackground':'whitebackground',]"
   >
   <vue-progress-bar> </vue-progress-bar>
-  <HeaderMenu v-if="this.isAuthenticated"></HeaderMenu>
-  <router-view/>
+  <HeaderMenu
+    v-if="this.isAuthenticated"
+    v-on:menu-open="menu_open=true"
+    v-on:menu-close="menu_open=false"
+    ></HeaderMenu>
+  <template v-if="menu_open==false">  <router-view/></template>
 </div>
 </template>
 
@@ -15,8 +19,8 @@ import store from '@/store'
 export default {
 
     data() {
-        console.log('flag', store.getters['auth/isUserEmailVerified']);
         return {
+            menu_open: false,
             showEmailVerification: !store.getters['auth/isUserEmailVerified'],
             isTrainer: store.getters['auth/is_staff'],
         }
@@ -54,7 +58,9 @@ export default {
 
     margin: 0;
     min-height: 100%;
-    /* max-width: 500px; */
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #nav {
