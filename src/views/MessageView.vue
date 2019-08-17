@@ -24,7 +24,11 @@
       <div class="grid-span-both-columns float-left fc-bluegrey width-90 message-content ta-left margin-10 fn-14">
         {{message.content}}
       </div>
+      <div class="float-left width-90 message-content ta-left fn-14 milife-button anchor-container">
+        <a class="mailto pd-20"  :href="reply_mailto_url">Reply</a>
+      </div>
     </div>
+
   </div>
 
 </div>
@@ -44,17 +48,17 @@ export default {
                 "weekly-commentry": "Weekly Commentry",
                 misc: "Miscellaneous",
             },
-            
+
         }
     },
     components: {
-        
+
     },
     computed: {
         is_admin: function() {
             return this.$store.state.auth.user.is_staff;
         },
-        
+
         user: function() {
             if (this.fobj_user && this.is_admin) {
                 return this.fobj_user;
@@ -67,18 +71,35 @@ export default {
         message_pk: function(){
             return this.$route.params.message_pk
         },
-        
+
         messages_url: function() {
             return  process.env.VUE_APP_BASE_URL+'/api/users/' + this.user.id + '/message/' + this.message_pk;
         },
-        
+
         display_messages: function() {
             return this.$_.filter(this.messages, function(o){
                 return o.content != "";
             })
         },
+        reply_mailto_url: function(){
+            var sender = this.message.sender;
+            var params = {
+
+                to: sender.first_name + " " + sender.last_name + "<"+ sender.email +">",
+                subject: this.user.first_name + " " + this.user.last_name + " | " + this.message.kind,
+            }
+
+            function serialize(obj) {
+                var str = [];
+                for(var p in obj)
+                    str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                return str.join("&");
+            }
+            console.log("mailto:?"+serialize(params));
+            return "mailto:?"+serialize(params);
+        },
     },
-    
+
     methods: {
         fetch_message: function() {
             this.$http({url: this.messages_url, method: 'GET'})
@@ -122,7 +143,7 @@ export default {
 </script>
 
 <style lang="scss">
-.messages-list-view {
+.messages-view{
     .message-card{
         /* display: grid; */
         /* height: 100px; */
@@ -131,6 +152,7 @@ export default {
         /* grid-row-gap: 5px; */
         /* grid-column-gap: 10px; */
         /* align-items: center; */
+        height: 80%;
     }
     .sender-name-block{
         display: flex;
@@ -142,6 +164,17 @@ export default {
     }
     .message-content{
         align-self: center;
+    }
+
+    .red-border {
+        border: 2px solid red;
+    }
+    .anchor-container {
+        padding: 0;
+        margin: 0;
+    }
+    .mailto {
+        display: block;
     }
 }
 </style>
