@@ -388,6 +388,7 @@ input[type='number'] {
     font-size: 13pt;
     outline: 0;
     padding: 20px 0 20px 0;
+    cursor: pointer;
 }
 
 .button{
@@ -399,6 +400,7 @@ input[type='number'] {
     font-size: 15pt;
     &:hover {
         color: white;
+        cursor: pointer;
     }
     &:active {
         background-color: darken($milife-green, 20%);
