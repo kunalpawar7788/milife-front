@@ -166,7 +166,7 @@ export default {
         display: inline-block;
         border-collapse: collapse;
         border-spacing: 0px;
-
+        max-width: 400px;
     }
     table, th, td
     {
