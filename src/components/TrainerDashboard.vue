@@ -1,20 +1,20 @@
 <template>
 <div class="trainer-dashboard">
   <section class="slab1">
-  <div class="slab1">
-    <div class="usercounts">
-      <img class="image" id="icon-active" src="@/assets/images/activated-users.svg"/>
-      <div class="count" id="count-active">{{status_d.active}}</div>
-      <div class="label" id="label-active">ACTIVE <br/> USERS</div>
+    <div class="slab1">
+      <div class="usercounts">
+        <img class="image" id="icon-active" src="@/assets/images/activated-users.svg"/>
+        <div class="count" id="count-active">{{status_d.active}}</div>
+        <div class="label" id="label-active">ACTIVE <br/> USERS</div>
 
-      <img class="image" id="image-waiting" src="@/assets/images/invitation-waiting.svg"/>
-      <div class="count" id="count-waiting">{{status_d.waiting}}</div>
-      <div class="label" id="label-waiting">WATING <br/> CONFIRMATION</div>
+        <img class="image" id="image-waiting" src="@/assets/images/invitation-waiting.svg"/>
+        <div class="count" id="count-waiting">{{status_d.waiting}}</div>
+        <div class="label" id="label-waiting">WATING <br/> CONFIRMATION</div>
+      </div>
+      <div class="user-list-link">
+        <router-link :to="{name: 'user-list'}">View All Users ></router-link>
+      </div>
     </div>
-    <div class="user-list-link">
-      <router-link :to="{name: 'user-list'}">View All Users ></router-link>
-    </div>
-  </div>
   </section>
   <div id="td-adduser" v-on:click="goto_add_user">
     <span> </span>
@@ -28,10 +28,13 @@
   </div>
 
   <div id="td-search">
-    <router-link :to="{ name: 'user-list'}">
       <p>Search A User</p>
-      <input class="text-input" required v-model="email" type="email" placeholder="start typing to search"/>
-    </router-link>
+      <input
+        class="text-input"
+        required v-model="search_param"
+        placeholder="start typing to search"
+        v-on:keyup.enter="goto_search_user"
+        />
   </div>
   <div id="td-upload-csv" v-on:click="goto_upload_csv">
     <span> </span>
@@ -50,6 +53,7 @@ export default {
             status_d: {},
             email: null,
             errors: null,
+            search_param: "",
         }
     },
     components: {
@@ -63,6 +67,10 @@ export default {
         },
         goto_invite_user: function(){
             this.$router.push({name: 'pending-invitations'});
+        },
+        goto_search_user: function(){
+            this.$store.dispatch('temps/set_user_search_param', this.search_param);
+            this.$router.push({name: 'user-list'});
         },
         invitation_status_count: function(){
             const url = process.env.VUE_APP_BASE_URL+'/api/counts/email_verification_status';

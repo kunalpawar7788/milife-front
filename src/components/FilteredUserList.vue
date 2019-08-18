@@ -27,13 +27,21 @@ export default {
     props: ['email_verified',],
     data(){
         return {
-            search_keyword: "",
+            _keyword: "",
             errors: {},
             users: [],
         };
     },
     computed: {
-        params() {
+        search_keyword: {
+            get() {
+                return this.$store.getters['temps/user_search_param'];
+            },
+            set(value){
+                this.$store.dispatch('temps/set_user_search_param', value);
+            },
+        },
+        params: function() {
             var d = {};
             if (this.search_keyword){
                 d["search"] = this.search_keyword;

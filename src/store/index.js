@@ -3,6 +3,7 @@ import Vuex from 'vuex';
 import auth from './modules/auth';
 import user from './modules/user';
 import theme from './modules/theme';
+import temps from './modules/temps';
 import checkin from './modules/checkin';
 import VuexPersistence from 'vuex-persist';
 
@@ -20,6 +21,7 @@ export default new Vuex.Store({
         user,
         theme,
         checkin,
+        temps,
     },
     strict: debug,
     //plugins: debug ? [createLogger()] : []
