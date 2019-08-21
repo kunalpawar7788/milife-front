@@ -6,7 +6,7 @@
       input-class="text-input"
       v-model="measured_on"
       format="dd/MM/yyyy"
-      :typeable="true"
+      :typeable="false"
       placeholder="Date of measurement"
       >
     </datepicker>

@@ -18,7 +18,7 @@
       input-class="text-input"
       v-model="start_date"
       format="dd/MM/yyyy"
-      :typeable="true"
+      :typeable="false"
       placeholder="Select Start Date"
       v-on:input="reload"
       >
@@ -31,7 +31,7 @@
       input-class="text-input"
       v-model="end_date"
       format="dd/MM/yyyy"
-      :typeable="true"
+      :typeable="false"
       placeholder="Select End Date"
       v-on:input="reload"
       >
@@ -129,7 +129,7 @@ export default {
                 return this.programme.start_date;
             },
             set(value) {
-                this.programme.start_date = moment(value).format("YYYY-MM-DD");
+                this.programme.start_date = value;
             },
             
         },
@@ -138,7 +138,7 @@ export default {
                 return this.programme.end_date;
             },
             set(value) {
-                this.programme.end_date = moment(value).format("YYYY-MM-DD");;
+                this.programme.end_date = value;
             },
             
         },
@@ -224,7 +224,9 @@ export default {
             return new Promise((resolve, reject) => {
                 var data = this.programme;
                 data['user'] = this.user_pk;
-
+                data['start_date'] =  moment(this.programme.start_date).format("YYYY-MM-DD");
+                data['end_date'] =  moment(this.programme.end_date).format("YYYY-MM-DD");
+                
                 this.$http({url: this.upsert_url, method: this.upsert_method, data: this.programme})
                     .then(resp => {
                         resolve(resp);

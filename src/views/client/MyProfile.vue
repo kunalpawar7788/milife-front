@@ -28,7 +28,7 @@
       input-class="text-input"
       v-model="date_of_birth"
       format="dd/MM/yyyy"
-      :typeable="true"
+      :typeable="false"
       placeholder="Select Date of Birth"
       >
     </datepicker>

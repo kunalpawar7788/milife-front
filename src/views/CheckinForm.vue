@@ -7,7 +7,7 @@
       input-class="text-input"
       v-model="checkin_date"
       format="dd/MM/yyyy"
-      :typeable="true"
+      :typeable="false"
       placeholder="Select Date of Checkin"
       v-on:input="reload"
       >
