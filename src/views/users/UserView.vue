@@ -35,7 +35,10 @@ export default {
     },
 
     computed: {
-        fobj_user() {return this.user;},
+        fobj_user: function() {
+            return Object.assign({},this.$store.state.user.user);
+
+        },
     },
     asyncComputed: {
         user1:{
@@ -46,6 +49,7 @@ export default {
         },
     },
     mounted() {
+        this.$store.dispatch("user/fetch_user", this.pk);
         this.$store.dispatch("theme/set_theme_blue");
     },
     created() {

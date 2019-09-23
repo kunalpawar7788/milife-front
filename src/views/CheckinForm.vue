@@ -31,22 +31,23 @@
         > </PictureSelector>
     </div>
     
-    
-    <table>
-      <tr v-for="field in formfields">
-        <td> {{field.label}}</td>
-        <td> <NumberInput
-               placeholder=""
-               :min="0"
-               step="0.01"
-               :value="formdata[field.field_name]"
-               v-on:input="update_value(field.field_name, $event)">
-        </NumberInput> </td>
-      </tr>
-    </table>
+    <div class="table-wrapper">
+      <table>
+        <tr v-for="field in formfields">
+          <td> {{field.label}}</td>
+          <td> <NumberInput
+                 placeholder=""
+                 :min="0"
+                 step="0.01"
+                 :value="formdata[field.field_name]"
+                 v-on:input="update_value(field.field_name, $event)">
+          </NumberInput> </td>
+        </tr>
+      </table>
+    </div>
   </template>
   <button class="button" v-on:click="submit"> Save </button>
-
+  
 </div>
 </template>
 
@@ -125,11 +126,11 @@ export default {
             if (this.photo_front_profile){
                 formData.append('photo_front_profile',this.photo_front_profile, 'frontprofile.png' );
             }
-
+            
             if(this.photo_side_profile){
                 formData.append('photo_side_profile', this.photo_side_profile, 'sideprofile.png');
             }
-
+            
             return formData;
         },
         
@@ -206,7 +207,7 @@ export default {
                         // reject(err);
                     });
             });
-                        
+            
         },
         
         reload: function(){
@@ -216,15 +217,15 @@ export default {
             console.log(value);
             this.formdata[field_name]=Number(value);
         },
-
+        
     },
-
+    
     mounted: function() {
         this.$store.dispatch("theme/set_theme_white");
         this.fetch_checkin();
-
+        
     },
-
+    
 }
 </script>
 
@@ -235,11 +236,11 @@ export default {
     grid-template-columns: 2fr 2fr 1fr 2fr 2fr;
     grid-row-gap: 10px;
     grid-column-gap: 5px;
-
+    
     h3 {
         grid-column: 1 / span 5;
     }
-
+    
     .form-label{
         grid-column: 1 / span 2;
         justify-self: left;
@@ -250,7 +251,7 @@ export default {
             text-align: center;
             width: 100%;
         }
-
+        
     }
     .picture-input{
         width: 100%;
@@ -259,9 +260,9 @@ export default {
     .picture-input-side-profile{
         grid-column: 4 / span 2;
         grid-row: 3;
-
+        
     }
-
+    
     .picture-input-front-profile{
         grid-column: 1 / span 2;
         grid-row: 3;
@@ -271,11 +272,11 @@ export default {
     .checkin-date{
         grid-column: 2 / span 3;
         justify-self: center;
-
+        
     }
     .picture-input{
         grid-column: 1/ span 5;
-
+        
     }
     *.checkin-datepicker {
         color: $milife-green;
@@ -287,13 +288,14 @@ export default {
             color: white;
             background-color: $milife-green;
         }
-
+        
     }
 
     .button{
         grid-column: 2/ span 3;
         height: 10px;
     }
+    
 
 }
 

@@ -2,7 +2,7 @@
 <div class="picture-selector-container">
   <div v-if="cropping" class="fullscreen">
     <Cropper
-s      v-if="circle_stencil"
+      v-if="circle_stencil"
       :src="image_preview"
       v-on:change="onChange"
       ref="cropper"

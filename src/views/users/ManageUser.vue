@@ -66,11 +66,11 @@ export default {
     },
 
     methods: {
-        goto_edit_user(){
+        goto_edit_user: function(){
             this.$router.push({name: "user-edit", params:{pk: this.user.id}});
         },
 
-        invite_user(){
+        invite_user: function(){
             this.status="loading"
             let errors = {};
 
@@ -91,7 +91,7 @@ export default {
                 });
         },
 
-        goto_reset_password(){
+        goto_reset_password: function(){
             this.status="loading";
             const url = process.env.VUE_APP_BASE_URL+'/api/auth/password_reset/';
             this.$http({url: url, data:{email: this.user.email}, method: 'POST'})
@@ -114,7 +114,6 @@ export default {
         }
     },
     mounted() {
-        console.log(this.user.id);
         this.$store.dispatch("theme/set_theme_blue");
     },
 }
