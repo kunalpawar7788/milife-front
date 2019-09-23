@@ -182,7 +182,7 @@ export default{
         },
         translator: function(){return "translate(" + this.margin_left + "," + this.margin_top + ")"},
 
-        x_axis: function(){return d3.axisBottom().scale(
+        x_axis: function(){return d3.axisBottom().ticks(5).scale(
             d3.scaleLinear().domain([this.min_x, this.max_x]).range([0, this.width])
         )},
         y_axis: function(){return d3.axisLeft().scale(
