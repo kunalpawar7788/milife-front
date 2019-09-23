@@ -44,6 +44,7 @@ export default {
             csvfile: '',
             status: '',
             upload_percentage: 0,
+            records: {},
         }
     },
     computed: {
@@ -53,6 +54,9 @@ export default {
     },
 
     methods: {
+        timestamp_to_display: function(timestamp){
+            return moment(timestamp).format("YYYY-MM-DD HH:mm");
+        },
         handleFileSelect: function(){
             this.csvfile = this.$refs.csvfile.files[0]
         },
@@ -84,6 +88,27 @@ export default {
             })
         },
 
+        fetch_records: function() {
+            this.$http({url: this.upsert_url, data: {}, method: 'GET', params: {ordering: '-created_at'}})
+                .then(resp => {
+                    console.log(resp);
+                    this.records = resp.data.results;
+                })
+                .catch (err => {console.log('failure', err)})
+        },
+
+
+
+        patch: function(id) {
+            const url = this.upsert_url + id + '/';
+            this.$http({url: url, data: {}, method: 'PATCH'})
+                .then(resp => {console.log(resp)})
+            .catch (err => {console.log('failure', err)})
+        }
+
+    },
+    mounted() {
+        this.fetch_records();
     },
 
 }
@@ -92,5 +117,10 @@ export default {
 <style lang="scss">
 section.upload-csv-container {
     color: black;
+
+    #history-table {
+        width: 100%;
+    }
+
 }
 </style>
