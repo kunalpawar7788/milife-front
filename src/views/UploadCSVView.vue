@@ -12,18 +12,30 @@
     v-on:change="handleFileSelect()"
     >  </input>
 
+
   <div class="button" v-on:click="upload_csv"> Upload selected file </div>
 
+  <table id="history-table">
+    <thead>
+      <th>uploaded at</th>
+      <th></th>
+    </thead>
+    <tbody>
+      <tr v-for="row in records">
+        <td>{{timestamp_to_display(row.created_at)}}</td>
+        <td> <div class="button" v-on:click="patch(row.id)">
+            reprocess
+        </div> </td>
+      </tr>
+    </tbody>
 
-  {{status}}
-
-
-
+  </table>
 
 </section>
 </template>
 
 <script>
+import moment from "moment";
 export default {
     name: "UploadCSVView",
     data(){
