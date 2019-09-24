@@ -73,7 +73,7 @@
       class="log-weight-cta bg-magenta br-10 mt-10 ml-10"
       v-on:click="goto_log_weight"
       >
-
+      <img src="@/assets/images/weight-log.svg"/>
     </section>
   </div>
 </div>
@@ -268,6 +268,10 @@ section.message-button {
 section.log-weight-cta{
     height: 70px;
     width: 70px;
+
+    img {
+        width: 100%;
+    }
 }
 div.last-line{
 }
