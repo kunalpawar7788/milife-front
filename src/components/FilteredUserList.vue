@@ -24,7 +24,18 @@
 <script>
 export default {
     name: "FilteredUserList",
-    props: ['email_verified',],
+    props: {
+        email_verified: {
+            required: false,
+            type: Boolean,
+        },
+
+        invited: {
+            required: false,
+            type: Boolean,
+
+        },
+    },
     data(){
         return {
             _keyword: "",
@@ -47,7 +58,10 @@ export default {
                 d["search"] = this.search_keyword;
             }
             if (this.email_verified){
-                d["email_verified"] = this.email_verified
+                d["email_verified"] = this.email_verified;
+            }
+            if (this.invited !== null){
+                d["invited"] = this.invited;
             }
             return d;
         },

@@ -1,5 +1,5 @@
 <template>
-<FilteredUserList invited="False"></FilteredUserList>
+<FilteredUserList :invited="false"></FilteredUserList>
 </template>
 
 <script>
