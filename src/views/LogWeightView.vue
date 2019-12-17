@@ -93,8 +93,6 @@ export default {
 }
 </script>
 
-
-
 <style lang="scss">
 .log-weight-view-container {
     color: black;

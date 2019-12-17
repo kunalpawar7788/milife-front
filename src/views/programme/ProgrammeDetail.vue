@@ -48,8 +48,10 @@
     </div>
   </section>
 
-  <section class="holidays"> </section>
-  <section class="banked-sessions"> </section>
+  <section class="hbs">
+    <button class="button" v-on:click="goto_hbs()"> Holiday and Banked Sessions </button>
+  </section>
+
 </div>
 <div v-else>
   {{status}}
@@ -113,6 +115,9 @@ export default {
         }
     },
     methods: {
+        goto_hbs: function() {
+            this.$router.push({name: "admin-hbs", params: {pk: this.fobj_user.id}});
+        },
         goto_edit_session: function(programme_pk){
             this.$router.push({name: "programme-edit-sessions", params: {"programme_pk": programme_pk,  pk: this.fobj_user.id}});
         },
@@ -281,6 +286,11 @@ export default {
     .button{
         grid-row: 11;
         grid-column: 1/12;
+    }
+    .hbs{
+        grid-column: 2/11;
+        grid-row: 10;
+        padding: 30px;
     }
   }
 </style>

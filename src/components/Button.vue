@@ -34,7 +34,7 @@ export default {
                         this.busy=false;
                     })
                     .catch({
-                        this.busye=false;
+                        this.busy=false;
                     })
 
             });

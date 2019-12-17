@@ -3,7 +3,7 @@ $milife-green: #8AC53F;
 $milife-blue: #005273;
 $milife-lightblue: lighten($milife-blue, 10%);
 $milife-darkblue: darken($milife-blue, 10%);
-
+$pastel-blue: #A8C4CF;
 $milife-magenta: #E37B59;
 $milife-grey: #9b9b9b;
 $milife-orange: #fcb216;
@@ -47,7 +47,7 @@ body{
 }
 
 .text-input {
-    border: none;
+    border: 1px solid grey;
     border-radius: 50px;
     color: darken(grey, 20%);
     height: 50px;
@@ -125,6 +125,9 @@ input[type='number'] {
 .bg-yellow2 {
     background-color: $milife-yellow2;
 }
+.bg-lightgrey {
+    background-color: lighten($milife-grey, 30);
+}
 
 //font-color
 .fc-blue {
@@ -162,6 +165,9 @@ input[type='number'] {
 }
 .fc-bluegrey{
     color:#6F7C8E;
+}
+.fc-pastel-blue{
+    color: $pastel-blue;
 }
 
 
@@ -364,6 +370,10 @@ input[type='number'] {
 .float-left {
     float: left;
 }
+.float-right {
+    float: right;
+}
+
 .ta-left {
     text-align: left;
 }

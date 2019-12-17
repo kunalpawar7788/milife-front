@@ -15,7 +15,7 @@
 </section>
 </template>
 
-<script>
+<script name='js'>
 import store from '@/store';
 
 export default {

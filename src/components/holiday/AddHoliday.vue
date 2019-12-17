@@ -1,0 +1,124 @@
+<template>
+<div class="add-holiday-contanier">
+  <div class="start_date">
+    <datepicker
+      v-model="start_date"
+      format="dd/MM/yyyy"
+      placeholder="Start Date"
+      ></datepicker>
+  </div>
+  <div class="end_date mt-10">
+    <datepicker
+      v-model="end_date"
+      placeholder="End Date"
+      format="dd/MM/yyyy"
+      ></datepicker>
+  </div>
+  <div class="days_missed mt-10">
+    <input name="days_missed" v-model="days_missed" type="text" value=""
+           placeholder="No of Days Missed"
+           class="text-input"
+           />
+  </div>
+  
+  <div class="description mt-10">
+    <input name="description" type="text" value="" placeholder="Comment"
+           class="text-input"
+           v-model="description"/>
+  </div>
+  <div class="programme__date">
+    <datepicker
+      v-model="programme_end_date"
+      placeholder="Programme End Date"
+      format="dd/MM/yyyy"
+      ></datepicker>
+  </div>
+  <button class="button" v-on:click="add_holiday"> Add Holiday </button>
+</div>
+</template>
+
+<script lang="js">
+import Datepicker from 'vuejs-datepicker';
+import moment from 'moment';
+export default {
+    name: "AddHoliday",
+    props: [
+        'session_days',
+    ],
+    data() {
+        return {
+            start_date: '',
+            end_date: '',
+            description: '',
+            programme_end_date: '',
+            // days_missed: '',
+        }
+    },
+    components: {Datepicker, },
+    computed: {
+        days_missed: function() {
+            var count = 0;
+            for (var m = moment(this.start_date); m.isBefore(this.end_date); m.add(1, 'days')) {
+                if (this.session_days.indexOf(m.format('dddd')) > -1){
+                    count++;   
+                }
+            }
+            return count;
+        },
+        user_pk: function(){
+            return this.$route.params.pk;
+        },
+        programme_pk: function() {
+            return this.$route.params.programme_pk;
+        },
+        submit_url: function(){
+            const base_url = process.env.VUE_APP_BASE_URL+'/api/users/' + this.user_pk;
+            return `${process.env.VUE_APP_BASE_URL}/api/programmes/${this.programme_pk}/holiday`
+        },
+        data: function() {
+            return {
+                start: moment(this.start_date).format("YYYY-MM-DD"),
+                end: moment(this.end_date).format("YYYY-MM-DD"),
+                comment: this.description,
+                programme_end_date: moment(this.programme_end_date).format("YYYY-MM-DD"),
+            }
+        },
+    },
+    
+    methods: {
+        reset: function() {
+            this.date = '';
+        },
+        add_holiday: function(){
+            return new Promise((resolve, reject) => {
+                const url = this.submit_url;
+                var data = this.data;
+                
+                this.$http({url: this.submit_url, method: "POST", data: this.data})
+                    .then(resp => {
+                        resolve(resp);
+                        this.reset();
+                    })
+                    .catch(err => {
+                        this.status='error';
+                        console.log(err);
+                        reject(err);
+                    });
+            });
+            
+            
+        },
+    },
+    monuted(){
+        this.$store.dispatch("theme/set_theme_white");
+    },
+}
+</script>
+
+<style lang="scss">
+.add-holiday-container{
+    div{
+
+    }
+}
+</style>

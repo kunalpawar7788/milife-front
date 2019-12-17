@@ -47,6 +47,7 @@ const WeightProgressChart =()=> import("@/views/WeightProgressChart.vue");
 const MessageListView =()=> import("@/views/MessageListView.vue");
 const MessageView =()=> import("@/views/MessageView.vue");
 const MyDetailsView =()=> import("@/views/MyDetailsView.vue");
+const HBSView =()=> import("@/views/HBSView.vue");
 const MealPlanSummary =()=> import("@/views/mealplan/MealPlanSummary.vue");
 
 
@@ -170,7 +171,8 @@ const router = new Router({
             { path: 'add-checkin', component: CheckinForm , name: "add-checkin", meta: {requiresAdmin: true}},
             { path: 'programmes', component: ProgrammeList, name: "programme-list", meta: {requiresAdmin: true}},
             { path: 'programmes/add', component: ProgrammeAddEdit, name: "programme-add", meta: {requiresAdmin: true}},
-            { path: 'log-weight', component: LogWeightView, name: "admin-log-weight", meta: {requiresAuth: true}},
+            { path: 'log-weight', component: LogWeightView, name: "admin-log-weight", meta: {requiresAdmin: true}},
+
             {
                 path: 'weight-progress-chart',
                 component: WeightProgressChart,
@@ -188,7 +190,7 @@ const router = new Router({
                   { path: 'edit-sessions', component: ProgrammeEditSessions, name: "programme-edit-sessions", meta: {requiresAdmin: true}},
                   { path: 'holidays/add', component: HolidayAdd, name: "programme-holiday-add", meta: {requiresAdmin: true}},
                   { path: 'banksessions/add', component: BankSessionAdd, name: "programme-banksession-add", meta: {requiresAdmin: true}},
-
+                  { path: 'hbs', component: HBSView, name: "admin-hbs", meta: {requiresAdmin: true}},
 
               ]
             },
