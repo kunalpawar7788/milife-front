@@ -60,8 +60,8 @@ export default{
         width: 47%;
 
         img {
-            width: 100%;
-            meight: 100%;
+
+            height: 350px;
 
         }
     }
