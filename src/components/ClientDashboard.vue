@@ -47,7 +47,7 @@
 
         <tr class="fc-black">
           <td class="bg-yellow2">
-            <span class="">Stats from
+            <span class="">Stats from <br>
               <template  v-if="this.data.programme" > {{this.data.first_checkin.date_of_checkin}} </template>
             </span>
           </td >
