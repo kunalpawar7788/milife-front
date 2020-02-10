@@ -15,7 +15,7 @@
           {{message.sender.first_name}} {{message.sender.last_name}}
         </div>
         <div class="fn-11 fc-grey ta-left margin-10">
-          {{message.modified_at}}
+          {{ message.modified_at | moment("Do MMMM YYYY")}}
         </div>
       </div>
       <div class="grid-span-both-columns float-left fc-bluegrey fw-600 margin-10">

@@ -48,6 +48,7 @@ if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config();
 }
 
+Vue.use(require('vue-moment'));
 
 new Vue({
   router,
