@@ -49,6 +49,7 @@ const MessageView =()=> import("@/views/MessageView.vue");
 const MyDetailsView =()=> import("@/views/MyDetailsView.vue");
 const HBSView =()=> import("@/views/HBSView.vue");
 const MealPlanSummary =()=> import("@/views/mealplan/MealPlanSummary.vue");
+const CheckinDash =()=> import("@/views/CheckinDashboard.vue");
 
 
 Vue.use(Router);
@@ -172,7 +173,7 @@ const router = new Router({
             { path: 'programmes', component: ProgrammeList, name: "programme-list", meta: {requiresAdmin: true}},
             { path: 'programmes/add', component: ProgrammeAddEdit, name: "programme-add", meta: {requiresAdmin: true}},
             { path: 'log-weight', component: LogWeightView, name: "admin-log-weight", meta: {requiresAdmin: true}},
-
+            { path: 'checkin-dashboard', component: CheckinDash, name: "checkin-dashboard", meta: {requiresAdmin: true}},
             {
                 path: 'weight-progress-chart',
                 component: WeightProgressChart,
