@@ -273,8 +273,7 @@ export default {
                         this.status='success';
                         this.error_message="";
                         this.errors={};
-                        this.$store.dispatch("user/fetch_user", this.user.id);
-                        this.$router.push({name: "user-manage", params: {pk: resp.data.id} });
+                        this.$router.push({name: "user-list"});
                         resolve(resp);
                     })
                     .catch(err => {
