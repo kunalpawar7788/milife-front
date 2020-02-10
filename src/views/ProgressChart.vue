@@ -16,7 +16,8 @@
     >
   </BodyTypeProgressionChart>
 
-  <AddCoachCheckinComment v-if="checkin_comment!={}"
+  <AddCoachCheckinComment
+    v-if="checkin_comment!={}"
     :fobj_user="fobj_user"
     :message_obj="checkin_comment"
     >
@@ -24,6 +25,7 @@
 
   <h3> Charts & Stats </h3>
   <StatsAndCharts
+    :fobj_user="fobj_user"
     :progress_report="progress_report_by_date"
     :selected_checkin_date="selected_checkin_date"
     :checkin_dates="checkin_dates"
@@ -76,9 +78,12 @@ export default {
         },
         pictures: function(){
             if (this.progress_report.length>0 && this.selected_checkin_date !=null){
+                var first_checkin_date = this.checkin_dates[0].id;
+                console.log(this.progress_report, this.progress_report_by_date, this.selected_checkin_date, first_checkin_date);
+
                 return {
-                    original_front_profile: this.progress_report[0].photo_front_profile,
-                    original_side_profile: this.progress_report[0].photo_side_profile,
+                    original_front_profile: this.progress_report_by_date[first_checkin_date].photo_front_profile,
+                    original_side_profile: this.progress_report_by_date[first_checkin_date].photo_side_profile,
                     current_side_profile: this.progress_report_by_date[this.selected_checkin_date].photo_side_profile,
                     current_front_profile: this.progress_report_by_date[this.selected_checkin_date].photo_front_profile,
                 };
