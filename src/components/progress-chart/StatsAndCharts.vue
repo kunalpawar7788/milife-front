@@ -36,6 +36,7 @@
             track-by="id"
             :hideSelected="true"
             :searchable="false"
+            :show-labels="false"
             >
         </Multiselect></th>
         <th>{{date_repr(_selected_checkin_date)}}</th>
@@ -61,6 +62,7 @@
       value="value"
       :preselectFirst="true "
       :key="plot_key"
+      :show-labels="false"
       >
     </Multiselect>
     <GenericChart
