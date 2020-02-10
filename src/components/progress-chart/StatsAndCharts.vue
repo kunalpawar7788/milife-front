@@ -71,24 +71,24 @@
       :key="plot_key + 1"
       ></GenericChart>
   </div>
-
-</div>
+  </div>
 </template>
 
 <script>
 import Multiselect from 'vue-multiselect';
 import GenericChart from '@/components/progress-chart/GenericChart.vue';
 import moment from 'moment';
+import classify from '@/lib/measurement_range.js';
+
 export default{
     name: "StatsAndCharts",
     components: {Multiselect, GenericChart},
-    props: ['progress_report', 'selected_checkin_date', 'checkin_dates'],
+    props: ['progress_report', 'selected_checkin_date', 'checkin_dates', 'fobj_user'],
     data() {
         return {
             category: "body_composition",
             representation: "charts", // or charts
             _field_to_plot: "",
-            blah: '',
             plot_key: 0,
 
             // compare_checkin_value: {},
@@ -126,9 +126,9 @@ export default{
     },
     computed: {
         field_to_plot: {
-            get(){return this.blah;},
+            get(){return this._field_to_plot;},
             set(value){
-                this.blah = value;
+                this._field_to_plot = value;
             }
         },
         checkin_dates_d: function(){
@@ -186,11 +186,14 @@ export default{
                 return l;
             }
             Object.keys(this.fields).forEach(function(key){
+                let current_value =  this.progress_report[this._selected_checkin_date][key]
                 var d = {
                     label : this.fields[key],
-                    current_value : this.progress_report[this._selected_checkin_date][key],
+                    current_value : current_value,
                     compare_value : this.progress_report[this.compare_checkin_date.id][key],
+                    current_class : classify(key, current_value, this.age_years, this.user.gender)
                 }
+                console.log(d);
                 l.push(d);
             }.bind(this))
 
@@ -212,6 +215,17 @@ export default{
             this.plot_key += 1;
             return l;
         },
+        user: function() {
+            var user = Object.assign({}, this.$store.state.auth.user);
+            if(this.$route.params.pk){
+                user = Object.assign({}, this.fobj_user);
+            }
+            return user;
+        },
+        age_years: function() {
+            return moment().diff(this.user.date_of_birth, 'years');
+        },
+
 
     },
     methods: {
@@ -234,7 +248,8 @@ export default{
             console.log(date, this.checkin_dates_d[date]);
             var o = this.checkin_dates_d[date];
             return this.repr_date_obj(o);
-        }
+        },
+
     },
 }
 </script>
