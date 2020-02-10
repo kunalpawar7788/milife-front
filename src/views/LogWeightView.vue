@@ -7,7 +7,7 @@
       v-on:weight-updated="fetch_weight_log"
       ></LogWeightComponent>
 
-    <table class="weight-table">
+    <table class="weight-table" v-if="false">
       <thead>
         <tr>
           <th>Date</th>
