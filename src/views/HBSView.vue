@@ -46,11 +46,11 @@ export default {
 <style lang="scss">
 .holiday-banked-session-container {
     color: black;
-    
+
     div.header {
         display: block;
         height:20px;
-        
+
         color: $pastel-blue;
         span:first-child{
             float:left;
@@ -60,15 +60,15 @@ export default {
         }
         .selected {
             color: $milife-blue;
-            
+
         }
     }
     .vdp-datepicker {
         text-align: center;
         padding-top: 5px;
-        
+
         color: #8AC53F;
-        
+
         input {
             color: red;
             border: 1px solid grey;
@@ -80,7 +80,7 @@ export default {
             font-family: Monteserrat Regular;
             width: 300px;
             outline: none;
-            
+
         }
     }
 }
