@@ -3,7 +3,7 @@
   <div class="menubar fn-12">
     <div
       :class="['menuitem', category=='body_composition'? 'bg-green':'bg-lightblue']"
-      v-on:click="set_category('body_composition'); plot_key+=1"> Body Compositions </div>
+      v-on:click="set_category('body_composition'); plot_key+=1"> Body Composition </div>
     <div
       :class="['menuitem', category=='health_marker'? 'bg-green':'bg-lightblue']"
       v-on:click="set_category('health_marker'); plot_key+=1"> Health Markers </div>
