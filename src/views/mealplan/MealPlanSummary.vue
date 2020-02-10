@@ -27,19 +27,19 @@
     <tbody>
       <tr v-for="meal in meals">
         <td class="fn-11">{{meal.name}}</td>
-        <td class="fn-11">{{meal.fat}}</td>
-        <td class="fn-11">{{meal.carbohydrates}}</td>
-        <td class="fn-11">{{meal.protein}}</td>
-        <td class="fn-11">{{meal.calories}}</td>
+        <td class="fn-11">{{meal.fat  | round_off(0)}}</td>
+        <td class="fn-11">{{meal.carbohydrates  | round_off(0)}}</td>
+        <td class="fn-11">{{meal.protein  | round_off(0)}}</td>
+        <td class="fn-11">{{meal.calories  | round_off(0)}}</td>
       </tr>
       <tr >
         <td class="bg-blue" colspan=5></td>
       </tr>
       <tr>
         <td class="bg-blue"></td>
-        <td class="bg-blue fw-600" style="color: #FFCD03">{{daily_breakup_grams.fat}}g</td>
-        <td class="bg-blue fw-600" style="color: #8AC53F">{{daily_breakup_grams.carbohydrates}}g</td>
-        <td class="bg-blue fw-600" style="color: #3FA4F0">{{daily_breakup_grams.protein}}g</td>
+        <td class="bg-blue fw-600" style="color: #FFCD03">{{daily_breakup_grams.fat | round_off(0)}}g</td>
+        <td class="bg-blue fw-600" style="color: #8AC53F">{{daily_breakup_grams.carbohydrates | round_off(0)}}g</td>
+        <td class="bg-blue fw-600" style="color: #3FA4F0">{{daily_breakup_grams.protein | round_off(0)}}g</td>
         <td class="bg-blue fw-600 fc-white" >{{data.calorie}}</td>
 
 </tr>
@@ -66,7 +66,7 @@ export default {
             }
             return user;
         },
-        
+
         user_pk: function(){
             if (this.$route.params.pk) {
                 return this.$route.params.pk;
@@ -90,22 +90,22 @@ export default {
                 if (o.name == ""){
                     return
                 }
-                
+
                 console.log(o.fat, o.carbohydrates, o.protein, this.data.daily_breakup);
                 const calorie = this.data.calorie;
-                
-                var fat = this.round_off2(calorie * this.data.daily_breakup.fat * o.fat * 0.0001/9);
-                var carbohydrates = this.round_off2(calorie * this.data.daily_breakup.carbohydrates * o.carbohydrates * 0.0001/4);
-                var protein = this.round_off2(calorie * this.data.daily_breakup.protein * o.protein * 0.0001/4);
-                
-                var total_calories = this.round_off2(
+
+                var fat = calorie * this.data.daily_breakup.fat * o.fat * 0.0001/9;
+                var carbohydrates = calorie * this.data.daily_breakup.carbohydrates * o.carbohydrates * 0.0001/4;
+                var protein = calorie * this.data.daily_breakup.protein * o.protein * 0.0001/4;
+
+                var total_calories =
                     calorie * this.data.daily_breakup.fat * o.fat * 0.0001 +
-                        calorie * this.data.daily_breakup.carbohydrates * o.carbohydrates * 0.0001 +
-                        calorie * this.data.daily_breakup.protein * o.protein * 0.0001
-                )
+                    calorie * this.data.daily_breakup.carbohydrates * o.carbohydrates * 0.0001 +
+                    calorie * this.data.daily_breakup.protein * o.protein * 0.0001;
+
                 meals.push({
                     name: o.name,
-                    fat: fat, 
+                    fat: fat,
                     carbohydrates: carbohydrates,
                     protein: protein,
                     calories: total_calories
@@ -113,13 +113,13 @@ export default {
             }.bind(this))
             return meals;
         },
-        
+
         daily_breakup_grams: function(){
             const calorie = this.data.calorie;
-            const fat = this.round_off2(calorie * this.data.daily_breakup.fat * 0.01 / 9)
-            const carbohydrates = this.round_off2(calorie * this.data.daily_breakup.carbohydrates * 0.01 / 4)
-            const protein = this.round_off2(calorie * this.data.daily_breakup.protein * 0.01 / 4)
-            
+            const fat = calorie * this.data.daily_breakup.fat * 0.01 / 9;
+            const carbohydrates = calorie * this.data.daily_breakup.carbohydrates * 0.01 / 4;
+            const protein = calorie * this.data.daily_breakup.protein * 0.01 / 4;
+
             return {
                 fat: fat,
                 carbohydrates: carbohydrates,
@@ -129,7 +129,6 @@ export default {
         },
     },
     methods: {
-        round_off2: value => Math.round(value*100)/100,
 
         fetch_mealplan: function(){
             this.$http({url: this.mealplan_url, method: 'GET'})
@@ -145,6 +144,15 @@ export default {
                 });
         },
 
+    },
+    filters: {
+        round_off: function(value, precision) {
+            if (precision > 0){
+                let factor = 10 ^ precision;
+                return Math.round(value * factor) / factor;
+            }
+            return Math.round(value);
+        },
     },
     mounted() {
         this.$store.dispatch("theme/set_theme_blue");
