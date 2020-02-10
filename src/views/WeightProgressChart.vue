@@ -31,8 +31,8 @@
 
   <span class=" ml-10 fc-green fn-14 fw-600" >Coach's Commentry</span>
 
-  <p class="pd-10 bg-darkblue" v-if="comments[0]"> <strong> Last comment: </strong>
-    {{comments[0].content}} <br>
+  <p class="pd-10 bg-darkblue fn-11 fc-grey" v-if="comments[0]"> Latest Comment Dated: <strong>{{comments[0].modified_at | moment("Do MMMM YYYY")}} </strong> <br> <br>
+    <span class="fn-12 bg-darkblue fc-white">{{comments[0].content}}</span>
 
   </p>
 
