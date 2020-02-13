@@ -148,6 +148,7 @@ export default {
     grid-column-gap: 5px;
     p {
         justify-self: left;
+        text-align: left;
     }
 }
 </style>
