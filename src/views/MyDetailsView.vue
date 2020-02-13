@@ -112,7 +112,7 @@ export default {
     
     methods: {
         display_date: function(date_str){
-            return moment(date_str).format("DD MMMM");
+            return moment(date_str).format("Do MMM");
         },
         get_feet_from_cm: function(cm){
             console.log('get_feet_from_cm', cm, Math.floor(cm / this.feet2cm));

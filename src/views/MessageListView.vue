@@ -23,7 +23,7 @@
           {{message.sender.first_name}} {{message.sender.last_name}}
         </div>
         <span class="fn-11 fc-grey ta-left">
-          {{ message.modified_at | moment("Do MMMM YYYY")}}
+          {{ message.modified_at | moment("Do MMM YY")}}
         </span>
       </div>
       <div class="grid-span-both-columns float-left fc-bluegrey fw-600">{{message_kind_label(message.kind)}}</div>
