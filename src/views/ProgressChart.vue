@@ -172,7 +172,7 @@ export default {
         fetch_progress_report: function(){
             const url = process.env.VUE_APP_BASE_URL+'/api/users/' + this.user.id + "/progress-report";
             this.status = "initial"
-            this.$http({url: url, method: 'GET'})
+            this.$http({url: url, method: 'GET', params: {deleted: false}})
                 .then(resp => {
                     this.error_message="";
                     this.errors={};
