@@ -45,7 +45,7 @@
   </div>
 
   <div class="link-sink-1">
-    <span class="center fn-12 fc-magenta">Delete User</span>
+    <span class="center fn-12 fc-magenta" v-on:click="delete_user">Delete User</span>
   </div>
 </div>
 </template>
@@ -104,6 +104,18 @@ export default {
                 .catch(err => {
                     this.status="error";
                     console.log(err.response);
+                });
+        },
+
+        delete_user: function(){
+            this.status="loading";
+            const url = process.env.VUE_APP_BASE_URL+'/api/users/'+ this.user.id;
+            this.$http({url: url, data:{email: this.user.email}, method: 'DELETE'})
+                .then(resp => {
+                    this.$router.push({name: 'user-list'});
+                })
+                .catch(err => {
+                    this.status="error";
                 });
         },
 
