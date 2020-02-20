@@ -5,11 +5,11 @@
       <div class="usercounts">
         <img class="image" id="icon-active" src="@/assets/images/activated-users.svg"/>
         <div class="count" id="count-active">{{status_d.active}}</div>
-        <div class="label" id="label-active">ACTIVE <br/> USERS</div>
+        <div class="label" id="label-active" v-on:click="goto_active_users">ACTIVE <br/> USERS</div>
 
         <img class="image" id="image-waiting" src="@/assets/images/invitation-waiting.svg"/>
         <div class="count" id="count-waiting">{{status_d.waiting}}</div>
-        <div class="label" id="label-waiting">WATING <br/> CONFIRMATION</div>
+        <div class="label" id="label-waiting" v-on:click="goto_waiting_users">WATING <br/> CONFIRMATION</div>
       </div>
       <div class="user-list-link">
         <router-link :to="{name: 'user-list'}">View All Users ></router-link>
@@ -71,6 +71,12 @@ export default {
         goto_search_user: function(){
             this.$store.dispatch('temps/set_user_search_param', this.search_param);
             this.$router.push({name: 'user-list'});
+        },
+        goto_waiting_users: function(){
+            this.$router.push({name: 'waiting-users'});
+        },
+        goto_active_users: function(){
+            this.$router.push({name: 'active-users'});
         },
         invitation_status_count: function(){
             const url = process.env.VUE_APP_BASE_URL+'/api/counts/email_verification_status';

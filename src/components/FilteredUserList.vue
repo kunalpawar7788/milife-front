@@ -11,7 +11,7 @@
       v-on:click="goto_manage_user(user.id)">
 
       <div class="userinfo-grid">
-        <img :src="user.image" v-if="user.image!=null"/>
+        <img :src="user.image" v-if="user.image!==null"/>
         <img v-else src="@/assets/images/placeholder-profile.png"/>
         <span> {{user.first_name}} {{user.last_name}}</span>
       </div>
@@ -57,7 +57,7 @@ export default {
             if (this.search_keyword){
                 d["search"] = this.search_keyword;
             }
-            if (this.email_verified){
+            if (this.email_verified !== null ){
                 d["email_verified"] = this.email_verified;
             }
             if (this.invited !== null){

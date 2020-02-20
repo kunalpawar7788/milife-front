@@ -88,7 +88,7 @@ export default{
         return {
             category: "body_composition",
             representation: "charts", // or charts
-            _field_to_plot: "",
+            field_to_plot: "",
             plot_key: 0,
 
             // compare_checkin_value: {},
@@ -125,12 +125,6 @@ export default{
         };
     },
     computed: {
-        field_to_plot: {
-            get(){return this._field_to_plot;},
-            set(value){
-                this._field_to_plot = value;
-            }
-        },
         checkin_dates_d: function(){
             var d = {};
             this.$_.forEach(this.checkin_dates, function(o){
@@ -193,7 +187,6 @@ export default{
                     compare_value : this.progress_report[this.compare_checkin_date.id][key],
                     current_class : classify(key, current_value, this.age_years, this.user.gender)
                 }
-                console.log(d);
                 l.push(d);
             }.bind(this))
 

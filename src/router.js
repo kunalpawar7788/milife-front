@@ -41,6 +41,8 @@ const AddUserView =()=> import('@/views/users/AddUserView.vue');
 const EditUserView =()=> import('@/views/users/EditUserView.vue');
 const UploadCSVView =()=> import("@/views/UploadCSVView.vue");
 const PendingUserList =()=> import("@/views/users/PendingUserList.vue");
+const AwaitingUserList =()=> import("@/views/users/AwaitingUserList.vue");
+const ActiveUserList =()=> import("@/views/users/ActiveUserList.vue");
 const AddEditMealPlan =()=> import("@/views/mealplan/AddEditMealPlan.vue");
 const CheckinForm =()=> import("@/views/CheckinForm.vue");
 const WeightProgressChart =()=> import("@/views/WeightProgressChart.vue");
@@ -87,6 +89,8 @@ const router = new Router({
       { path: '/test', component: Test, name: "testview", meta: {requiresAuth: true}},
       { path: '/graphtest', component: GraphTest, name: "graphtestview", meta: {requiresAuth: false}},
       { path: '/pending-invitations', component: PendingUserList, name: "pending-invitations", meta: {requiresAdmin: true}},
+      { path: '/waiting-users', component: AwaitingUserList, name: "awaiting-confirmation", meta: {requiresAdmin: true}},
+      { path: '/active-users', component: ActiveUserList, name: "active-users", meta: {requiresAdmin: true}},
       { path: '/invite', component: Invitation, name: "invite", meta: {requiresAdmin: true}},
       { path: '/users', component: UserList, name: "user-list", meta: {requiresAdmin: true}},
       { path: '/weight-progress-chart',
