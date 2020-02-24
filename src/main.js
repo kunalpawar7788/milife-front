@@ -9,6 +9,8 @@ import Vuelidate from 'vuelidate';
 import VueProgressBar from 'vue-progressbar';
 import VuePromiseBtn from 'vue-promise-btn';
 import 'vue-promise-btn/dist/vue-promise-btn.css';
+import VueSimpleAlert from "vue-simple-alert";
+Vue.use(VueSimpleAlert);
 Vue.use(VuePromiseBtn);
 
 import _ from 'lodash';
@@ -31,6 +33,7 @@ const progressbar_options = {
 };
 
 Vue.use(VueProgressBar, progressbar_options);
+
 
 
 

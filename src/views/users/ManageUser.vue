@@ -108,14 +108,20 @@ export default {
         },
 
         delete_user: function(){
-            this.status="loading";
-            const url = process.env.VUE_APP_BASE_URL+'/api/users/'+ this.user.id;
-            this.$http({url: url, data:{email: this.user.email}, method: 'DELETE'})
-                .then(resp => {
-                    this.$router.push({name: 'user-list'});
+            this.$confirm("Are you sure?")
+            .then(() => {
+                this.status="loading";
+                const url = process.env.VUE_APP_BASE_URL+'/api/users/'+ this.user.id;
+                this.$http({url: url, data:{email: this.user.email}, method: 'DELETE'})
+                    .then(resp => {
+                        this.$router.push({name: 'user-list'});
+                    })
+                    .catch(err => {
+                        this.status="error";
+                    });
                 })
-                .catch(err => {
-                    this.status="error";
+            .catch(() => {
+                console.log('Prompt dismissed');
                 });
         },
 
