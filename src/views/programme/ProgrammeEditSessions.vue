@@ -14,7 +14,7 @@
     </timepicker>
 
   </div>
-  <div class="button" v-on:click="upsert_programme()">save </div>
+  <div class="button mt-15" v-on:click="upsert_programme()">save </div>
 </div>
 
 </template>
@@ -127,7 +127,7 @@ export default{
         },
     },
     mounted() {
-        this.$store.dispatch("theme/set_theme_white");
+        this.$store.dispatch('theme/set_theme_blue');
         if (this.programme_pk) {
             this.status='loading';
             this.fetch_programme(this.$route.params.pk, this.$route.params.programme_pk);

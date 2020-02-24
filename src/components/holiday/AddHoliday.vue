@@ -17,7 +17,7 @@
   <div class="days_missed mt-10">
     <input name="days_missed" v-model="days_missed" type="text" value=""
            placeholder="No of Days Missed"
-           class="text-input"
+           class="text-input" readonly
            />
   </div>
   
@@ -26,14 +26,14 @@
            class="text-input"
            v-model="description"/>
   </div>
-  <div class="programme__date">
+  <div class="programme__date mt-10">
     <datepicker
       v-model="programme_end_date"
-      placeholder="Programme End Date"
+      placeholder="New Programme End Date"
       format="dd/MM/yyyy"
       ></datepicker>
   </div>
-  <button class="button" v-on:click="add_holiday"> Add Holiday </button>
+  <button class="button mt-10" v-on:click="add_holiday"> Add Holiday </button>
 </div>
 </template>
 
@@ -58,11 +58,11 @@ export default {
     computed: {
         days_missed: function() {
             var count = 0;
-            for (var m = moment(this.start_date); m.isBefore(this.end_date); m.add(1, 'days')) {
-                if (this.session_days.indexOf(m.format('dddd')) > -1){
-                    count++;   
-                }
-            }
+            var start = moment(this.start_date);
+            var end = moment(this.end_date);
+            if(start._isValid && end._isValid) {
+                count = moment.duration(end.diff(start)).asDays()+1;
+              }
             return count;
         },
         user_pk: function(){
