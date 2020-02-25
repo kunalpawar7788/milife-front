@@ -104,6 +104,42 @@
       </tbody>
     </table>
 
+    <h3> Meal Grammes and calaories</h3>
+    <table class="mt-10 bg-white br-20 fc-black width-90 fn-11 fw-500">
+        <colgroup>
+          <col style="column-width: 10px" />
+          <col style="background-color: #FFCD03"> </col>
+          <col style="background-color: #8AC53F "> </col>
+          <col style="background-color: #3FA4F0 "> </col>
+        </colgroup>
+        <thead>
+          <th ></th>
+          <th class="vertical-th fn-11"><span> Fat </span></th>
+          <th class="vertical-th fn-11"><span> Carb </span></th>
+          <th class="vertical-th fn-11"><span> Protein</span></th>
+          <th class="vertical-th fn-11"><span> Calories</span></th>
+        </thead>
+        <tbody>
+          <tr v-for="meal in meals">
+            <td class="fn-11">{{meal.name}}</td>
+            <td class="fn-11">{{meal.fat  | round_off(0)}}</td>
+            <td class="fn-11">{{meal.carbohydrates  | round_off(0)}}</td>
+            <td class="fn-11">{{meal.protein  | round_off(0)}}</td>
+            <td class="fn-11">{{meal.calories  | round_off(0)}}</td>
+          </tr>
+          <tr >
+            <td class="bg-blue" colspan=5></td>
+          </tr>
+          <tr>
+            <td class="bg-blue"></td>
+            <td class="bg-blue fw-600" style="color: #FFCD03">{{daily_breakup_grams.fat | round_off(0)}}g</td>
+            <td class="bg-blue fw-600" style="color: #8AC53F">{{daily_breakup_grams.carbohydrates | round_off(0)}}g</td>
+            <td class="bg-blue fw-600" style="color: #3FA4F0">{{daily_breakup_grams.protein | round_off(0)}}g</td>
+            <td class="bg-blue fw-600 fc-white" >{{data.calorie}}</td>
+
+            </tr>
+        </tbody>
+    </table>
 
   </div>
 <div class="button" v-on:click="submit_mealplan">Save</div>
@@ -122,7 +158,6 @@ export default {
     },
 
     props: ['fobj_user', ],
-
     computed: {
         total: function(){
             var d={
@@ -169,7 +204,55 @@ export default {
         },
         is_daily_breakup_valid() {
             return (this.data.daily_breakup.fat + this.data.daily_breakup.carbohydrates + this.data.daily_breakup.protein == 100);
-        }
+        },
+
+        meals: function() {
+            var meals = [];
+            if (this.data == {} || this.data.calorie == undefined) {
+                return [];
+            }
+            this.$_.forEach(this.data.meal_breakup, function(o){
+                if (o.name == ""){
+                    return
+                }
+
+                console.log(o.fat, o.carbohydrates, o.protein, this.data.daily_breakup);
+                const calorie = this.data.calorie;
+
+                var fat = calorie * this.data.daily_breakup.fat * o.fat * 0.0001/9;
+                var carbohydrates = calorie * this.data.daily_breakup.carbohydrates * o.carbohydrates * 0.0001/4;
+                var protein = calorie * this.data.daily_breakup.protein * o.protein * 0.0001/4;
+
+                var total_calories =
+                    calorie * this.data.daily_breakup.fat * o.fat * 0.0001 +
+                    calorie * this.data.daily_breakup.carbohydrates * o.carbohydrates * 0.0001 +
+                    calorie * this.data.daily_breakup.protein * o.protein * 0.0001;
+
+                meals.push({
+                    name: o.name,
+                    fat: fat,
+                    carbohydrates: carbohydrates,
+                    protein: protein,
+                    calories: total_calories
+                });
+            }.bind(this))
+            return meals;
+        },
+
+
+        daily_breakup_grams: function(){
+            const calorie = this.data.calorie;
+            const fat = calorie * this.data.daily_breakup.fat * 0.01 / 9;
+            const carbohydrates = calorie * this.data.daily_breakup.carbohydrates * 0.01 / 4;
+            const protein = calorie * this.data.daily_breakup.protein * 0.01 / 4;
+
+            return {
+                fat: fat,
+                carbohydrates: carbohydrates,
+                protein: protein,
+                total: fat + carbohydrates + protein
+            }
+        },
     },
     data() {
         return {
@@ -241,6 +324,17 @@ export default {
             this.data.daily_breakup[field] = value;
         },
     },
+
+    filters: {
+        round_off: function(value, precision) {
+            if (precision > 0){
+                let factor = 10 ^ precision;
+                return Math.round(value * factor) / factor;
+            }
+            return Math.round(value);
+        },
+    },
+    
     created() {
         this.fetch_mealplan();
     },
