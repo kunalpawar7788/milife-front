@@ -45,4 +45,13 @@ export default {
 }
 </script>
 
-<style> </style>
+<style lang="scss">
+    div {
+        color: black;
+    }
+    .milife-button{
+        color : white;
+        padding: 15px 30px;
+    }
+
+</style>
