@@ -47,6 +47,15 @@
         </tr>
     </tbody>
   </table>
+  <br>
+  <section
+      class="margin-zero-auto bg-green br-50 mt-20 flex-spacebetween height-100 width-80"
+      v-on:click="goto_view_latest_mealplan_document">
+      <span class="ml-20 pd-20">View meal ideas </span>
+      <span class="mr-20 pd-20">
+        <img src="@/assets/images/next-arrow.svg"/>
+      </span>
+  </section>
 </div>
 </template>
 
@@ -148,7 +157,41 @@ export default {
                 });
         },
 
+        fetch_latest_meal_plan: function() {
+            const url = process.env.VUE_APP_BASE_URL + '/api/users/' + this.user_pk + '/documents?kind=MEALPLAN';
+            return new Promise((resolve, reject) => {
+                this.$http({url: url, params: this.params, method: 'GET'})
+                    .then(resp => {
+                        this.error_message = "";
+                        this.errors = {};
+                        this.latest_meal_plan = resp.data.results[0];
+                        console.log(this.latest_meal_plan);
+                    })
+                    .catch(err => {
+                        err.response.data['errors'].forEach((element, index, array) => {
+                            errors[element['field']] = element['message']
+                        });
+                        this.errors = errors;
+                    });
+            });
+        },
+
+
+        goto_view_latest_mealplan_document: function(){
+            if (this.latest_meal_plan) {
+                let doc_pk = this.latest_meal_plan['id'];
+
+                let view = 'my-document-view';
+                let params = {doc_pk: doc_pk};
+
+                this.$router.push({name: view, params: params});
+            }
+            else {
+                this.$alert('', 'No Meal Ideas Found!', 'error');
+            }
+        },
     },
+
     filters: {
         round_off: function(value, precision) {
             if (precision > 0){
@@ -163,6 +206,7 @@ export default {
         this.fetch_mealplan();
     },
     created() {
+        this.fetch_latest_meal_plan()
     },
 }
 </script>
