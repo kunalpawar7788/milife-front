@@ -89,7 +89,7 @@ const router = new Router({
       { path: '/test', component: Test, name: "testview", meta: {requiresAuth: true}},
       { path: '/graphtest', component: GraphTest, name: "graphtestview", meta: {requiresAuth: false}},
       { path: '/pending-invitations', component: PendingUserList, name: "pending-invitations", meta: {requiresAdmin: true}},
-      { path: '/waiting-users', component: AwaitingUserList, name: "awaiting-confirmation", meta: {requiresAdmin: true}},
+      { path: '/waiting-users', component: AwaitingUserList, name: "waiting-users", meta: {requiresAdmin: true}},
       { path: '/active-users', component: ActiveUserList, name: "active-users", meta: {requiresAdmin: true}},
       { path: '/invite', component: Invitation, name: "invite", meta: {requiresAdmin: true}},
       { path: '/users', component: UserList, name: "user-list", meta: {requiresAdmin: true}},
