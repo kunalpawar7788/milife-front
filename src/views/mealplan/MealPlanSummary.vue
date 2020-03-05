@@ -36,13 +36,15 @@
         <td class="bg-blue" colspan=5></td>
       </tr>
       <tr>
-        <td class="bg-blue"></td>
-        <td class="bg-blue fw-600" style="color: #FFCD03">{{daily_breakup_grams.fat | round_off(0)}}g</td>
-        <td class="bg-blue fw-600" style="color: #8AC53F">{{daily_breakup_grams.carbohydrates | round_off(0)}}g</td>
-        <td class="bg-blue fw-600" style="color: #3FA4F0">{{daily_breakup_grams.protein | round_off(0)}}g</td>
-        <td class="bg-blue fw-600 fc-white" >{{data.calorie}}</td>
+        <template v-if="daily_breakup_grams">
+            <td class="bg-blue"></td>
+            <td class="bg-blue fw-600" style="color: #FFCD03">{{daily_breakup_grams.fat | round_off(0)}}g</td>
+            <td class="bg-blue fw-600" style="color: #8AC53F">{{daily_breakup_grams.carbohydrates | round_off(0)}}g</td>
+            <td class="bg-blue fw-600" style="color: #3FA4F0">{{daily_breakup_grams.protein | round_off(0)}}g</td>
+            <td class="bg-blue fw-600 fc-white" >{{data.calorie}}</td>
+        </template>
 
-</tr>
+        </tr>
     </tbody>
   </table>
 </div>
@@ -115,16 +117,18 @@ export default {
         },
 
         daily_breakup_grams: function(){
-            const calorie = this.data.calorie;
-            const fat = calorie * this.data.daily_breakup.fat * 0.01 / 9;
-            const carbohydrates = calorie * this.data.daily_breakup.carbohydrates * 0.01 / 4;
-            const protein = calorie * this.data.daily_breakup.protein * 0.01 / 4;
+            if (this.data.calorie){
+                const calorie = this.data.calorie;
+                const fat = calorie * this.data.daily_breakup.fat * 0.01 / 9;
+                const carbohydrates = calorie * this.data.daily_breakup.carbohydrates * 0.01 / 4;
+                const protein = calorie * this.data.daily_breakup.protein * 0.01 / 4;
 
-            return {
-                fat: fat,
-                carbohydrates: carbohydrates,
-                protein: protein,
-                total: fat + carbohydrates + protein
+                return {
+                    fat: fat,
+                    carbohydrates: carbohydrates,
+                    protein: protein,
+                    total: fat + carbohydrates + protein
+                }
             }
         },
     },

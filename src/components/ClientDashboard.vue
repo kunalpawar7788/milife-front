@@ -19,30 +19,38 @@
       <thead class="fc-black">
         <tr>
           <th> </th>
-          <th>{{this.pr[1].month}}</th>
-          <th>{{this.pr[0].month}}</th>
+          <th v-if="this.pr[1]">{{this.pr[1].month}}</th>
+          <th v-if="this.pr[0]">{{this.pr[0].month}}</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td> Body Fat</td>
-          <td class="fw-500">{{this.pr[1].body_fat}}</td>
-          <td class="fw-500">{{this.pr[0].body_fat}}</td>
+          <td class="fw-500" v-if="this.pr[1]">{{this.pr[1].body_fat}}</td>
+          <td v-else> -- </td>
+          <td class="fw-500"v-if="this.pr[0]">{{this.pr[0].body_fat}}</td>
+          <td v-else> -- </td>
         </tr>
         <tr>
           <td> % Body Fat</td>
-          <td class="fw-500">{{this.pr[1].percentage_body_fat}}<span class="opacity-34">%</span></td>
-          <td class="fw-500">{{this.pr[0].percentage_body_fat}}<span class="opacity-34">%</span></td>
+          <td class="fw-500" v-if="this.pr[1]">{{this.pr[1].percentage_body_fat}}<span class="opacity-34">%</span></td>
+          <td v-else> -- </td>
+          <td class="fw-500" v-if="this.pr[0]">{{this.pr[0].percentage_body_fat}}<span class="opacity-34">%</span></td>
+          <td v-else> -- </td>
         </tr>
         <tr>
           <td> Muscle Mass</td>
-          <td class="fw-500">{{this.pr[1].muscle_mass}}</td>
-          <td class="fw-500">{{this.pr[0].muscle_mass}}</td>
+          <td class="fw-500" v-if="this.pr[1]">{{this.pr[1].muscle_mass}}</td>
+          <td v-else> -- </td>
+          <td class="fw-500" v-if="this.pr[0]">{{this.pr[0].muscle_mass}}</td>
+          <td v-else> -- </td>
         </tr>
         <tr>
           <td> % Muscle Mass</td>
-          <td class="fw-500">{{this.pr[1].percentage_muscle_mass}}<span class="opacity-34">%</span> </td>
-          <td class="fw-500">{{this.pr[0].percentage_muscle_mass}}<span class="opacity-34">%</span> </td>
+          <td class="fw-500" v-if="this.pr[1]">{{this.pr[1].percentage_muscle_mass}}<span class="opacity-34">%</span> </td>
+          <td v-else> -- </td>
+          <td class="fw-500" v-if="this.pr[0]">{{this.pr[0].percentage_muscle_mass}}<span class="opacity-34">%</span> </td>
+          <td v-else> -- </td>
         </tr>
 
         <tr class="fc-black">
