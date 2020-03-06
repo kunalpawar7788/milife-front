@@ -7,12 +7,12 @@
       <div class="picture">
         <img :src="pictures.current_front_profile" alt="NA" />
       </div>
-      <div class="arrow-div" v-on:click="show_front = false">
+      <div class="clickable arrow-div" v-on:click="show_front = false">
         <div class="arr-right"></div>
       </div>
     </template>
     <template v-else>
-      <div class="arrow-div" v-on:click="show_front = true">
+      <div class="clickable arrow-div" v-on:click="show_front = true">
         <div class="arr-left"></div>
       </div>
       <div class="picture">
@@ -45,6 +45,7 @@ export default {
   .picture {
     height: 350px;
     width: 47%;
+    overflow: hidden;
 
     img {
       height: 350px;
@@ -56,6 +57,12 @@ export default {
     width: 6%;
     display: flex;
     align-items: center;
+    justify-content: center;
+  }
+
+  .clickable {
+    padding: 0.5em;
+    cursor: pointer;
   }
 }
 </style>
