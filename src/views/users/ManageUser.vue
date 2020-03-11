@@ -167,6 +167,7 @@ export default {
     div.edit-link-container{
         color: white;
         margin-top: 20px;
+        cursor: pointer;
     }
 
     div.link-sink-1 {
@@ -177,6 +178,7 @@ export default {
         display: grid;
         grid-column-layout: 1fr 1fr;
         margin-top: 20px;
+        cursor: pointer;
 
         span {
             place-self: center;

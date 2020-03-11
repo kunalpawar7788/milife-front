@@ -142,6 +142,7 @@ export default {
     justify-items: center;
     padding: 10px;
     margin-bottom: 10px;
+    cursor: pointer;
 }
 .sidebar-menu {
     /* border: 1px solid white; */
