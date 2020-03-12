@@ -57,6 +57,7 @@
 
   <div>
     <datepicker
+      required
       wrapper-class="datepicker"
       input-class="text-input"
       v-model="date_of_birth"
@@ -91,6 +92,7 @@
 
   <WeightInput v-model="weight"></WeightInput>
 
+  <div id="error-box"><ErrorMessage v-bind:error_message="error_message"/></div>
 
   <button v-promise-btn class="button" v-on:click="upsert_user"> Save </button>
 </div>
@@ -104,12 +106,13 @@ import Datepicker from 'vuejs-datepicker';
 import HeightInput from "@/components/HeightInput.vue";
 import WeightInput from "@/components/WeightInput.vue";
 import PictureSelector from "@/components/PictureSelector.vue";
+import ErrorMessage from '@/components/ErrorMessage.vue'
 
 import moment from 'moment';
 
 export default {
     name: "UserAddEditComponent",
-    components: { Multiselect, Datepicker, HeightInput, PictureSelector, WeightInput },
+    components: { Multiselect, Datepicker, HeightInput, PictureSelector, WeightInput, ErrorMessage },
     props: ['fobj_user', ],
     data() {
         return {
@@ -132,6 +135,7 @@ export default {
                 weight_unit: "",
             },
             errors: {},
+            error_message: "",
             gender_options: [
                 {label: 'Male', value: 'M',},
                 {label: 'Female', value: 'F'},
@@ -279,6 +283,8 @@ export default {
                     .catch(err => {
                         this.status='error';
                         this.errors=err.data;
+                        this.error_message = err.response.data['errors'][0]['field'] + " : " + err.response.data['errors'][0]['message'];
+                        console.log(err.response.data['errors'][0]);
                         reject(err);
                     });
             });
@@ -307,6 +313,13 @@ section.user-add-edit-container {
     }
     input {
         border: 1px solid lighten(grey, 30%);
+    }
+    #error-box{
+        text-align: right;
+        padding-top: 15px;
+        .errormessage{
+            color: red;
+        }
     }
 }
 </style>
