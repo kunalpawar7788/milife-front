@@ -1,12 +1,12 @@
 <template>
-<div id="login-container" class="width-100 height-100">
+<div id="login-container" class="width-100 height-100" v-on:keyup.enter="login">
   <div class="logo">
     <img src="@/assets/images/milife-icon-white.svg">
   </div>
 
   <input class="width-80 text-input" required v-model="email" type="email" placeholder="your.name@example.com"/>
 
-  <input class="width-80 password-input text-input" required v-model="password" type="password" placeholder="P@55W0r|)"/>
+  <input class="width-80 password-input text-input" required v-model="password" type="password" placeholder="P@55W0r|)" />
 
   <ErrorMessage v-bind:error_message="error_message"/>
 
@@ -47,10 +47,17 @@ export default {
             this.$store.dispatch('auth/login', { email, password })
                 .then(() => this.$router.push('/'))
                 .catch(err =>{
-                    this.error = err;
-                    console.log(err)
-                    this.error_message = err.response.data['errors'][0]['message'];
-                    console.log(this.error_message);
+                    console.log(err);
+                    if(err.response.status > 500){
+                        this.error = err;
+                        this.error_message = "Something went wrong !! Please try after sometime."
+                    }
+                    else {
+                        this.error = err;
+                        this.error_message = err.response.data['errors'][0]['message'];
+                        console.log(this.error_message);
+                    }
+
                 })
         }
     },
