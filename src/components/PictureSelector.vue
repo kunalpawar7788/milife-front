@@ -21,6 +21,10 @@
              ref="cropper"
              minHeight="20"
              minWidth="20"
+             :stencilProps="{
+                minAspectRatio: 9/16,
+                maxAspectRatio: 9/16
+             }"
       />
 
     <button class="button" v-on:click="finish_cropping"> Crop </button>
