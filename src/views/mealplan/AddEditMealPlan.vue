@@ -132,10 +132,10 @@
           </tr>
           <tr>
             <td class="bg-blue"></td>
-            <td class="bg-blue fw-600" style="color: #FFCD03">{{daily_breakup_grams.fat | round_off(0)}}g</td>
-            <td class="bg-blue fw-600" style="color: #8AC53F">{{daily_breakup_grams.carbohydrates | round_off(0)}}g</td>
-            <td class="bg-blue fw-600" style="color: #3FA4F0">{{daily_breakup_grams.protein | round_off(0)}}g</td>
-            <td class="bg-blue fw-600 fc-white" >{{data.calorie}}</td>
+            <td class="bg-blue fw-600" style="color: #FFCD03">{{meal_breakup_totals.fat | round_off(0)}}g</td>
+            <td class="bg-blue fw-600" style="color: #8AC53F">{{meal_breakup_totals.carbohydrates | round_off(0)}}g</td>
+            <td class="bg-blue fw-600" style="color: #3FA4F0">{{meal_breakup_totals.protein | round_off(0)}}g</td>
+            <td class="bg-blue fw-600 fc-white" >{{meal_breakup_totals.calories}}</td>
 
             </tr>
         </tbody>
@@ -239,6 +239,24 @@ export default {
             return meals;
         },
 
+        meal_breakup_totals: function() {
+          let fat = 0, carbohydrates = 0, protein = 0, calories = 0;
+          const meals = this.meals
+
+          for (let meal in meals) {
+            fat += meals[meal]["fat"];
+            carbohydrates += meals[meal]["carbohydrates"]
+            protein += meals[meal]["protein"]
+            calories += meals[meal]["calories"]
+          }
+
+          return {
+            fat,
+            carbohydrates,
+            protein,
+            calories
+          }
+        },
 
         daily_breakup_grams: function(){
             const calorie = this.data.calorie;
@@ -334,7 +352,7 @@ export default {
             return Math.round(value);
         },
     },
-    
+
     created() {
         this.fetch_mealplan();
     },
