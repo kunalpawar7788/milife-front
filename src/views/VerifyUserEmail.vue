@@ -21,7 +21,7 @@ export default {
         }
     },
     created: function(){
-        const url = process.env.VUE_APP_BASE_URL+'/api/auth/verify_user_email';
+        const url = process.env.VUE_APP_BASE_URL+'/api/auth/verify_user_email/';
         const token = this.$route.params.token;
         this.$http({url: url, data:{token: token}, method: 'POST'})
             .then(resp => {

@@ -23,7 +23,7 @@ const actions = {
         return new Promise((resolve, reject) => {
             commit('auth_request');
 
-            axios({url: process.env.VUE_APP_BASE_URL+'/api/auth/register', data: user, method: 'POST' })
+            axios({url: process.env.VUE_APP_BASE_URL+'/api/auth/register/', data: user, method: 'POST' })
                 .then(resp => {
                     commit('auth_success', resp.data);
                     axios.defaults.headers.common['Authorization'] = "Token " + resp.data.auth_token;
@@ -82,7 +82,7 @@ const actions = {
         });
     },
     change_password({commit}, data){
-        const url = process.env.VUE_APP_BASE_URL+'/api/auth/password_change';
+        const url = process.env.VUE_APP_BASE_URL+'/api/auth/password_change/';
         axios.defaults.headers.common['Authorization'] = "Token " + localStorage.getItem('token');
         console.log(axios.defaults.headers.common['Authorization']);
         return new Promise((resolve, reject) => {
