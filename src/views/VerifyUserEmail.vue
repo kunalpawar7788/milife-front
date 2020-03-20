@@ -25,7 +25,7 @@ export default {
         const token = this.$route.params.token;
         this.$http({url: url, data:{token: token}, method: 'POST'})
             .then(resp => {
-                //commit('email_verified');
+                store.dispatch("auth/fetch_profile");
                 this.step=2;
                 //this.$router.push('/')
             })

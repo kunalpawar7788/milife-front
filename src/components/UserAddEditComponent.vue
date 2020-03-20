@@ -119,7 +119,7 @@ export default {
             data: {
                 image: "",
                 is_staff: "",
-                is_active: "",
+                is_active: "true",
                 accuniq_id: "",
                 email: "",
                 first_name: "",
@@ -270,7 +270,6 @@ export default {
             if(this.data.image && typeof this.data.image != 'string'){
                 formData.append('image', this.data.image, 'something.png');
             };
-
             return new Promise((resolve, reject) => {
                 this.$http({url: this.upsert_url, data:formData, method: this.upsert_method})
                     .then(resp => {
