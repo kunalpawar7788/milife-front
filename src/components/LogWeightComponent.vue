@@ -1,6 +1,7 @@
 <template>
 <section class="weight-log-container">
   <div>
+    <LogWeightInput v-model="weight.magnitude_si" :unit="user.weight_unit" />
     <datepicker
       wrapper-class="start-datepicker"
       input-class="text-input"
@@ -10,27 +11,39 @@
       placeholder="Date of measurement"
       >
     </datepicker>
-  </div>  
-  <WeightInput v-model="weight">  </WeightInput>
+  </div>
   <button v-on:click="add_weight_to_log"> Save </button>
 </section>
 </template>
 
 <script>
-import WeightInput from "@/components/WeightInput";
+import LogWeightInput from "@/components/LogWeightInput"
 import Datepicker from 'vuejs-datepicker';
 import moment from "moment";
 
 export default {
     name: "WeightLogComponent",
     props: ['fobj_user',],
-    components: {Datepicker, WeightInput},
+    components: {Datepicker, LogWeightInput},
+    computed: {
+        user() {
+
+            if(this.$route.params.pk){
+                var d = Object.assign({}, this.fobj_user);
+            }
+            else {
+                var d = Object.assign({}, this.$store.state.auth.user);
+            }
+            console.log(d);
+            return d;
+        },
+    },
     data() {
         return {
             measured_on: new Date(),
             weight: {
-                magnitude_si: 0,
-                preferred_unit: 'imperial'
+                magnitude_si: parseFloat(this.fobj_user.weight_kg),
+                preferred_unit: this.fobj_user.weight_unit,
             },
         }
     },
