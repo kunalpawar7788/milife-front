@@ -146,6 +146,7 @@ export default {
         font-size: 10pt;
         color: $milife-magenta;
         padding: 5px 2px;
+        cursor: pointer;
     }
     #td-adduser {
         font-size: 20pt;
@@ -156,6 +157,7 @@ export default {
         grid-template-columns: 1fr 10fr 1fr;
         padding: 10px;
         margin: 20px 2px;
+        cursor: pointer;
     }
 
     #td-inviteuser {
@@ -167,6 +169,7 @@ export default {
         grid-template-columns: 1fr 10fr 1fr;
         padding: 10px;
         margin: 20px 2px;
+        cursor: pointer;
 
     }
 
@@ -179,6 +182,7 @@ export default {
         grid-template-columns: 1fr 10fr 1fr;
         padding: 10px;
         margin: 20px 2px;
+        cursor: pointer;
     }
 
     #td-search {
@@ -187,6 +191,7 @@ export default {
         border-radius:10px;
         padding: 10px;
         font-size: 20pt;
+        cursor: pointer;
     }
     #td-search>a>input{
         margin-top: 5px;

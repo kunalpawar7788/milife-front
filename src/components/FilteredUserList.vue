@@ -102,6 +102,7 @@ export default {
 
 section.filtered-user-list {
     color: black;
+    cursor: pointer;
     
     .userinfo-grid{
         display: grid;

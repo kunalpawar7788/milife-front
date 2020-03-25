@@ -137,6 +137,7 @@ export default {
         width: 100%;
         padding: 5px;
         color: white;
+        cursor: pointer;
     }
 
     * {
