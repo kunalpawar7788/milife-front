@@ -1,11 +1,11 @@
 <template>
 <div>
-  <div class="end-date">
+  <div class="end-date" v-if="is_admin">
     <span class="label width-100"> PROGRAMME END DATE </span>:
     <span class="date width-100 fc-black fw-500"> {{programme.end_date}}</span>
   </div>
 
-  <FoldableContainer label="Add Holiday">
+  <FoldableContainer v-if="is_admin" label="Add Holiday">
     <AddHoliday></AddHoliday>
   </FoldableContainer>
 
@@ -25,6 +25,12 @@ export default {
     props: {},
     components: {AddHoliday, ListHolidays, FoldableContainer},
     computed:{
+        user_pk: function(){
+            return this.$route.params.pk;
+        },
+        is_admin: function() {
+            return this.$store.state.auth.user.is_staff;
+        },
         session_days: function(){
             var l = [];
             var time= {};

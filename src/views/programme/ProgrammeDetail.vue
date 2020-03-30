@@ -3,7 +3,7 @@
   <SelectedUserDisplay
     v-if="fobj_user"
     class="middle-column"
-    :fobj_user="fobj_user"> </SelectedUserDisplay>
+    :fobj_user="fobj_user"></SelectedUserDisplay>
 
   <div class="programme_name info_block">
     <label> PROGRAMME </label>
@@ -49,7 +49,9 @@
   </section>
 
   <section class="hbs">
-    <button class="button" v-on:click="goto_hbs()"> Holiday and Banked Sessions </button>
+    <button class="button" v-if="is_admin" v-on:click="goto_hbs()"> Holiday and Banked Sessions </button>
+    <button class="button" v-else v-on:click="goto_client_hbs()"> Holiday and Banked Sessions </button>
+
   </section>
 
 </div>
@@ -117,6 +119,9 @@ export default {
     methods: {
         goto_hbs: function() {
             this.$router.push({name: "admin-hbs", params: {pk: this.fobj_user.id}});
+        },
+        goto_client_hbs: function() {
+            this.$router.push({name: "client-hbs", params: {pk: this.user_pk}});
         },
         goto_edit_session: function(programme_pk){
             this.$router.push({name: "programme-edit-sessions", params: {"programme_pk": programme_pk,  pk: this.fobj_user.id}});

@@ -50,6 +50,7 @@ const MessageListView =()=> import("@/views/MessageListView.vue");
 const MessageView =()=> import("@/views/MessageView.vue");
 const MyDetailsView =()=> import("@/views/MyDetailsView.vue");
 const HBSView =()=> import("@/views/HBSView.vue");
+const HBSClientView =()=> import("@/views/HBSClient.vue");
 const MealPlanSummary =()=> import("@/views/mealplan/MealPlanSummary.vue");
 const CheckinDash =()=> import("@/views/CheckinDashboard.vue");
 
@@ -129,6 +130,13 @@ const router = new Router({
       { path: '/my-programmes/:programme_pk',
         component: ProgrammeDetail,
         name: 'my-programme-detail',
+        meta: {requiresAuth: true},
+      },
+
+      {
+        path: '/my-programmes/:programme_pk/chbs',
+        component: HBSClientView,
+        name: 'client-hbs',
         meta: {requiresAuth: true},
       },
 
