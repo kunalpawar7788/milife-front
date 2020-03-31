@@ -46,8 +46,8 @@
         <template v-for="record in selected_subset">
           <tr>
             <td class="fn-11">{{record.label}}</td>
-            <td class="fn-12">{{record.compare_value}}</td>
-            <td class="fn-12">{{record.current_value}}</td>
+            <td class="fn-12" :class="record.compare_class">{{record.compare_value}}</td>
+            <td class="fn-12" :class="record.current_class">{{record.current_value}}</td>
           </tr>
         </template>
       </tbody>
@@ -180,11 +180,13 @@ export default{
                 return l;
             }
             Object.keys(this.fields).forEach(function(key){
-                let current_value =  this.progress_report[this._selected_checkin_date][key]
+                let current_value = this.progress_report[this._selected_checkin_date][key]
+                let compare_value = this.progress_report[this.compare_checkin_date.id][key]
                 var d = {
                     label : this.fields[key],
                     current_value : current_value,
-                    compare_value : this.progress_report[this.compare_checkin_date.id][key],
+                    compare_value : compare_value,
+                    compare_class : classify(key, compare_value, this.age_years, this.user.gender),
                     current_class : classify(key, current_value, this.age_years, this.user.gender)
                 }
                 l.push(d);
@@ -287,6 +289,19 @@ export default{
         }
         td:first-child {
             width: 50%;
+        }
+        
+        .healthy, .desirable, .normal, .essential-fat, .athelete,
+        .fitness, .ideal, .excellent, .good, .above-average {
+            color: greenyellow;
+        }
+
+        .above-ideal, .borderline, .average, .pre-high, .below-average {
+            color: yellow;
+        }
+
+        .underweight, .obese, .high, .overweight, .poor, .very-poor {
+            color: red;
         }
     }
 }
