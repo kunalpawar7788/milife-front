@@ -46,6 +46,7 @@
       </table>
     </div>
   </template>
+  <div id="error-box"><ErrorMessage v-bind:error_message="error_message"/></div>
   <button class="button" v-on:click="submit"> Save </button>
   
 </div>
@@ -100,6 +101,8 @@ export default {
             date_of_checkin: new Date(),
             id:null,
             fetching: true,
+            errors: {},
+            error_message: "",
         }
     },
     computed: {
@@ -198,10 +201,17 @@ export default {
             return new Promise((resolve, reject) => {
                 this.$http({url: url, method: 'GET'})
                     .then(resp => {
+                        this.status='success';
+                        this.error_message="";
+                        this.errors={};
                         this.set_data(resp.data);
                         this.fetching=false;
                         resolve(resp);
                     }).catch(err => {
+                        this.status='error';
+                        this.errors=err.data;
+                        this.error_message = err.response.data['errors'][0]['field'] + " : " + err.response.data['errors'][0]['message'];
+                        console.log(err.response.data['errors'][0]);
                         this.initialize();
                         this.fetching=false;
                         // reject(err);
@@ -295,6 +305,15 @@ export default {
         grid-column: 2/ span 3;
         height: 10px;
     }
+
+    #error-box{
+        text-align: right;
+        padding-top: 15px;
+        .errormessage{
+            color: red;
+        }
+    }
+
     
 
 }

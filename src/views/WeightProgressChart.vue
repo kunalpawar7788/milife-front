@@ -156,6 +156,7 @@ export default {
         },
         fetch_weight_chart_data: function() {
             const url = process.env.VUE_APP_BASE_URL+'/api/users/' + this.user.id + '/weight-chart';
+            console.log("hduwhwkhdkw");
             this.$http({url: url, method: 'GET'})
                 .then(resp => {
                     this.data = resp.data;
