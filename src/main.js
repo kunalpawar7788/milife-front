@@ -10,6 +10,8 @@ import VueProgressBar from 'vue-progressbar';
 import VuePromiseBtn from 'vue-promise-btn';
 import 'vue-promise-btn/dist/vue-promise-btn.css';
 import VueSimpleAlert from "vue-simple-alert";
+import Filters from './filters';
+
 Vue.use(VueSimpleAlert);
 Vue.use(VuePromiseBtn);
 
@@ -34,7 +36,9 @@ const progressbar_options = {
 
 Vue.use(VueProgressBar, progressbar_options);
 
-
+Vue.mixin({
+    filters: Filters
+});
 
 
 Vue.use(AsyncComputed);
