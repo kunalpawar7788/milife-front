@@ -244,7 +244,7 @@ export default {
         background-color: $milife-blue;
         margin: 10px auto;
         .target-line {
-            stroke: $milife-orange;
+            stroke: $milife-magenta;
             opacity: 0.7;
         }
         .weight-line {
