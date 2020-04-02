@@ -4,11 +4,11 @@
 <template v-if="status=='ready'">
     <div class="body">
       <div class="left-half">
-        <div class="current_weight heading-1">
-          <template v-if="current_weight">{{current_weight.weight}}</template> kg
+        <div class="current_weight heading-1 fc-white">
+    <template v-if="current_weight">{{current_weight.weight | round_off(2) }}</template> kg
         </div>
         <div class="target_weight label-1">
-          <template v-if="current_target"> Target {{current_target}} kg </template>
+          <template v-if="current_target"> Target {{current_target}} </template>
           <template v-else> Target -- </template>
 
         </div>
@@ -21,7 +21,7 @@
         ></MiniWeightChart>
     </div>
     <footer v-on:click="goto_detailed_weight_chart">
-      View Detailed Chart &gt
+    View Detailed Chart &gt;
     </footer>
     </template>
   </section>
@@ -40,6 +40,7 @@ export default {
         };
     },
     props: ['fobj_user', ],
+
     computed: {
         is_admin: function() {
             return this.$store.state.auth.user.is_staff;

@@ -343,16 +343,6 @@ export default {
         },
     },
 
-    filters: {
-        round_off: function(value, precision) {
-            if (precision > 0){
-                let factor = 10 ^ precision;
-                return Math.round(value * factor) / factor;
-            }
-            return Math.round(value);
-        },
-    },
-
     created() {
         this.fetch_mealplan();
     },
