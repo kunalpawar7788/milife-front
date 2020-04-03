@@ -1,6 +1,6 @@
 <template>
-  <div class="weight-input-container bg-white pd-10 br-20 width-50 ">
-    <div v-if="unit == 'metric'">
+  <div class="weight-input-container bg-white br-20">
+    <div v-if="unit == 'metric'" class="metric">
       <input
         class="weight-input"
         type="number"
@@ -11,7 +11,7 @@
       />
       <span>KG</span>
     </div>
-    <div v-else-if="unit === 'imperial'">
+    <div v-else-if="unit === 'imperial'" class="imperial">
       <input
         class="weight-input"
         type="number"
@@ -20,7 +20,7 @@
         :value="stones"
         @input="updateWeight('imperial')"
       />
-      <span class="mr-20">st</span>
+      <span class="mr-10">st</span>
       <input
         class="weight-input"
         type="number"
@@ -99,12 +99,31 @@ export default {
 <style lang="scss">
 .weight-input-container {
   display: inline-flex;
+  justify-content: center;
+  padding-top: 5%;
+  padding-bottom: 5%;
+  width: 75%;
 
   input.weight-input {
-    width: 20%;
-    font-size: 20pt;
+    font-size: 3em;
+    font-weight: bold;
     text-align: right;
     border: none;
+    color: dimgray;
+  }
+
+  .metric input.weight-input {
+    width: 100px;
+  }
+
+  .imperial input.weight-input {
+    width: 70px;
+  }
+
+  span {
+    font-weight: bold;
+    color: dimgray;
+    font-size: 18pt;
   }
 }
 </style>

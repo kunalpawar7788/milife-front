@@ -1,6 +1,6 @@
 <template>
 <section class="log-weight-view-container">
-  <header><h3> Log Weight </h3></header>
+  <header><h3 class="fc-white"> Log Weight </h3></header>
   <center>
     <LogWeightComponent
       :fobj_user="user"
@@ -87,7 +87,7 @@ export default {
         this.$store.dispatch("auth/fetch_profile");
         console.log(this.fobj_user);
         this.fetch_weight_log();
-        // this.$store.dispatch("theme/set_theme_blue");
+        this.$store.dispatch("theme/set_theme_blue");
 
     }
 }

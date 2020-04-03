@@ -1,7 +1,7 @@
 <template>
 <section class="weight-log-container">
   <div>
-    <LogWeightInput v-model="weight.magnitude_si" :unit="user.weight_unit" />
+    <LogWeightInput class="m-30p" v-model="weight.magnitude_si" :unit="user.weight_unit" />
     <datepicker
       wrapper-class="start-datepicker"
       input-class="text-input"
@@ -12,7 +12,7 @@
       >
     </datepicker>
   </div>
-  <button v-on:click="add_weight_to_log"> Save </button>
+  <button class="br-50" v-on:click="add_weight_to_log"> Log Weight </button>
 </section>
 </template>
 
@@ -78,11 +78,20 @@ section.weight-log-container {
     grid-template-columns: 1fr;
     grid-row-gap: 10px;
 
+    .m-30p {
+        margin-top: 30%;
+    }
+
+    .vdp-datepicker {
+        margin-top: 10%;
+        text-align: center;
+    }
+
     button {
         background-color: $milife-green;
-
+        color: white;
         padding: 20px;
-        border-radius: 20px;
+        margin-top: 40%;
 
     }
 }
