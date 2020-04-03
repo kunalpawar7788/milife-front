@@ -126,11 +126,11 @@ export default {
             for(var key in payload){
                 formData.append(key, payload[key]);
             }
-            if (this.photo_front_profile){
+            if (this.photo_front_profile && typeof this.photo_front_profile != 'string'){
                 formData.append('photo_front_profile',this.photo_front_profile, 'frontprofile.png' );
             }
             
-            if(this.photo_side_profile){
+            if(this.photo_side_profile && typeof this.photo_side_profile != 'string'){
                 formData.append('photo_side_profile', this.photo_side_profile, 'sideprofile.png');
             }
             
