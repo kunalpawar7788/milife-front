@@ -14,6 +14,7 @@
         <img :src="user.image" v-if="user.image!==null"/>
         <img v-else src="@/assets/images/placeholder-profile.png"/>
         <span> {{user.first_name}} {{user.last_name}}</span>
+        <span v-if='user.is_staff'> Admin </span>
       </div>
     </div>
   </div>
@@ -123,6 +124,7 @@ section.filtered-user-list {
             align-self: center;
             justify-self: left;
             padding-left: 20px;
+            margin-right: 20px;
         }
         
         &:active{
