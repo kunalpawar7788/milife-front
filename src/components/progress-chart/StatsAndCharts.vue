@@ -98,7 +98,7 @@ export default{
                 body_fat: 'Body Fat',
                 percentage_body_fat: '% Body Fat',
                 muscle_mass: 'Muscle Mass',
-                percentage_muscle_mass: 'Muscle Mass',
+                percentage_muscle_mass: '% Muscle Mass',
                 visceral_fat_mass: 'Visceral Fat Mass',
                 body_type: 'Body Type',
                 biological_age: 'Biological Age',
