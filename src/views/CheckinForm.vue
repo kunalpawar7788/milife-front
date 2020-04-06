@@ -57,11 +57,12 @@ import Datepicker from 'vuejs-datepicker'
 import NumberInput from "vue-number-input"
 import PictureSelector from '@/components/PictureSelector'
 import moment from 'moment'
+import ErrorMessage from '@/components/ErrorMessage.vue'
 
 export default {
     name: "CheckinForm",
     props: ['fobj_user', ],
-    components: {Datepicker, PictureSelector, NumberInput},
+    components: {Datepicker, PictureSelector, NumberInput, ErrorMessage},
     data() {
         return {
             formfields: [
@@ -165,9 +166,16 @@ export default {
                     },
                 })
                     .then(resp => {
+                        this.status='success';
+                        this.error_message="";
+                        this.errors={};
                         resolve(resp);
                         this.$router.go(-1);
                     }).catch(err => {
+                        this.status='error';
+                        this.errors=err.data;
+                        this.error_message = err.response.data['errors'][0]['field'] + " : " + err.response.data['errors'][0]['message'];
+                        console.log(err.response.data['errors'][0]);
                         reject(err);
                     });
             });
@@ -201,17 +209,10 @@ export default {
             return new Promise((resolve, reject) => {
                 this.$http({url: url, method: 'GET'})
                     .then(resp => {
-                        this.status='success';
-                        this.error_message="";
-                        this.errors={};
                         this.set_data(resp.data);
                         this.fetching=false;
                         resolve(resp);
                     }).catch(err => {
-                        this.status='error';
-                        this.errors=err.data;
-                        this.error_message = err.response.data['errors'][0]['field'] + " : " + err.response.data['errors'][0]['message'];
-                        console.log(err.response.data['errors'][0]);
                         this.initialize();
                         this.fetching=false;
                         // reject(err);
