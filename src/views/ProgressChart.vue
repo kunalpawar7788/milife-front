@@ -32,7 +32,7 @@
     v-if="selected_checkin_date!=null"
     >
   </StatsAndCharts>
-  <div class="button" v-on:click="download_report">
+  <div class="button" v-if="false" v-on:click="download_report">
     Download Report
   </div>
 </div>
