@@ -48,7 +48,8 @@
     </tbody>
   </table>
   <br>
-  <section
+
+  <section v-if="false"
       class="margin-zero-auto bg-green br-50 mt-20 flex-spacebetween height-100 width-80"
       v-on:click="goto_view_latest_mealplan_document">
       <span class="ml-20 pd-20">View meal ideas </span>
