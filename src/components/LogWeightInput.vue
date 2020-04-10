@@ -48,7 +48,7 @@ export default {
       stones: 0,
       pounds: 0,
       stones2kg: 6.35,
-      pounds2kg: 0.45
+      pounds2kg: 0.45,
     };
   },
 
@@ -86,13 +86,13 @@ export default {
         console.error(`Cannot handle ${this.unit}`);
       }
       this.emitWeight();
-    }
+    },
   },
 
   created() {
     this.stones = this.getWeightInStones(this.weight);
     this.pounds = this.getWeightInPounds(this.weight);
-  }
+  },
 };
 </script>
 
@@ -107,13 +107,13 @@ export default {
   input.weight-input {
     font-size: 3em;
     font-weight: bold;
-    text-align: right;
+    text-align: center;
     border: none;
     color: dimgray;
   }
 
   .metric input.weight-input {
-    width: 100px;
+    width: 160px;
   }
 
   .imperial input.weight-input {
