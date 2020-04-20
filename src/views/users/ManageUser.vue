@@ -40,6 +40,7 @@
     <div id="mu-7" class="mb mb__full fn-12"><router-link :to="{name: 'add-checkin', params: {pk: user.id}}"> Add Checkin </router-link></div>
     <div id="mu-9" class="mb mb__full fn-12 "><router-link :to="{name: 'bulk-weight-update', params:{'pk' : user.id}}"> Update Weight or Target</router-link> </div>
     <div id="mu-10" class="mb mb__full fn-12"><router-link :to="{name: 'checkin-dashboard', params: {pk: user.id}}"> Curate Checkins </router-link> </div>
+    <div id="mu-10" class="mb mb__full fn-12"><router-link :to="{name: 'visualize-data', params: {pk: user.id}}"> Visualize Data </router-link> </div>
 
   </div>
 

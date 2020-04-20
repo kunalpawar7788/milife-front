@@ -53,6 +53,7 @@ const HBSView =()=> import("@/views/HBSView.vue");
 const HBSClientView =()=> import("@/views/HBSClient.vue");
 const MealPlanSummary =()=> import("@/views/mealplan/MealPlanSummary.vue");
 const CheckinDash =()=> import("@/views/CheckinDashboard.vue");
+const VisualizeData = () => import("@/views/VisualizeData.vue");
 
 
 Vue.use(Router);
@@ -207,6 +208,7 @@ const router = new Router({
 
               ]
             },
+            {path: 'visualize-data', component: VisualizeData, name: "visualize-data", requiresAdmin: true},
 
 
         ]
