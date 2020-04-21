@@ -13,6 +13,7 @@
 
 <script>
 import * as d3 from 'd3';
+import moment from 'moment'
 
 export default {
     name: 'MiniWeightChart',
@@ -95,10 +96,10 @@ export default {
 
             var x = d3.scaleTime()
                 .range([0, width])
-                .domain([new Date(this.all_dates[0]), new Date(this.all_dates.slice(-1)[0])]);
+                .domain([new Date(this.all_dates[0]), moment(new Date(this.all_dates.slice(-1)[0])).add(5, 'day')]);
 
             var y = d3.scaleLinear()
-                .domain([this.$_.min(this.all_weights), this.$_.max(this.all_weights)])
+                .domain([this.$_.min(this.all_weights), this.$_.max(this.all_weights)+30])
                 .range([height, 0]);
 
             var xAxis = d3.axisBottom()
