@@ -78,7 +78,7 @@
 import Multiselect from 'vue-multiselect';
 import GenericChart from '@/components/progress-chart/GenericChart.vue';
 import moment from 'moment';
-import classify from '@/lib/measurement_range.js';
+import { classify, classifyBodyType } from '@/lib/measurement_range.js';
 
 export default{
     name: "StatsAndCharts",
@@ -189,6 +189,17 @@ export default{
                     compare_class : classify(key, compare_value, this.age_years, this.user.gender),
                     current_class : classify(key, current_value, this.age_years, this.user.gender)
                 }
+
+                if (key == 'body_type') {
+                    let currBfp = this.progress_report[this._selected_checkin_date]['percentage_body_fat']
+                    let currBmi = this.progress_report[this._selected_checkin_date]['body_mass_index']
+                    let compBfp = this.progress_report[this.compare_checkin_date.id]['percentage_body_fat']
+                    let compBmi = this.progress_report[this.compare_checkin_date.id]['body_mass_index']
+
+                    d.current_value = classifyBodyType.classify(currBfp, currBmi, this.user.gender) || '-'
+                    d.compare_value = classifyBodyType.classify(compBfp, compBmi, this.user.gender) || '-'
+                }
+
                 l.push(d);
             }.bind(this))
 
