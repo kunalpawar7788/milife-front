@@ -85,7 +85,7 @@ export default {
             var numberOfTicks = 6;
 
             if(this.show_axes){
-                var margin = {top: 1, right: 1, bottom: 30, left: 20};
+                var margin = {top: 1, right: 1, bottom: 30, left: 30};
             }
             else {
                 var margin = {top: 1, right: 1, bottom: 1, left: 1};
