@@ -49,6 +49,7 @@ export default {
 </script>
 
 <style lang="scss">
+
 section.add-user-container {
     color: black;
     *{
@@ -58,5 +59,19 @@ section.add-user-container {
     input {
         border: 1px solid lighten(grey, 30%);
     }
+
+    .picture-selector-container{
+        *{
+            margin: 0px;
+        }
+        .picture-preview{
+            img {
+                max-height: 200px;
+                max-width:200px;
+            }
+        }
+    }
+
 }
+
 </style>

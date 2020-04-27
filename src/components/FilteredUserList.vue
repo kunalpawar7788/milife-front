@@ -117,6 +117,7 @@ section.filtered-user-list {
         img {
             height:60px;
             padding: 5px;
+            border-radius:50%;
         }
         
         span{

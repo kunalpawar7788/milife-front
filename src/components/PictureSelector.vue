@@ -172,14 +172,6 @@ export default {
 </script>
 
 <style lang="scss">
-.picture-selector-container{
-    .picture-preview{
-        img {
-            max-height: 150px;
-            max-width:150px;
-        }
-    }
-}
 .fullscreen {
     z-index: 100;
     height: 95%;
