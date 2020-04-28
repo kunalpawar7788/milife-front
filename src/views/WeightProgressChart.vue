@@ -88,7 +88,8 @@ export default {
             return screen.height * 0.40;
         },
         chart_width: function() {
-            return window.innerWidth * 0.80;
+            let width = window.innerWidth * 0.80;
+            return width < 600 ? width : 600;
         },
         weight_log: function(){
             return this.$_.orderBy(this.data.weight_log, 'measured_on');
