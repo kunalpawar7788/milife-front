@@ -34,6 +34,9 @@ export default {
                 this.status="error";
             });
         }
+        else{
+            this.status="success";
+        }
 
         this.$store.dispatch("theme/set_theme_blue");
     },
