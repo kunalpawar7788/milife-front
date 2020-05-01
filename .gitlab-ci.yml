@@ -33,14 +33,14 @@ build stage:
   image: node:10.15.0-stretch
   stage: build
   only:
-    - master
+    - pl/build-s3
   script:
     # Install vuecli
     - npm install -g @vue/cli@latest
     # Install dependencies
     - npm install
     # Build App
-    - npm run build-dev
+    - npm run build
   artifacts:
     paths:
       # Build folder
@@ -51,7 +51,7 @@ deploy stage:
   image: python:latest
   stage: deploy
   only:
-    - master
+    - pl/build-s3
   script:
     - pip install awscli
     - aws s3 sync ./dist s3://mi-life-vue-app
