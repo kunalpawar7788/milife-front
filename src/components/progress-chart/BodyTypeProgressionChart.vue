@@ -107,18 +107,18 @@ export default{
             labels_m: [
                 {x1: 10, y1: 40, x2:18.5, y2: 30, text: ["Skinny fat", "class 2"]},
                 {x1: 18.5, y1: 40, x2: 25, y2: 30, text: ["Overfat", "Class 3"]},
-                {x1: 25, y1: 40, x2:30, y2: 30, text: ["Obesity", "Class 2"]},
-                {x1: 30, y1: 40, x2:40, y2: 30, text: ["Obesity Class 3"]},
+                {x1: 25, y1: 40, x2:30, y2: 30, text: ["Obesity", "Class 1"]},
+                {x1: 30, y1: 40, x2:40, y2: 30, text: ["Obesity Class 2"]},
 
                 {x1: 10,   y1: 30, x2:18.5, y2: 25, text: ["Skinny fat", "class 1"]},
                 {x1: 18.5, y1: 30, x2: 25,  y2: 25, text: ["Overfat", "Class 2"]},
-                {x1: 25,   y1: 30, x2:30,   y2: 25, text: ["Obesity", "Class 1"]},
-                {x1: 30,   y1: 30, x2:40,   y2: 25, text: ["Obesity Class 2"]},
+                {x1: 25,   y1: 30, x2:30,   y2: 25, text: ["Pre-","obesity"]},
+                {x1: 30,   y1: 30, x2:40,   y2: 25, text: ["Obesity Class 1"]},
 
                 {x1: 10,   y1: 25, x2:18.5, y2: 20, text: ["Lack of muscle"]},
                 {x1: 18.5, y1: 25, x2: 25,  y2: 20, text: ["Overfat", "Class 1"]},
-                {x1: 25,   y1: 25, x2:30,   y2: 20, text: ["Pre-","obesity"]},
-                {x1: 30,   y1: 25, x2:40,   y2: 20, text: ["Obesity Class 1"]},
+                {x1: 25,   y1: 25, x2:30,   y2: 20, text: ["Overweight"]},
+                {x1: 30,   y1: 25, x2:40,   y2: 20, text: ["Pre-","obesity"]},
 
                 {x1: 10,   y1: 20, x2:18.5, y2: 15, text: ["Underweight"]},
                 {x1: 18.5, y1: 20, x2: 25,  y2: 15, text: ["Standard"]},
@@ -134,18 +134,18 @@ export default{
             labels_f: [
                 {x1: 10,   y1: 50, x2:18.5, y2: 40, text: ["Skinny fat", "class 2"]},
                 {x1: 18.5, y1: 50, x2:25,   y2: 40, text: ["Overfat", "Class 3"]},
-                {x1: 25,   y1: 50, x2:30,   y2: 40, text: ["Obesity", "Class 2"]},
-                {x1: 30,   y1: 50, x2:40,   y2: 40, text: ["Obesity Class 3"]},
+                {x1: 25,   y1: 50, x2:30,   y2: 40, text: ["Obesity", "Class 1"]},
+                {x1: 30,   y1: 50, x2:40,   y2: 40, text: ["Obesity Class 2"]},
 
                 {x1: 10,   y1: 40, x2:18.5, y2: 35, text: ["Skinny fat", "class 1"]},
                 {x1: 18.5, y1: 40, x2:25,   y2: 35, text: ["Overfat", "Class 2"]},
-                {x1: 25,   y1: 40, x2:30,   y2: 35, text: ["Obesity", "Class 1"]},
-                {x1: 30,   y1: 40, x2:40,   y2: 35, text: ["Obesity Class 2"]},
+                {x1: 25,   y1: 40, x2:30,   y2: 35, text: ["Pre-","obesity"]},
+                {x1: 30,   y1: 40, x2:40,   y2: 35, text: ["Obesity Class 1"]},
 
                 {x1: 10,   y1: 35, x2:18.5, y2: 30, text: ["Lack of muscle"]},
                 {x1: 18.5, y1: 35, x2:25,   y2: 30, text: ["Overfat", "Class 1"]},
-                {x1: 25,   y1: 35, x2:30,   y2: 30, text: ["Pre-","obesity"]},
-                {x1: 30,   y1: 35, x2:40,   y2: 30, text: ["Obesity Class 1"]},
+                {x1: 25,   y1: 35, x2:30,   y2: 30, text: ["Overweight"]},
+                {x1: 30,   y1: 35, x2:40,   y2: 30, text: ["Pre-","obesity"]},
 
                 {x1: 10,   y1: 30, x2:18.5, y2: 20, text: ["Underweight"]},
                 {x1: 18.5, y1: 30, x2:25,   y2: 20, text: ["Standard"]},
