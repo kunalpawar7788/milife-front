@@ -43,10 +43,9 @@
     <div class="picture-preview"  v-else-if="value">
       <img v-bind:src="value"> </img>
     </div>
-
-    <div class="picture-selector " v-on:click="$emit('cropping');">
-      <input type="file" v-on:change="read_url($event.target)">
-    </div>
+  </div>
+  <div class="picture-selector " v-on:click="$emit('cropping');">
+    <input type="file" v-on:change="read_url($event.target)">
   </div>
 </div>
 </template>
