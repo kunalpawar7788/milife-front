@@ -2,44 +2,47 @@
 <section class="weight-progress-chart">
   <h3> Weight Progress Chart </h3>
 
-  <div class="weight-chart-container" v-if="status=='ready'">
-    <MiniWeightChart
-      :height="chart_height"
-      :width="chart_width"
-      :weight_log="weight_log"
-      :target_weights="target_weights"
-      :show_axes="true"
-      ></MiniWeightChart>
+  <div v-if="status == 'ready'">
+    <div class="weight-chart-container">
+      <MiniWeightChart
+        :height="chart_height"
+        :width="chart_width"
+        :weight_log="weight_log"
+        :target_weights="target_weights"
+        :show_axes="true"
+        ></MiniWeightChart>
+    </div>
+
+    <p class="pd-10 bg-darkblue">
+      You have
+      <template v-if="weight_delta>0">lost {{weight_delta}} kg.</template>
+      <template v-else>gained {{-weight_delta}} kg</template><br>
+
+      You have
+      <template v-if="left_to_lose>0">{{left_to_lose}}kg left to lose.</template>
+      <template v-else> {{-left_to_lose}} left to gain. </template>
+      <br>
+
+      To achieve that, you need to
+      <template v-if="weekly_loss_target>0">lose {{weekly_loss_target}}kg per week.</template>
+      <template v-else>gain {{-weekly_loss_target}} kg per week.</template>
+
+    </p>
+
+    <span class=" ml-10 fc-green fn-14 fw-600" >Coach's Commentry</span>
+
+    <p class="pd-10 bg-darkblue fn-11 fc-grey" v-if="comments[0]"> Latest Comment Dated: <strong>{{comments[0].modified_at | moment("Do MMMM YY")}} </strong> <br> <br>
+      <span class="fn-12 bg-darkblue fc-white">{{comments[0].content}}</span>
+
+    </p>
+
+    <AddCoachCommentComponent
+      :fobj_user="fobj_user"
+      kind="weekly-commentry"
+      ></AddCoachCommentComponent>
   </div>
-  <div class="weight-chart-container" v-else> loading</div>
-
-  <p class="pd-10 bg-darkblue">
-    You have
-    <template v-if="weight_delta>0">lost {{weight_delta}} kg.</template>
-    <template v-else>gained {{-weight_delta}} kg</template><br>
-
-    You have
-    <template v-if="left_to_lose>0">{{left_to_lose}}kg left to lose.</template>
-    <template v-else> {{-left_to_lose}} left to gain. </template>
-    <br>
-
-    To achieve that, you need to
-    <template v-if="weekly_loss_target>0">lose {{weekly_loss_target}}kg per week.</template>
-    <template v-else>gain {{-weekly_loss_target}} kg per week.</template>
-
-  </p>
-
-  <span class=" ml-10 fc-green fn-14 fw-600" >Coach's Commentry</span>
-
-  <p class="pd-10 bg-darkblue fn-11 fc-grey" v-if="comments[0]"> Latest Comment Dated: <strong>{{comments[0].modified_at | moment("Do MMMM YY")}} </strong> <br> <br>
-    <span class="fn-12 bg-darkblue fc-white">{{comments[0].content}}</span>
-
-  </p>
-
-  <AddCoachCommentComponent
-    :fobj_user="fobj_user"
-    kind="weekly-commentry"
-    ></AddCoachCommentComponent>
+  <div v-else-if="status == 'error'">Error: {{ error_msg }}</div>
+  <div v-else>Loading</div>
 
 </section>
 
@@ -65,6 +68,7 @@ export default {
             status: 'initial',
             data: "",
             comments: {},
+            error_msg: "",
         };
     },
 
@@ -163,11 +167,23 @@ export default {
                     this.data = resp.data;
                     this.status = "ready";
                 })
+                .then(this.verify_data)
                 .catch(err => {
                     this.status='error';
+                    this.error_msg = "Couldn't fetch weight data"
                     console.log(err);
                 });
         },
+
+        verify_data: function() {
+          if (this.data.weight_log.length == 0) {
+            this.status = 'error';
+            this.error_msg = 'No weight entries exist';
+          } else if (this.data.target_weight.length == 0) {
+            this.status = 'error';
+            this.error_msg = 'No target weight entries exist';
+          }
+        }
 
     },
     created() {
