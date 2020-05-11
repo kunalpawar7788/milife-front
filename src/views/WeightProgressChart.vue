@@ -89,7 +89,7 @@ export default {
         user_pk: function(){
         },
         chart_height: function() {
-            return screen.height * 0.40;
+            return screen.height * 0.38;
         },
         chart_width: function() {
             let width = window.innerWidth * 0.80;

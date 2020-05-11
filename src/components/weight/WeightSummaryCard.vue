@@ -47,7 +47,7 @@ export default {
         },
         user: function() {return this.fobj_user;},
         chart_height: function() {
-            return screen.height * 0.14;
+            return screen.height * 0.16;
         },
         chart_width: function() {
             return window.innerWidth * 0.50;
