@@ -129,10 +129,10 @@ export default {
             var target_date = moment(this.$_.last(this.target_weights).target_date, 'YYYY-MM-DD');
             var days_left = target_date.diff(today, 'days')
             if (days_left <=0) {
-                days_left = 1;
+                days_left = 7;
             }
 
-            var val = 7*this.left_to_lose / days_left;
+            var val = 7 * this.left_to_lose / days_left;
             return this.round_off2(val);
         }
 
