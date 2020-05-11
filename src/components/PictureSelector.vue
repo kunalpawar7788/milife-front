@@ -8,11 +8,11 @@
       ref="cropper"
       minHeight="20"
       minWidth="20"
-	    :stencilComponent="$options.components.CircleStencil"
-	    :stencilProps="{
-		                 minAspectRatio: 8/8,
-		                 maxAspectRatio: 10/8
-	                   }"
+      :stencilComponent="$options.components.CircleStencil"
+      :stencilProps="{
+                     minAspectRatio: 8/8,
+                     maxAspectRatio: 10/8
+                     }"
       />
 
     <Cropper v-else
@@ -33,15 +33,15 @@
 
     <label> {{label}}</label>
     <div class="picture-preview"  v-if="cropped_image">
-      <img v-bind:src="cropped_image"> </img>
+      <img v-bind:src="cropped_image" />
       <!-- <label v-on:click="reset">reset</label> -->
     </div>
     <div class="picture-preview"  v-else-if="image_preview">
-      <img v-bind:src="image_preview"> </img>
+      <img v-bind:src="image_preview" />
       <!-- <label v-on:click="reset">reset</label> -->
     </div>
     <div class="picture-preview"  v-else-if="value">
-      <img v-bind:src="value"> </img>
+      <img v-bind:src="value" />
     </div>
   </div>
   <div class="picture-selector " v-on:click="$emit('cropping');">
@@ -51,7 +51,6 @@
 </template>
 
 <script>
-import MyStencil from "@/components/ProfilePictureCropper.vue";
 import { Cropper, CircleStencil } from 'vue-advanced-cropper';
 
 /**
@@ -104,12 +103,12 @@ export default {
     data() {
         return {
             image_preview: null,
-			      coordinates: {
-				        width: 0,
-				        height: 0,
-				        left: 0,
-				        top: 0
-			      },
+            coordinates: {
+                width: 0,
+                height: 0,
+                left: 0,
+                top: 0
+            },
             cropping: false,
             cropped_image: null,
             new_image: null,
@@ -119,16 +118,16 @@ export default {
     computed: {
     },
     methods: {
-		    onChange: function({coordinates, canvas}) {
-			      this.coordinates = coordinates;
+        onChange: function({coordinates, canvas}) {
+            this.coordinates = coordinates;
 
             //this.emit_image(canvas.toDataURL());
         },
         finish_cropping: function() {
-			      const {coordinates, canvas} = this.$refs.cropper.getResult();
+            const {coordinates, canvas} = this.$refs.cropper.getResult();
 
-			      this.coordinates = coordinates;
-			      this.cropped_image = canvas.toDataURL();
+            this.coordinates = coordinates;
+            this.cropped_image = canvas.toDataURL();
 
             // Split the base64 string in data and contentType
             var block = this.cropped_image.split(";");
