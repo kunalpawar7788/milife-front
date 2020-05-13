@@ -20,7 +20,7 @@
     "pdfvuer": "^1.4.0",
     "register-service-worker": "^1.6.2",
     "vue": "^2.6.11",
-    "vue-advanced-cropper": "^0.9.1",
+    "vue-advanced-cropper": "^0.16.4",
     "vue-async-computed": "^3.8.2",
     "vue-dropdowns": "^1.1.1",
     "vue-loading-overlay": "^3.2.0",
