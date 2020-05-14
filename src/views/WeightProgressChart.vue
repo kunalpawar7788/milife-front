@@ -13,7 +13,7 @@
         ></MiniWeightChart>
     </div>
 
-    <p class="pd-10 bg-darkblue">
+    <p class="pd-10 bg-darkblue fc-white">
       You have
       <template v-if="weight_delta>0">lost {{weight_delta}} kg.</template>
       <template v-else>gained {{-weight_delta}} kg</template><br>
@@ -41,8 +41,8 @@
       kind="weekly-commentry"
       ></AddCoachCommentComponent>
   </div>
-  <div v-else-if="status == 'error'">Error: {{ error_msg }}</div>
-  <div v-else>Loading</div>
+  <div class="fc-white" v-else-if="status == 'error'">Error: {{ error_msg }}</div>
+  <div class="fc-white" v-else>Loading</div>
 
 </section>
 
@@ -199,12 +199,17 @@ export default {
 
 
 <style lang="scss">
+.weight-progress-chart {
+    color: white;
+}
+
 .weight-chart-container{
     height: 50vh;
     display: flex;
     justify-content: center;
     div.weight-chart{
         display: block;
+        color: white;
     }
 
 
