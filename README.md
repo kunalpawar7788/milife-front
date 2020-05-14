@@ -31,6 +31,16 @@ npm run test:e2e
 ```
 
 ### Run your unit tests
+To run all unit tests use the following command
 ```
 npm run test:unit
+```
+
+To run unit tests in a particular file, use the following command:
+```
+npm run test:unit -t [TestSuite]
+```
+**Eg:** The following command will run the tests in the `ErrorMessage.spec.js` file.
+```
+npm run test:unit -t ErrorMessage
 ```
