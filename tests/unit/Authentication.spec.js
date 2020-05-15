@@ -1,9 +1,11 @@
 import Vuex from "vuex";
 import Vue from "vue";
-import { mount, createLocalVue } from "@vue/test-utils";
+import { shallowMount, createLocalVue } from "@vue/test-utils";
 import Authentication from "@/components/Authentication";
 
 describe("Authentication.vue", () => {
+  Vue.config.silent = true;
+
   const localVue = createLocalVue();
   localVue.use(Vuex);
 
@@ -43,7 +45,7 @@ describe("Authentication.vue", () => {
     });
   });
 
-  let wrapper = mount(Authentication, {
+  let wrapper = shallowMount(Authentication, {
     mocks: {
       $store: store,
       $http: jest.fn(),
