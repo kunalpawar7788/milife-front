@@ -16,7 +16,6 @@
 </template>
 
 <script name='js'>
-import store from '@/store';
 
 export default {
     name: "AddCoachCommentComponent",
@@ -32,7 +31,7 @@ export default {
     },
     computed: {
         allow_comment: function(){
-            return store.getters['auth/is_staff']
+            return this.$store.getters['auth/is_staff']
         },
         user: function() {
             var user = Object.assign({}, this.$store.state.auth.user);
