@@ -49,7 +49,7 @@ export default {
                 .then(() => this.$router.push('/'))
                 .catch(err =>{
                     console.log(err);
-                    if(err.response.status > 500){
+                    if(err.response.status >= 500){
                         this.error = err;
                         this.error_message = "Something went wrong !! Please try after sometime."
                     }
