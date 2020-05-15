@@ -116,7 +116,9 @@ export default {
         },
 
         kgs: {
-            get() {return this.value.magnitude_si;},
+            get() {
+                return this.magnitude_si;
+            },
             set(value){
                 this.magnitude_si = value || 0;
                 this.emit_result();
@@ -125,7 +127,7 @@ export default {
 
         pounds: {
             get(){
-                return this.get_pounds_from_kg(this.value.magnitude_si);
+                return this.get_pounds_from_kg(this.magnitude_si);
             },
             set(value){
                 this.magnitude_si = this.get_kg_from_stones(this.stones) + this.get_kg_from_pounds(value);
@@ -135,7 +137,7 @@ export default {
 
         stones: {
             get() {
-                return this.get_stones_from_kg(this.value.magnitude_si);
+                return this.get_stones_from_kg(this.magnitude_si);
             },
             set(value){
                 console.log('stones', value);
@@ -146,6 +148,10 @@ export default {
             }
         },
     },
+    created: function() {
+        if (this.value)
+            this.magnitude_si = this.value.magnitude_si;
+    }
 }
 </script>
 
