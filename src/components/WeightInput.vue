@@ -82,16 +82,13 @@ export default {
         },
 
         get_kg_from_stones: function(stones){
-            console.log('kg from stones',stones,  stones * this.stones2kg);
             return stones * this.stones2kg;
         },
         get_kg_from_pounds: function(pounds){
-            console.log('kg from pounds', pounds,  pounds * this.pounds2kg);
             return pounds * this.pounds2kg;
         },
 
         get_stones_from_kg: function(kg){
-            console.log('get_stones_from_kg', kg, Math.floor(kg / this.stones2kg));
             return Math.floor(kg / this.stones2kg);
 
         },
@@ -100,7 +97,6 @@ export default {
             if (kg >= this.stones2kg){
                 value = kg / this.stones2kg % 1 * 12;
             }
-            console.log('get_pounds_from_kg', kg, Math.floor(kg / this.stones2kg));
             return Math.round(value*100)/100
         },
     },
@@ -140,7 +136,6 @@ export default {
                 return this.get_stones_from_kg(this.magnitude_si);
             },
             set(value){
-                console.log('stones', value);
                 value = Number(value);
 
                 this.magnitude_si = this.get_kg_from_stones(value) + this.get_kg_from_pounds(this.pounds);
