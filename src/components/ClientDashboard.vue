@@ -10,7 +10,7 @@
       Calorie Target
     </div>
     <div class="link" v-on:click="goto_view_meal_breakdown">
-      View Breakdown &gt
+      View breakdown &gt
     </div>
   </section>
 
@@ -54,13 +54,13 @@
         </tr>
 
         <tr class="fc-black">
-          <td class="bg-yellow2">
-            <span class="">Stats from
-              <template  v-if="this.data.programme" > {{this.data.first_checkin.date_of_checkin | moment("DD/MM/YYYY")}} </template>
-            </span>
-          </td >
-          <td class="bg-yellow2" colspan="2" v-on:click="goto_detailed_report">
-            <span class="pr-10">View more &gt</span>
+          <td class="bg-yellow2" colspan="3">
+            <div>
+              <span class="">Stats from
+                <template  v-if="this.data.programme" > {{this.data.first_checkin.date_of_checkin | moment("DD.MM.YYYY")}} </template>
+              </span>
+              <span class="pr-10" v-on:click="goto_detailed_report">View More &gt</span>
+            </div>
           </td>
         </tr>
       </tbody>
@@ -69,9 +69,9 @@
 
   <div class="last-line flex-spacebetween">
     <section
-      class="message-button bg-green br-50 mt-10 flex-spacebetween"
+      class="message-button bg-green fc-white br-50 mt-10 flex-spacebetween"
       v-on:click="goto_message_list">
-      <span class="pd-20"> Messages </span>
+      <span class="message-button-span fn-14"> Messages </span>
       <span class="mr-20 mt-15">
         <MessageCountBubble> {{data.messages_count}} </MessageCountBubble>
       </span>
@@ -165,10 +165,6 @@ section.weight_summary{
         height: 80%;
         display: flex;
     }
-    .current_weight {
-        /* color: white; */
-        /* font-size: 35pt; */
-    }
     .target_weight {
         color: white;
         font-size: 18pt;
@@ -180,10 +176,6 @@ section.weight_summary{
         width: 100%;
         padding: 5px;
         color: white;
-    }
-
-    * {
-        /* border: 1px solid red; */
     }
 }
 
@@ -210,21 +202,22 @@ section.calorie-summary{
     .message {
         align-self: end;
         font-size: 18px;
+        font-weight: 600;
     }
+
     .link {
         align-self: start;
         font-size: 14px;
+        margin-top: 1%;
     }
 }
 section.progress-report-summary{
-    /* height: 30vh; */
     table {
         width: 100%;
         border-collapse: collapse;
         * {
             padding: 5px;
         }
-
 
         th{
             text-align:left;
@@ -246,12 +239,15 @@ section.progress-report-summary{
         }
 
         tbody tr:last-child{
-            td:first-child {
-                border-radius: 0px 0px 0px 20px;
-            }
+
             td:last-child{
-                border-radius: 0px 0px 20px 0px;
-                text-align: right;
+                border-radius: 0px 0px 20px 20px;
+
+                div {
+                  display: flex;
+                  justify-content: space-between;
+                  padding: 0 3% 0 0;
+                }
             }
 
         }
@@ -276,6 +272,15 @@ section.log-weight-cta{
         width: 100%;
     }
 }
-div.last-line{
+
+section.weight-summary-card {
+    background-color: $milife-blue !important;
 }
+
+.message-button-span {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 10%;
+}
+
 </style>
