@@ -133,9 +133,6 @@ export default {
 </script>
 
 <style lang="scss">
-.container-headermenu {
-    /* border: 1px solid white; */
-}
 .nav-header{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -145,13 +142,8 @@ export default {
     cursor: pointer;
 }
 .sidebar-menu {
-    /* border: 1px solid white; */
     text-align: left;
     z-index: 10;
-    /* position: absolute; */
-    /* top: 520; */
-    /* left: 0; */
-    /* background-color: $milife-blue; */
     max-width:600px;
     width: 99%;
     height: 90%;
@@ -175,5 +167,6 @@ list-style: none;
 a, u {
     text-decoration: none !important;
     color: white;
+    font-weight: 500;
 }
 </style>
