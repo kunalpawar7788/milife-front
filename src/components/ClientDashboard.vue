@@ -108,7 +108,6 @@ export default {
     computed: {
         user: function(){
             var d = Object.assign({}, this.$store.state.auth.user);
-            console.log(d);
             return d;
         },
         pr: function(){
@@ -138,12 +137,8 @@ export default {
                 })
                 .catch(err => {
                     this.status='error';
-                    console.log(err);
                 });
         },
-    },
-    mounted(){
-        console.log(this.chart_width);
     },
     created(){
         this.fetch_dashboard_data();
