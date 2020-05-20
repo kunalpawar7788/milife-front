@@ -235,64 +235,64 @@ var vo2max = {
 
 var body_type = {
     categories: [
-        {gender: "M", name: "Underweight Low Fat", bfp: {min: 5, max: 15}, bmi: {min: 10, max: 20}},
-        {gender: "M", name: "Fit", bfp: {min: 5, max: 15}, bmi: {min: 20, max: 25}},
+        {gender: "M", name: "Underweight Low Fat", bfp: {min: 5, max: 15}, bmi: {min: 10, max: 18.5}},
+        {gender: "M", name: "Fit", bfp: {min: 5, max: 15}, bmi: {min: 18.5, max: 25}},
         {gender: "M", name: "Muscular", bfp: {min: 5, max: 15}, bmi: {min: 25, max: 30}},
-        {gender: "M", name: "Athlete", bfp: {min: 5, max: 15}, bmi: {min: 30, max: 40}},
+        {gender: "M", name: "Athlete", bfp: {min: 5, max: 15}, bmi: {min: 30, max: 60}},
 
-        {gender: "M", name: "Underweight", bfp: {min: 15, max: 20}, bmi: {min: 10, max: 20}},
-        {gender: "M", name: "Standard", bfp: {min: 15, max: 20}, bmi: {min: 20, max: 25}},
+        {gender: "M", name: "Underweight", bfp: {min: 15, max: 20}, bmi: {min: 10, max: 18.5}},
+        {gender: "M", name: "Standard", bfp: {min: 15, max: 20}, bmi: {min: 18.5, max: 25}},
         {gender: "M", name: "Muscular Overweight 1", bfp: {min: 15, max: 20}, bmi: {min: 25, max: 30}},
-        {gender: "M", name: "Muscular Overweight 2", bfp: {min: 15, max: 20}, bmi: {min: 30, max: 40}},
+        {gender: "M", name: "Muscular Overweight 2", bfp: {min: 15, max: 20}, bmi: {min: 30, max: 60}},
 
-        {gender: "M", name: "Lack of Muscle", bfp: {min: 20, max: 25}, bmi: {min: 10, max: 20}},
-        {gender: "M", name: "Over Fat Class 1", bfp: {min: 20, max: 25}, bmi: {min: 20, max: 25}},
+        {gender: "M", name: "Lack of Muscle", bfp: {min: 20, max: 25}, bmi: {min: 10, max: 18.5}},
+        {gender: "M", name: "Over Fat Class 1", bfp: {min: 20, max: 25}, bmi: {min: 18.5, max: 25}},
         {gender: "M", name: "Overweight", bfp: {min: 20, max: 25}, bmi: {min: 25, max: 30}},
-        {gender: "M", name: "Pre-Obesity", bfp: {min: 20, max: 25}, bmi: {min: 30, max: 40}},
+        {gender: "M", name: "Pre-Obesity", bfp: {min: 20, max: 25}, bmi: {min: 30, max: 60}},
 
-        {gender: "M", name: "Skinny Fat Class 1", bfp: {min: 25, max: 30}, bmi: {min: 10, max: 20}},
-        {gender: "M", name: "Over Fat Class 2", bfp: {min: 25, max: 30}, bmi: {min: 20, max: 25}},
+        {gender: "M", name: "Skinny Fat Class 1", bfp: {min: 25, max: 30}, bmi: {min: 10, max: 18.5}},
+        {gender: "M", name: "Over Fat Class 2", bfp: {min: 25, max: 30}, bmi: {min: 18.5, max: 25}},
         {gender: "M", name: "Pre-Obesity", bfp: {min: 25, max: 30}, bmi: {min: 25, max: 30}},
-        {gender: "M", name: "Obesity Class 1", bfp: {min: 25, max: 30}, bmi: {min: 30, max: 40}},
+        {gender: "M", name: "Obesity Class 1", bfp: {min: 25, max: 30}, bmi: {min: 30, max: 60}},
 
-        {gender: "M", name: "Skinny Fat Class 2", bfp: {min: 30, max: 40}, bmi: {min: 10, max: 20}},
-        {gender: "M", name: "Over Fat Class 3", bfp: {min: 30, max: 40}, bmi: {min: 20, max: 25}},
-        {gender: "M", name: "Obesity Class 1", bfp: {min: 30, max: 40}, bmi: {min: 25, max: 30}},
-        {gender: "M", name: "Obesity Class 2", bfp: {min: 30, max: 40}, bmi: {min: 30, max: 40}},
+        {gender: "M", name: "Skinny Fat Class 2", bfp: {min: 30, max: 60}, bmi: {min: 10, max: 18.5}},
+        {gender: "M", name: "Over Fat Class 3", bfp: {min: 30, max: 60}, bmi: {min: 18.5, max: 25}},
+        {gender: "M", name: "Obesity Class 1", bfp: {min: 30, max: 60}, bmi: {min: 25, max: 30}},
+        {gender: "M", name: "Obesity Class 2", bfp: {min: 30, max: 60}, bmi: {min: 30, max: 60}},
 
-        {gender: "F", name: "Underweight Low Fat", bfp: {min: 10, max: 20}, bmi: {min: 10, max: 20}},
-        {gender: "F", name: "Fit", bfp: {min: 10, max: 20}, bmi: {min: 20, max: 25}},
+        {gender: "F", name: "Underweight Low Fat", bfp: {min: 10, max: 20}, bmi: {min: 10, max: 18.5}},
+        {gender: "F", name: "Fit", bfp: {min: 10, max: 20}, bmi: {min: 18.5, max: 25}},
         {gender: "F", name: "Muscular", bfp: {min: 10, max: 20}, bmi: {min: 25, max: 30}},
-        {gender: "F", name: "Athlete", bfp: {min: 10, max: 20}, bmi: {min: 30, max: 40}},
+        {gender: "F", name: "Athlete", bfp: {min: 10, max: 20}, bmi: {min: 30, max: 60}},
 
-        {gender: "F", name: "Underweight", bfp: {min: 20, max: 30}, bmi: {min: 10, max: 20}},
-        {gender: "F", name: "Standard", bfp: {min: 20, max: 30}, bmi: {min: 20, max: 25}},
+        {gender: "F", name: "Underweight", bfp: {min: 20, max: 30}, bmi: {min: 10, max: 18.5}},
+        {gender: "F", name: "Standard", bfp: {min: 20, max: 30}, bmi: {min: 18.5, max: 25}},
         {gender: "F", name: "Muscular Overweight 1", bfp: {min: 20, max: 30}, bmi: {min: 25, max: 30}},
-        {gender: "F", name: "Muscular Overweight 2", bfp: {min: 20, max: 30}, bmi: {min: 30, max: 40}},
+        {gender: "F", name: "Muscular Overweight 2", bfp: {min: 20, max: 30}, bmi: {min: 30, max: 60}},
 
-        {gender: "F", name: "Lack of Muscle", bfp: {min: 30, max: 35}, bmi: {min: 10, max: 20}},
-        {gender: "F", name: "Over Fat Class 1", bfp: {min: 30, max: 35}, bmi: {min: 20, max: 25}},
+        {gender: "F", name: "Lack of Muscle", bfp: {min: 30, max: 35}, bmi: {min: 10, max: 18.5}},
+        {gender: "F", name: "Over Fat Class 1", bfp: {min: 30, max: 35}, bmi: {min: 18.5, max: 25}},
         {gender: "F", name: "Overweight", bfp: {min: 30, max: 35}, bmi: {min: 25, max: 30}},
-        {gender: "F", name: "Pre-Obesity", bfp: {min: 30, max: 35}, bmi: {min: 30, max: 40}},
+        {gender: "F", name: "Pre-Obesity", bfp: {min: 30, max: 35}, bmi: {min: 30, max: 60}},
 
-        {gender: "F", name: "Skinny Fat Class 1", bfp: {min: 35, max: 40}, bmi: {min: 10, max: 20}},
-        {gender: "F", name: "Over Fat Class 2", bfp: {min: 35, max: 40}, bmi: {min: 20, max: 25}},
+        {gender: "F", name: "Skinny Fat Class 1", bfp: {min: 35, max: 40}, bmi: {min: 10, max: 18.5}},
+        {gender: "F", name: "Over Fat Class 2", bfp: {min: 35, max: 40}, bmi: {min: 18.5, max: 25}},
         {gender: "F", name: "Pre-Obesity", bfp: {min: 35, max: 40}, bmi: {min: 25, max: 30}},
-        {gender: "F", name: "Obesity Class 1", bfp: {min: 35, max: 40}, bmi: {min: 30, max: 40}},
+        {gender: "F", name: "Obesity Class 1", bfp: {min: 35, max: 40}, bmi: {min: 30, max: 60}},
 
-        {gender: "F", name: "Skinny Fat Class 2", bfp: {min: 40, max: 50}, bmi: {min: 10, max: 20}},
-        {gender: "F", name: "Over Fat Class 3", bfp: {min: 40, max: 50}, bmi: {min: 20, max: 25}},
-        {gender: "F", name: "Obesity Class 1", bfp: {min: 40, max: 50}, bmi: {min: 25, max: 30}},
-        {gender: "F", name: "Obesity Class 2", bfp: {min: 40, max: 50}, bmi: {min: 30, max: 40}},
+        {gender: "F", name: "Skinny Fat Class 2", bfp: {min: 40, max: 60}, bmi: {min: 10, max: 18.5}},
+        {gender: "F", name: "Over Fat Class 3", bfp: {min: 40, max: 60}, bmi: {min: 18.5, max: 25}},
+        {gender: "F", name: "Obesity Class 1", bfp: {min: 40, max: 60}, bmi: {min: 25, max: 30}},
+        {gender: "F", name: "Obesity Class 2", bfp: {min: 40, max: 60}, bmi: {min: 30, max: 60}},
     ],
 
     classify: function(bfp, bmi, gender) {
         let category_name = null;
         this.categories.forEach(function(category) {
-            if (bfp >= category.bfp.min &&
-                bfp < category.bfp.max &&
-                bmi >= category.bmi.min &&
-                bmi < category.bmi.max &&
+            if (bfp > category.bfp.min &&
+                bfp <= category.bfp.max &&
+                bmi > category.bmi.min &&
+                bmi <= category.bmi.max &&
                 gender == category.gender) {
                     category_name = category.name;
             }
