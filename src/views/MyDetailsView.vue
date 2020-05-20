@@ -4,17 +4,17 @@
     <img class="profile-photo" :src="profile.image" v-if="profile.image!=null"/>
     <img class="profile-photo" src="@/assets/images/placeholder-profile.png" v-else/>
   </div>
-  <div class="name fw-600 fn-18 pd-10"> {{profile.first_name}} {{profile.last_name}} </div>
+  <div class="name fc-white fw-600 fn-18 pd-10"> {{profile.first_name}} {{profile.last_name}} </div>
 
   <div
-    class="edit-link-container fn-12"
+    class="edit-link-container fc-white fn-12"
     v-on:click="goto_edit_details"> Edit details <div class="arr-right fc-green"> </div>
   </div>
   <div >
     <section
       class="message-button margin-zero-auto bg-green br-50 mt-20 flex-spacebetween "
       v-on:click="goto_message_list">
-      <span class="ml-20 mt-15"> Messages </span>
+      <span class="button-text fc-white"> Messages </span>
       <span class="mr-20 mt-15 v-if='messages_count!=0">
         <MessageCountBubble> {{messages_count}} </MessageCountBubble>
       </span>
@@ -22,16 +22,15 @@
   </div>
 
   <div class="bg-white width-100 mt-20 pt-10 pb-10">
-    <div class="flex-center">
+    <div class="flex-center fw-500">
       <div class="pd-10">
         <label for="height" class="fc-magenta">HEIGHT</label>
-        <div class="fc-black" v-if="profile.height_cm">
+        <div class="fc-black fn-14 fw-500" v-if="profile.height_cm">
           <template v-if="height_unit=='metric'">
-
             {{Math.round(profile.height_cm)}} cm
           </template>
           <template v-else>
-            {{get_feet_from_cm(profile.height_cm/30.48)}}' {{Math.round(get_inches_from_cm(profile.height_cm))}}"
+            {{get_feet_from_cm(profile.height_cm)}}' {{Math.round(get_inches_from_cm(profile.height_cm))}}"
           </template>
         </div>
 
@@ -39,17 +38,17 @@
 
       <div class="pd-10">
         <label for="dob" class="fc-magenta">DATE OF BIRTH</label>
-        <div class="fc-black"> {{display_date(profile.date_of_birth)}}</div>
+        <div class="fc-black fn-14 fw-500"> {{display_date(profile.date_of_birth)}}</div>
       </div>
 
       <div class="pd-10">
         <label for="mobile" class="fc-magenta">MOBILE</label>
-        <div class="fc-black"> {{profile.number}}</div>
+        <div class="fc-black fn-14 fw-500"> {{profile.number}}</div>
       </div>
 
       <div class="pd-10">
         <label for="eMAIL" class="fc-magenta">EMAIL</label>
-        <div class="fc-black"> {{profile.email}}</div>
+        <div class="fc-black fn-14 fw-500"> {{profile.email}}</div>
       </div>
     </div>
     <div class="width-80 button-grid bg-white margin-zero-auto mt-20">
@@ -112,7 +111,7 @@ export default {
     
     methods: {
         display_date: function(date_str){
-            return moment(date_str).format("Do MMM");
+            return moment(date_str).format("Do MMM YYYY");
         },
         get_feet_from_cm: function(cm){
             console.log('get_feet_from_cm', cm, Math.floor(cm / this.feet2cm));
@@ -215,5 +214,10 @@ export default {
 
     }
 
+    .button-text {
+      margin-top: auto;
+      margin-bottom: auto;
+      margin-left: 2em;
+    }
 }
 </style>
