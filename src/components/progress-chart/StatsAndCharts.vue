@@ -109,7 +109,7 @@ export default{
                 systolic_blood_pressure: 'Systolic Blood Pressure',
                 diastolic_blood_pressure: 'Diastolic Blood Pressure',
                 blood_sugar: 'Blood Sugar',
-                vo2max: 'VO2Max',
+                vo2_max: 'VO2Max',
                 resting_heart_rate: 'Resting Heart Rate',
             },
             body_measurement_fields: {
