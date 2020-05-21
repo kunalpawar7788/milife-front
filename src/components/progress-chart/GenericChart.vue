@@ -33,12 +33,12 @@ export default {
         points: function(){},
         all_dates: function(){
             var l = [];
-            this.$_.forEach(this.datapoints, o => l.push(o.date));
+            this.$_.forEach(this.filteredDatapoints, o => l.push(o.date));
             return l;
         },
         all_values: function(){
             var l = [];
-            this.$_.forEach(this.datapoints, o => l.push(o.value));
+            this.$_.forEach(this.filteredDatapoints, o => l.push(o.value));
             return l;
         },
 
@@ -146,16 +146,21 @@ export default {
 
             svgContainer.append("path")
                 .classed("line-chart", true)
-                .attr("d", line(this.datapoints))
+                .attr("d", line(this.filteredDatapoints))
                 .attr("transform", function() {
                     return "translate(" + this.margin.left + "," + this.margin.top + ")";
                 }.bind(this));
 
 
         },
+        filterDatapoints: function() {
+            this.filteredDatapoints = this.datapoints.filter((data) => {
+                return data.value > 0;
+            })
+        },
 
     },
-    created(){},
+    created(){ this.filterDatapoints() },
     mounted(){ this.load_plot()},
 }
 </script>
