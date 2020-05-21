@@ -101,7 +101,7 @@ export default {
             return this.profile_api_status =='error' || this.messages_api_status=='error';
         },
         is_admin: function(){
-            return store.getters['auth/is_staff']
+            return this.$store.getters['auth/is_staff']
         },
         user: function() {
             var user = Object.assign({}, this.$store.state.auth.user);
@@ -114,7 +114,6 @@ export default {
             return moment(date_str).format("Do MMM YYYY");
         },
         get_feet_from_cm: function(cm){
-            console.log('get_feet_from_cm', cm, Math.floor(cm / this.feet2cm));
             return Math.floor(cm / this.feet2cm);
             
         },
@@ -124,7 +123,6 @@ export default {
             if (cm >= this.feet2cm){
                 value = cm / this.feet2cm % 1 * 12;
             }
-            console.log('get_inches_from_cm', cm, Math.floor(cm / this.feet2cm));
             return Math.round(value*100)/100
         },            
         goto_message_list: function() {
