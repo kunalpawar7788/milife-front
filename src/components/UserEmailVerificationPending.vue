@@ -17,18 +17,16 @@
 </template>
 
 <script>
-import store from '@/store';
 export default {
     name: "UserEmailVerificationPending",
     data() {
         return {
-            email: store.getters['auth/email'],
+            email: this.$store.getters['auth/email'],
             email_sent : false,
         }
     },
     methods: {
         resend_email() {
-            console.log(store.getters['auth/email']);
             const url = process.env.VUE_APP_BASE_URL+'/api/auth/resend_user_email_verification_mail/';
             return new Promise((resolve, reject) => {
                 this.$http({url: url, data:{email: this.email}, method: 'POST'})
