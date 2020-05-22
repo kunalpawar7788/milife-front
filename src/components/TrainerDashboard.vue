@@ -95,6 +95,7 @@ export default {
                         this.status_d = resp.data;
                     })
                     .catch(err => {
+                        let errors = {}
                         err.response.data['errors'].forEach((element, index, array) =>{
                             errors[element['field']] = element['message']
                         });
