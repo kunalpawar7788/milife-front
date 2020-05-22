@@ -281,9 +281,8 @@ export default {
                     })
                     .catch(err => {
                         this.status='error';
-                        this.errors=err.data;
+                        this.errors=err.response.data["errors"];
                         this.error_message = err.response.data['errors'][0]['field'] + " : " + err.response.data['errors'][0]['message'];
-                        console.log(err.response.data['errors'][0]);
                         reject(err);
                     });
             });
