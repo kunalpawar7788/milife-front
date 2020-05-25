@@ -1,7 +1,7 @@
 <template>
 <div class="bodytypechart-container" v-if="datapoints">
 
-  <svg :width="canvas_width" :height="canvas_width">
+  <svg :width="canvas_width" :height="canvas_height">
     <g>
       <line v-for="(d, index_gridlines) in gridlines"
             :key="index_gridlines"
@@ -20,7 +20,7 @@
     <text v-for="(d, index_labels) in labels"
           :key="index_labels"
           class="labels"
-          v-bind:y="y((d.y1+d.y2+d.text.length*1.7)/2)"
+          v-bind:y="y((d.y1+d.y2+d.text.length*1.2)/2)"
           v-bind:transform="translator"
           >
       <tspan v-for="(part, index_text) in d.text"
@@ -55,7 +55,7 @@ import * as d3 from 'd3';
 
 export default{
     name: "BodyTypeProgressionChart",
-    props: ['datapoints', 'gender'],
+    props: ['datapoints', 'gender', 'chartWidth', 'chartHeight'],
     data() {
         return {
             dataoints: [
@@ -66,6 +66,7 @@ export default{
                 {date: "2018-10-08", bmi: 35, bfp: 30},
                 {date: "2018-11-08", bmi: 21, bfp: 20},
             ],
+            filteredDatapoints: [],
             canvas_width: 300,
             canvas_height: 300,
             margin: {top: 10, right: 10, bottom: 30, left: 30},
@@ -74,106 +75,124 @@ export default{
             margin_bottom: 30,
             margin_right: 10,
             min_x: 10,
-            max_x: 40,
-            // gender: "F",
-
-            grid_m:[
-                {x1: 10, y1: 15, x2: 40, y2:15},
-                {x1: 10, y1: 20, x2: 40, y2:20},
-                {x1: 10, y1: 25, x2: 40, y2:25},
-                {x1: 10, y1: 30, x2: 40, y2:30},
-
-                {x1: 25, y1: 5,  x2: 25, y2:40},
-                {x1: 30, y1: 5,  x2: 30, y2:40},
-                {x1: 18.5, y1: 5, x2:18.5, y2:40},
-
-                {x1: 10, y1: 40, x2:40, y2:40},
-                {x1: 40, y1: 5, x2:40, y2:40},
-            ],
-
-            grid_f:[
-                {x1: 10, y1: 20, x2: 40, y2:20},
-                {x1: 10, y1: 30, x2: 40, y2:30},
-                {x1: 10, y1: 35, x2: 40, y2:35},
-                {x1: 10, y1: 40, x2: 40, y2:40},
-                {x1: 25, y1: 10,  x2: 25, y2:50},
-                {x1: 30, y1: 10,  x2: 30, y2:50},
-                {x1: 18.5, y1: 10, x2:18.5, y2:50},
-
-                {x1: 10, y1: 50,  x2: 40, y2:50},
-                {x1: 40, y1: 10,  x2: 40, y2:50},
-            ],
-
-            labels_m: [
-                {x1: 10, y1: 40, x2:18.5, y2: 30, text: ["Skinny fat", "class 2"]},
-                {x1: 18.5, y1: 40, x2: 25, y2: 30, text: ["Overfat", "Class 3"]},
-                {x1: 25, y1: 40, x2:30, y2: 30, text: ["Obesity", "Class 1"]},
-                {x1: 30, y1: 40, x2:40, y2: 30, text: ["Obesity Class 2"]},
-
-                {x1: 10,   y1: 30, x2:18.5, y2: 25, text: ["Skinny fat", "class 1"]},
-                {x1: 18.5, y1: 30, x2: 25,  y2: 25, text: ["Overfat", "Class 2"]},
-                {x1: 25,   y1: 30, x2:30,   y2: 25, text: ["Pre-","obesity"]},
-                {x1: 30,   y1: 30, x2:40,   y2: 25, text: ["Obesity Class 1"]},
-
-                {x1: 10,   y1: 25, x2:18.5, y2: 20, text: ["Lack of muscle"]},
-                {x1: 18.5, y1: 25, x2: 25,  y2: 20, text: ["Overfat", "Class 1"]},
-                {x1: 25,   y1: 25, x2:30,   y2: 20, text: ["Overweight"]},
-                {x1: 30,   y1: 25, x2:40,   y2: 20, text: ["Pre-","obesity"]},
-
-                {x1: 10,   y1: 20, x2:18.5, y2: 15, text: ["Underweight"]},
-                {x1: 18.5, y1: 20, x2: 25,  y2: 15, text: ["Standard"]},
-                {x1: 25,   y1: 20, x2:30,   y2: 15, text: ["Muscular", 'Overweight', "Level 1"]},
-                {x1: 30,   y1: 20, x2:40,   y2: 15, text: ["Muscular", "Overweight", "Level 2"]},
-
-                {x1: 10,   y1: 15, x2:18.5, y2: 5, text: ["Underweight", "Low fat"]},
-                {x1: 18.5, y1: 15, x2: 25,  y2: 5, text: ["Fit"]},
-                {x1: 25,   y1: 15, x2:30,   y2: 5, text: ["Muscular"]},
-                {x1: 30,   y1: 15, x2:40,   y2: 5, text: ["Athelete"]},
-            ],
-
-            labels_f: [
-                {x1: 10,   y1: 50, x2:18.5, y2: 40, text: ["Skinny fat", "class 2"]},
-                {x1: 18.5, y1: 50, x2:25,   y2: 40, text: ["Overfat", "Class 3"]},
-                {x1: 25,   y1: 50, x2:30,   y2: 40, text: ["Obesity", "Class 1"]},
-                {x1: 30,   y1: 50, x2:40,   y2: 40, text: ["Obesity Class 2"]},
-
-                {x1: 10,   y1: 40, x2:18.5, y2: 35, text: ["Skinny fat", "class 1"]},
-                {x1: 18.5, y1: 40, x2:25,   y2: 35, text: ["Overfat", "Class 2"]},
-                {x1: 25,   y1: 40, x2:30,   y2: 35, text: ["Pre-","obesity"]},
-                {x1: 30,   y1: 40, x2:40,   y2: 35, text: ["Obesity Class 1"]},
-
-                {x1: 10,   y1: 35, x2:18.5, y2: 30, text: ["Lack of muscle"]},
-                {x1: 18.5, y1: 35, x2:25,   y2: 30, text: ["Overfat", "Class 1"]},
-                {x1: 25,   y1: 35, x2:30,   y2: 30, text: ["Overweight"]},
-                {x1: 30,   y1: 35, x2:40,   y2: 30, text: ["Pre-","obesity"]},
-
-                {x1: 10,   y1: 30, x2:18.5, y2: 20, text: ["Underweight"]},
-                {x1: 18.5, y1: 30, x2:25,   y2: 20, text: ["Standard"]},
-                {x1: 25,   y1: 30, x2:30,   y2: 20, text: ["Muscular", 'Overweight', "Level 1"]},
-                {x1: 30,   y1: 30, x2:40,   y2: 20, text: ["Muscular", "Overweight", "Level 2"]},
-
-                {x1: 10,   y1: 20, x2:18.5, y2: 10, text: ["Underweight", "Low fat"]},
-                {x1: 18.5, y1: 20, x2:25,   y2: 10, text: ["Fit"]},
-                {x1: 25,   y1: 20, x2:30,   y2: 10, text: ["Muscular"]},
-                {x1: 30,   y1: 20, x2:40,   y2: 10, text: ["Athelete"]},
-
-            ],
-
         }
     },
     components: {},
     computed: {
 
-        gridlines: function(){return this.gender==='F'? this.grid_f: this.grid_m},
-        labels: function(){return this.gender==='F'? this.labels_f: this.labels_m},
+        gridlines: function(){
+            let grid_m = [
+                {x1: 10, y1: 15, x2: this.max_x, y2:15},
+                {x1: 10, y1: 20, x2: this.max_x, y2:20},
+                {x1: 10, y1: 25, x2: this.max_x, y2:25},
+                {x1: 10, y1: 30, x2: this.max_x, y2:30},
+
+                {x1: 25, y1: 5,  x2: 25, y2:this.max_y},
+                {x1: 30, y1: 5,  x2: 30, y2:this.max_y},
+                {x1: 18.5, y1: 5, x2:18.5, y2:this.max_y},
+
+                {x1: 10, y1: this.max_y, x2:this.max_x, y2:this.max_y},
+                {x1: this.max_x, y1: 5, x2:this.max_x, y2:this.max_y},
+            ];
+
+            let grid_f = [
+                {x1: 10, y1: 20, x2: this.max_x, y2:20},
+                {x1: 10, y1: 30, x2: this.max_x, y2:30},
+                {x1: 10, y1: 35, x2: this.max_x, y2:35},
+                {x1: 10, y1: 40, x2: this.max_x, y2:40},
+                {x1: 25, y1: 10,  x2: 25, y2:this.max_y},
+                {x1: 30, y1: 10,  x2: 30, y2:this.max_y},
+                {x1: 18.5, y1: 10, x2:18.5, y2:this.max_y},
+
+                {x1: 10, y1: this.max_y,  x2: this.max_x, y2:this.max_y},
+                {x1: this.max_x, y1: 10,  x2: this.max_x, y2:this.max_y},
+            ];
+
+            return this.gender === 'F' ? grid_f : grid_m
+        },
+
+        labels: function(){
+            let labels_m = [
+                {x1: 10, y1: this.max_y, x2:18.5, y2: 30, text: ["Skinny fat", "class 2"]},
+                {x1: 18.5, y1: this.max_y, x2: 25, y2: 30, text: ["Overfat", "Class 3"]},
+                {x1: 25, y1: this.max_y, x2:30, y2: 30, text: ["Obesity", "Class 1"]},
+                {x1: 30, y1: this.max_y, x2:this.max_x, y2: 30, text: ["Obesity Class 2"]},
+
+                {x1: 10,   y1: 30, x2:18.5, y2: 25, text: ["Skinny fat", "class 1"]},
+                {x1: 18.5, y1: 30, x2: 25,  y2: 25, text: ["Overfat", "Class 2"]},
+                {x1: 25,   y1: 30, x2:30,   y2: 25, text: ["Pre-","obesity"]},
+                {x1: 30,   y1: 30, x2:this.max_x,   y2: 25, text: ["Obesity Class 1"]},
+
+                {x1: 10,   y1: 25, x2:18.5, y2: 20, text: ["Lack of muscle"]},
+                {x1: 18.5, y1: 25, x2: 25,  y2: 20, text: ["Overfat", "Class 1"]},
+                {x1: 25,   y1: 25, x2:30,   y2: 20, text: ["Over-", "weight"]},
+                {x1: 30,   y1: 25, x2:this.max_x,   y2: 20, text: ["Pre-","obesity"]},
+
+                {x1: 10,   y1: 20, x2:18.5, y2: 15, text: ["Underweight"]},
+                {x1: 18.5, y1: 20, x2: 25,  y2: 15, text: ["Standard"]},
+                {x1: 25,   y1: 20, x2:30,   y2: 15, text: ["Muscular", "Over-", "weight", "Level 1"]},
+                {x1: 30,   y1: 20, x2:this.max_x,   y2: 15, text: ["Muscular", "Overweight", "Level 2"]},
+
+                {x1: 10,   y1: 15, x2:18.5, y2: 5, text: ["Underweight", "Low fat"]},
+                {x1: 18.5, y1: 15, x2: 25,  y2: 5, text: ["Fit"]},
+                {x1: 25,   y1: 15, x2:30,   y2: 5, text: ["Muscular"]},
+                {x1: 30,   y1: 15, x2:this.max_x,   y2: 5, text: ["Athelete"]},
+            ];
+
+            let labels_f = [
+                {x1: 10,   y1: this.max_y, x2:18.5, y2: 40, text: ["Skinny fat", "class 2"]},
+                {x1: 18.5, y1: this.max_y, x2:25,   y2: 40, text: ["Overfat", "Class 3"]},
+                {x1: 25,   y1: this.max_y, x2:30,   y2: 40, text: ["Obesity", "Class 1"]},
+                {x1: 30,   y1: this.max_y, x2:this.max_x,   y2: 40, text: ["Obesity Class 2"]},
+
+                {x1: 10,   y1: 40, x2:18.5, y2: 35, text: ["Skinny fat", "class 1"]},
+                {x1: 18.5, y1: 40, x2:25,   y2: 35, text: ["Overfat", "Class 2"]},
+                {x1: 25,   y1: 40, x2:30,   y2: 35, text: ["Pre-","obesity"]},
+                {x1: 30,   y1: 40, x2:this.max_x,   y2: 35, text: ["Obesity Class 1"]},
+
+                {x1: 10,   y1: 35, x2:18.5, y2: 30, text: ["Lack of muscle"]},
+                {x1: 18.5, y1: 35, x2:25,   y2: 30, text: ["Overfat", "Class 1"]},
+                {x1: 25,   y1: 35, x2:30,   y2: 30, text: ["Over-", "weight"]},
+                {x1: 30,   y1: 35, x2:this.max_x,   y2: 30, text: ["Pre-","obesity"]},
+
+                {x1: 10,   y1: 30, x2:18.5, y2: 20, text: ["Underweight"]},
+                {x1: 18.5, y1: 30, x2:25,   y2: 20, text: ["Standard"]},
+                {x1: 25,   y1: 30, x2:30,   y2: 20, text: ["Muscular", "Over-", "weight", "Level 1"]},
+                {x1: 30,   y1: 30, x2:this.max_x,   y2: 20, text: ["Muscular", "Overweight", "Level 2"]},
+
+                {x1: 10,   y1: 20, x2:18.5, y2: 10, text: ["Underweight", "Low fat"]},
+                {x1: 18.5, y1: 20, x2:25,   y2: 10, text: ["Fit"]},
+                {x1: 25,   y1: 20, x2:30,   y2: 10, text: ["Muscular"]},
+                {x1: 30,   y1: 20, x2:this.max_x,   y2: 10, text: ["Athelete"]},
+
+            ];
+
+            return this.gender === 'F' ? labels_f : labels_m
+        },
+
         width: function(){return this.canvas_width - this.margin_left - this.margin_right;},
         height: function(){return this.canvas_height - this.margin_top - this.margin_bottom;},
 
         min_y: function(){return this.gender=="F"? 10 : 5},
-        max_y: function(){return this.gender=="F"? 50 : 40},
+
+        max_y: function(){
+            let max_bfp = Math.max(...this.filteredDatapoints.map(d => d.bfp))
+            if ((this.gender === 'F' && max_bfp > 50) ||
+                (this.gender === 'M' && max_bfp > 40))
+                return 60
+            else if (this.gender === 'F')
+                return 50
+            else
+                return 40
+        },
+
+        max_x: function() {
+            let max_bmi = Math.max(...this.filteredDatapoints.map(d => d.bmi))
+            return max_bmi > 40 ? 60 : 40;
+        },
 
         coords: function(){
-            return this.datapoints.map(node => {
+            return this.filteredDatapoints.map(node => {
                 return {
                     x: d3.scaleLinear().domain([this.min_x, this.max_x]).range([0,this.width])(node.bmi),
                     y: d3.scaleLinear().domain([this.min_y, this.max_y]).range([this.height,0])(node.bfp)
@@ -229,7 +248,7 @@ export default{
 
         load_plot: function(){
             var svgContainer = d3.select("svg");
-            console.log(this.datapoints)
+            console.log(this.filteredDatapoints)
             var line = d3.line()
                 .x(function(d) {
                     console.log('x', this.x(d.bmi));
@@ -241,18 +260,29 @@ export default{
 
             svgContainer.append("path")
                 .classed("line-chart", true)
-                .attr("d", line(this.datapoints))
+                .attr("d", line(this.filteredDatapoints))
                 .attr("transform", function() {
                     return "translate(" + this.margin.left + "," + this.margin.top + ")";
                 }.bind(this));
 
 
         },
+
+        filterDatapoints() {
+            this.filteredDatapoints = this.datapoints.filter((d) => d.bmi > 0 && d.bfp > 0);
+        }
     },
     mounted() {
         this.load_axes();
         this.load_plot();
     },
+    created() {
+        if (this.chartWidth)
+            this.canvas_width = this.chartWidth;
+        if (this.chartHeight)
+            this.canvas_height = this.chartHeight;
+        this.filterDatapoints();
+    }
 }
 </script>
 

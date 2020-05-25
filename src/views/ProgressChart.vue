@@ -13,6 +13,8 @@
     v-if="body_type_progression_data.length > 0"
     :datapoints="body_type_progression_data"
     :gender="user.gender"
+    :chartWidth="chart_width"
+    :chartHeight="chart_height"
     >
   </BodyTypeProgressionChart>
 
@@ -144,6 +146,14 @@ export default {
             }.bind(this));
             return d;
         },
+        chart_width: function() {
+            let width = window.innerWidth * 0.85;
+            return  width > 500 ? 500 : width;
+        },
+        chart_height: function() {
+            let height = window.innerHeight * 0.60;
+            return height > 500 ? 500 : height;
+        }
     },
 
     methods: {
