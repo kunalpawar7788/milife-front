@@ -68,7 +68,7 @@ export default {
         x_axis: function(){
             return d3.axisBottom()
                 .scale(d3.scaleTime().domain([this.min_x, this.max_x]).range([0, this.width]))
-                .ticks(d3.timeMonth.every(2))
+                .ticks(d3.timeMonth.every(3))
                 .tickFormat(d3.timeFormat("%b %y"));
         },
 
