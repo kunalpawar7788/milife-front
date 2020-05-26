@@ -19,16 +19,16 @@ export default {
         return {
             canvas_width: 300,
             canvas_height: 300,
-            margin: {top: 10, right: 10, bottom: 30, left: 30},
+            margin: {top: 10, right: 10, bottom: 30, left: 70},
             margin_top: 10,
-            margin_left: 30,
+            margin_left: 70,
             margin_bottom: 30,
             margin_right: 10,
         };
 
     },
     components: {},
-    props: ['datapoints', 'field'],
+    props: ['datapoints', 'field', 'yAxisUnit'],
     computed: {
         points: function(){},
         all_dates: function(){
@@ -151,6 +151,11 @@ export default {
                     return "translate(" + this.margin.left + "," + this.margin.top + ")";
                 }.bind(this));
 
+            svgContainer.append("text")
+                .attr('class', 'y-axis-unit')
+                .attr('y', '50%')
+                .attr('x', '20')
+                .text(this.yAxisUnit)
 
         },
         filterDatapoints: function() {
@@ -175,6 +180,12 @@ svg#generic-chart {
         /* stroke: #76BF8A; */
         stroke: $milife-green;
         stroke-width: 2px;
+    }
+
+    .y-axis-unit {
+        fill: white;
+        font-size: 10px;
+        text-anchor: middle;
     }
 
     .x-axis{

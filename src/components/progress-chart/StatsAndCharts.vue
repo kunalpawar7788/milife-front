@@ -68,6 +68,7 @@
     <GenericChart
       :datapoints="data_to_plot"
       :field="field_to_plot"
+      :yAxisUnit="unit"
       :key="plot_key + 1"
       ></GenericChart>
   </div>
@@ -122,6 +123,30 @@ export default{
                 left_leg: 'Left Leg (inches)',
                 right_leg: 'Right Leg (inches)',
             },
+            field_unit_map: {
+                body_fat: 'kg',
+                percentage_body_fat: '%',
+                muscle_mass: 'kg',
+                percentage_muscle_mass: '%',
+                visceral_fat_mass: 'kg',
+                body_type: '',
+                biological_age: 'year',
+                body_mass_index: 'kg/m2',
+                waist_hip_ratio: '',
+                systolic_blood_pressure: 'mmHg',
+                diastolic_blood_pressure: 'mmHg',
+                blood_sugar: 'mM',
+                vo2_max: 'mL/(kg·min)',
+                resting_heart_rate: 'bpm',
+                waist: 'inches',
+                hips: 'inches',
+                chest: 'inches',
+                shoulders: 'inches',
+                left_arm: 'inches',
+                right_arm: 'inches',
+                left_leg: 'inches',
+                right_leg: 'inches',
+            }
         };
     },
     computed: {
@@ -231,7 +256,9 @@ export default{
         age_years: function() {
             return moment().diff(this.user.date_of_birth, 'years');
         },
-
+        unit: function() {
+            return this.field_unit_map[this.field_to_plot.value] || '';
+        }
 
     },
     methods: {
