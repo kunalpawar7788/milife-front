@@ -11,20 +11,21 @@
         </div>
       </div>
       <div class="sender-name-block ">
-        <div class="fn-16 fc-darkgrey ta-left fw-600  margin-10">
+        <div class="fn-16 fc-darkgrey ta-left fw-700  mb-0 margin-10">
           {{message.sender.first_name}} {{message.sender.last_name}}
         </div>
-        <div class="fn-11 fc-grey ta-left margin-10">
-          {{ message.modified_at | moment("Do MMM YY")}}
+        <div class="fn-11 fc-grey ta-left fw-600 mt-0 margin-10">
+          {{ message.modified_at | moment("Do MMM YY") | uppercase }}
+          ({{ message.modified_at | moment("from") | uppercase }})
         </div>
       </div>
-      <div class="grid-span-both-columns float-left fc-bluegrey fw-600 margin-10">
+      <div class="grid-span-both-columns float-left fn-14 fc-bluegrey fw-700 margin-10">
         {{message_kind_label(message.kind)}}
       </div>
-      <div class="grid-span-both-columns float-left fc-bluegrey width-90 message-content ta-left margin-10 fn-14">
+      <div class="grid-span-both-columns float-left width-90 message-content ta-left margin-10 fn-14 mt-0">
         {{message.content}}
       </div>
-      <div class="float-left width-90 message-content ta-left fn-14 milife-button anchor-container">
+      <div class="float-left width-90 message-content ta-left fn-12 milife-button anchor-container">
         <a class="mailto pd-20"  :href="reply_mailto_url">Reply</a>
       </div>
     </div>
@@ -132,6 +133,12 @@ export default {
         },
     },
 
+    filters: {
+        uppercase: function(v) {
+            return v.toUpperCase();
+        }
+    },
+
     created() {
         this.$store.dispatch("theme/set_theme_white");
     },
@@ -164,6 +171,8 @@ export default {
     }
     .message-content{
         align-self: center;
+        font-weight: 500;
+        color: lighten(#6F7C8E, 10%)
     }
 
     .red-border {
@@ -171,10 +180,19 @@ export default {
     }
     .anchor-container {
         padding: 0;
-        margin: 0;
+        margin: 5%;
     }
     .mailto {
         display: block;
+    }
+    .mb-0 {
+        margin-bottom: 0px;
+    }
+    .mt-0 {
+        margin-top: 0px;
+    }
+    .fw-700 {
+        font-weight: 700;
     }
 }
 </style>
