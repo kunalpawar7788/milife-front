@@ -1,7 +1,7 @@
 <template>
 <div class="messages-list-view">
   <input
-    class="text-input"
+    class="text-input search-box width-80"
     v-model="search_keyword"
     placeholder="Start typing to search"
     v-on:keyup="fetch_messages">
@@ -19,14 +19,15 @@
         </div>
       </div>
       <div class="sender-name-block">
-        <div class="fn-16 fc-black ta-left">
+        <div class="fn-14 fc-lightblack fw-700 ta-left">
           {{message.sender.first_name}} {{message.sender.last_name}}
         </div>
-        <span class="fn-11 fc-grey ta-left">
-          {{ message.modified_at | moment("Do MMM YY")}}
+        <span class="fn-11 fc-grey fw-500 ta-left">
+          {{ message.modified_at | moment("Do MMM YY") | uppercase }}
+          ({{ message.modified_at | moment('from') | uppercase }})
         </span>
       </div>
-      <div class="grid-span-both-columns float-left fc-bluegrey fw-600">{{message_kind_label(message.kind)}}</div>
+      <div class="grid-span-both-columns float-left fc-bluegrey fw-700">{{message_kind_label(message.kind)}}</div>
       <div class="grid-span-both-columns float-left fc-bluegrey overflow-ellipsis width-90 message-content">
         {{message.content}}
       </div>
@@ -47,9 +48,9 @@ export default {
             status: "initial",
             search_keyword: "",
             kind_label: {
-                "checkin-commentry": "Checkin Commentry",
-                "weekly-commentry": "Weekly Commentry",
-                misc: "Miscellaneous",
+                "checkin-commentry": "Checkin Commentary",
+                "weekly-commentry": "Weekly Commentary",
+                "misc": "Miscellaneous",
             },
 
         }
@@ -67,7 +68,6 @@ export default {
                 return this.fobj_user;
             }
             else {
-                console.log( 'userid', this.$store.state.auth.user.id);
                 return this.$store.state.auth.user;
             }
         },
@@ -92,7 +92,6 @@ export default {
                 })
                 .catch(err => {
                     this.status='error';
-                    console.log(err);
                 });
         },
         message_kind_label: function(kind) {
@@ -101,6 +100,12 @@ export default {
         goto_view_message: function(message_pk){
             this.$router.push({name:'message-view', params: {pk: this.user.id, message_pk: message_pk}});
         },
+    },
+
+    filters :{
+        uppercase: function(v) {
+            return v.toUpperCase();
+        }
     },
 
     created() {
@@ -119,9 +124,10 @@ export default {
         height: 100px;
         grid-template-columns: [column1-start] 1fr 9fr [column2-end];
         grid-template-rows: 2fr 1fr 1fr;
-        grid-row-gap: 5px;
-        grid-column-gap: 10px;
+        grid-row-gap: 0.75em;
+        grid-column-gap: 1em;
         align-items: center;
+        margin-bottom: 5%;
     }
     .image-alternate {
         /* width: fit-content; */
@@ -149,6 +155,24 @@ export default {
     }
     .message-content{
         align-self: center;
+        text-align: left;
+    }
+    .text-input {
+        border: none;
+        font-family: "Montserrat";
+        // font-size: 13pt;
+        background-color: whitesmoke;
+    }
+    .search-box {
+        margin: 5%;
+        background: url($milife-search-icon) no-repeat scroll 93% 50%;
+        background-color: whitesmoke;
+    }
+    .fc-lightblack {
+        color: lighten(black, 40%)
+    }
+    .fw-700 {
+        font-weight: 700;
     }
 }
 </style>
