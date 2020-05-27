@@ -7,17 +7,21 @@
   </SelectedUserDisplay>
   <div v-for="programme in programmes"
        class="programme-item middle-column"
-       v-on:click="goto_programme_detail(programme.id)"
        >
     <div class ="top-half">
       <h2>  {{programme.name}} </h2>
-      <div class="align-left"> Start: <strong>{{programme.start_date}}</strong></div>
-      <div class="align-right"> End: <strong>{{programme.end_date}}</strong> </div>
+      <div class="align-left mt-15"> Start <strong>{{programme.start_date | moment('DD/MM/YYYY')}}</strong></div>
+      <div class="align-right mt-15"> End <strong>{{programme.end_date | moment('DD/MM/YYYY')}}</strong> </div>
     </div>
 
-    <div class="bottom-border">
+    <div class="bottom-border mt-10">
 
-      Status: {{programme.active?'Active': 'Inactive'}}
+      <span class="active ml-20" v-if="programme.active">Active</span>
+      <span class="inactive ml-20" v-else>Completed</span>
+      <span class="mr-15 clickable" v-on:click="goto_programme_detail(programme.id)">
+        See details
+        <img class="ml-10" src="@/assets/images/next-arrow.svg" />
+      </span>
 
     </div>
 
@@ -25,7 +29,7 @@
 
   <div
     v-if="is_admin"
-    class="button middle-column"
+    class="button middle-column mt-20"
     v-on:click="goto_add_programme()"> Add Programme
   </div>
 </div>
@@ -38,7 +42,7 @@ export default {
     name: 'ProgrammeList',
     props: ['fobj_user', ],
     components: {SelectedUserDisplay},
-    
+
     data() {
         return {
             //user_pk: this.$route.params.pk,
@@ -58,7 +62,7 @@ export default {
         is_admin: function() {
             return this.$store.state.auth.user.is_staff;
         },
-        
+
     },
     methods: {
         fetch_programmes: function(){
@@ -115,15 +119,25 @@ export default {
         color: white;
 
         .align-left{
+            font-size: 10pt;
             margin-left: 0;
-            padding-left: 20px;
+            padding-left: 30px;
             float: left;
+
+            strong {
+                font-weight: 600;
+            }
         }
 
         .align-right{
+            font-size: 10pt;
             margin-right: 0;
-            padding-right: 20px;
+            padding-right: 30px;
             float: right;
+
+            strong {
+                font-weight: 600;
+            }
         }
 
         div {
@@ -131,17 +145,53 @@ export default {
         }
         h2 {
             margin: 5px;
-
+            font-size: 16pt;
         }
         div.top-half {
             height: 60px;
+            padding-top: 1em;
+            padding-bottom: 1em;
         }
         .bottom-border{
+            display: flex;
+            justify-content: space-between;
             margin-top: 5px;
-            background-color: darken($milife-blue, 10%);
-            border: 1px solid green;
+            background-color: darken($milife-blue, 5%);
+            border-radius: 0px 0px 10px 10px;
+            padding-top: 0.5em;
+            padding-bottom: 0.5em;
+            font-weight: 500;
+
+            span {
+                display: flex;
+            }
+        }
+
+        .active {
+            color: $milife-green;
+        }
+
+        .inactive {
+            color: $milife-magenta;
         }
     }
 
+    .button {
+        font-size: 12pt;
+        color: white;
+        padding: 20px;
+    }
+
+    .mr-15 {
+        margin-right: 15px;
+    }
+
+    .clickable {
+        cursor: pointer;
+    }
+
+    .clickable:hover {
+        filter: invert(25%);
+    }
 }
 </style>
