@@ -19,8 +19,8 @@ export default {
         return {
             canvas_width: 300,
             canvas_height: 300,
-            margin: {top: 10, right: 10, bottom: 30, left: 70},
-            margin_top: 10,
+            margin: {top: 10, right: 10, bottom: 30, left: 60},
+            margin_top: 20,
             margin_left: 70,
             margin_bottom: 30,
             margin_right: 10,
@@ -68,7 +68,7 @@ export default {
         x_axis: function(){
             return d3.axisBottom()
                 .scale(d3.scaleTime().domain([this.min_x, this.max_x]).range([0, this.width]))
-                .ticks(d3.timeMonth.every(3))
+                .ticks(d3.timeMonth.every(4))
                 .tickFormat(d3.timeFormat("%b %y"));
         },
 
@@ -135,7 +135,12 @@ export default {
                     const temp = this.height +this.margin.top
                     return "translate(" + this.margin.left + "," + temp + ")";
                 }.bind(this))
-                .call(this.x_axis);
+                .call(this.x_axis)
+                .selectAll("text")
+                .style("text-anchor", "end")
+                .attr("dx", "-.5em")
+                .attr("dy", ".5em")
+                .attr("transform", "rotate(-70)");
 
             svgContainer.append("g")
                 .classed("y-axis", true)
