@@ -16,18 +16,27 @@
     v-on:click="goto_edit_programme(programme.id)"> EDIT &gt </div>
 
   <div class="start_date info_block">
-    <label> START DATE </label>
+    <label> STARTED </label>
     <div>{{programme.start_date}}</div>
   </div>
 
   <div class="end_date info_block">
-    <label> END DATE </label>
+    <label> ENDS </label>
     <div>{{programme.end_date}}</div>
   </div>
 
   <div class="coach info_block">
-    <label> COACH </label>
-    <div> {{coach}}</div>
+    <div class="coach_block">
+        <div>
+            <label> COACH </label>
+            <div> {{coach}}</div>
+        </div>
+        <div class="coach_block-btn">
+            <div id="coach_btn">Button <span>
+                    &#10095;
+                </span></div>
+        </div>
+    </div>
   </div>
 
   <section class="sessions">
@@ -49,8 +58,18 @@
   </section>
 
   <section class="hbs">
-    <button class="button" v-if="is_admin" v-on:click="goto_hbs()"> Holiday and Banked Sessions </button>
-    <button class="button" v-else v-on:click="goto_client_hbs()"> Holiday and Banked Sessions </button>
+    <button class="button" v-if="is_admin" v-on:click="goto_hbs()"> 
+        Holiday and Banked Sessions 
+        <span>
+            &#10095;
+        </span>
+    </button>
+    <button class="button" v-else v-on:click="goto_client_hbs()"> 
+        Holiday and Banked Sessions 
+        <span>
+            &#10095;
+        </span> 
+    </button>
 
   </section>
 
@@ -172,6 +191,7 @@ export default {
 .programme-detail-container{
     background-color: white;
     display: grid;
+    grid-gap: 10px 0px;
     grid-template-columns: 1fr repeat(10, 1fr) 1fr;
 
     .middle-column{
@@ -190,42 +210,41 @@ export default {
 
     .programme_name{
         width: 100%;
-        grid-column: 1 / 8;
+        grid-column: 2 / 12;
         grid-row: 2;
     }
     .start_date{
         float: left;
-        grid-column: 1 / 6;
+        grid-column: 2 / 6;
         grid-row: 3;
     }
     .end_date {
         float: right;
-        grid-column: 6/ 12;
+        grid-column: 7/ 12;
         grid-row: 3;
     }
     .coach {
-        grid-column: 1 / 12;
+        grid-column: 1 / -1;
         grid-row: 4;
-        background-color: lighten(grey, 30%);;
-        padding-left: 10px;
-        padding-bottom: 10px;
-        border-radius: 20px;
-        margin: 10px;
+        background-color: #cdcdcd;
+        padding: 10px;
+        border-radius: 10px;
+        margin: 12px;
     }
     .info_block{
         float: left;
         padding-top: 10px;
-        padding-left: 10px;
-        margin: 10px;
+        /* padding-left: 10px; */
+        /* margin: 10px; */
 
         text-align: left;
         label {
             color: $milife-magenta;
-            font-size: 16pt;
+            font-size: calc(16px + 0.5vmin);
         }
         div {
             color: black;
-            font-size: 18pt;
+            font-size: calc(14px + 0.5vmin);
         }
     }
 
@@ -233,8 +252,8 @@ export default {
         padding-top: 10px;
 
         grid-row: 6;
-        grid-column: 1/13;
-        background-color: $milife-blue;
+        grid-column: 1 / -1;
+        /* background-color: $milife-blue; */
 
         .session-heading {
             grid-row: 5;
@@ -246,7 +265,7 @@ export default {
                 padding-top: 0;
                 margin: 0;
                 font-weight: 400;
-                color: white;
+                color: $milife-magenta;
                 font-size: 16pt;
             }
         }
@@ -277,7 +296,7 @@ export default {
 
             .session{
                 font-size: 25pt;
-                color: white;
+                color: black;
                 margin-left: 5px;
                 padding:0;
                 span {
@@ -290,12 +309,33 @@ export default {
     }
     .button{
         grid-row: 11;
-        grid-column: 1/12;
+        grid-column: 1/-1;
+        color: #fff;
+        font-size: calc(15px + 0.5vmin)
     }
     .hbs{
-        grid-column: 2/11;
+        grid-column: 1/-1;
         grid-row: 10;
-        padding: 30px;
     }
+
+    .coach_block{
+        display: grid;
+        grid-template-columns: auto auto;
+        grid-template-rows: auto;
+    }
+
+    .coach_block-btn{
+        display: block;
+        line-height: 1em;
+        border-radius: 2rem;
+        text-align: center;
+        padding-top: 12px;
+        background-color: $milife-magenta;
+    }
+
+    #coach_btn{
+        color: #fff;
+    }
+    
   }
 </style>
