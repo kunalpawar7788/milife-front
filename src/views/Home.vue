@@ -49,3 +49,11 @@ export default {
   }
 };
 </script>
+
+<style scoped lang="scss">
+  .home {
+    margin: 0px 15px;
+    padding-bottom: 5px;
+  }
+</style>
+

@@ -16,25 +16,32 @@
       </div>
     </div>
   </section>
-  <div id="td-adduser" v-on:click="goto_add_user">
-    <span> </span>
-    <span class="cta">ADD USER</span>
-    <span class="arrow"> > </span>
+  <div class="td_user-activity">
+      <div id="td-adduser" v-on:click="goto_add_user">
+        <span class="cta">ADD USER</span>
+        <span class="arrow">
+          <div class="code icon"></div>
+        </span>
+      </div>
+      <div id="td-inviteuser" v-on:click="goto_invite_user">
+        <span class="cta">INVITE USER</span>
+        <span class="arrow">
+          <div class="code icon"></div>
+        </span>
+      </div>
   </div>
-  <div id="td-inviteuser" v-on:click="goto_invite_user">
-    <span> </span>
-    <span class="cta"> SEND INVITATION</span>
-    <span class="arrow"> > </span>
-  </div>
+
 
   <div id="td-search">
       <p>Search A User</p>
       <input
-        class="text-input"
-        required v-model="search_param"
+        class="text-input text_input-td"
+        required 
+        v-model="search_param"
         placeholder="start typing to search"
         v-on:keyup.enter="goto_search_user"
         />
+        <img class="image search-icon" id="image-waiting" src="@/assets/images/search-icon.svg" />
   </div>
   <div id="td-upload-csv" v-on:click="goto_upload_csv">
     <span> </span>
@@ -144,60 +151,123 @@ export default {
         text-align: left;
         align-self: center;
         font-size: 10pt;
+        font-weight: 600;
         color: $milife-magenta;
         padding: 5px 2px;
         cursor: pointer;
     }
+
+
+    .td_user-activity {
+      display: grid;
+      grid-template-columns: repeat(2, 6fr);
+      grid-gap: 10px;
+      margin: 15px 2px;
+      font-size: 11pt;
+      font-weight: 600;
+    }
+
     #td-adduser {
-        font-size: 20pt;
-        text-align: left;
-        background-color: $milife-green;
-        border-radius: 10px;
-        display: grid;
-        grid-template-columns: 1fr 10fr 1fr;
-        padding: 10px;
-        margin: 20px 2px;
-        cursor: pointer;
+      display: grid;
+      grid-template-columns: 10fr 2fr;
+      background-color: $milife-green;
+      line-height: 3rem;
+      border-radius: 10px;
+      padding: 15px;
     }
 
-    #td-inviteuser {
-        font-size: 20pt;
-        text-align: left;
-        background-color: $milife-green;
-        border-radius: 10px;
-        display: grid;
-        grid-template-columns: 1fr 10fr 1fr;
-        padding: 10px;
-        margin: 20px 2px;
-        cursor: pointer;
-
+    .code.icon {
+      color: #fff;
+      position: relative;
+      margin-left: 0px;
+      margin-top: 17px;
     }
 
-    #td-upload-csv {
-        font-size: 20pt;
-        text-align: left;
-        background-color: $milife-magenta;
-        border-radius: 10px;
-        display: grid;
-        grid-template-columns: 1fr 10fr 1fr;
-        padding: 10px;
-        margin: 20px 2px;
-        cursor: pointer;
+    .code.icon:after {
+      content: "";
+      position: absolute;
+      left: 6px;
+      width: 10px;
+      height: 10px;
+      border-bottom: solid 3px currentColor;
+      border-right: solid 3px currentColor;
+      -webkit-transform: rotate(-45deg);
+      transform: rotate(-45deg);
     }
 
-    #td-search {
-        height: 20%;
-        background-color: $milife-grey;
-        border-radius:10px;
-        padding: 10px;
-        font-size: 20pt;
-        cursor: pointer;
+
+    .code.icon:after {
+    content: "";
+    position: absolute;
+    left: 6px;
+    width: 10px;
+    height: 10px;
+    border-bottom: solid 3px currentColor;
+    border-right: solid 3px currentColor;
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+  }
+  #td-inviteuser {
+    display: grid;
+    grid-template-columns: 10fr 2fr;
+    background-color: $milife-green;
+    line-height: 3rem;
+    border-radius: 10px;
+    padding: 15px;
+  }
+
+  #td-upload-csv {
+    font-size: 15pt;
+    text-align: left;
+    background-color: $milife-magenta;
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: 1fr 10fr 1fr;
+    padding: 10px;
+    margin: 20px 2px;
+    cursor: pointer;
+    font-weight: 600;
+  }
+
+  #td-search {
+    height: 20%;
+    background-color: $milife-grey;
+    border-radius: 10px;
+    padding: 15px 20px 30px 20px;
+    font-size: 15pt;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  #td-search > p {
+    margin: 15px;
+  }
+  #td-search > a > input {
+    margin-top: 5px;
+  }
+  .user-list-link {
+    margin: 10px 1px;
+  }
+
+  .text_input-td {
+    border: 1px solid #fff;
+    width: 100%;
+  }
+
+  .search-icon {
+    position: relative;
+    float: right;
+    width: 20px;
+    height: 40px;
+    top: -48px;
+    right: 16px;
+  }
+
+  @media screen and (max-width: 333px) {
+    .td_user-activity {
+      font-size: 10pt;
     }
-    #td-search>a>input{
-        margin-top: 5px;
-    }
-    .user-list-link{
-        margin: 10px 1px;
-    }
+  }
+
 }
 </style>
