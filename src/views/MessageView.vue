@@ -45,9 +45,9 @@ export default {
             status: "initial",
             search_keyword: "",
             kind_label: {
-                "checkin-commentry": "Checkin Commentry",
-                "weekly-commentry": "Weekly Commentry",
-                misc: "Miscellaneous",
+                "checkin-commentry": "Checkin Commentary",
+                "weekly-commentry": "Weekly Commentary",
+                "misc": "Miscellaneous",
             },
 
         }
@@ -65,7 +65,6 @@ export default {
                 return this.fobj_user;
             }
             else {
-                console.log( 'userid', this.$store.state.auth.user.id);
                 return this.$store.state.auth.user;
             }
         },
@@ -77,11 +76,6 @@ export default {
             return  process.env.VUE_APP_BASE_URL+'/api/users/' + this.user.id + '/message/' + this.message_pk;
         },
 
-        display_messages: function() {
-            return this.$_.filter(this.messages, function(o){
-                return o.content != "";
-            })
-        },
         reply_mailto_url: function(){
             var sender = this.message.sender;
             var params = {
@@ -96,7 +90,6 @@ export default {
                     str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
                 return str.join("&");
             }
-            console.log("mailto:?"+serialize(params));
             return "mailto:?"+serialize(params);
         },
     },
@@ -110,21 +103,18 @@ export default {
                 })
                 .catch(err => {
                     this.status='error';
-                    console.log(err);
                 });
         },
         mark_read: function(){
-            if(this.is_admin){
+            if(this.is_admin || this.message.read){
                 return;
             }
             this.$http({url: this.messages_url, method: 'PATCH', data: {read: true}})
                 .then(resp => {
-                    console.log('marked read');
-
+                    return;
                 })
                 .catch(err => {
                     this.status='error';
-                    console.log(err);
                 });
 
         },
