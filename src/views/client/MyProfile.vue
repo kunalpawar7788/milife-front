@@ -25,7 +25,7 @@
   <div>
     <datepicker
       wrapper-class="datepicker"
-      input-class="text-input"
+      input-class="text-input date_input"
       v-model="date_of_birth"
       format="dd/MM/yyyy"
       :typeable="false"
@@ -37,7 +37,7 @@
   <HeightInput v-model="height"></HeightInput>
       <WeightInput v-model="weight"></WeightInput>
 
-  <button v-promise-btn class="button width-80" v-on:click="update_profile"> Save </button>
+  <button v-promise-btn class="button width-80 btn-save" v-on:click="update_profile"> Save </button>
 
 
 </div>
@@ -222,6 +222,19 @@ export default {
     }
     .profile-photo {
         height: 200px;
+    }
+
+    .date_input{
+        margin: 10px 0px;
+        height: 45px;
+        font-size: calc(15px + 0.5vmin);
+    }
+
+    .btn-save{
+        padding: 0px;
+        line-height: 2.5;
+        margin-bottom: 20px;
+        color: #fff;
     }
 
 }

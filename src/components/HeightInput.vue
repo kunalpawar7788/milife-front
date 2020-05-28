@@ -7,7 +7,8 @@
     :class="[selected=='metric'? 'selected': '', 'choices', 'metric' ]"
     v-on:click="select_choice('metric')"
     >
-    Metric
+    Metric 
+    
   </div>
 
   <div
@@ -163,7 +164,7 @@ div.choicefield-container{
     height: 50px;
     font-size: 15pt;
     font-family: Monteserrat Regular;
-
+    padding: 10px;
     display: grid;
     grid-template-columns: 1fr 10px repeat(4, 1fr);
     grid-gap: 1px;
