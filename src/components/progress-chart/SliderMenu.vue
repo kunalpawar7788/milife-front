@@ -88,13 +88,14 @@ export default {
 
             border-radius: 10px;
             padding-bottom: 17px;
-            margin-left: 5px;
+            margin: 10px;
 
             p {
-                margin-top: 1px;
-                font-size: 17pt;
+                margin-top: 2px;
+                font-size: calc(17px + 0.5vmin);
                 height: 20px;
                 width: 80px;
+                padding: 2px;
             }
         }
     }
