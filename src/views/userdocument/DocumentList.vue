@@ -7,11 +7,11 @@
   </SelectedUserDisplay>
 
   <div class="searchbox">
-    <input class="text-input" v-model="params.search" placeholder="Start typing to search" v-on:keyup="fetch_documents">
+    <input class="text-input search-input" v-model="params.search" placeholder="Start typing to search" v-on:keyup="fetch_documents">
   </div>
 
   <div class="documentlist" v-for="document in documents">
-    <div class="document">
+    <div class="document fw-500 fn-16">
       <p>{{document.name}}</p>
       <router-link
         v-if="is_admin"
@@ -77,7 +77,6 @@ export default {
             alert(msg);
         },
         goto_view_document: function(document_pk){
-            console.log('going', document_pk);
             var params= {doc_pk: document_pk};
             var view = "my-document-view";
             if (this.is_admin){
@@ -94,7 +93,6 @@ export default {
                     responseType: 'blob', // important
                 }).then((response) => {
                     const url = window.URL.createObjectURL(new Blob([response.data]));
-                    console.log(document);
                     const link = document.createElement('a');
                     link.href = url;
                     link.setAttribute('download', d.document.split('/').slice(-1)[0]);
@@ -112,7 +110,6 @@ export default {
                         this.error_message="";
                         this.errors={};
                         this.documents= resp.data.results;
-                        console.log(resp.data);
                     })
                     .catch(err => {
                         err.response.data['errors'].forEach((element, index, array) =>{
@@ -137,18 +134,37 @@ export default {
 .document {
     background: white;
     color: black;
-    border-radius: 5px;
+    border-radius: 20px;
     padding: 10px;
-    margin: 10px;
+    margin: 5%;
     display: grid;
     grid-template-columns: 5fr 1fr 1fr 1fr;
     padding-left: 20px;
     align-items: center;
     justify-items: center;
     grid-column-gap: 5px;
+    min-height: 60px;
+
     p {
+        margin: 0;
         justify-self: left;
         text-align: left;
     }
+}
+
+.text-input {
+    border: none;
+    font-family: "Montserrat";
+    font-size: 13pt;
+    background-color: whitesmoke;
+}
+
+.text-input::placeholder {
+    color: dimgray;
+}
+
+.search-input {
+    background: url("../../assets/images/search-icon.svg") no-repeat scroll 90% 50%;
+    background-color: whitesmoke;
 }
 </style>
