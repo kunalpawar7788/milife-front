@@ -10,7 +10,7 @@
   <p>
     Your meal grammes and calories
   </p>
-  <table class="mt-10 bg-white br-20 fc-black width-90 fn-11 fw-500">
+  <table class="mt-10 bg-white br-20 fc-black width-90 fn-11 fw-500 responsive-width">
     <colgroup>
       <col style="column-width: 10px" />
       <col style="background-color: #FFCD03"> </col>
@@ -253,6 +253,11 @@ export default {
             white-space: nowrap;
             margin-left: 20px;
             position: relative;
+        }
+    }
+    @media only screen and (max-width: 342px){
+        .responsive-width{
+            width: 100%;
         }
     }
 
