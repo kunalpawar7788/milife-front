@@ -27,7 +27,7 @@
              }"
       />
 
-    <button class="button" v-on:click="finish_cropping"> Crop </button>
+    <button class="button btn_crop-save" v-on:click="finish_cropping"> Crop </button>
   </div>
   <div v-else>
 
@@ -44,8 +44,14 @@
       <img v-bind:src="value" />
     </div>
   </div>
-  <div class="picture-selector " v-on:click="$emit('cropping');">
-    <input type="file" v-on:change="read_url($event.target)">
+  <div class="picture-selector uploader" v-on:click="$emit('cropping');">
+    <input id="file-upload" type="file" v-on:change="read_url($event.target)">
+    <label for="file-upload" id="file-drag">
+    <div id="start">
+      <div>Upload a picture here</div>
+      <span id="file-upload-btn" class="btn btn-primary">Select file</span>
+    </div>
+  </label>
   </div>
 </div>
 </template>
@@ -170,28 +176,97 @@ export default {
 </script>
 
 <style lang="scss">
-.fullscreen {
-    z-index: 100;
-    height: 95%;
-    width: 99%;
-    overflow:auto;
-    background-color: $milife-blue;
-    position:fixed;
-    /* display: block; */
-    top: 0;
-    left: 0;
-}
+  .fullscreen {
+      z-index: 100;
+      height: 100vh;
 
-.hide_file {
-    position: absolute;
-    z-index: 1000;
-    opacity: 0;
-    cursor: pointer;
-    right: 0;
-    top: 0;
-    height: 100%;
-    font-size: 24px;
+      width: 99%;
+      overflow:auto;
+      background-color: $milife-blue;
+      position:fixed;
+      display: flex;
+      flex-flow: column;
+      justify-content: center;
+      top: 0;
+      left: 0;
+  }
+
+  .btn_crop-save{
+    line-height: 0.5;
+    width: 80%;
+    margin: 30px auto;
+    color: white;
+  }
+
+  .hide_file {
+      position: absolute;
+      z-index: 1000;
+      opacity: 0;
+      cursor: pointer;
+      right: 0;
+      top: 0;
+      height: 100%;
+      font-size: 24px;
+      width: 100%;
+  }
+
+  .uploader {
+    display: block;
+    clear: both;
+    margin: 0 auto;
+
+    label {
+      float: left;
+      clear: both;
+      width: 80%;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      background: #eee;
+      border-radius: 7px;
+      border: 3px solid #eee;
+      transition: all .2s ease;
+      user-select: none;
+    }
+
+  #start {
+    float: left;
+    clear: both;
     width: 100%;
+    &.hidden {
+      display: none;
+    }
+  }
 
+  input[type="file"] {
+    display: none;
+  }
+
+  div {
+    margin: 0 0 .5rem 0;
+    color: #000;
+  }
+  .btn {
+    display: inline-block;
+    margin: .5rem .5rem 1rem .5rem;
+    clear: both;
+    font-family: inherit;
+    font-weight: 700;
+    font-size: 14px;
+    text-decoration: none;
+    text-transform: initial;
+    border: none;
+    border-radius: 2rem;
+    outline: none;
+    padding: 0 1rem;
+    height: 36px;
+    line-height: 36px;
+    color: #fff;
+    transition: all 0.2s ease-in-out;
+    box-sizing: border-box;
+    background: $milife-magenta;
+    border-color: $milife-magenta;
+    cursor: pointer;
+  }
 }
+
 </style>

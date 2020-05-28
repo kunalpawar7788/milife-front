@@ -7,7 +7,7 @@
     :circle_stencil="true"
     > </PictureSelector>
 
-  <button class="milife-button" v-on:click="update_picture()"> Save</button>
+  <button class="milife-button btn_profileUpload-save" v-on:click="update_picture()"> Save</button>
 </div>
 </template>
 
@@ -69,7 +69,16 @@ export default {
 </script>
 
 <style>
-#profile-picture-update-view{
-    
-}
+    #profile-picture-update-view{
+        display: flex;
+        flex-flow: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vmin;
+    }
+    .btn_profileUpload-save {
+        width: 80%;
+        margin-top: 30px;
+        line-height: 1;
+    }
 </style>
