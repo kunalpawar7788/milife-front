@@ -3,7 +3,12 @@
   <h3> Weight Progress Chart </h3>
 
   <div v-if="status == 'ready'">
-    <div class="weight-chart-container">
+    <div class="dates fc-white">
+      <span class="dates_begin fw-600">{{ first_date | moment('MMM YY') | uppercase }}</span>
+      <span>to</span>
+      <span class="dates_end fw-600">{{ last_date | moment('MMM YY') | uppercase }}</span>
+    </div>
+    <div class="weight-chart-container" :style="css_vars">
       <MiniWeightChart
         :height="chart_height"
         :width="chart_width"
@@ -12,29 +17,37 @@
         :show_axes="true"
         ></MiniWeightChart>
     </div>
+    <div class="legend">
+      <div class="legend_boxT"></div>
+      <div class="legend_labelT fc-white">Target</div>
+      <div class="legend_boxP"></div>
+      <div class="legend_labelP fc-white">Progress</div>
+    </div>
 
-    <p class="pd-10 bg-darkblue fc-white">
-      You have
-      <template v-if="weight_delta>0">lost {{weight_delta}} kg.</template>
-      <template v-else>gained {{-weight_delta}} kg</template><br>
+    <div class="pd-10">
+      <p class="pd-10 fn-12 fc-white fw-500">
+        You have
+        <template v-if="weight_delta>0">lost {{weight_delta}} kg</template>
+        <template v-else>gained {{-weight_delta}} kg</template><br>
 
-      You have
-      <template v-if="left_to_lose>0">{{left_to_lose}}kg left to lose.</template>
-      <template v-else> {{-left_to_lose}} left to gain. </template>
-      <br>
+        You have
+        <template v-if="left_to_lose>0">{{left_to_lose}} kg left to lose</template>
+        <template v-else> {{-left_to_lose}} left to gain </template>
+        <br>
 
-      To achieve that, you need to
-      <template v-if="weekly_loss_target>0">lose {{weekly_loss_target}}kg per week.</template>
-      <template v-else>gain {{-weekly_loss_target}} kg per week.</template>
+        To achieve that, you need to
+        <template v-if="weekly_loss_target>0">lose {{weekly_loss_target}} kg per week</template>
+        <template v-else>gain {{-weekly_loss_target}} kg per week</template>
+      </p>
 
-    </p>
+      <div class="comment">
+        <p class="comment_heading pd-10 fc-green fn-14 fw-500" >Coach's Commentary</p>
 
-    <span class=" ml-10 fc-green fn-14 fw-600" >Coach's Commentry</span>
-
-    <p class="pd-10 bg-darkblue fn-11 fc-grey" v-if="comments[0]"> Latest Comment Dated: <strong>{{comments[0].modified_at | moment("Do MMMM YY")}} </strong> <br> <br>
-      <span class="fn-12 bg-darkblue fc-white">{{comments[0].content}}</span>
-
-    </p>
+        <p class="comment_content pd-10 fc-white fn-12" v-if="comments[0]">
+          {{comments[0].content}}
+        </p>
+      </div>
+    </div>
 
     <AddCoachCommentComponent
       :fobj_user="fobj_user"
@@ -134,9 +147,20 @@ export default {
 
             var val = 7 * this.left_to_lose / days_left;
             return this.round_off2(val);
+        },
+
+        first_date: function() {
+          return this.$_.first(this.weight_log).measured_on;
+        },
+
+        last_date: function() {
+          return this.$_.last(this.weight_log).measured_on;
+        },
+        css_vars: function() {
+            return {
+                "--weight-chart-container-height": (this.chart_height + 30) + 'px',
+            }
         }
-
-
     },
     methods: {
         round_off2: value => Math.round(value*100)/100,
@@ -186,6 +210,12 @@ export default {
         }
 
     },
+    filters: {
+        uppercase: function(v) {
+          return v.toUpperCase();
+        }
+    },
+
     created() {
         this.fetch_weight_chart_data();
         this.fetch_previous_comment();
@@ -201,18 +231,88 @@ export default {
 <style lang="scss">
 .weight-progress-chart {
     color: white;
+
+    p {
+        margin-bottom: auto;
+        text-align: left;
+        line-height: 1.5em;
+    }
+
+    .comment {
+        .comment_heading {
+            margin-top: 0;
+        }
+
+        .comment_content {
+            margin-top: 0;
+            padding-top: 0
+        }
+    }
 }
 
 .weight-chart-container{
-    height: 50vh;
+    // height is set dynamically based on
+    // the computed property `chart_height`
+    height: var(--weight-chart-container-height);
     display: flex;
     justify-content: center;
+    background-color: darken($milife-blue, 5%);
+
     div.weight-chart{
         display: block;
         color: white;
     }
 
+    svg {
+        background-color: darken($milife-blue, 5%) !important;
+    }
 
+}
+
+.dates {
+    background-color: darken($milife-blue, 5%);
+    margin-top: 1.5em;
+    padding-top: 1em;
+    padding-bottom: 0.5em;
+
+    .dates_begin {
+      padding-right: 1em;
+    }
+
+    .dates_end {
+      padding-left: 1em;
+    }
+}
+
+.legend {
+    display: flex;
+    align-items: center;
+    padding-bottom: 1em;
+    padding-left: 4em;
+    font-size: small;
+    background-color: darken($milife-blue, 5%);
+
+    .legend_boxT {
+        width: 10px;
+        height: 10px;
+        margin-right: 0.5em;
+        background-color: $milife-darkgreen;
+    }
+
+    .legend_labelT {
+        margin-right: 1em;
+    }
+
+    .legend_boxP {
+        width: 10px;
+        height: 10px;
+        margin-right: 0.5em;
+        background-color: $milife-orange;
+    }
+
+    .legend_labelP {
+        margin-right: 1em;
+    }
 }
 
 </style>

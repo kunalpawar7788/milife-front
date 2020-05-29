@@ -83,7 +83,7 @@ export default {
             var numberOfTicks = 6;
 
             if(this.show_axes){
-                var margin = {top: 1, right: 1, bottom: 30, left: 30};
+                var margin = {top: 5, right: 20, bottom: 30, left: 30};
             }
             else {
                 var margin = {top: 1, right: 1, bottom: 1, left: 1};
@@ -103,7 +103,7 @@ export default {
             var xAxis = d3.axisBottom()
                 .scale(x)
                 .ticks(numberOfTicks)
-                .tickFormat(d3.timeFormat("%d %b  %Y"))
+                .tickFormat(d3.timeFormat("%b %y"))
 
             var xMinorAxis = d3.axisBottom()
                 .scale(x)
@@ -243,11 +243,10 @@ export default {
         background-color: $milife-blue;
         margin: 5% auto;
         .target-line {
-            stroke: $milife-magenta;
-            opacity: 0.7;
+            stroke: $milife-darkgreen;
         }
         .weight-line {
-            stroke: $milife-green;
+            stroke: $milife-orange;
 
         }
         path {
