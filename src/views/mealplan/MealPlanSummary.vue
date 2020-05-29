@@ -1,22 +1,13 @@
 <template>
 <div class="meal-plan-summary">
   <div class="calorie-banner bg-white fc-blue pd-10 br-20 width-90">
-    <h1>{{String(this.data.calorie).toLocaleString('en-uk')}}</h1>
+    <h1>{{String(this.data.calorie || '-').toLocaleString('en-uk')}}</h1>
     <p>Assigned Daily Calorie Intake</p>
   </div>
-  <p>
-    _
+  <p class="fc-white fn-14">
+    Your Meal Grammes and Calories
   </p>
-  <p>
-    Your meal grammes and calories
-  </p>
-  <table class="mt-10 bg-white br-20 fc-black width-90 fn-11 fw-500 responsive-width">
-    <colgroup>
-      <col style="column-width: 10px" />
-      <col style="background-color: #FFCD03"> </col>
-      <col style="background-color: #8AC53F "> </col>
-      <col style="background-color: #3FA4F0 "> </col>
-    </colgroup>
+  <table class="br-20 fc-black width-90 fn-11 fw-500 responsive-width">
     <thead>
       <th ></th>
       <th class="vertical-th fn-11"><span> Fat </span></th>
@@ -32,16 +23,13 @@
         <td class="fn-11">{{meal.protein  | round_off(0)}}</td>
         <td class="fn-11">{{meal.calories  | round_off(0)}}</td>
       </tr>
-      <tr >
-        <td class="bg-blue" colspan=5></td>
-      </tr>
       <tr>
         <template v-if="daily_breakup_grams">
-            <td class="bg-blue"></td>
-            <td class="bg-blue fw-600" style="color: #FFCD03">{{daily_breakup_grams.fat | round_off(0)}}g</td>
-            <td class="bg-blue fw-600" style="color: #8AC53F">{{daily_breakup_grams.carbohydrates | round_off(0)}}g</td>
-            <td class="bg-blue fw-600" style="color: #3FA4F0">{{daily_breakup_grams.protein | round_off(0)}}g</td>
-            <td class="bg-blue fw-600 fc-white" >{{data.calorie}}</td>
+            <td class="bg-blue"><button class="info-btn" v-on:click="showMsg">i</button></td>
+            <td class="bg-blue fn-12 fw-700" style="color: #FFCD03">{{daily_breakup_grams.fat | round_off(0)}}g</td>
+            <td class="bg-blue fn-12 fw-700" style="color: #8AC53F">{{daily_breakup_grams.carbohydrates | round_off(0)}}g</td>
+            <td class="bg-blue fn-12 fw-700" style="color: #3FA4F0">{{daily_breakup_grams.protein | round_off(0)}}g</td>
+            <td class="bg-blue fn-12 fw-700 fc-white" >{{data.calorie}}</td>
         </template>
 
         </tr>
@@ -191,6 +179,26 @@ export default {
                 this.$alert('', 'No Meal Ideas Found!', 'error');
             }
         },
+
+        showMsg() {
+            let msg = "Your total calorie target is the most important number to hit. "
+                + "Next, try to hit the totals for protein, carbohydrate and fat. "
+                + "After that, try to get 18g or more of protein in each meal or snack. "
+                + "The more precisely you match the breakdown, the better chance you'll "
+                + "be giving yourself of hitting your goals."
+
+            this.$fire({
+                text: msg,
+                confirmButtonText: "Close X",
+                customClass: {
+                    container: "popup-container",
+                    popup: "popup",
+                    content: "popup-content",
+                    actions: "popup-actions",
+                    confirmButton: "popup-close-btn"
+                }
+            })
+        }
     },
 
     mounted() {
@@ -206,6 +214,24 @@ export default {
 <style lang="scss">
 .meal-plan-summary{
 
+    .calorie-banner {
+
+        border-radius: 0.5em;
+        background-color: whitesmoke;
+
+        h1 {
+            font-size: 30pt;
+            font-weight: 600;
+            margin: auto;
+        }
+
+        p {
+            font-weight: 500;
+            margin: 0.8em;
+            margin-bottom: 0.2em;
+        }
+    }
+
     div {
         display: inline-block;
     }
@@ -216,30 +242,109 @@ export default {
         border-spacing: 0px;
         max-width: 400px;
     }
-    table, th, td
-    {
-        /* padding: 5px; */
-        border: 1px solid $milife-blue;
-    }
+
     th, td {
         padding: 5px;
         padding-top: 10px;
         padding-bottom: 10px;
     }
     table{
+        background-color: none;
+
+        th {
+            border-bottom: 2px solid $milife-blue;
+        }
 
         th:first-child {
             width: 40%;
+            border-top-left-radius: 10px;
         }
+
         th:not(first-child) {
             width: 15%;
         }
 
+        th:last-child {
+            border-top-right-radius: 10px;
+        }
+
+        th:nth-child(1), td:nth-child(1) {
+            background-color: whitesmoke;
+            text-align: left;
+            padding-left: 5%;
+        }
+
+        th:nth-child(2), td:nth-child(2) {
+            background-color: #FFCD03;
+        }
+
+        th:nth-child(3), td:nth-child(3) {
+            background-color: #8AC53F;
+        }
+
+        th:nth-child(4), td:nth-child(4) {
+            background-color: #3FA4F0;
+        }
+        th:nth-child(5), td:nth-child(5) {
+            background-color: whitesmoke;
+        }
+
+        tr:nth-child(odd) {
+            td:nth-child(1) {
+                background-color: darken(whitesmoke, 10%);
+            }
+
+            td:nth-child(2) {
+                background-color: darken(#FFCD03, 5%);
+            }
+
+            td:nth-child(3) {
+                background-color: darken(#8AC53F, 5%);
+            }
+
+            td:nth-child(4) {
+                background-color: darken(#3FA4F0, 5%);
+            }
+
+            td:nth-child(5) {
+                background-color: darken(whitesmoke, 10%);
+            }
+        }
+
+        tr:nth-last-child(2) {
+            td:first-child {
+                border-bottom-left-radius: 10px;
+            }
+            td:last-child {
+                border-bottom-right-radius: 10px;
+            }
+        }
+
+        tr:last-child td {
+            background-color: $milife-blue ;
+        }
+
+        tr:last-child td:first-child {
+            float: left;
+        }
+
     }
+
+    .info-btn {
+        color: white;
+        background-color: $milife-green;
+        font-weight: 700;
+        border-radius: 50%;
+        padding: 15%;
+        width: 1em;
+        text-align: center;
+        cursor: pointer;
+    }
+
     .vertical-th  {
         vertical-align: bottom;
         width: 20px;
-        height: 100px;
+        height: 60px;
 
         span{
             display: inline-block;
@@ -261,5 +366,40 @@ export default {
         }
     }
 
+}
+
+.popup-container {
+    font-family: 'Montserrat';
+
+    .popup {
+        width: 80%;
+        border-radius: 0.5em;
+        max-width: 500px;
+    }
+
+    .popup-content {
+        font-weight: 400;
+        text-align: left;
+        padding-top: 5%;
+    }
+
+    .popup-actions {
+        margin: 0;
+    }
+
+    button.popup-close-btn {
+        background: none;
+        color: indianred;
+        padding-bottom: 0;
+        margin-bottom: 0;
+    }
+
+    button.popup-close-btn {
+        box-shadow: none;
+    }
+}
+
+.fw-700 {
+    font-weight: 700;
 }
 </style>
