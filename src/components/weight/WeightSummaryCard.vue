@@ -8,7 +8,7 @@
     <template v-if="current_weight">{{current_weight.weight | round_off(2) }}</template> kg
         </div>
         <div class="target_weight label-1">
-          <template v-if="current_target"> Target {{current_target}} </template>
+          <template v-if="current_target"> Target {{current_target.target_weight | round_off(2) }} kg</template>
           <template v-else> Target -- </template>
 
         </div>
@@ -64,11 +64,7 @@ export default {
         },
 
         current_target: function(){
-            var d = {};
-            for(var i=0; i<this.target_weights.length; i++){
-                d[this.target_weights[i].target_date] = this.target_weights[i].target_weight;
-            }
-            return  d[moment().format("YYYY-MM-DD")];
+            return this.$_.last(this.target_weights);
         },
 
     },
@@ -130,7 +126,7 @@ export default {
     }
     .target_weight {
         color: white;
-        font-size: 18pt;
+        font-size: 12pt;
     }
 
     footer {
