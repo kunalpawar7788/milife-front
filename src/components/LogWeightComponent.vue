@@ -3,8 +3,9 @@
   <div>
     <LogWeightInput class="m-30p" v-model="weight.magnitude_si" :unit="user.weight_unit" />
     <datepicker
-      wrapper-class="start-datepicker"
-      input-class="text-input"
+      wrapper-class="datepicker-container"
+      input-class="datepicker-input"
+      calendar-class="datepicker-calendar"
       v-model="measured_on"
       format="dd/MM/yyyy"
       :typeable="false"
@@ -81,9 +82,27 @@ section.weight-log-container {
         margin-top: 20%;
     }
 
-    .vdp-datepicker {
+    .datepicker-container {
         margin-top: 10%;
         text-align: center;
+    }
+
+    .datepicker-input {
+        @extend .text-input;
+        border: none;
+        font-family: "Montserrat";
+        background: url($milife-dropdown-icon) 92% no-repeat, linear-gradient($milife-green) right no-repeat;
+        background-size: 6%, 20%;
+        background-color: white;
+        cursor: pointer;
+    }
+
+    .datepicker-calendar {
+        right: 0;
+        left: 0;
+        margin-right: auto;
+        margin-left: auto;
+        text-align: initial;
     }
 
     button {
