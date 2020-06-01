@@ -15,27 +15,33 @@
   </div>
   
   <template v-if="!fetching">
-    <div class="picture-input-side-profile">
-      <PictureSelector
-        v-model="photo_side_profile"
-        id="side_profile"
-        label="Side Profile"
-        > </PictureSelector>
-    </div>
+    <div class="picturelog">
+        <h3>Log Pictures</h3>
+        <div class="picturelog_profiles">
+            <div class="picture-input-side-profile picturelog_sideProfile">
+                <PictureSelector
+                    v-model="photo_side_profile"
+                    id="side_profile"
+                    label="Side Profile"
+                    > </PictureSelector>
+            </div>
     
-    <div class="picture-input-front-profile">
-      <PictureSelector
-        v-model="photo_front_profile"
-        id="front_profile"
-        label="Front Profile"
-        > </PictureSelector>
+            <div class="picture-input-front-profile picturelog_frontProfile">
+                <PictureSelector
+                    v-model="photo_front_profile"
+                    id="front_profile"
+                    label="Front Profile"
+                    > </PictureSelector>
+            </div>
+        </div>
     </div>
     
     <div class="table-wrapper">
-      <table>
+      <table class="table_wrapper-weights">
         <tr v-for="field in formfields">
           <td> {{field.label}}</td>
           <td> <NumberInput
+                 class="checkin_dataInput"
                  placeholder=""
                  :min="0"
                  step="0.01"
@@ -47,7 +53,7 @@
     </div>
   </template>
   <div id="error-box"><ErrorMessage v-bind:error_message="error_message"/></div>
-  <button class="button" v-on:click="submit"> Save </button>
+  <button class="button checking_save-btn" v-on:click="submit"> Save </button>
   
 </div>
 </template>
@@ -242,81 +248,88 @@ export default {
 
 <style lang="scss">
 .measurementsform-container{
-    color: black;
-    /* display: grid; */
-    grid-template-columns: 2fr 2fr 1fr 2fr 2fr;
-    grid-row-gap: 10px;
-    grid-column-gap: 5px;
-    
-    h3 {
-        grid-column: 1 / span 5;
-    }
-    
-    .form-label{
-        grid-column: 1 / span 2;
-        justify-self: left;
-    }
-    .form-input{
-        grid-column: 4/ span 2;
-        input{
+        color: black;
+        font-size: calc(12px + 0.1em);
+        padding-bottom: 20px;
+
+        
+        h3{
             text-align: center;
+        }
+
+        .checkin-date{
+            display: flex;
+            justify-content: center;
+        }
+
+        .picturelog{
+            margin: 10px 0px;
+            display: flex;
+            padding-bottom: 20px;
+            flex-flow: column;
+            background-color: #f5f5f5d4;
+        }
+
+        .picturelog_profiles{
+            display: grid;
+            grid-template-columns: auto auto;
+            text-align: -webkit-center;
+        }
+
+        .picturelog_sideProfile{
             width: 100%;
+            display: flex;
+            justify-content: center;
         }
-        
-    }
-    .picture-input{
-        width: 100%;
-        height: 150px;
-    }
-    .picture-input-side-profile{
-        grid-column: 4 / span 2;
-        grid-row: 3;
-        
-    }
-    
-    .picture-input-front-profile{
-        grid-column: 1 / span 2;
-        grid-row: 3;
-        width: 100%;
-        height: 150px
-    }
-    .checkin-date{
-        grid-column: 2 / span 3;
-        justify-self: center;
-        
-    }
-    .picture-input{
-        grid-column: 1/ span 5;
-        
-    }
-    *.checkin-datepicker {
-        color: $milife-green;
-        margin: 0 auto;
-        width: 100%;
-        span.cell:hover{
+
+        .picturelog_frontProfile{
+            width: 100%;
+            display: flex;
+            justify-content: center;
         }
-        span.cell:active{
+
+        .table-wrapper{
+            padding: 20px;
+            
+        }
+
+        .table_wrapper-weights{
+            width: 100%;
+            border-collapse: collapse;
+
+            td{
+                line-height: 3em;
+                font-weight: 500;
+            }
+
+            tr:nth-child(odd){
+                background-color: #f5f5f5d4;
+            }
+        }
+
+        .checkin_dataInput{
+            input{
+                border: none;
+                background: inherit;
+                text-align: center;
+            }
+        }
+
+        .checking_save-btn{
+            line-height: 0em;
+            width: 200px;
             color: white;
-            background-color: $milife-green;
         }
-        
-    }
 
-    .button{
-        grid-column: 2/ span 3;
-        height: 10px;
-    }
-
-    #error-box{
-        text-align: right;
-        padding-top: 15px;
-        .errormessage{
-            color: red;
+        #error-box{
+            text-align: right;
+            margin: 15px;
+            .errormessage{
+                color: red;
+            }
         }
+
     }
 
-    
-
-}
 
 </style>

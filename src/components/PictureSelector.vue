@@ -48,7 +48,8 @@
     <input id="file-upload" type="file" v-on:change="read_url($event.target)">
     <label for="file-upload" id="file-drag">
     <div id="start">
-      <div>Upload a picture here</div>
+      <div>Drag a picture here</div>
+      <div>OR</div>
       <span id="file-upload-btn" class="btn btn-primary">Select file</span>
     </div>
   </label>
@@ -213,17 +214,16 @@ export default {
   .uploader {
     display: block;
     clear: both;
-    margin: 0 auto;
 
     label {
       float: left;
       clear: both;
       width: 80%;
-      padding: 2rem 1.5rem;
+      padding: 1rem 1rem;
       text-align: center;
       background: #eee;
       border-radius: 7px;
-      border: 3px solid #eee;
+      border: 3px dotted $milife-shiningGrey;
       transition: all .2s ease;
       user-select: none;
     }
@@ -243,11 +243,11 @@ export default {
 
   div {
     margin: 0 0 .5rem 0;
-    color: #000;
+    color: #7d7d7d;
   }
   .btn {
     display: inline-block;
-    margin: .5rem .5rem 1rem .5rem;
+    margin: .5rem .5rem 1rem 0px;
     clear: both;
     font-family: inherit;
     font-weight: 700;
@@ -257,7 +257,7 @@ export default {
     border: none;
     border-radius: 2rem;
     outline: none;
-    padding: 0 1rem;
+    width: 100%;
     height: 36px;
     line-height: 36px;
     color: #fff;
