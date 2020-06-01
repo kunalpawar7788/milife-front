@@ -77,8 +77,8 @@ export default {
         height: 100vmin;
     }
     .btn_profileUpload-save {
-        width: 80%;
-        margin-top: 30px;
+        width: 240px;
+        margin: 30px 0px;
         line-height: 1;
     }
 </style>

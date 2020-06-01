@@ -157,7 +157,7 @@ export default {
 }
 
 div.choicefield-container{
-    width: 320px;
+    width: 280px;
     margin: 0 auto;
     border-radius: 50px;
     height: 50px;

@@ -121,7 +121,7 @@ export default {
         .align-left{
             font-size: 10pt;
             margin-left: 0;
-            padding-left: 30px;
+            padding-left: 15px;
             float: left;
 
             strong {
@@ -132,7 +132,7 @@ export default {
         .align-right{
             font-size: 10pt;
             margin-right: 0;
-            padding-right: 30px;
+            padding-right: 15px;
             float: right;
 
             strong {

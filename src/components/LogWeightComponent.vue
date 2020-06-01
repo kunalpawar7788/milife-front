@@ -74,12 +74,11 @@ export default {
 <style lang="scss">
 section.weight-log-container {
     width: 80%;
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-row-gap: 10px;
+    display: block;
+    padding: 10px;
 
     .m-30p {
-        margin-top: 30%;
+        margin-top: 20%;
     }
 
     .vdp-datepicker {
@@ -91,7 +90,8 @@ section.weight-log-container {
         background-color: $milife-green;
         color: white;
         padding: 20px;
-        margin-top: 40%;
+        width: 240px;
+        margin-top: 20%;
 
     }
 }

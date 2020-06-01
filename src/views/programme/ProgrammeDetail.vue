@@ -58,13 +58,13 @@
   </section>
 
   <section class="hbs">
-    <button class="button" v-if="is_admin" v-on:click="goto_hbs()"> 
+    <button class="button hbs_button" v-if="is_admin" v-on:click="goto_hbs()"> 
         Holiday and Banked Sessions 
         <span>
             &#10095;
         </span>
     </button>
-    <button class="button" v-else v-on:click="goto_client_hbs()"> 
+    <button class="button hbs_button" v-else v-on:click="goto_client_hbs()"> 
         Holiday and Banked Sessions 
         <span>
             &#10095;
@@ -317,20 +317,24 @@ export default {
         grid-column: 1/-1;
         grid-row: 10;
     }
+    .hbs_button{
+        line-height: 0em;
+    }
 
     .coach_block{
-        display: grid;
-        grid-template-columns: auto auto;
-        grid-template-rows: auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px;
     }
 
     .coach_block-btn{
-        display: block;
-        line-height: 1em;
-        border-radius: 2rem;
-        text-align: center;
-        padding-top: 12px;
-        background-color: $milife-magenta;
+            display: block;
+            line-height: 3;
+            width: 120px;
+            border-radius: 2rem;
+            text-align: center;
+            background-color: $milife-magenta;
     }
 
     #coach_btn{

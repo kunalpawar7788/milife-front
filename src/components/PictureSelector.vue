@@ -194,7 +194,7 @@ export default {
 
   .btn_crop-save{
     line-height: 0.5;
-    width: 80%;
+    width: 240px;
     margin: 30px auto;
     color: white;
   }

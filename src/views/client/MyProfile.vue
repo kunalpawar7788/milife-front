@@ -202,7 +202,7 @@ export default {
     align-items: center;
     justify-items: center;
     grid-template-columns: 1fr;
-    grid-gap: 10px;
+    grid-gap: 15px;
 
     .genderselect {
         width: 80%;
@@ -231,9 +231,10 @@ export default {
     }
 
     .btn-save{
+        width: 250px;
         padding: 0px;
         line-height: 2.5;
-        margin-bottom: 20px;
+        margin: 20px 0px;
         color: #fff;
     }
 
