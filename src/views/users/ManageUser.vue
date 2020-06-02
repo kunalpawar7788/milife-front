@@ -16,7 +16,7 @@
   </div>
   <div class="link-sink-1">
     <span class="left-link fn-12" v-on:click="invite_user">
-      <template v-if="fobj_user.invited"> Resend Invite  </template>
+      <template v-if="fobj_user.invited"> Resend Invite <div class="arr-right"> </div> </template>
       <template v-else> Send Invite <div class="arr-right"> </div> </template>
     </span>
     <span class="right-link fn-12"
@@ -74,6 +74,17 @@ export default {
         invite_user: function(){
             this.status="loading"
             let errors = {};
+            let popupSuccessOptions = {
+                type: 'success',
+                html: `invitation successfully sent to <strong>${this.user.email}</strong>`,
+                customClass: {
+                    container: "popup-container",
+                    popup: "popup",
+                    content: "popup-content",
+                    actions: "popup-actions",
+                    confirmButton: "popup-ok-btn"
+                }
+            }
 
             const url = process.env.VUE_APP_BASE_URL+'/api/auth/invite_user/';
             this.$http({url: url, data:{email: this.user.email}, method: 'POST'})
@@ -81,7 +92,7 @@ export default {
                     this.status="ready"
                     this.error_message="";
                     this.errors={};
-
+                    this.$fire(popupSuccessOptions)
                 })
                 .catch(err => {
                     this.status="error"
@@ -237,6 +248,32 @@ export default {
         grid-column: 1 / span 2;
     }
 
+}
+
+.popup-container {
+    font-family: 'Montserrat';
+
+    .popup {
+        width: 80%;
+        border-radius: 0.5em;
+        max-width: 500px;
+    }
+
+    .popup-content {
+        font-weight: 500;
+    }
+
+    .popup-actions {
+        margin: 0;
+    }
+
+    button.popup-ok-btn {
+        background: none;
+        color: $milife-darkgreen;
+        box-shadow: none;
+        padding-bottom: 0;
+        margin-bottom: 0;
+    }
 }
 
 </style>
