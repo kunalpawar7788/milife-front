@@ -1,8 +1,11 @@
 <template>
 <section class="filtered-user-list">
   <header>
-    <input class="text-input" v-model="search_keyword" placeholder="Start typing to search" v-on:keyup="fetch_users">
+    <input class="text-input search-input" v-model="search_keyword" placeholder="Start typing to search" v-on:keyup="fetch_users">
   </header>
+  <div class="user-count fc-white fn-16">
+      <p>{{ this.users ? this.users.length : 0 }} <span>Users</span></p>
+  </div>
   <div class="user-list-container">
     <div
       class="userinfo"
@@ -109,7 +112,7 @@ section.filtered-user-list {
         display: grid;
         grid-template-columns: 1fr 5fr 1fr;
         background-color: white;
-        border-radius: 20px;
+        border-radius: 1em;
         margin: 5px;
         padding: 5px;
         color: black;
@@ -133,8 +136,25 @@ section.filtered-user-list {
         }
         
     }
+
+    .user-count {
+        width: 90%;
+        margin: auto;
+        text-align: left;
+        padding-left: 1em;
+        font-weight: 500;
+
+        span {
+            color: $milife-green;
+        }
+    }
     
     .userinfo{
+        width: 90%;
+        margin-right: auto;
+        margin-left: auto;
+        margin-top: 1em;
+
         .context-menu {
             //height: 150px;
             width: 200px;
@@ -180,6 +200,22 @@ section.filtered-user-list {
     .user-selected{
         background-color: $milife-green;
         
+    }
+
+    .text-input {
+        border: none;
+        font-family: "Montserrat";
+        font-size: 13pt;
+        background-color: whitesmoke;
+    }
+
+    .text-input::placeholder {
+        color: dimgray;
+    }
+
+    .search-input {
+        background: url("../assets/images/search-icon.svg") no-repeat scroll 90% 50%;
+        background-color: whitesmoke;
     }
 }
 </style>
