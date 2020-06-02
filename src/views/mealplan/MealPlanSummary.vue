@@ -321,7 +321,7 @@ export default {
         }
 
         tr:last-child td {
-            background-color: $milife-blue ;
+            background-color: $milife-blue !important;
         }
 
         tr:last-child td:first-child {
