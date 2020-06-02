@@ -57,7 +57,7 @@
           <td class="bg-yellow2" colspan="3">
             <div>
               <span class="">Stats from
-                <template  v-if="this.data.programme" > {{this.data.first_checkin.date_of_checkin | moment("DD.MM.YYYY")}} </template>
+                <template  v-if="this.data.first_checkin" > {{this.data.first_checkin.date_of_checkin | moment("DD.MM.YYYY")}} </template>
               </span>
               <span class="pr-10" v-on:click="goto_detailed_report">View More &gt</span>
             </div>
