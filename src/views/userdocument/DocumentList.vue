@@ -1,12 +1,12 @@
 <template>
-<div>
+<div class="documentlist">
   <SelectedUserDisplay
     class="middle-column"
     v-if="is_admin"
     :fobj_user="fobj_user">
   </SelectedUserDisplay>
 
-  <div class="searchbox">
+  <div class="searchbox documentlist_admin-search">
     <input class="text-input search-input" v-model="params.search" placeholder="Start typing to search" v-on:keyup="fetch_documents">
   </div>
 
@@ -27,7 +27,7 @@
     tag="button"
     v-if="is_admin"
     class="milife-button milife-button__fullsize"
-    :to="{name:'user-document-add', params:{'pk': user_pk}}"> Add Document
+    :to="{name:'user-document-add', params:{'pk': user_pk}}"> Add Docs
   </router-link>
 
 
@@ -167,5 +167,15 @@ export default {
 .search-input {
     background: url("../../assets/images/search-icon.svg") no-repeat scroll 90% 50%;
     background-color: whitesmoke;
+}
+
+.documentlist_admin-search{
+    margin-top: 20px;
+}
+
+.milife-button__fullsize{
+    width: 280px;
+    line-height: 1em;
+    margin: 20px;
 }
 </style>
