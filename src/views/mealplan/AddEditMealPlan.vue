@@ -1,12 +1,12 @@
 <template>
 <section class="add-edit-meal-plan-container">
   <SelectedUserDisplay class="middle-column" :fobj_user="fobj_user"> </SelectedUserDisplay>
-  <div>
+  <div class="mt-20">
     <input class="text-input" type="text" v-model="calorie"> </input>
   </div>
 
   <div v-if="status=='success'">
-    <h3>Macronutrient Breakdown</h3>
+    <h3 class="meal_heading">Macronutrient Breakdown</h3>
     <table class="macronutrient fc-black">
       <thead>
         <th>
@@ -55,16 +55,16 @@
         </tr>
       </tbody>
     </table>
-    <label> Update values in "% of calories row" </label>
+    <label class="table_caption"> Update values in "% of calories row" </label>
 
-    <h3>Meal Percentages</h3>
+    <h3 class="meal_heading">Meal Percentages</h3>
 
     <table class="meal-percentages fc-black">
       <thead>
         <th>Meal Name</th>
-        <th>Fat</th>
-        <th>Carb</th>
-        <th>Protein</th>
+        <th><p class="th_rotate">Fat</p></th>
+        <th><p class="th_rotate">Carb</p></th>
+        <th><p class="th_rotate">Protein</p></th>
       </thead
 
       <tbody v-if="status!='loading'">
@@ -104,8 +104,8 @@
       </tbody>
     </table>
 
-    <h3> Meal Grammes and calaories</h3>
-    <table class="mt-10 bg-white br-20 fc-black width-90 fn-11 fw-500">
+    <h3 class="meal_heading"> Meal Grammes and calaories</h3>
+    <table class="mt-10 bg-white br-20 fc-black width-90 fn-11 fw-500 admin_addMeal">
         <colgroup>
           <col style="column-width: 10px" />
           <col style="background-color: #FFCD03"> </col>
@@ -142,7 +142,9 @@
     </table>
 
   </div>
-<div class="button" v-on:click="submit_mealplan">Save</div>
+
+<div class="button admin_addMeal-saveBtn" v-on:click="submit_mealplan">Save</div>
+
 </section>
 </template>
 
@@ -351,6 +353,7 @@ export default {
 
 <style lang="scss">
 .add-edit-meal-plan-container{
+    margin: 25px;
     h3,label {
         color: white;
     }
@@ -362,9 +365,21 @@ export default {
         border: 3px solid $milife-green;
         /* background-color: lighten($milife-green, 30%); */
     }
+    
+    .meal_heading{
+        text-align: left;
+        font-weight: 400;
+        color: #cecece;
+    }
+
+    .table_caption{
+        font-size: 12px;
+    }
+
     table {
         border-radius: 10px;
-        background: white;
+        background: #f9f9f9;
+        border-collapse: collapse;
         input {
             width: 100%;
             text-align: center;
@@ -372,13 +387,23 @@ export default {
             height: 100%;
             padding: 0px;
             margin: 0px;
+            background-color: #f9f9f9;
+            color: $milife-green;
+            font-weight: bold;
         }
+
+        th{
+            font-weight: 400;
+        }
+
+        td:not(:last-child), th:not(:last-child){
+            border-right: 1px solid #cecece;
+            line-height: 3em;
+        }
+
         tr td {
             height: 30px;
             padding: 0;
-            border-color: $milife-blue;
-            border-style: solid;
-            border-width: 1px 0px 0px 0px;
         }
 
         tr td:first-child{
@@ -392,22 +417,43 @@ export default {
                 background-color: lighten(grey, 40%);
             }
         }
-        thead th:nth-child(even){
+        thead th:nth-child(odd){
             background-color: lighten(grey, 40%);
         }
 
     }
     table.meal-percentages{
-        tr:not(:last-child) td:nth-child(even){
+        tr:nth-child(odd){
             background-color: lighten(grey, 40%);
             input {
                 background-color: lighten(grey, 40%);
             }
         }
-        thead th:nth-child(even){
-            background-color: lighten(grey, 40%);
-        }
 
+        tr:last-child{
+            background-color: #fff;
+        }
+        /* thead th:nth-child(even){
+            background-color: lighten(grey, 40%);
+        } */
+
+    }
+
+    .th_rotate{
+        transform: rotate(-90deg);
+    }
+
+    .admin_addMeal{
+        width: 100%;
+        margin: 20px 0px;
+        border-collapse: separate;
+    }
+
+    .admin_addMeal-saveBtn{
+        color: #fff;
+        line-height: 0;
+        width: 240px;
+        margin: auto;
     }
 }
 </style>
