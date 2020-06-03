@@ -255,6 +255,7 @@ export default {
         
         h3{
             text-align: center;
+            color: black;
         }
 
         .checkin-date{
@@ -300,6 +301,7 @@ export default {
             td{
                 line-height: 3em;
                 font-weight: 500;
+                color: black;
             }
 
             tr:nth-child(odd){

@@ -31,7 +31,7 @@
   </div>
   <div v-else>
 
-    <label> {{label}}</label>
+    <label class="label_pictures"> {{label}}</label>
     <div class="picture-preview"  v-if="cropped_image">
       <img v-bind:src="cropped_image" />
       <!-- <label v-on:click="reset">reset</label> -->
@@ -190,6 +190,10 @@ export default {
       justify-content: center;
       top: 0;
       left: 0;
+  }
+
+  .label_pictures{
+    color: black;
   }
 
   .btn_crop-save{

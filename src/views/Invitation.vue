@@ -1,6 +1,6 @@
 <template>
 <div class="containter">
-  <h1> Invite a new trainee </h1>
+  <h1 class="invite_heading"> Invite a new trainee </h1>
   <div id="step1" v-if="step===1">
     <div class="invitation">
       <form @submit.prevent="send_invitation">
@@ -68,5 +68,11 @@ export default {
 
 </script>
 
-<style> </style>
+<style scoped lang="scss">
+  
+  .invite_heading{
+    color: white;
+  }
+
+</style>
 
