@@ -32,7 +32,7 @@
             <div> {{coach}}</div>
         </div>
         <div class="coach_block-btn">
-            <div id="coach_btn">Button <span>
+            <div id="coach_btn">Contact <span>
                     &#10095;
                 </span></div>
         </div>
@@ -59,13 +59,13 @@
 
   <section class="hbs">
     <button class="button hbs_button" v-if="is_admin" v-on:click="goto_hbs()"> 
-        Holiday and Banked Sessions 
+        Holidays and Banked Sessions 
         <span>
             &#10095;
         </span>
     </button>
     <button class="button hbs_button" v-else v-on:click="goto_client_hbs()"> 
-        Holiday and Banked Sessions 
+        Holidays and Banked Sessions 
         <span>
             &#10095;
         </span> 
@@ -241,10 +241,12 @@ export default {
         label {
             color: $milife-magenta;
             font-size: calc(16px + 0.5vmin);
+            font-weight: 500;
         }
         div {
             color: black;
-            font-size: calc(14px + 0.5vmin);
+            font-size: calc(16px + 0.5vmin);
+            font-weight: 500;
         }
     }
 
@@ -316,6 +318,7 @@ export default {
     .hbs{
         grid-column: 1/-1;
         grid-row: 10;
+        padding: 20px 0px;
     }
     .hbs_button{
         line-height: 0em;

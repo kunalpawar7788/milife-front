@@ -1,6 +1,6 @@
 <template>
 <div class="banked-session-container">
-  <h3>  Balance(Banked Session): {{balance}}</h3>
+  <h3>  Banked session balance: {{balance}}</h3>
   <FoldableContainer v-if="is_admin" label="Add Banked Session">
     <AddBankedSession :reload_balance="fetch_balance"></AddBankedSession>
   </FoldableContainer>

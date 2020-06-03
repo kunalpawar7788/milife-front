@@ -2,7 +2,7 @@
 <div class="meal-plan-summary">
   <div class="calorie-banner bg-white fc-blue pd-10 br-20 width-90">
     <h1>{{String(this.data.calorie || '-').toLocaleString('en-uk')}}</h1>
-    <p>Assigned Daily Calorie Intake</p>
+    <p>Target Daily Calorie Intake</p>
   </div>
   <p class="fc-white fn-14">
     Your Meal Grammes and Calories
