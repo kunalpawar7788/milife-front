@@ -1,5 +1,5 @@
 <template>
-<div class="weight-chart" id="meh" v-bind:style="{ width: width+'px' }">
+<div class="weight-chart" v-bind:style="{ width: width+'px', height: height+'px' }">
   <svg id="weightChartSvg"
       :viewBox="viewbox"
       preserveAspectRatio="xMidYMid meet">
@@ -241,7 +241,6 @@ export default {
 	      top: 0;
 	      left: 0;
         background-color: $milife-blue;
-        margin: 5% auto;
         .target-line {
             stroke: $milife-darkgreen;
         }

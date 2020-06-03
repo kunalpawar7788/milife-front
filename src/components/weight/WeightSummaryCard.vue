@@ -4,24 +4,27 @@
 <template v-if="status=='ready'">
     <div class="body">
       <div class="left-half">
-        <div class="current_weight heading-1 fc-white">
+        <div class="current_weight fc-white">
     <template v-if="current_weight">{{current_weight.weight | round_off(2) }}</template> kg
         </div>
-        <div class="target_weight label-1">
+        <div class="target_weight fc-white">
           <template v-if="current_target"> Target {{current_target.target_weight | round_off(2) }} kg</template>
           <template v-else> Target -- </template>
 
         </div>
       </div>
-      <MiniWeightChart
+      <div class="right-half">
+        <MiniWeightChart
         :height="chart_height"
         :width="chart_width"
         :weight_log="weight_log"
         :target_weights="target_weights"
         ></MiniWeightChart>
+      </div>
     </div>
     <footer v-on:click="goto_detailed_weight_chart">
-    View Detailed Chart &gt;
+      <span>View Detailed Chart</span>
+      <img src="@/assets/images/next-arrow.svg" />
     </footer>
     </template>
   </section>
@@ -47,10 +50,12 @@ export default {
         },
         user: function() {return this.fobj_user;},
         chart_height: function() {
-            return screen.height * 0.16;
+            return window.innerHeight * 0.22 * 0.65 ;
         },
         chart_width: function() {
-            return window.innerWidth * 0.50;
+            if (window.innerWidth > 600)
+                return  600 * 0.95 * 0.45;
+            return window.innerWidth * 0.95 * 0.45;
         },
         weight_log: function(){
             return this.$_.orderBy(this.data.weight_log, 'measured_on');
@@ -109,9 +114,15 @@ export default {
     margin: auto;
     width: 50%;
 }
+  .right-half {
+    margin: auto;
+  }
 
 .weight-summary-card {
     height: 22vh;
+    width: 95%;
+    margin-right: auto;
+    margin-left: auto;
     display:flex;
     flex-direction: column;
     padding: 1px 10px 1px 10px;
@@ -121,21 +132,31 @@ export default {
         display: flex;
     }
     .current_weight {
-        /* color: white; */
-        /* font-size: 35pt; */
+        line-height: 9vh;
+        font-size: calc(1em + 2.3vw);
     }
     .target_weight {
-        color: white;
-        font-size: 12pt;
+        line-height: 4vh;
+        font-size: calc(0.6em + 1vw);
     }
 
     footer {
-        align-self: flex-end;
-        border-top: 1px solid white;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        align-self: center;
+        border-top: 1px solid whitesmoke;
         width: 100%;
-        padding: 5px;
+        padding: 5px 10px;
         color: white;
         cursor: pointer;
+        font-size: calc(10pt + 0.5vmin);
+
+        img {
+          margin-left: 0.5em;
+          max-width: 100%;
+          height: 60%;
+        }
     }
 
     * {
