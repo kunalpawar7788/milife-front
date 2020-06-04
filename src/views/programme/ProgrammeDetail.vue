@@ -13,34 +13,62 @@
   <div
     v-if="is_admin"
     class="edit-link fc-black"
-    v-on:click="goto_edit_programme(programme.id)"> EDIT &gt </div>
+    v-on:click="goto_edit_programme(programme.id)">
+      <img src="@/assets/images/edit-white.svg" />
+  </div>
 
   <div class="start_date info_block">
-    <label> STARTED </label>
-    <div>{{programme.start_date}}</div>
+    <template v-if="is_admin">
+      <label> START DATE </label>
+      <div>{{programme.start_date | moment('DD/MM/YYYY') }}</div>
+    </template>
+    <template v-else>
+      <label> STARTED </label>
+      <div>{{programme.start_date | moment('D MMM YYYY') | uppercase }}</div>
+    </template>
   </div>
 
   <div class="end_date info_block">
-    <label> ENDS </label>
-    <div>{{programme.end_date}}</div>
+    <template v-if="is_admin">
+      <label> END DATE </label>
+      <div>{{programme.end_date | moment('DD/MM/YYYY')}}</div>
+    </template>
+    <template v-else>
+      <label> ENDS </label>
+      <div>{{programme.end_date | moment('D MMM YYYY') | uppercase}}</div>
+    </template>
   </div>
 
   <div class="coach info_block">
     <div class="coach_block">
         <div>
-            <label> COACH </label>
-            <div> {{coach}}</div>
+            <template v-if="is_admin">
+                <label> COACH </label>
+            </template>
+            <template v-else>
+                <label> YOUR COACH </label>
+            </template>
+            <div> {{`${coach.first_name} ${coach.last_name}` | uppercase }}</div>
         </div>
         <div class="coach_block-btn">
-            <div id="coach_btn">Contact <span>
-                    &#10095;
-                </span></div>
+            <div id="coach_btn">
+                <template v-if="is_admin">
+                    <span v-on:click="goto_edit_programme(programme.id)">CHANGE</span>
+                </template>
+                <template v-else>
+                    <a :href="`mailto:${coach.email}`">CONTACT</a>
+                </template>
+                <img src="@/assets/images/next-arrow.svg">
+            </div>
         </div>
     </div>
   </div>
 
   <section class="sessions">
-    <header class="session-heading"><p>REGULAR SESSIONS</p></header>
+    <header class="session-heading">
+      <p v-if="is_admin">REGULAR SESSIONS</p>
+      <p v-else>YOUR STANDARD SESSION TIMES</p>
+    </header>
     <div class="sessions-container">
       <div class="sessions">
         <div v-for="(s,index) in sessions" class="session">
@@ -56,6 +84,10 @@
       <p>Edit Session > </p>
     </div>
   </section>
+
+  <div class="info" v-if="!is_admin">
+      <p>Changes agreed with your coach are not reflected here</p>
+  </div>
 
   <section class="hbs">
     <button class="button hbs_button" v-if="is_admin" v-on:click="goto_hbs()"> 
@@ -169,7 +201,7 @@ export default {
             const url = process.env.VUE_APP_BASE_URL+'/api/coaches/' + coach_id;
             this.$http({url: url, params:this.params, method: 'GET'})
                 .then(resp => {
-                    this.coach = resp.data.first_name + ' ' + resp.data.last_name;
+                    this.coach = resp.data;
                 })
                 .catch(err => {
                     this.status='error';
@@ -178,6 +210,11 @@ export default {
         },
 
 
+    },
+    filters: {
+        uppercase: function(v) {
+            return v.toUpperCase();
+        }
     },
     created() {
         console.log('pogramme detail');
@@ -206,6 +243,10 @@ export default {
         grid-column: 11;
         grid-row: 2;
         align-self: center;
+        padding: 8px;
+        border-radius: 50%;
+        background-color: $milife-magenta;
+        cursor: pointer;
     }
 
     .programme_name{
@@ -215,7 +256,7 @@ export default {
     }
     .start_date{
         float: left;
-        grid-column: 2 / 6;
+        grid-column: 2 / 7;
         grid-row: 3;
     }
     .end_date {
@@ -226,10 +267,10 @@ export default {
     .coach {
         grid-column: 1 / -1;
         grid-row: 4;
-        background-color: #cdcdcd;
+        background-color: #ebebeb;
         padding: 10px;
-        border-radius: 10px;
-        margin: 12px;
+        border-radius: 1.5em;
+        margin: 5%;
     }
     .info_block{
         float: left;
@@ -240,19 +281,18 @@ export default {
         text-align: left;
         label {
             color: $milife-magenta;
-            font-size: calc(16px + 0.5vmin);
+            font-size: calc(12pt + 0.5vmin);
             font-weight: 500;
         }
         div {
             color: black;
-            font-size: calc(16px + 0.5vmin);
+            font-size: calc(14pt + 0.5vmin);
             font-weight: 500;
         }
     }
 
     section.sessions{
-        padding-top: 10px;
-
+        padding: 0 5%;
         grid-row: 6;
         grid-column: 1 / -1;
         /* background-color: $milife-blue; */
@@ -260,15 +300,15 @@ export default {
         .session-heading {
             grid-row: 5;
             grid-column: 1/ 7;
-            padding-bottom: 20px;
+
             p {
                 text-align: left;
                 padding-left: 10px;
                 padding-top: 0;
                 margin: 0;
-                font-weight: 400;
+                font-size: calc(12pt + 0.5vmin);
+                font-weight: 500;
                 color: $milife-magenta;
-                font-size: 16pt;
             }
         }
 
@@ -280,7 +320,7 @@ export default {
                 padding-top: 0;
                 margin: 10px;
                 font-weight: 400;
-                color: white;
+                color: black;
                 font-size: 14pt;
 
             }
@@ -292,14 +332,15 @@ export default {
 
         }
         div.sessions{
-            height: 100px;
+            padding-top: 0.5em;
             display: flex;
             flex-direction: row;
 
             .session{
-                font-size: 25pt;
+                font-size: calc(18pt + 0.5vmin);
+                text-align: left;
                 color: black;
-                margin-left: 5px;
+                margin-right: 5px;
                 padding:0;
                 span {
                     margin-left :10px;
@@ -309,6 +350,16 @@ export default {
             }
         }
     }
+
+    .info {
+      grid-row: 8 / 9;
+      grid-column: 2 / -2;
+      color: darken(lightgray, 20%);
+      text-align: left;
+      font-weight: 500;
+      font-size: calc(11pt + 0.5vmin);
+    }
+
     .button{
         grid-row: 11;
         grid-column: 1/-1;
@@ -333,7 +384,7 @@ export default {
 
     .coach_block-btn{
             display: block;
-            line-height: 3;
+            line-height: 2.5;
             width: 120px;
             border-radius: 2rem;
             text-align: center;
@@ -341,7 +392,20 @@ export default {
     }
 
     #coach_btn{
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
         color: #fff;
+        font-size: calc(10pt + 0.5vmin);
+        font-weight: 400;
+
+        a {
+            font-weight: 400;
+        }
+
+        img {
+            height: 1em;
+        }
     }
     
   }
