@@ -1,6 +1,6 @@
 <template>
-<div class="foldable-container bg-lightgrey pd-10 margin-10 br-10">
-  <header class="pb-10"  v-on:click="toggle">
+<div class="foldable-container bg-lightgrey  br-10">
+  <header   v-on:click="toggle">
     <div for="" class="fn-18 fw-600 float-left fc-black">{{label}}</div>
     <div class="float-right fn-18 fw-600 fc-blue">
       <template v-if="!collapsed"> - </template>
@@ -47,7 +47,7 @@ export default {
 .foldable-container{
     header {
         height: 30px;
-
+        padding: 10px;
     }
 }
 </style>

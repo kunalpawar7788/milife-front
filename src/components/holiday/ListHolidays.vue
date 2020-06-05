@@ -2,19 +2,22 @@
 <div class="list-holidays-container">
   
   <div v-if="status=='success'">
-    <table>
-      
-      <tr>
-        <th>start</th>
-        <th>end</th>
-        <th>comment</th>
-      </tr>
-      <tr v-for="record in holidays">
-        <td>{{record.start}}</td>
-        <td>{{record.end}}</td>
-        <td>{{record.comment}}</td>
-      </tr>
-    </table>
+      <div class="holiday_list-block" v-for="record in holidays">
+          <div class="holiday_list-dates">
+              <div class="holiday_list-startdate">
+                  <p class="margin-0 fnt-bold">Start</p>
+                  <p class="margin-0">{{ record.start }}</p>
+              </div>
+              <div class="holiday_list-enddate">
+                  <p class="margin-0 fnt-bold">End</p>
+                  <p  class="margin-0">{{ record.end }}</p>
+              </div>
+          </div>
+          <div class="holiday_list-comment">
+              <p class="margin-0 fnt-bold">Comment</p>
+              <p class="margin-0">{{ record.comment }}</p>
+          </div>
+      </div>
   </div>
 </div>
 </template>
@@ -68,8 +71,40 @@ export default {
 }
 </script>
 
-<style lang="scss">
-.list-holidays-container {
+<style lang="scss" scoped>
 
-}
+        .holiday_list-dates{
+            padding: 5px 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            p{
+                color:  black;
+                text-align: left;
+            }
+        }
+
+        .margin-0{
+            margin: 0px 0px;
+        }
+
+        .fnt-bold{
+            font-weight: bold;
+        }
+
+        .holiday_list-comment{
+            text-align: left;
+            padding: 10px;
+            p{
+                color: black;
+            }
+
+            &:after{
+                content: "";
+                display: block;
+                margin-top: 10px;
+                border-top: 1px solid #cacaca;
+                padding: 0px 10px;
+            }
+        }
 </style>

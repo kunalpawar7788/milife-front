@@ -1,9 +1,11 @@
 <template>
 <div class="holiday-banked-session-container">
-  <div class="header fn-18 width-100 pd-10">
-    <span> Holiday and banked session </span>
+  <div class="header">
+    <span> Holidays and banked sessions </span>
   </div>
-  <Holiday></Holiday>
+  <div class="holiday_container">
+      <Holiday></Holiday>
+  </div>
   <BankedSession></BankedSession>
 </div>
 </template>
@@ -44,9 +46,9 @@ export default {
 
     div.header {
         display: block;
-        height:20px;
-
+        font-size: calc(16pt + 0.5vmin);
         color: $pastel-blue;
+        margin-bottom: 10px;
         span:first-child{
             float:center;
         }
@@ -75,6 +77,10 @@ export default {
     h3{
         float: left;
         margin-left: 15px;
+    }
+
+    .holiday_container{
+        padding: 10px;
     }
 }
 </style>
