@@ -64,26 +64,47 @@
     </div>
   </div>
 
-  <section class="sessions">
-    <header class="session-heading">
-      <p v-if="is_admin">REGULAR SESSIONS</p>
-      <p v-else>YOUR STANDARD SESSION TIMES</p>
-    </header>
-    <div class="sessions-container">
-      <div class="sessions">
-        <div v-for="(s,index) in sessions" class="session">
-          <span> <strong>{{s.day}}</strong> </span><br>
-          <span>{{s.time}} </span>
+    <template v-if="is_admin">
+        <div class="admin-sessions">
+            <section class="sessions">
+                <header class="session-heading">
+                    <p>REGULAR SESSIONS</p>
+                </header>
+                <div class="sessions-container">
+                    <div class="sessions">
+                        <div v-for="(s,index) in sessions" class="session">
+                        <span> <strong>{{s.day}}</strong> </span><br>
+                        <span>{{s.time}} </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="link" v-on:click="goto_edit_session(programme.id)"> 
+                    <p>Edit Session ></p>
+                </div>
+            </section>
         </div>
-      </div>
-    </div>
-    <div
-      class="link"
-      v-if="is_admin"
-      v-on:click="goto_edit_session(programme.id)">
-      <p>Edit Session > </p>
-    </div>
-  </section>
+    </template>
+    <template v-else>
+        <section class="sessions client-sessions">
+            <header class="session-heading">
+                <p>YOUR REGULAR SESSIONS</p>
+            </header>
+            <div class="sessions-container">
+                <div class="sessions">
+                    <div v-for="(s,index) in sessions" class="session">
+                        <template v-if="s.is_today">
+                            <span><strong>{{s.day}}</strong></span><br>
+                            <span>{{s.time}} </span>
+                        </template>
+                        <template v-else>
+                            <span class="grey"><strong>{{s.day}}</strong></span><br>
+                            <span class="grey">{{s.time}} </span>
+                        </template>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </template>
 
   <div class="info" v-if="!is_admin">
       <p>Changes agreed with your coach are not reflected here</p>
@@ -120,6 +141,8 @@ export default {
     components: {SelectedUserDisplay, },
     computed: {
         sessions: function() {
+            var currentDate = new Date(); 
+            var currentDay = currentDate.getDay();
             var d = [];
             var days = [
                 'Monday',
@@ -130,19 +153,25 @@ export default {
                 'Saturday',
                 'Sunday',
             ];
-
-            for(var i in days){
-                var day = days[i];
+            var index = currentDay-1;
+            var today = days[index];
+            while(index < days.length + currentDay - 1){
+                var day = days[index % days.length];
 
                 if (this.programme.hasOwnProperty('sessions') && this.programme.sessions.hasOwnProperty(day)){
                     var time = JSON.parse(this.programme.sessions[day].replace(/'/g, '"'));
                     var hh = time['HH'];
                     var mm = time['mm'];
-                    var record = {day: day.substring(0,3).toUpperCase(), time: hh+':'+mm};
+                    var bool = false;
+                    if (day == today){
+                        bool = true;
+                    }
+                    var record = {day: day.substring(0,3).toUpperCase(), time: hh+':'+mm, is_today: bool};
                     if (hh != '' && mm != ''){
                         d.push(record);
                     }
                 }
+                index = index + 1;
             }
             return d;
 
@@ -217,7 +246,7 @@ export default {
         }
     },
     created() {
-        console.log('pogramme detail');
+        console.log('programme detail');
         this.fetch_programme(this.$route.params.programme_pk);
     },
 
@@ -232,7 +261,7 @@ export default {
     grid-template-columns: 1fr repeat(10, 1fr) 1fr;
 
     .middle-column{
-        grid-column: 2/11;
+        grid-column: 1/13;
         grid-row: 1;
         **input{
             width: 100%
@@ -244,6 +273,8 @@ export default {
         grid-row: 2;
         align-self: center;
         padding: 8px;
+        width: 25px;
+        font-size: 1px;
         border-radius: 50%;
         background-color: $milife-magenta;
         cursor: pointer;
@@ -269,37 +300,40 @@ export default {
         grid-row: 4;
         background-color: #ebebeb;
         padding: 10px;
-        border-radius: 1.5em;
+        border-radius: 1.2em;
         margin: 5%;
     }
     .info_block{
         float: left;
-        padding-top: 10px;
         /* padding-left: 10px; */
         /* margin: 10px; */
 
         text-align: left;
         label {
             color: $milife-magenta;
-            font-size: calc(12pt + 0.5vmin);
+            font-size: calc(10pt + 0.5vmin);
             font-weight: 500;
+            letter-spacing: 0.5px;
         }
         div {
             color: black;
-            font-size: calc(14pt + 0.5vmin);
+            font-size: calc(13pt + 0.5vmin);
             font-weight: 500;
         }
     }
-
+    .coach.info_block {
+        padding: 15px 11px;
+    }
     section.sessions{
         padding: 0 5%;
-        grid-row: 6;
+        grid-row: 5;
         grid-column: 1 / -1;
         /* background-color: $milife-blue; */
 
         .session-heading {
             grid-row: 5;
             grid-column: 1/ 7;
+            margin-bottom: 5px;
 
             p {
                 text-align: left;
@@ -313,22 +347,22 @@ export default {
         }
 
         .link{
-            padding-top: 20px;
+            //padding-top: 20px;
             p {
                 text-align: left;
                 padding-left: 0px;
                 padding-top: 0;
-                margin: 10px;
+                margin: 15px 10px;
                 font-weight: 400;
                 color: black;
-                font-size: 14pt;
+                font-size: 12pt;
 
             }
 
         }
         .sessions-container{
             overflow-x: scroll;
-            margin-bottom: -17px;
+            //margin-bottom: -17px;
 
         }
         div.sessions{
@@ -351,8 +385,29 @@ export default {
         }
     }
 
+    .admin-sessions {
+        background-color: $milife-blue;
+        grid-row: 6;
+        grid-column: 1 / -1;
+        padding: 20px 0 10px 0;
+
+        section.sessions {
+            .session-heading p,
+            div.sessions .session,
+            .link p {
+                color: #fff;
+            }
+        }
+    }
+
+    .client-sessions {
+        .grey {
+            color: #a0a0a0;
+        }
+    }
+
     .info {
-      grid-row: 8 / 9;
+      grid-row: 6 / 9;
       grid-column: 2 / -2;
       color: darken(lightgray, 20%);
       text-align: left;
@@ -368,8 +423,8 @@ export default {
     }
     .hbs{
         grid-column: 1/-1;
-        grid-row: 10;
-        padding: 20px 0px;
+        grid-row: 9;
+        padding: 0px 0px 20px 0px;
     }
     .hbs_button{
         line-height: 0em;
@@ -379,7 +434,6 @@ export default {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 10px;
     }
 
     .coach_block-btn{
@@ -408,5 +462,15 @@ export default {
         }
     }
     
+  }
+
+@media screen and (min-width: 400px) {
+    .programme-detail-container{
+        .coach {
+            .info_block {
+                margin: 15px 30px;
+            }
+        }
+    }
   }
 </style>
