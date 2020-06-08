@@ -29,18 +29,17 @@
 
     <button class="button btn_crop-save" v-on:click="finish_cropping"> Crop </button>
   </div>
-  <div v-else>
-
+  <div v-else class="picture_preview-container">
     <label class="label_pictures"> {{label}}</label>
-    <div class="picture-preview"  v-if="cropped_image">
+    <div class="picture-preview preview_afterCrop"  v-if="cropped_image">
       <img v-bind:src="cropped_image" />
       <!-- <label v-on:click="reset">reset</label> -->
     </div>
-    <div class="picture-preview"  v-else-if="image_preview">
+    <div class="picture-preview preview_afterCrop"  v-else-if="image_preview">
       <img v-bind:src="image_preview" />
       <!-- <label v-on:click="reset">reset</label> -->
     </div>
-    <div class="picture-preview"  v-else-if="value">
+    <div class="picture-preview preview_afterCrop "  v-else-if="value">
       <img v-bind:src="value" />
     </div>
   </div>
@@ -218,6 +217,9 @@ export default {
   .uploader {
     display: block;
     clear: both;
+    width: fit-content;
+    margin: auto;
+
 
     label {
       float: left;
@@ -272,5 +274,22 @@ export default {
     cursor: pointer;
   }
 }
+
+.preview_afterCrop{
+    padding: 10px;
+      img{
+        max-width: 200px;
+        height: auto;
+        border-radius: 50%;
+      }
+  }
+  .picture_preview-container{
+    margin-top: 0;
+  }
+  @media only screen and (max-width: 650px){
+    .picture_preview-container{
+      margin-top: 10em;
+    }
+  }
 
 </style>
