@@ -1,6 +1,9 @@
 <template>
 <div class="client-dashboard" ref="clientdashboard" v-if="status=='ready'">
-  <WeightSummaryCard :fobj_user="user"> </WeightSummaryCard>
+  <WeightSummaryCard 
+    :fobj_user="user"
+    :weight_list_dashboard="this.data.weight_log"
+  > </WeightSummaryCard>
 
   <section class="calorie-summary bg-green br-20 mt-10">
     <div class="calorie-target">
