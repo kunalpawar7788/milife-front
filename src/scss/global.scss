@@ -50,22 +50,25 @@ body{
 }
 
 .text-input {
-    border: 1px solid grey;
+    border: 1px solid #fff;
     border-radius: 50px;
+    background: #efefef;
     color: darken(grey, 20%);
     height: 50px;
     //padding-left: 20px;
     text-indent: 20px;
     font-size: 14pt;
-    font-family: 'Montserrat Regular';
+    font-family: 'Montserrat';
     width: 300px;
     outline: none;
     //padding-top: 20px;
     //margin-top: 20px;
     &::placeholder {
-        color: lighten(grey, 10%);
+        color: #232323;
+        font-weight: 500;
     }
 }
+
 
 .error-message{
     color: $milife-magenta;

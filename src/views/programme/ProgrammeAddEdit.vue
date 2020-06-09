@@ -5,17 +5,18 @@
   <div>
     <input
       type="text"
-      class="input text-input"
+      class="input text-input programme-title"
       v-model="programme_name"
-      placeholder="Programme Name"
+      placeholder="Programme Title"
       >
-      </input>
   </div>
   
   <div>
     <datepicker
-      wrapper-class="start-datepicker"
-      input-class="text-input"
+      wrapper-class="datepicker-container"
+      class="start-datepicker"
+      input-class="datepicker-input"
+      calendar-class="datepicker-calendar"
       v-model="start_date"
       format="dd/MM/yyyy"
       :typeable="false"
@@ -27,8 +28,9 @@
   
   <div>
     <datepicker
-      wrapper-class="end-datepicker"
-      input-class="text-input"
+      wrapper-class="datepicker-container"
+      class="end-datepicker"
+      input-class="datepicker-input"
       v-model="end_date"
       format="dd/MM/yyyy"
       :typeable="false"
@@ -38,9 +40,11 @@
     </datepicker>
   </div>
   
-  <div class="choicefield">
-    <p>Coach:</p>
+  <div>
     <multiselect
+      wrapper-class="choicefield"
+      class="select-coach"
+      input-class="choicefield-input"
       v-model="coach"
       placeholder="Select Coach"
       :options="coach_options_l"
@@ -50,8 +54,11 @@
     </multiselect>
   </div>
   
-  <div class="active-choicefield">
+  <div>
     <multiselect
+      wrapper-class="choicefield"
+      class="active-choicefield"
+      input-class="choicefield-input"
       v-model="active"
       placeholder="Active / Inactive"
       :options="Object.values(active_options_d)"
@@ -62,7 +69,7 @@
   </div>
   
   
-  <div class="button" v-on:click="upsert_programme()"> Save </div>
+  <div class="button save" v-on:click="upsert_programme()"> Save </div>
 </div>
 <div v-else>
   {{status}}
@@ -265,19 +272,136 @@ export default {
     
 }
 .programme-add-edit-container {
+    display: grid;
     grid-template-columns: 1fr 8fr 1fr;
     grid-row-gap: 10px;
     justify-items: center;
 
     div {
-        grid-column: 2;
-        width: 100%
-        
+        color: #000;
+        grid-column: 1/12;
     }
     input{
-        border: 1px solid lighten(grey, 40%);
+        border: 1px solid #fff;
     }
 
+    .programme-title {
+        grid-row: 2;
+    }
+
+    .datepicker-container, .choicefield {
+        text-align: center;
+    }
+
+    .datepicker-input {
+        @extend .text-input;
+        border: none;
+        font-family: "Montserrat";
+        background: url(../../assets/images/chevron-down-solid.svg) 92% no-repeat, linear-gradient($milife-green) right no-repeat;
+        background-size: 6%, 20%;
+        background-color: #efefef;
+        cursor: pointer;
+    }
+
+    .datepicker-calendar {
+        right: 0;
+        left: 0;
+        margin-right: auto;
+        margin-left: auto;
+        text-align: initial;
+    }
+
+    .start-datepicker {
+        grid-row: 3;
+    }
+
+    .end-datepicker {
+        grid-row: 4;
+    }
+
+    .multiselect__tags {
+        border: none;
+        padding: 0;
+        z-index: 200;
+    }
+
+    .multiselect__select {
+        background: $milife-green;
+        content: url(../../assets/images/chevron-down-solid.svg);
+        border-radius: 0 50px 50px 0;
+        border-top: solid 1px #fff;
+        border-bottom: solid 1px #fff;
+        width:60px!important;
+        padding: 15px;
+        z-index: 3;
+    }
+    .multiselect__input, .multiselect__single  {
+        background-color: #efefef;
+        border: 1px solid #fff;
+        border-radius: 50px 0 0 50px;
+        width: 240px!important;//92% * 300px
+    }
+
+    .multiselect__select, .multiselect__input, .multiselect__single {
+        color: #232323;
+        height: 50px;
+        text-indent: 20px;
+        font-size: 14pt;
+        font-weight: 500;
+        font-family: 'Montserrat';
+        outline: none;
+        top: 0;
+        &::placeholder {
+            color: #232323;
+            font-weight: 500;
+            font-size: 14pt;
+        }
+    }
+
+    .multiselect--active .multiselect__select{
+        transform:none
+    }
+    .multiselect__single {
+        padding: 14px 0;
+    }
+
+    .multiselect__input:focus,
+    .multiselect__single:focus {
+        border: 1px solid #fff!important;
+        border-bottom-left-radius: 50px!important;
+        border-top-left-radius: 50px!important;
+    }
+
+    .multiselect__content-wrapper {
+        border-radius: 10px;
+    }
+
+    .select-coach {
+        grid-row: 5;
+        width:300px;
+        margin-bottom: -8px;
+
+        span.multiselect__single:empty::before {
+            content: "Select Coach";
+        }
+    }
+
+    .active-choicefield {
+        grid-row: 6;
+        width:300px;
+
+        span.multiselect__single:empty::before {
+            content: "Active/ Inactive";
+        }
+    }
+
+    .save {
+        grid-row: 7;
+        height: 0px;
+        line-height: 0;
+        color: #fff;
+        margin-top: 15px;
+    }
 }
 div {
     color: black;

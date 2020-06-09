@@ -31,12 +31,19 @@ export default{
         background-color: lighten(grey, 40%);
         text-align: center;
         padding: 0;
-        width: 80%;
         height: 45px;
         text-transform: uppercase;
         font-family: Montserrat;
         margin-bottom: 10px;
         font-weight: 500;
+    }
+}
+
+@media screen and (max-width: 358px) {
+    .disabled-input-text {
+        input{
+            width:80%;
+        }
     }
 }
 
