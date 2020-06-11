@@ -237,10 +237,11 @@ export default {
     }
     table
     {
-        display: inline-block;
+        display: block;
         border-collapse: collapse;
         border-spacing: 0px;
         max-width: 400px;
+        margin: auto;
     }
 
     th, td {
@@ -271,7 +272,7 @@ export default {
         th:nth-child(1), td:nth-child(1) {
             background-color: whitesmoke;
             text-align: left;
-            padding-left: 5%;
+            
         }
 
         th:nth-child(2), td:nth-child(2) {
@@ -362,7 +363,7 @@ export default {
     }
     @media only screen and (max-width: 342px){
         .responsive-width{
-            width: 100%;
+            width: 98%;
         }
     }
 

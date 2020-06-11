@@ -62,7 +62,7 @@
               <span class="">Stats from
                 <template  v-if="this.data.first_checkin" > {{this.data.first_checkin.date_of_checkin | moment("DD.MM.YYYY")}} </template>
               </span>
-              <span class="pr-10" v-on:click="goto_detailed_report">View More &gt</span>
+              <span v-on:click="goto_detailed_report">View More &gt</span>
             </div>
           </td>
         </tr>
@@ -186,6 +186,7 @@ section.calorie-summary{
     margin-top: 10px;
     height: 10vh;
     display: grid;
+    padding: inherit;
     grid-template-columns: 2fr 3fr;
     grid-template-rows: 1fr 1fr;
 
@@ -249,7 +250,7 @@ section.progress-report-summary{
                 div {
                   display: flex;
                   justify-content: space-between;
-                  padding: 0 3% 0 0;
+                  padding: 0px;
                 }
             }
 
@@ -284,6 +285,12 @@ section.weight-summary-card {
     margin-top: auto;
     margin-bottom: auto;
     margin-left: 10%;
+}
+
+@media screen and (max-width: 347px){
+    section.progress-report-summary table{
+      font-size: calc(12px + 0.5vmin);
+    }
 }
 
 </style>

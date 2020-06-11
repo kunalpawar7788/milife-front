@@ -294,7 +294,7 @@ export default{
 }
 .bodytypechart-container {
     svg {
-        margin: 25px;
+        margin-bottom: 25px;
         background-color: darken($milife-blue, 1%);
 
         path {
