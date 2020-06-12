@@ -8,40 +8,36 @@
     :circle_stencil="true"
     > </PictureSelector>
 
-<div v-if="cropping==false">
-  <div>
+<div v-if="cropping==false" class="components">
+  <div class="email">
     <input
       :class="{'text-input': true, 'has-error': false}"
       type="text"
       v-model="email"
       placeholder="Email"
       >
-    </input>
   </div>
 
-  <div>
+  <div class="first-name">
     <input class="text-input" type="text" v-model="first_name" placeholder="First Name">
-    </input>
   </div>
 
-  <div>
+  <div class="last-name">
     <input
       class="text-input"
       type="text"
       v-model="last_name"
       placeholder="Surname"
       >
-    </input>
   </div>
 
-  <div>
+  <div class="mobile">
     <input
       class="text-input"
       type="text"
       v-model="number"
       placeholder="Mobile Number"
       >
-    </input>
   </div>
 
   <div class="genderselect">
@@ -55,7 +51,7 @@
     </multiselect>
   </div>
 
-  <div>
+  <div class="dateofbirthselect">
     <datepicker
       required
       wrapper-class="datepicker"
@@ -68,33 +64,40 @@
     </datepicker>
   </div>
 
-  <div>
-    <label> Is staff(coach)</label>
+  <div class="is_staff">
+    <label>Is staff(coach)</label>
     <input
       type="checkbox"
       v-model="is_staff"
       >
-    </input>
   </div>
 
-  <div>
-    <label> Is active (inactive equals soft delete)</label>
+  <div class="is_active">
+    <label>Is active (inactive equals soft delete)</label>
     <input
       type="checkbox"
       default="true"
       v-model="is_active"
       >
-    </input>
   </div>
 
 
-  <HeightInput v-model="height"></HeightInput>
+  <HeightInput
+    v-model="height_retrieved"
+    :height_retrieved_from_User="height_retrieved"
+    ></HeightInput>
 
-  <WeightInput v-model="weight"></WeightInput>
+  <WeightInput
+    v-model="weight_retrieved"
+    :weight_retrieved_from_User="weight_retrieved"
+    ></WeightInput>
 
-  <div id="error-box"><ErrorMessage v-bind:error_message="error_message"/></div>
-
-  <button v-promise-btn class="button" v-on:click="upsert_user"> Save </button>
+  <div class="save">
+      <div>
+        <div id="error-box"><ErrorMessage v-bind:error_message="error_message"/></div>
+        <button v-promise-btn class="button" v-on:click="upsert_user"> Save </button>
+      </div>
+  </div>
 </div>
 
 </section>
@@ -106,7 +109,7 @@ import Datepicker from 'vuejs-datepicker';
 import HeightInput from "@/components/HeightInput.vue";
 import WeightInput from "@/components/WeightInput.vue";
 import PictureSelector from "@/components/PictureSelector.vue";
-import ErrorMessage from '@/components/ErrorMessage.vue'
+import ErrorMessage from '@/components/ErrorMessage.vue';
 
 import moment from 'moment';
 
@@ -182,12 +185,11 @@ export default {
             set(value) {this.data.date_of_birth =  moment(value).format("YYYY-MM-DD");}
         },
 
-        height: {
+        height_retrieved: {
             get() {
-                var preferred_unit =  this.data.height_unit || this.fobj_user.height_unit || 'metric';
                 return {
                     magnitude_si: this.data.height_cm || this.fobj_user.height_cm,
-                    preferred_unit: preferred_unit,
+                    preferred_unit: this.data.height_unit || this.fobj_user.height_unit || 'metric',
                 };
             },
             set(value) {
@@ -196,7 +198,7 @@ export default {
             }
         },
 
-        weight: {
+        weight_retrieved: {
             get() {
                 return {
                     magnitude_si: this.data.weight_kg || this.fobj_user.weight_kg,
@@ -266,7 +268,6 @@ export default {
                 };
 
             };
-
             if(this.data.image && typeof this.data.image != 'string'){
                 formData.append('image', this.data.image, 'something.png');
             };
@@ -306,7 +307,6 @@ export default {
 section.user-add-edit-container {
     color: black;
     *{
-        margin: 5px;
         color: black;
     }
     input {
@@ -317,6 +317,85 @@ section.user-add-edit-container {
         padding-top: 15px;
         .errormessage{
             color: red;
+        }
+    }
+    .components {
+        display: grid; 
+        grid-template-columns: 1fr 1fr 1fr;
+        max-width: 100%;
+
+        > div {
+        max-width: fit-content;
+        grid-column: 2;
+        margin: 5px 0;
+        padding: 2px 5px;
+        }
+
+        .email {
+            grid-row: 1
+        }
+        .first-name {
+            grid-row: 2;
+        }
+        .last-name {
+            grid-row: 3;
+        }
+        .mobile {
+            grid-row: 4;
+        }
+        .genderselect {
+            grid-row: 5;
+            display: grid;
+
+            div {
+                grid-column: 2/ span 1;
+                width: 300px;
+            }
+            .multiselect__tags {
+                border-radius: 50px;
+            }
+        } 
+        .dateofbirthselect {
+            grid-row: 6;
+            display: grid;
+
+            div {
+                grid-column: 2/ span 1;
+            }
+        }
+        .is_staff {
+            grid-row: 7;
+            
+            label {
+                color: #fff;
+                font-size: 15px;
+            }
+        }
+        .is_active {
+            grid-row: 8;
+            
+            label {
+                color: #fff;
+                font-size: 15px;
+            }
+        }
+        .heightinput, .weightinput {
+            display: inline-flex;
+            width: inherit;
+        }
+        .save {
+            button {
+                grid-row: 11;
+                width: 100px;
+                height: 0px;
+                line-height: 0;
+            }
+            > div {
+                width: 300px;
+            }
+            div > input {
+                grid-column: 2/ span 1;
+            }
         }
     }
 }

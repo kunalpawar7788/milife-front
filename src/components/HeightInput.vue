@@ -1,86 +1,90 @@
 <template>
-
-<div class="choicefield-container">
-  <div class="label"> <label> Height </label></div>
-  <div
-    v-if="choice_menu_open"
-    :class="[selected=='metric'? 'selected': '', 'choices', 'metric' ]"
-    v-on:click="select_choice('metric')"
-    >
-    Metric 
-    
+<div class="choicefield-container height">
+  <div class="label"><label> Height </label></div>
+  <div class="heightselect">
+    <multiselect
+      v-model="height"
+      placeholder="Height"
+      :options="height_options"
+      :allow-empty="false"
+      selectLabel=""
+      selectedLabel=""
+      deselectLabel=""
+      @input="emit_result"
+      > </multiselect>
   </div>
-
-  <div
-    v-if="choice_menu_open"
-    :class="[selected=='imperial'? 'selected': '', 'choices', 'imperial' ]"
-    v-on:click="select_choice('imperial')"
-    >
-    Imperial
+  <div v-show="height==='imperial'" class="feet">
+    <input type="number" v-model="feet" placeholder="feet" /><p> ft </p>
   </div>
-  <div
-    :class="[choice_menu_open? 'hidden' : '', 'menu-button']"
-    v-on:click="choice_menu_open=true">
-    <p>{{selected}}</p>
+  <div v-show="height==='imperial'" class="inches">
+    <input type="number" v-model="inches" placeholder="inches"/><p> in </p>
   </div>
-  <div
-    v-if="selected=='imperial' && !choice_menu_open"
-    class="feet">
-
-    <input type="number" v-model="feet" placeholder="feet" />
-  </div>
-
-  <div
-    v-if="selected=='imperial' && !choice_menu_open"
-    class="inches">
-    <input type="number" v-model="inches" placeholder="inches"/>
-  </div>
-
-  <div
-    v-if="selected=='metric' && !choice_menu_open"
-    class="cms">
-    <input type="number" v-model="cms" placeholder="cms" />
+  <div  v-show="height==='metric'" class="cms">
+    <input type="number" v-model="cms" placeholder="cms" /><p> cm </p>
   </div>
 </div>
 </template>
 
 <script>
+import Multiselect from 'vue-multiselect';
+
 export default {
     /*this should give out two parameters only:
 namely, height in centimeters
 and the unit chosen by the user.
-
 */
 
     name: 'HeightInput',
-    props: ['value',],
+    components: {Multiselect},
+    props: ['height_retrieved_from_User',],
 
     data() {
         return {
-            choice_menu_open: false,
-            choices: ['imperial', 'metric'],
-            preferred_unit: "",
+            height_options: [ 'metric', 'imperial' ],
             magnitude_si: 0,
             feet2cm: 30.48,
             inch2cm: 2.54,
         }
     },
-
-    methods: {
-        select_choice : function (choice) {
-            this.selected = choice;
-            this.choice_menu_open=false;
-            this.emit_result();
-
+    computed: {
+        cms: {
+            get() {return this.height_retrieved_from_User.magnitude_si;},
+            set(value){
+                this.magnitude_si = value || 0;
+                this.emit_result();
+            },
         },
 
-        round_off2: value => Math.round(value*100)/100,
+        inches: {
+            get(){
+                return this.get_inches_from_cm(this.height_retrieved_from_User.magnitude_si);
+            },
+            set(value){
+                this.magnitude_si = this.get_cm_from_feet(this.feet) + this.get_cm_from_inches(value);
+                this.emit_result();
+            },
+        },
+
+        feet: {
+            get() {
+                return this.get_feet_from_cm(this.height_retrieved_from_User.magnitude_si);
+            },
+            set(value){
+                console.log('feet', value);
+                value = Number(value);
+
+                this.magnitude_si = this.get_cm_from_feet(value) + this.get_cm_from_inches(this.inches);
+                this.emit_result();
+            }
+        },
+    },
+    methods: {
+        round_off2: height_retrieved_from_User => Math.round(height_retrieved_from_User*100)/100,
 
         emit_result: function() {
             this.$emit('input', {
-                preferred_unit: this.preferred_unit,
-                magnitude_si: this.round_off2(this.magnitude_si)
-
+                preferred_unit: this.height,
+                magnitude_si: this.round_off2(this.magnitude_si),
             });
         },
 
@@ -96,7 +100,6 @@ and the unit chosen by the user.
         get_feet_from_cm: function(cm){
             console.log('get_feet_from_cm', cm, Math.floor(cm / this.feet2cm));
             return Math.floor(cm / this.feet2cm);
-
         },
         get_inches_from_cm: function(cm){
             var value = cm / this.inch2cm;
@@ -106,56 +109,19 @@ and the unit chosen by the user.
             console.log('get_inches_from_cm', cm, Math.floor(cm / this.feet2cm));
             return Math.round(value*100)/100
         },
-    },
-
-    computed: {
-        selected: {
-            get(){
-                return this.preferred_unit || this.value.preferred_unit;
-            },
-            set(value) {
-                this.preferred_unit = value
-            },
-        },
-        cms: {
-            get() {return this.value.magnitude_si;},
-            set(value){
-                this.magnitude_si = value || 0;
-                this.emit_result();
-            },
-        },
-
-        inches: {
-            get(){
-                return this.get_inches_from_cm(this.value.magnitude_si);
-            },
-            set(value){
-                this.magnitude_si = this.get_cm_from_feet(this.feet) + this.get_cm_from_inches(value);
-                this.emit_result();
-            },
-        },
-
-        feet: {
-            get() {
-                return this.get_feet_from_cm(this.value.magnitude_si);
-            },
-            set(value){
-                console.log('feet', value);
-                value = Number(value);
-
-                this.magnitude_si = this.get_cm_from_feet(value) + this.get_cm_from_inches(this.inches);
-                this.emit_result();
-            }
+        set_height_data: function(height_retrieved_from_User) {
+            this.height = this.height_retrieved_from_User.preferred_unit;
+            this.magnitude_si = this.height_retrieved_from_User.magnitude_si;
         },
     },
+    created () {
+        this.set_height_data(this.height_retrieved_from_User);
+    }
 }
 </script>
 
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 <style lang="scss">
-
-.hidden {
-    display: none;
-}
 
 div.choicefield-container{
     width: 320px;
@@ -163,34 +129,125 @@ div.choicefield-container{
     border-radius: 50px;
     height: 50px;
     font-size: 15pt;
-    font-family: Monteserrat Regular;
+    font-family: Montserrat;
     padding: 10px;
-    display: grid;
-    grid-template-columns: 1fr 10px repeat(4, 1fr);
-    grid-gap: 1px;
+    justify-content: center;
+    display: inline-flex;
+    width: inherit;
 
     div.label{
-        grid-column: 1/span 2;
         align-self: center;
         justify-self: left;
+        margin: 0;
+        padding: 0 10px;
+
+        label {
+            font-size: 13px;
+            color: #fff;
+            font-family: Montserrat;
+            margin: 0;
+        }
+    }
+    div.heightselect{
+        margin: 0;
+
+        div.multiselect {
+            margin: 0;
+        }
+
+        .multiselect--active .multiselect__select{
+            transform:none!important;
+        }
+        .multiselect__select {
+            background: $milife_green;
+            color: #fff;
+            z-index: 3;
+            content: url($milife-dropdown-icon);
+            margin-right: -5px;
+            padding: 10px;
+        }
+        div.multiselect__tags {
+            background: $milife_green;
+            color: #fff;
+            width: 122px;
+            height: 50px;
+            border: none;
+            border-top-left-radius: 50px;
+            border-bottom-left-radius: 50px;
+            margin-right: -6px;
+
+            .multiselect__single {
+                background: $milife_green;
+                color: #fff;
+                line-height: 30px;
+            }
+            span.multiselect__placeholder,
+            span.multiselect__single {
+                background: $milife_green;
+                color: #fff;
+                font-size: 15px;
+                font-family: Montserrat;
+                margin-left: 0;
+                margin-right: 0;
+            }
+            input.multiselect__input {
+                background: $milife_green;
+                color: #fff;
+                display: none;
+            }
+        }
+        div.multiselect__content-wrapper {
+            min-width: 120px;
+        }
     }
     div.feet {
-        grid-column: 5 / span 1;
-    }
-    div.inches{
-        grid-column: 6/ span 1;
-        input{
-            border-radius: 0px 50px 50px 0px;
-        }
-    }
-    div.cms{
-        grid-column: 5/span 2;
+        width: 50px;
+
         input {
-            border-radius: 0px 50px 50px 0px;
+            margin: 0;
         }
-
+        p {
+            padding: 0px 10px 0 0px;
+        }
     }
+    div.inches {
+        width: 75px;
+        margin-left: -4px;
+        border-radius: 0px 50px 50px 0px;
 
+        p {
+            padding: 0px 10px 0 0px;
+        }
+    }
+    div.cms {
+        width: 120px;
+        border-radius: 0px 50px 50px 0px;
+
+        input {
+            padding-left: 5px;
+        }
+        p {
+            padding: 0px 22px 0 0px;
+        }
+    }
+    div.feet, div.inches, div.cms {
+        height: 50px;
+        display: inline-flex;
+        background: #fff;
+
+        input {
+            height: 50px;
+            margin: 0;
+        }
+        p {
+            margin: 0px -4px 0 0!important;
+            line-height: 50px;
+            height: 50px;
+            text-align: left;
+            font-size: 15px;
+            color: #252525;
+        }
+    }
     div.menu-button{
         grid-column:3 / span 2;
         background-color: $milife-green;
@@ -198,26 +255,22 @@ div.choicefield-container{
         height: inherit;
         border-radius: 50px 0px 0px 50px;
 
-
         &:hover{
             background-color: lighten($milife-green, 20%);
         }
-
         p{
             margin-top: 10px;
         }
-
     }
     div.metric{
         grid-column: 3 / span 2;
         border-radius: 50px 0px 0px 50px;
     }
-
     div.imperial {
-        grid-column: 5/ span 2;
+        grid-column: 3/ span 2;
+        grid-row: 8;
         border-radius: 0px 50px 50px 0px;
     }
-
     div.choices{
         background-color: white;
         color: black;
@@ -231,21 +284,15 @@ div.choicefield-container{
         &.selected{
             background-color: $milife-green;
         }
-
     }
-
-
-
     * input {
         text-align: center;
         font-size: 15pt;
-        font-family: Monteserrat Regular;
-        border: none;
+        font-family: Monteserrat;
+        border: none!important;
         padding: 0;
         width: 100%;
         height:100%
     }
-
 }
-
 </style>

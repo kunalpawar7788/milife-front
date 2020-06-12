@@ -1,12 +1,12 @@
 <template>
 <section class="add-user-container">
-  <header><h3>Edit User</h3> </header>
+  <header><h3 class="fc-white">Edit User</h3> </header>
 
   <template v-if="user">
     <UserAddEditComponent v-bind:fobj_user="user"></UserAddEditComponent>
   </template>
   <h3>
-    <router-link :to="{name: 'home'}"> Cancel </router-link>
+    <router-link :to="{name: 'home'}" class="fc-white"> Cancel </router-link>
   </h3>
 </section>
 </template>
@@ -52,23 +52,32 @@ export default {
 
 section.add-user-container {
     color: black;
-    *{
-        margin: 5px;
-        color: black;
-    }
+    margin-bottom: 30px;
+    overflow-x: hidden;
+
     input {
         border: 1px solid lighten(grey, 30%);
     }
-
     .picture-selector-container{
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        margin-bottom: 15px;
         *{
             margin: 0px;
         }
-        .picture-preview{
+        .picture_preview-container{
+            grid-row: 1;
+            grid-column: 2;
+
             img {
                 max-height: 200px;
                 max-width:200px;
             }
+        }
+        .picture-selector {
+            grid-row: 2;
+            grid-column: 2;
+            min-width: 130px;
         }
     }
 

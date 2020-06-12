@@ -2,15 +2,17 @@
 <div id="my-profile-edit-container"
      v-if="profile_api_status=='success'"
      >
-  <h3> Edit Profile Details </h3>
+  <h3 class="fc-white"> Edit Profile Details </h3>
   <div class="cropped-profile-photo">
     <img class="profile-photo" :src="profile.image" v-if="profile.image!=null"/>
     <img class="profile-photo" src="@/assets/images/placeholder-profile.png" v-else/>
   </div>
+  
   <div class="pd-10"
-       v-on:click="goto_update_profile_picture">
+    v-on:click="goto_update_profile_picture">
     Update Profile Picture <div class="arr-right fc-green"> </div>
   </div>
+
   <div class="genderselect">
     <multiselect
       v-model="gender"
@@ -34,10 +36,17 @@
     </datepicker>
   </div>
 
-  <HeightInput v-model="height"></HeightInput>
-      <WeightInput v-model="weight"></WeightInput>
+  <HeightInput 
+    v-model="height_retrieved"
+    :height_retrieved_from_User="height_retrieved"
+    ></HeightInput>
 
-  <button v-promise-btn class="button width-80 btn-save" v-on:click="update_profile"> Save </button>
+  <WeightInput 
+    v-model="weight_retrieved"
+    :weight_retrieved_from_User="weight_retrieved"
+    ></WeightInput>
+
+  <button v-promise-btn class="button width-80 btn-save" v-on:click="update_profile">Save</button>
 
 
 </div>
@@ -111,12 +120,11 @@ export default {
             set(value) {this.profile.date_of_birth =  moment(value).format("YYYY-MM-DD");}
         },
 
-        height: {
+        height_retrieved: {
             get() {
-                var preferred_unit =  this.profile.height_unit || 'metric';
                 return {
-                    magnitude_si: this.profile.height_cm ,
-                    preferred_unit: preferred_unit,
+                    magnitude_si: this.profile.height_cm,
+                    preferred_unit: this.profile.height_unit || 'metric',
                 };
             },
             set(value) {
@@ -125,7 +133,7 @@ export default {
             }
         },
 
-        weight: {
+        weight_retrieved: {
             get() {
                 return {
                     magnitude_si: this.profile.weight_kg ,
@@ -205,7 +213,19 @@ export default {
     grid-gap: 15px;
 
     .genderselect {
-        width: 80%;
+        width: 300px;
+
+        .multiselect__select {
+            z-index: 2;
+            width: 100px;
+            height: 45px;
+        }
+        .multiselect__tags {
+            border-radius: 50px;
+        }
+        .multiselect__single {
+            line-height: 30px;
+        }
     }
 
     *.datepicker {
@@ -218,18 +238,18 @@ export default {
             color: white;
             background-color: $milife-green;
         }
-
+        * {
+            color: #000;
+        }
     }
-    .profile-photo {
-        height: 200px;
-    }
-
     .date_input{
         margin: 10px 0px;
         height: 45px;
         font-size: calc(15px + 0.5vmin);
     }
-
+    .profile-photo {
+        height: 200px;
+    }
     .btn-save{
         width: 250px;
         padding: 0px;
@@ -237,7 +257,6 @@ export default {
         margin: 20px 0px;
         color: #fff;
     }
-
 }
 </style>
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
