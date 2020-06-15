@@ -1,7 +1,35 @@
 <template>
 <div class="messages-view">
-  <div v-if="status=='success'">
-    <div
+  <div v-if="status=='success'" class="m-view">
+      <div>
+           <div class="sender-image" v-if="false">
+                <div class="unread-dot bg-blue br-50" v-if="message.read==false"> </div>
+                <img :src="message.sender.image" v-if="message.sender.image" />
+                <div class="image-alternate bg-green fc-white fn-18 br-10" v-else >
+                {{message.sender.first_name.charAt(0).toUpperCase()}}
+                </div>
+            </div>
+            <div class="fn-16 fc-darkgrey ta-left fw-700  mb-0 margin-10">
+                {{message.sender.first_name}} {{message.sender.last_name}}
+            </div>
+
+            <div class="fn-11 fc-grey ta-left fw-600 mt-0 margin-10">
+                {{ message.modified_at | moment("Do MMM YY") | uppercase }}
+                ({{ message.modified_at | moment("from") | uppercase }})
+            </div>
+            <div class="fn-14 fc-bluegrey ta-left fw-700 margin-10 message_kind">
+                {{message_kind_label(message.kind)}}
+            </div>
+            <div class="message-content ta-left margin-10 fn-14 mt-0">
+                {{message.content}}
+            </div>
+            <div class="message-content ta-left fn-12 milife-button anchor-container">
+                <a class="mailto pd-20"  :href="reply_mailto_url">Reply</a>
+            </div>
+      </div>
+  </div>
+
+    <!-- <div
       class="message-card bg-white margin-10 fc-black width-90 br-10 pd-10">
       <div class="sender-image" v-if="false">
         <div class="unread-dot bg-blue br-50" v-if="message.read==false"> </div>
@@ -30,7 +58,7 @@
       </div>
     </div>
 
-  </div>
+  </div> -->
 
 </div>
 </template>
@@ -141,27 +169,17 @@ export default {
 
 <style lang="scss">
 .messages-view{
-    .message-card{
-        /* display: grid; */
-        /* height: 100px; */
-        /* grid-template-columns: [column1-start] 1fr 9fr [column2-end]; */
-        /* grid-template-rows: 2fr 1fr 1fr; */
-        /* grid-row-gap: 5px; */
-        /* grid-column-gap: 10px; */
-        /* align-items: center; */
-        height: 80%;
+    height: auto;
+    padding: 20px;
+
+    .message_kind{
+        margin-top: 30px;
     }
-    .sender-name-block{
-        display: flex;
-        flex-direction: column;
-    }
-    .grid-span-both-columns {
-        grid-column: column1-start / column2-end;
-        justify-self: start;
-    }
+
     .message-content{
         align-self: center;
         font-weight: 500;
+        line-height: 1.5;
         color: lighten(#6F7C8E, 10%)
     }
 
