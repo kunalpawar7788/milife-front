@@ -55,7 +55,7 @@
   </div>
   <div class="charts" v-if="representation=='charts'">
     <Multiselect
-      class=""
+      :class="StatsCharts_list"
       v-model="field_to_plot"
       :options="fields_options_l"
       label="label"
@@ -301,6 +301,7 @@ export default{
         display: flex;
         flex-direction: row;
         justify-content: center;
+        font-size: 11pt;
         /* grid-template-columns: 2fr 1fr 2fr; */
 
         .menuitem{
@@ -341,6 +342,10 @@ export default{
         .underweight, .obese, .high, .overweight, .poor, .very-poor {
             color: red;
         }
+    }
+
+    .StatsCharts_list{
+        color: black;
     }
 }
 .redborder {

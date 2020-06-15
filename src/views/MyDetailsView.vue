@@ -2,7 +2,7 @@
 <div class="my-details-view" v-if="status">
   <div class="cropped-profile-photo">
     <img class="profile-photo" :src="profile.image" v-if="profile.image!=null"/>
-    <img class="profile-photo" src="@/assets/images/placeholder-profile.png" v-else/>
+    <img class="profile-photo profile_photo-rounded" src="@/assets/images/placeholder-profile.png" v-else/>
   </div>
   <div class="name fc-white fw-600 fn-18 pd-10"> {{profile.first_name}} {{profile.last_name}} </div>
 
@@ -216,6 +216,10 @@ export default {
       margin-top: auto;
       margin-bottom: auto;
       margin-left: 2em;
+    }
+
+    .profile_photo-rounded{
+      border-radius: 50%;
     }
 }
 </style>

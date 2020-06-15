@@ -74,9 +74,9 @@ export default {
 
 <style lang="scss">
 section.weight-log-container {
-    width: 80%;
+    
     display: block;
-    padding: 10px;
+    
 
     .m-30p {
         margin-top: 20%;
