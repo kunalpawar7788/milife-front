@@ -4,6 +4,7 @@
     <Cropper
       v-if="circle_stencil"
       :src="image_preview"
+      :class="btn_crop"
       v-on:change="onChange"
       ref="cropper"
       minHeight="20"
@@ -18,6 +19,7 @@
     <Cropper v-else
              :src="image_preview"
              v-on:change="onChange"
+             :class="btn_crop"
              ref="cropper"
              minHeight="20"
              minWidth="20"
@@ -31,15 +33,15 @@
   </div>
   <div v-else class="picture_preview-container">
     <label class="label_pictures"> {{label}}</label>
-    <div class="picture-preview preview_afterCrop"  v-if="cropped_image">
+    <div class="picture-preview preview_afterCrop checkin_Image"  v-if="cropped_image">
       <img v-bind:src="cropped_image" />
       <!-- <label v-on:click="reset">reset</label> -->
     </div>
-    <div class="picture-preview preview_afterCrop"  v-else-if="image_preview">
+    <div class="picture-preview preview_afterCrop checkin_Image"  v-else-if="image_preview">
       <img v-bind:src="image_preview" />
       <!-- <label v-on:click="reset">reset</label> -->
     </div>
-    <div class="picture-preview preview_afterCrop "  v-else-if="value">
+    <div class="picture-preview preview_afterCrop profile_editImage"  v-else-if="value">
       <img v-bind:src="value" />
     </div>
   </div>
@@ -195,6 +197,8 @@ export default {
     color: black;
   }
 
+  
+
   .btn_crop-save{
     line-height: 0.5;
     width: 240px;
@@ -286,9 +290,18 @@ export default {
   .picture_preview-container{
     margin-top: 0;
   }
+
+  .checkin_Image{
+    img{
+      border-radius: 0;
+    }
+  }
+
   @media only screen and (max-width: 650px){
     .picture_preview-container{
-      margin-top: 10em;
+      .profile_editImage{
+          margin-top: 10em;
+      }
     }
   }
 
