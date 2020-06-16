@@ -4,18 +4,37 @@
     <SelectedUserDisplay :fobj_user="fobj_user"> </SelectedUserDisplay>
 
     <div class="fc-black">
-    <div v-if="file">
+         <div class="uploader">
+            <p v-if="file">{{csvfile}}</p>
+            <input v-else
+             class="file"
+             type="file"
+             ref="file"
+             id="file file-upload"
+             value="file"
+             v-on:change="handleFileSelect()"
+             ></input>
+                         <!-- <input class="csvfile" ref="csvfile" v-on:change="handleFileSelect()" value="csvfile" id="file-upload" type="file" name="fileUpload" /> -->
+
+            <label for="file-upload" id="file-drag">
+                <div id="start">
+                <div>Select a file or drag here</div>
+                <span id="file-upload-btn" class="btn btn-primary">Select CSV</span>
+                </div>
+            </label>
+        </div>
+    <!-- <div  iv v-if="file">
     <p>{{file}}</p>
 
-      </div>
-      <input v-else
+      </div> -->
+      <!-- <input v-else
              class="file"
              type="file"
              ref="file"
              id="file"
              value="file"
              v-on:change="handleFileSelect()"
-             >  </input>
+             >  </input> -->
     </div>
 
     <div>
@@ -49,7 +68,7 @@
     </div>
 
     <div>
-      <button class="button" @click="upsert_document()"> Save </button>
+      <button class="button btn-save_addDocs" @click="upsert_document()"> Save </button>
     </div>
     <div v-on:click="goto_document_list"> Cancel </div>
   </div>
@@ -270,6 +289,69 @@ export default {
         width: 80%;
 
     }
+
+    .btn-save_addDocs{
+        color: #fff;
+        line-height: 0;
+        width: 240px;
+    }
+
+    .uploader {
+      display: block;
+      clear: both;
+      margin: 30px auto;
+
+    label {
+      float: left;
+      clear: both;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      background: #eee;
+      border-radius: 7px;
+      border: 3px dotted #dadada;
+      transition: all .2s ease;
+      user-select: none;
+    }
+
+    #start {
+      float: left;
+      clear: both;
+      width: 100%;
+      &.hidden {
+        display: none;
+      }
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+
+    div {
+      margin: 0 0 .5rem 0;
+      color: $milife-grey;
+    }
+    .btn {
+      display: inline-block;
+      margin: 2rem .5rem 0rem .5rem;
+      clear: both;
+      font-family: inherit;
+      font-weight: 400;
+      font-size: 15pt;
+      text-decoration: none;
+      text-transform: initial;
+      border: none;
+      border-radius: 2rem;
+      outline: none;
+      padding: 0 1rem;
+      line-height: 2.5em;
+      color: #fff;
+      transition: all 0.2s ease-in-out;
+      box-sizing: border-box;
+      background: $milife-magenta;
+      border-color: $milife-magenta;
+      cursor: pointer;
+    }
+  }
 
 }
 </style>
