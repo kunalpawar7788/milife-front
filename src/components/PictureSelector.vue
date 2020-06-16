@@ -37,7 +37,7 @@
       <img v-bind:src="cropped_image" />
       <!-- <label v-on:click="reset">reset</label> -->
     </div>
-    <div class="picture-preview preview_afterCrop checkin_Image"  v-else-if="image_preview">
+    <div class="picture-preview preview_afterCrop"  v-else-if="image_preview">
       <img v-bind:src="image_preview" />
       <!-- <label v-on:click="reset">reset</label> -->
     </div>

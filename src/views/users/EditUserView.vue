@@ -60,7 +60,7 @@ section.add-user-container {
         grid-template-columns: 1fr 1fr 1fr;
         margin-bottom: 15px;
         *{
-            margin: 0px;
+            margin: auto;
         }
         .picture_preview-container{
             grid-row: 1;
