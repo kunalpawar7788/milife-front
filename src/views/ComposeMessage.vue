@@ -91,6 +91,17 @@ section.compose-message-container {
         padding: 10px;
         margin: 10px;
     }
+    .multiselect {
+        width: 75%;
+        max-width: 380px;
+        display: inline-block;
+        margin-top: 20px;
+    }
+    button.button {
+        height: 0px;
+        line-height: 0;
+        color: #fff;
+    }
 }
 </style>
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
