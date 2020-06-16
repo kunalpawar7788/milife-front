@@ -17,7 +17,7 @@
         <img :src="user.image" v-if="user.image!==null"/>
         <img v-else src="@/assets/images/placeholder-profile.png"/>
         <span> {{user.first_name}} {{user.last_name}}</span>
-        <span v-if='user.is_staff'> Admin </span>
+        <span v-if='user.is_staff' class="is_admin"> Admin </span>
       </div>
     </div>
   </div>
@@ -124,13 +124,18 @@ section.filtered-user-list {
         }
         
         span{
-            font-size: 15pt;
+            font-size: 13pt;
             align-self: center;
             justify-self: left;
-            padding-left: 20px;
-            margin-right: 20px;
+            padding: 0 10px;
         }
         
+        span.is_admin {
+            text-transform: uppercase;
+            font-size: 10pt!important;
+            letter-spacing: 1px;
+        }
+
         &:active{
             background-color:$milife-green;
         }
