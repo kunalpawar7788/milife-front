@@ -119,6 +119,9 @@ export default {
 
 <style lang="scss">
 .messages-list-view {
+    input.text-input::placeholder {
+        font-size: 17px;
+    }
     .message-card{
         display: grid;
         height: 100px;

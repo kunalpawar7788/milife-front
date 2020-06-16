@@ -253,6 +253,10 @@ export default {
   .text_input-td {
     border: 1px solid #fff;
     width: 100%;
+
+    &::placeholder {
+      font-size: 17px;
+    }
   }
 
   .search-icon {
