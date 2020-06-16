@@ -304,5 +304,8 @@ export default {
       }
     }
   }
+  .picture-selector.uploader {
+      justify-self: center;
+  }
 
 </style>

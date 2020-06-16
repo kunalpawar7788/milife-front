@@ -352,6 +352,26 @@ section.user-add-edit-container {
             .multiselect__tags {
                 border-radius: 50px;
             }
+            .multiselect__select {
+                width: 60px!important;
+                margin-top: 5px;
+            }
+            .multiselect__tags {
+                background: #efefef;
+                height: 50px;
+                line-height: 30px;
+                padding-left: 20px;
+                font-size: 18px;
+                font-weight: 400;
+
+                input.multiselect__input {
+                    background: #efefef;
+                }
+            }
+            .multiselect__single {
+                line-height: 30px;
+                background: #efefef;
+            }
         } 
         .dateofbirthselect {
             grid-row: 6;
