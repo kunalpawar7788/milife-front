@@ -5,7 +5,7 @@
     <p>Target Daily Calorie Intake</p>
   </div>
   <p class="fc-white fn-14">
-    Your Meal Grammes and Calories
+    Your Meal Grams and Calories
   </p>
   <table class="br-20 fc-black width-90 fn-11 fw-500 responsive-width">
     <thead>

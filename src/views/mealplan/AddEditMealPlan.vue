@@ -96,7 +96,7 @@
         </tr>
 
         <tr>
-          <td><strong>Total</strong></td>
+          <td class="bottom-left-10"><strong>Total</strong></td>
           <td :class="[total.fat==100? 'green-border': 'red-border']">{{total.fat}}</td>
           <td :class="[total.carbohydrates==100? 'green-border': 'red-border']">{{total.carbohydrates}}</td>
           <td :class="[total.protein==100? 'green-border': 'red-border']">{{total.protein}}</td>
@@ -104,7 +104,7 @@
       </tbody>
     </table>
 
-    <h3 class="meal_heading"> Meal Grammes and calaories</h3>
+    <h3 class="meal_heading"> Meal Grams and Calories</h3>
     <table class="mt-10 bg-white br-20 fc-black width-90 fn-11 fw-500 admin_addMeal">
         <colgroup>
           <col style="column-width: 10px" />
@@ -131,11 +131,11 @@
             <td class="bg-blue" colspan=5></td>
           </tr>
           <tr>
-            <td class="bg-blue"></td>
+            <td class="bg-blue bottom-left-10"></td>
             <td class="bg-blue fw-600" style="color: #FFCD03">{{meal_breakup_totals.fat | round_off(0)}}g</td>
             <td class="bg-blue fw-600" style="color: #8AC53F">{{meal_breakup_totals.carbohydrates | round_off(0)}}g</td>
             <td class="bg-blue fw-600" style="color: #3FA4F0">{{meal_breakup_totals.protein | round_off(0)}}g</td>
-            <td class="bg-blue fw-600 fc-white" >{{meal_breakup_totals.calories}}</td>
+            <td class="bg-blue fw-600 bottom-right-10 fc-white" >{{meal_breakup_totals.calories}}</td>
 
             </tr>
         </tbody>
@@ -354,6 +354,11 @@ export default {
 <style lang="scss">
 .add-edit-meal-plan-container{
     margin: 25px;
+
+    .mt-20 input {
+        width: 260px;
+    }
+
     h3,label {
         color: white;
     }
@@ -409,6 +414,12 @@ export default {
         tr td:first-child{
             width: 100px;
         }
+        .bottom-left-10 {
+            border-bottom-left-radius: 10px;
+        }
+        .bottom-right-10 {
+            border-bottom-right-radius: 10px;
+        }
     }
     table.macronutrient{
         tr:not(:nth-child(1)) td:nth-child(even){
@@ -452,7 +463,7 @@ export default {
     .admin_addMeal-saveBtn{
         color: #fff;
         line-height: 0;
-        width: 240px;
+        width: 220px;
         margin: auto;
     }
 }
