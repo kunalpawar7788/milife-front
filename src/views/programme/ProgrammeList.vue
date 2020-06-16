@@ -134,6 +134,7 @@ export default {
             margin-right: 0;
             padding-right: 15px;
             float: right;
+            margin-bottom: 14px;
 
             strong {
                 font-weight: 600;
@@ -161,6 +162,7 @@ export default {
             padding-top: 0.5em;
             padding-bottom: 0.5em;
             font-weight: 500;
+            width: 100%;
 
             span {
                 display: flex;

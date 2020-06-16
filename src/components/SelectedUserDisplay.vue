@@ -42,7 +42,7 @@ export default{
 @media screen and (max-width: 358px) {
     .disabled-input-text {
         input{
-            width:80%;
+            width:300px;
         }
     }
 }

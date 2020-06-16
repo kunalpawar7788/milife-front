@@ -141,11 +141,12 @@ export default {
     grid-template-columns: 1fr 8fr 1fr;
     grid-row-gap: 10px;
     justify-items: center;
+    padding-bottom: 30px;
+
     * {
         color: black;
     }
     input{
-        border: 1px solid lighten(grey, 30%);
         padding:0;
         text-indent: 15px;
     }
@@ -153,10 +154,12 @@ export default {
         grid-column: 2;
     }
     .button {
-        height: 20px;
+        height: 0px;
         width: 100%;
+        max-width: 280px;
         padding-left:0;
         padding-right:0;
+        line-height: 0;
     }
 
 
