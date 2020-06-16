@@ -158,6 +158,7 @@ div.choicefield-container{
             content: url($milife-dropdown-icon);
             margin-right: -5px;
             padding: 10px;
+            margin-top: 5px;
         }
         div.multiselect__tags {
             background: $milife_green;

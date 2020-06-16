@@ -306,11 +306,9 @@ export default {
 <style lang="scss">
 section.user-add-edit-container {
     color: black;
+    display: grid;
     *{
         color: black;
-    }
-    input {
-        border: 1px solid lighten(grey, 30%);
     }
     #error-box{
         text-align: right;
@@ -365,6 +363,7 @@ section.user-add-edit-container {
         }
         .is_staff {
             grid-row: 7;
+            padding: 2px 13px!important;
             
             label {
                 color: #fff;
@@ -373,6 +372,7 @@ section.user-add-edit-container {
         }
         .is_active {
             grid-row: 8;
+            padding: 2px 13px!important;
             
             label {
                 color: #fff;

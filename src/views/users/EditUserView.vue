@@ -55,9 +55,6 @@ section.add-user-container {
     margin-bottom: 30px;
     overflow-x: hidden;
 
-    input {
-        border: 1px solid lighten(grey, 30%);
-    }
     .picture-selector-container{
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;

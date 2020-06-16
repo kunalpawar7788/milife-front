@@ -217,7 +217,7 @@ export default {
 
         .multiselect__select {
             z-index: 2;
-            width: 100px;
+            width: 60px;
             height: 45px;
         }
         .multiselect__tags {
