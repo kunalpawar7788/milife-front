@@ -42,7 +42,7 @@ export default {
             data: "",
         };
     },
-    props: ['fobj_user', 'weight_list_dashboard'],
+    props: ['fobj_user', 'data_dashboard'],
     // weight_list_dashboard is the weight log fetched from the ClientDashboard.vue 
 
     computed: {
@@ -59,7 +59,7 @@ export default {
             return window.innerWidth * 0.95 * 0.45;
         },
         weight_log: function(){
-            return this.$_.orderBy(this.data, 'measured_on');
+            return this.$_.orderBy(this.data.weight_log, 'measured_on');
         },
         current_weight: function(){
             return this.$_.last(this.weight_log);
@@ -90,7 +90,7 @@ export default {
         },
 
         set_weight_chart_data: function() {
-            this.data = this.weight_list_dashboard;
+            this.data = this.data_dashboard;
             this.status = "ready";
         },
 
