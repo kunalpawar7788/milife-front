@@ -74,7 +74,7 @@ export default {
         flex-flow: column;
         justify-content: center;
         align-items: center;
-        height: 100vmin;
+        
     }
     .btn_profileUpload-save {
         width: 240px;
