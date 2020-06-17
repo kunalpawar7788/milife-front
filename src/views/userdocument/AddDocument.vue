@@ -3,7 +3,7 @@
     <SelectedUserDisplay :fobj_user="fobj_user"></SelectedUserDisplay>
 
     <div class="fc-black fileUploader-center">
-      <div class="uploader">
+      <div class="uploader add_docs_uploader">
         <p v-if="file">{{csvfile}}</p>
         <input
           class="csvfile"
@@ -295,7 +295,7 @@ export default {
         width: 70%;
         margin: auto;
     }
-  .uploader {
+  .add_docs_uploader {
     display: block;
     clear: both;
     margin: 30px auto;

@@ -1,7 +1,7 @@
 <template>
 <section class="upload-csv-container">
 
-  <div class="uploader">
+  <div class="uploader csv_uploader">
     <p>{{csvfile}}</p>
     <input class="csvfile" ref="csvfile" v-on:change="handleFileSelect()" value="csvfile" id="file-upload" type="file" name="fileUpload" />
 
@@ -128,7 +128,7 @@ section.upload-csv-container {
         border-spacing: 10px 1.5em;
     }
 
-    .uploader {
+    .csv_uploader {
       display: block;
       clear: both;
       margin: 30px auto;
