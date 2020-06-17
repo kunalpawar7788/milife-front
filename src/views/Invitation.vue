@@ -74,5 +74,10 @@ export default {
     color: white;
   }
 
+
+  .milife-button__fullsize{
+    width: 240px;
+    line-height: 1;
+  }
 </style>
 
