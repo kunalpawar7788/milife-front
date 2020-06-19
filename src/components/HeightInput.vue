@@ -139,7 +139,7 @@ div.choicefield-container{
         align-self: center;
         justify-self: left;
         margin: 0;
-        padding: 0 10px;
+        padding: 0 5px;
 
         label {
             font-size: 13px;
@@ -153,6 +153,7 @@ div.choicefield-container{
 
         div.multiselect {
             margin: 0;
+            width: 107px;
         }
 
         .multiselect--active .multiselect__select{
@@ -161,21 +162,17 @@ div.choicefield-container{
         .multiselect__select {
             background: $milife_green;
             color: #fff;
-            z-index: 3;
             content: url($milife-dropdown-icon);
-            margin-right: -5px;
-            padding: 10px;
+            width: 31px;
             margin-top: 5px;
         }
         div.multiselect__tags {
             background: $milife_green;
             color: #fff;
-            width: 122px;
             height: 50px;
             border: none;
             border-top-left-radius: 50px;
             border-bottom-left-radius: 50px;
-            margin-right: -6px;
 
             .multiselect__single {
                 background: $milife_green;
@@ -202,7 +199,7 @@ div.choicefield-container{
         }
     }
     div.feet {
-        width: 50px;
+        width: 56px;
 
         input {
             margin: 0;
@@ -212,8 +209,8 @@ div.choicefield-container{
         }
     }
     div.inches {
-        width: 75px;
-        margin-left: -4px;
+        width: 81px;
+        margin-left: 2px;
         border-radius: 0px 50px 50px 0px;
 
         p {
@@ -221,7 +218,7 @@ div.choicefield-container{
         }
     }
     div.cms {
-        width: 120px;
+        width: 135px;
         border-radius: 0px 50px 50px 0px;
 
         input {
@@ -239,6 +236,11 @@ div.choicefield-container{
         input {
             height: 50px;
             margin: 0;
+            font-family: Montserrat;
+
+            &::placeholder {
+                font-size: 15px;
+            }
         }
         p {
             margin: 0px -4px 0 0!important;
@@ -289,7 +291,7 @@ div.choicefield-container{
     * input {
         text-align: center;
         font-size: 15pt;
-        font-family: Monteserrat;
+        font-family: Montserrat;
         border: none!important;
         padding: 0;
         width: 100%;
