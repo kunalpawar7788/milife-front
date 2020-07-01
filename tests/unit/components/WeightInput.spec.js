@@ -1,53 +1,43 @@
+import Vue from "vue";
 import { shallowMount } from "@vue/test-utils";
 import WeightInput from "@/components/WeightInput.vue";
 
 describe("WeightInput.vue", () => {
-  let wrapper = null;
-
-  beforeEach(() => {
-    wrapper = shallowMount(WeightInput, {
-      propsData: {
-        value: {
-          preferred_unit: "metric",
-          magnitude_si: 0,
-        },
+  let wrapper = shallowMount(WeightInput, {
+    propsData: {
+      weight_retrieved_from_User: {
+        preferred_unit: "metric",
+        magnitude_si: 70,
       },
-    });
-  });
-
-  afterEach(() => {
-    wrapper.destroy();
+    },
   });
 
   it("inititalizes correctly", () => {
     expect(wrapper.name()).toMatch("WeightInput");
-
-    expect(wrapper.vm.value.preferred_unit).toMatch("metric");
-    expect(wrapper.vm.value.magnitude_si).toBe(0);
-
-    expect(wrapper.vm.choice_menu_open).toBeFalsy();
-    expect(wrapper.vm.choices).toContain("imperial");
-    expect(wrapper.vm.choices).toContain("metric");
-    expect(wrapper.vm.preferred_unit).toMatch("");
-    expect(wrapper.vm.magnitude_si).toBe(0);
+    expect(wrapper.vm.weight_retrieved_from_User.preferred_unit).toMatch("metric");
+    expect(wrapper.vm.weight_retrieved_from_User.magnitude_si).toBe(70);
+    expect(wrapper.vm.weight_options).toContain("metric");
+    expect(wrapper.vm.weight_options).toContain("imperial");
+    expect(wrapper.vm.magnitude_si).toBe(70);
     expect(wrapper.vm.stones2kg).toBe(6.35);
     expect(wrapper.vm.pounds2kg).toBe(0.45);
   });
 
-  it("selects choice correctly", () => {
-    expect(wrapper.vm.selected).toMatch("metric");
-
-    wrapper.vm.select_choice("imperial");
-    expect(wrapper.vm.selected).toMatch("imperial");
-
-    wrapper.vm.select_choice("metric");
-    expect(wrapper.vm.selected).toMatch("metric");
+  it("rounds off values correctly", () => {
+    expect(wrapper.vm.round_off2(13.345)).toBe(13.35);
   });
 
-  it("hides choice menu when choice is selected", () => {
-    wrapper.vm.choice_menu_open = true;
-    wrapper.vm.select_choice("metric");
-    expect(wrapper.vm.choice_menu_open).toBeFalsy();
+  it("emits results", async () => {
+    wrapper.vm.weight = "metric";
+    wrapper.vm.magnitude_si = 70;
+
+    wrapper.vm.emit_result();
+    await Vue.nextTick();
+
+    expect(wrapper.emitted("input")[0][0]).toEqual({
+      preferred_unit: "metric",
+      magnitude_si: 70,
+    });
   });
 
   it("converts stones to kg", () => {
@@ -67,20 +57,22 @@ describe("WeightInput.vue", () => {
   });
 
   it("gets & sets computed property kgs", () => {
-    expect(wrapper.vm.kgs).toBe(0);
+    expect(wrapper.vm.kgs).toBe(70);
     wrapper.vm.kgs = 60;
-    expect(wrapper.vm.kgs).toBe(60);
+    expect(wrapper.vm.magnitude_si).toBe(60);
   });
 
   it("gets & sets computed property pounds", () => {
-    expect(wrapper.vm.pounds).toBe(0);
+    expect(wrapper.vm.kgs).toBe(70);
+    expect(wrapper.vm.pounds).toBe(0.28);
     wrapper.vm.pounds = 10;
-    expect(wrapper.vm.pounds).toBe(10);
+    expect(wrapper.vm.magnitude_si).toBeCloseTo(74.35);
   });
 
   it("gets & sets the computed property stones", () => {
-    expect(wrapper.vm.stones).toBe(0);
+    expect(wrapper.vm.kgs).toBe(70);
+    expect(wrapper.vm.stones).toBe(11);
     wrapper.vm.stones = 10;
-    expect(wrapper.vm.stones).toBe(10);
+    expect(wrapper.vm.magnitude_si).toBeCloseTo(63.63);
   });
 });

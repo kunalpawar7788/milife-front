@@ -70,7 +70,6 @@ and the unit chosen by the user.
                 return this.get_feet_from_cm(this.height_retrieved_from_User.magnitude_si);
             },
             set(value){
-                console.log('feet', value);
                 value = Number(value);
 
                 this.magnitude_si = this.get_cm_from_feet(value) + this.get_cm_from_inches(this.inches);
@@ -89,16 +88,13 @@ and the unit chosen by the user.
         },
 
         get_cm_from_feet: function(feet){
-            console.log('cm from feet',feet,  feet * this.feet2cm);
             return feet * this.feet2cm;
         },
         get_cm_from_inches: function(inches){
-            console.log('cm from inches', inches,  inches * this.inch2cm);
             return inches * this.inch2cm;
         },
 
         get_feet_from_cm: function(cm){
-            console.log('get_feet_from_cm', cm, Math.floor(cm / this.feet2cm));
             return Math.floor(cm / this.feet2cm);
         },
         get_inches_from_cm: function(cm){
@@ -106,7 +102,6 @@ and the unit chosen by the user.
             if (cm >= this.feet2cm){
                 value = cm / this.feet2cm % 1 * 12;
             }
-            console.log('get_inches_from_cm', cm, Math.floor(cm / this.feet2cm));
             return parseInt(Math.round(value*100)/100)
         },
         set_height_data: function(height_retrieved_from_User) {

@@ -2,12 +2,11 @@
 <div class="file-selector-container">
   <label> {{label}}</label>
   <div class="file-preview"  v-if="file_preview">
-    <
-    <img v-bind:src="file_preview"> </img>
+    <img v-bind:src="file_preview">
     <label v-on:click="reset">reset</label>
   </div>
   <div class="file-preview"  v-else-if="value">
-    <img v-bind:src="value"> </img>
+    <img v-bind:src="value">
     <label v-on:click="reset">reset won\&quott work</label>
   </div>
 

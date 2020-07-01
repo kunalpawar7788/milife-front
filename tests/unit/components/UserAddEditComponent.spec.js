@@ -117,29 +117,29 @@ describe("UserAddEditComponent.vue", () => {
     expect(wrapper.vm.date_of_birth).toMatch("2020-05-01");
   });
 
-  it("gets & sets 'height' values correctly", () => {
-    wrapper.vm.height = { magnitude_si: 170, preferred_unit: "metric" };
-    expect(wrapper.vm.height).toEqual({
+  it("gets & sets 'height_retrieved' values correctly", () => {
+    wrapper.vm.height_retrieved = { magnitude_si: 170, preferred_unit: "metric" };
+    expect(wrapper.vm.height_retrieved).toEqual({
       magnitude_si: 170,
       preferred_unit: "metric",
     });
 
-    wrapper.vm.height = { magnitude_si: 170, preferred_unit: "imperial" };
-    expect(wrapper.vm.height).toEqual({
+    wrapper.vm.height_retrieved = { magnitude_si: 170, preferred_unit: "imperial" };
+    expect(wrapper.vm.height_retrieved).toEqual({
       magnitude_si: 170,
       preferred_unit: "imperial",
     });
   });
 
-  it("gets & sets 'weight' values correctly", () => {
-    wrapper.vm.weight = { magnitude_si: 70, preferred_unit: "metric" };
-    expect(wrapper.vm.weight).toEqual({
+  it("gets & sets 'weight_retrieved' values correctly", () => {
+    wrapper.vm.weight_retrieved = { magnitude_si: 70, preferred_unit: "metric" };
+    expect(wrapper.vm.weight_retrieved).toEqual({
       magnitude_si: 70,
       preferred_unit: "metric",
     });
 
-    wrapper.vm.height = { magnitude_si: 70, preferred_unit: "imperial" };
-    expect(wrapper.vm.height).toEqual({
+    wrapper.vm.weight_retrieved = { magnitude_si: 70, preferred_unit: "imperial" };
+    expect(wrapper.vm.weight_retrieved).toEqual({
       magnitude_si: 70,
       preferred_unit: "imperial",
     });
@@ -279,15 +279,15 @@ describe("UserAddEditComponent.vue", () => {
     expect(wrapper2.vm.date_of_birth).toMatch(user.date_of_birth);
   });
 
-  it("gets 'height' values correctly when props given", () => {
-    expect(wrapper2.vm.height).toEqual({
+  it("gets 'height_retrieved' values correctly when props given", () => {
+    expect(wrapper2.vm.height_retrieved).toEqual({
       magnitude_si: user.height_cm,
       preferred_unit: user.height_unit,
     });
   });
 
-  it("gets 'weight' values correctly when props given", () => {
-    expect(wrapper2.vm.weight).toEqual({
+  it("gets 'weight_retrieved' values correctly when props given", () => {
+    expect(wrapper2.vm.weight_retrieved).toEqual({
       magnitude_si: user.weight_kg,
       preferred_unit: user.weight_unit,
     });

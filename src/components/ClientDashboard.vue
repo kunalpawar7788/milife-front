@@ -13,7 +13,7 @@
       Calorie Target
     </div>
     <div class="link" v-on:click="goto_view_meal_breakdown">
-      View breakdown &gt
+      View breakdown &gt;
     </div>
   </section>
 
@@ -62,7 +62,7 @@
               <span class="">Stats from
                 <template  v-if="this.data.first_checkin" > {{this.data.first_checkin.date_of_checkin | moment("DD.MM.YYYY")}} </template>
               </span>
-              <span v-on:click="goto_detailed_report">View More &gt</span>
+              <span v-on:click="goto_detailed_report">View More &gt;</span>
             </div>
           </td>
         </tr>

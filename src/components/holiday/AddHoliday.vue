@@ -50,8 +50,7 @@ export default {
             start_date: '',
             end_date: '',
             description: '',
-            programme_end_date: '',
-            // days_missed: '',
+            programme_end_date: ''
         }
     },
     components: {Datepicker, },
@@ -84,7 +83,6 @@ export default {
             }
         },
     },
-    
     methods: {
         reset: function() {
             this.date = '';
@@ -101,12 +99,9 @@ export default {
                     })
                     .catch(err => {
                         this.status='error';
-                        console.log(err);
                         reject(err);
                     });
             });
-            
-            
         },
     },
     monuted(){

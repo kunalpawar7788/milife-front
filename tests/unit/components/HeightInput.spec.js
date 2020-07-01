@@ -3,38 +3,24 @@ import { shallowMount } from "@vue/test-utils";
 import HeightInput from "@/components/HeightInput.vue";
 
 describe("HeightInput.vue", () => {
-  let wrapper = null;
-
-  beforeEach(() => {
-    wrapper = shallowMount(HeightInput, {
-      propsData: {
-        value: {
-          magnitude_si: 170,
-          preferred_unit: "metric",
-        },
+  let wrapper = shallowMount(HeightInput, {
+    propsData: {
+      height_retrieved_from_User: {
+        magnitude_si: 170,
+        preferred_unit: "metric",
       },
-    });
-  });
-
-  afterEach(() => {
-    wrapper.destroy();
+    },
   });
 
   it("initializes correctly", () => {
-    expect(wrapper.vm.choice_menu_open).toBeFalsy();
-    expect(wrapper.vm.choices).toContain("metric");
-    expect(wrapper.vm.choices).toContain("imperial");
-    expect(wrapper.vm.preferred_unit).toBe("");
-    expect(wrapper.vm.magnitude_si).toBe(0);
+    expect(wrapper.name()).toMatch("HeightInput");
+    expect(wrapper.vm.height_retrieved_from_User.preferred_unit).toMatch("metric");
+    expect(wrapper.vm.height_retrieved_from_User.magnitude_si).toBe(170);
+    expect(wrapper.vm.height_options).toContain("metric");
+    expect(wrapper.vm.height_options).toContain("imperial");
+    expect(wrapper.vm.magnitude_si).toBe(170);
     expect(wrapper.vm.feet2cm).toBe(30.48);
     expect(wrapper.vm.inch2cm).toBe(2.54);
-  });
-
-  it("selects choice correctly", () => {
-    wrapper.vm.select_choice("imperial");
-    expect(wrapper.vm.selected).toMatch("imperial");
-    wrapper.vm.select_choice("metric");
-    expect(wrapper.vm.selected).toMatch("metric");
   });
 
   it("rounds off values correctly", () => {
@@ -42,7 +28,7 @@ describe("HeightInput.vue", () => {
   });
 
   it("emits results", async () => {
-    wrapper.vm.preferred_unit = "metric";
+    wrapper.vm.height = "metric";
     wrapper.vm.magnitude_si = 170;
 
     wrapper.vm.emit_result();
@@ -67,13 +53,7 @@ describe("HeightInput.vue", () => {
   });
 
   it("gets inches from cm", () => {
-    expect(wrapper.vm.get_inches_from_cm(170)).toBe(6.93);
-  });
-
-  it("gets & sets computed property 'selected'", () => {
-    expect(wrapper.vm.selected).toMatch("metric");
-    wrapper.vm.selected = "imperial";
-    expect(wrapper.vm.selected).toMatch("imperial");
+    expect(wrapper.vm.get_inches_from_cm(170)).toBe(6);
   });
 
   it("gets & sets computed property 'cms'", () => {
@@ -83,7 +63,7 @@ describe("HeightInput.vue", () => {
   });
 
   it("gets & sets computed property 'inches'", () => {
-    expect(wrapper.vm.inches).toBe(6.93);
+    expect(wrapper.vm.inches).toBe(6);
     wrapper.vm.inches = 6;
     expect(wrapper.vm.magnitude_si).toBeCloseTo(167.64);
   });
@@ -91,6 +71,6 @@ describe("HeightInput.vue", () => {
   it("gets & sets computed property 'feet'", () => {
     expect(wrapper.vm.feet).toBe(5);
     wrapper.vm.feet = 6;
-    expect(wrapper.vm.magnitude_si).toBeCloseTo(200.48);
+    expect(wrapper.vm.magnitude_si).toBeCloseTo(198.12);
   });
 });

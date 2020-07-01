@@ -16,8 +16,7 @@ export default{
                 return this.value + this.suffix;
             },
             set(newvalue){
-                //var regex = "/(" + this.suffix +")$/";
-                var retval = newvalue.replace(this.suffix, "");
+                var retval = newvalue + this.suffix;
                 if (Number(retval) === NaN) {
                     retval = this.local;
                 }

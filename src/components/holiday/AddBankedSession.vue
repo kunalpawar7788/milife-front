@@ -45,9 +45,7 @@ export default {
                 date: moment(this.date).format('YYYY-MM-DD'),
                 kind: 'C',
             }
-            
         },
-        
     },
     methods: {
         reset: function(){
@@ -66,13 +64,11 @@ export default {
                     })
                     .catch(err => {
                         this.status='error';
-                        console.log(err);
                         reject(err);
                     });
             });
         },
     },
-    
     mounted(){
         this.$store.dispatch("theme/set_theme_white");
     },

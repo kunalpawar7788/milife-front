@@ -25,13 +25,13 @@ export default {
     props: {},
     components: {AddHoliday, ListHolidays, FoldableContainer},
     computed:{
-        user_pk: function(){
+        user_pk: function() {
             return this.$route.params.pk;
         },
         is_admin: function() {
             return this.$store.state.auth.user.is_staff;
         },
-        session_days: function(){
+        session_days: function() {
             var l = [];
             var time= {};
             for (var day in this.sessions){
@@ -40,7 +40,6 @@ export default {
                     if (time.HH!='' && time.mm!=''){
                         l.push(day);
                     }
-
                 }
             }
             return l;
@@ -62,10 +61,9 @@ export default {
             },
             selected: 'add-holiday',
             programme: {},
-
+            params: {}
         };
     },
-
     methods: {
         fetch_programme: function(user_pk, programme_pk){
             const url = process.env.VUE_APP_BASE_URL+'/api/users/' + user_pk + "/programmes/" + programme_pk;
@@ -84,22 +82,16 @@ export default {
                         else {
                             this.sessions[day] = {HH: '', mm: ''};
                         }
-                        console.log(this.sessions);
                     }
                 })
                 .catch(err => {
                     this.status="error";
-                    console.log(err);
                 });
-
         },
-
     },
     mounted() {
         this.fetch_programme(this.$route.params.pk, this.$route.params.programme_pk);
         this.$store.dispatch("theme/set_theme_white");
     },
-
 }
-
 </script>

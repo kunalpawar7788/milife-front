@@ -45,9 +45,7 @@ export default {
                 date: moment(this.date).format('YYYY-MM-DD'),
                 kind: 'D',
             }
-            
         },
-        
     },
     methods: {
         reset: function(){
@@ -66,7 +64,6 @@ export default {
                     })
                     .catch(err => {
                         this.status='error';
-                        console.log(err);
                         reject(err);
                     });
             });

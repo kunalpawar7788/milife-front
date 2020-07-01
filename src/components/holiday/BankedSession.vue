@@ -28,11 +28,6 @@ export default {
         AvailBankedSession,
         FoldableContainer,
     },
-    
-    props: {
-        
-    },
-    
     computed: {
         user_pk: function(){
             return this.$route.params.pk;
@@ -47,20 +42,17 @@ export default {
             const base_url = process.env.VUE_APP_BASE_URL+'/api/users/' + this.user_pk;
             return `${process.env.VUE_APP_BASE_URL}/api/programmes/${this.programme_pk}/leave-ledger`;
         },
-        
     },
     methods: {
         fetch_balance: function(){
             return new Promise((resolve, reject) => {
                 this.$http({url: this.url, method: "GET"})
                     .then(resp => {
-                        console.log(resp.data)
                         resolve(resp);
                         this.balance = resp.data['balance'];
                     })
                     .catch(err => {
                         this.status='error';
-                        console.log(err);
                         reject(err);
                     });
             });
@@ -70,7 +62,6 @@ export default {
         this.fetch_balance();
         this.$store.dispatch("theme/set_theme_white");
     },
-    
 }
 </script>
 

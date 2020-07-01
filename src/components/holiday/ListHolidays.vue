@@ -2,7 +2,7 @@
 <div class="list-holidays-container">
   
   <div v-if="status=='success'">
-      <div class="holiday_list-block" v-for="record in holidays">
+      <div class="holiday_list-block" v-for="record in holidays" :key="record.id">
           <div class="holiday_list-dates">
               <div class="holiday_list-startdate">
                   <p class="margin-0 fnt-bold">Start</p>
@@ -32,11 +32,6 @@ export default {
             holidays: '',
         };
     },
-    components: {
-        
-    },
-    props: {
-    },
     computed: {
         user_pk: function() {
             return this.$route.params.pk;
@@ -59,7 +54,6 @@ export default {
                 })
                 .catch(err => {
                     this.status="error";
-                    console.log(err);
                 });
         }
     },
@@ -67,7 +61,6 @@ export default {
         this.fetch_holidays();
         this.$store.dispatch("theme/set_theme_white");
     },
-
 }
 </script>
 

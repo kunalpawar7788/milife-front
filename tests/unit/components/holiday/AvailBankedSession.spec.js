@@ -1,12 +1,12 @@
 import Vue from "vue";
 import VuePromiseBtn from "vue-promise-btn";
 import { shallowMount } from "@vue/test-utils";
-import AddBankedSession from "@/components/holiday/AddBankedSession.vue";
+import AvailBankedSession from "@/components/holiday/AvailBankedSession.vue";
 
-describe("AddBankedSession.vue", () => {
+describe("AvailBankedSession.vue", () => {
   Vue.use(VuePromiseBtn);
 
-  let wrapper = shallowMount(AddBankedSession, {
+  let wrapper = shallowMount(AvailBankedSession, {
     mocks: {
       $http: jest.fn(() => Promise.resolve("resolved")),
       $route: {
@@ -43,7 +43,7 @@ describe("AddBankedSession.vue", () => {
     wrapper.vm.date = "2020-01-01";
     expect(wrapper.vm.data).toEqual({
       date: "2020-01-01",
-      kind: "C",
+      kind: "D",
     });
   });
 
@@ -57,9 +57,9 @@ describe("AddBankedSession.vue", () => {
     wrapper.vm.date = "2020-01-01";
     const data = {
       date: "2020-01-01",
-      kind: "C",
+      kind: "D",
     };
-    wrapper.vm.add_banked_session();
+    wrapper.vm.avail_banked_session();
     await Vue.nextTick();
 
     expect(wrapper.vm.$http).toBeCalledWith({
