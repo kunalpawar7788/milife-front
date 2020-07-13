@@ -107,7 +107,7 @@ and the unit chosen by the user.
                 value = cm / this.feet2cm % 1 * 12;
             }
             console.log('get_inches_from_cm', cm, Math.floor(cm / this.feet2cm));
-            return Math.round(value*100)/100
+            return parseInt(Math.round(value*100)/100)
         },
         set_height_data: function(height_retrieved_from_User) {
             this.height = this.height_retrieved_from_User.preferred_unit;
@@ -207,6 +207,17 @@ div.choicefield-container{
         p {
             padding: 0px 10px 0 0px;
         }
+
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+        }
+
     }
     div.inches {
         width: 81px;
@@ -215,6 +226,16 @@ div.choicefield-container{
 
         p {
             padding: 0px 10px 0 0px;
+        }
+
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
         }
     }
     div.cms {
@@ -226,6 +247,16 @@ div.choicefield-container{
         }
         p {
             padding: 0px 22px 0 0px;
+        }
+
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
         }
     }
     div.feet, div.inches, div.cms {
@@ -240,6 +271,16 @@ div.choicefield-container{
 
             &::placeholder {
                 font-size: 15px;
+            }
+
+            input[type=number] {
+                -moz-appearance: textfield;
+            }
+
+            input::-webkit-outer-spin-button,
+            input::-webkit-inner-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
             }
         }
         p {

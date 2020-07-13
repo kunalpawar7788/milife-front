@@ -112,6 +112,19 @@ export default {
     color: dimgray;
   }
 
+  .imperial{
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  }
+
+  /* Firefox */
+  input[type=number] {
+    -moz-appearance: textfield;
+  }
+
   .metric input.weight-input {
     width: 160px;
   }

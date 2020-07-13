@@ -200,6 +200,17 @@ div.choicefield-container{
         p {
             padding: 0px 10px 0 0px;
         }
+
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+        }
+
+        /* Firefox */
+        input[type=number] {
+        -moz-appearance: textfield;
+        }
     }
     div.pounds {
         width: 81px;
@@ -208,6 +219,17 @@ div.choicefield-container{
 
         p {
             padding: 0px 10px 0 0px;
+        }
+
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+        }
+
+        /* Firefox */
+        input[type=number] {
+        -moz-appearance: textfield;
         }
     }
     div.kgs {
@@ -219,6 +241,17 @@ div.choicefield-container{
         }
         p {
             padding: 0px 22px 0 0px;
+        }
+
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+        }
+
+        /* Firefox */
+        input[type=number] {
+        -moz-appearance: textfield;
         }
     }
     div.stones, div.pounds, div.kgs {
@@ -235,6 +268,18 @@ div.choicefield-container{
                 font-size: 15px;
             }
         }
+
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+        }
+
+        /* Firefox */
+        input[type=number] {
+        -moz-appearance: textfield;
+        }
+
         p {
             margin: 0px -4px 0 0!important;
             line-height: 50px;
