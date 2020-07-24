@@ -19,19 +19,19 @@
         <h3>Log Pictures</h3>
         <div class="picturelog_profiles">
             <div class="picture-input-side-profile picturelog_sideProfile">
-                <PictureSelector
+                <CheckinPictureSelector
                     v-model="photo_side_profile"
                     id="side_profile"
                     label="Side Profile"
-                    > </PictureSelector>
+                    > </CheckinPictureSelector>
             </div>
     
             <div class="picture-input-front-profile picturelog_frontProfile">
-                <PictureSelector
+                <CheckinPictureSelector
                     v-model="photo_front_profile"
                     id="front_profile"
                     label="Front Profile"
-                    > </PictureSelector>
+                    > </CheckinPictureSelector>
             </div>
         </div>
     </div>
@@ -61,14 +61,14 @@
 <script>
 import Datepicker from 'vuejs-datepicker'
 import NumberInput from "vue-number-input"
-import PictureSelector from '@/components/PictureSelector'
+import CheckinPictureSelector from '@/components/CheckinPictureSelector'
 import moment from 'moment'
 import ErrorMessage from '@/components/ErrorMessage.vue'
 
 export default {
     name: "CheckinForm",
     props: ['fobj_user', ],
-    components: {Datepicker, PictureSelector, NumberInput, ErrorMessage},
+    components: {Datepicker, CheckinPictureSelector, NumberInput, ErrorMessage},
     data() {
         return {
             formfields: [
@@ -273,8 +273,10 @@ export default {
 
         .picturelog_profiles{
             display: grid;
+            grid-gap: 10px;
             grid-template-columns: auto auto;
             text-align: -webkit-center;
+            padding: 10px;
         }
 
         .picturelog_sideProfile{
