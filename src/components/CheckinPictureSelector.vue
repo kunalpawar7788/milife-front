@@ -174,10 +174,18 @@ export default {
       .fullscreen {
         z-index: 100;
         height: 100vh;
+<<<<<<< HEAD
         width: 100%;
         overflow: auto;
         background-color: $milife-blue;
         position: fixed;
+=======
+
+        width: 99%;
+        overflow:auto;
+        background-color: $milife-blue;
+        position:fixed;
+>>>>>>> fix file upload in checkin screen
         display: flex;
         flex-flow: column;
         justify-content: center;
