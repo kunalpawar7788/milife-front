@@ -12,7 +12,7 @@
       :stencilComponent="$options.components.CircleStencil"
       :stencilProps="{
                      minAspectRatio: 8/8,
-                     maxAspectRatio: 10/8
+                     maxAspectRatio: 8/8
                      }"
       />
 
@@ -173,8 +173,8 @@ export default {
   .checkin_picture-selector-container {
       .fullscreen {
         z-index: 100;
-        height: 100vh;
-
+        height: 91vh;
+        padding: 5rem 0px;
         width: 99%;
         overflow:auto;
         background-color: $milife-blue;
