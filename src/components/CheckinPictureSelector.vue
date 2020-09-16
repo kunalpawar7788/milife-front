@@ -24,8 +24,8 @@
              minHeight="20"
              minWidth="20"
              :stencilProps="{
-                minAspectRatio: 9/16,
-                maxAspectRatio: 9/16
+                minAspectRatio: 0,
+                maxAspectRatio: 0
              }"
       />
 
