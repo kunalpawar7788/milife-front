@@ -12,7 +12,7 @@
       :stencilComponent="$options.components.CircleStencil"
       :stencilProps="{
                      minAspectRatio: 8/8,
-                     maxAspectRatio: 10/8
+                     maxAspectRatio: 8/8
                      }"
       />
 
@@ -180,7 +180,7 @@ export default {
 <style lang="scss">
   .fullscreen {
       z-index: 100;
-      height: 88vh;
+      height: 91vh;
       padding: 3rem 0px;
       width: 99%;
       overflow:auto;
