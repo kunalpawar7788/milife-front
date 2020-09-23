@@ -173,8 +173,8 @@ export default {
   .checkin_picture-selector-container {
       .fullscreen {
         z-index: 100;
-        height: 91vh;
-        padding: 5rem 0px;
+        height: 100vh;
+        padding: 0px;
         width: 99%;
         overflow:auto;
         background-color: $milife-blue;
@@ -184,6 +184,18 @@ export default {
         justify-content: center;
         top: 0;
         left: 0;
+
+        * {
+            max-height: 500px;
+            max-width:500px;
+            align-self: center;
+        }
+        @media only screen and (max-width: 550px){
+            * {
+                max-width: 300px;
+                max-height: 300px;
+            }
+        }
     }
 
     .label_pictures{
@@ -193,8 +205,8 @@ export default {
 
     .btn_crop-save{
         line-height: 0.5;
-        width: 240px;
-        margin: 30px auto;
+        max-width: 240px;
+        margin: 12px auto;
         color: white;
     }
 
@@ -237,7 +249,7 @@ export default {
     }
     .picture-selector.uploader {
         justify-self: center;
-        }   
-    }
+    }   
+  }
 
 </style>

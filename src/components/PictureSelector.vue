@@ -180,8 +180,8 @@ export default {
 <style lang="scss">
   .fullscreen {
       z-index: 100;
-      height: 100vh;
-
+      height: 88vh;
+      padding: 3rem 0px;
       width: 99%;
       overflow:auto;
       background-color: $milife-blue;
@@ -191,18 +191,28 @@ export default {
       justify-content: center;
       top: 0;
       left: 0;
+
+      * {
+        max-height: 500px;
+        max-width:500px;
+        align-self: center;
+      }
+      @media only screen and (max-width: 550px){
+        * {
+          max-width: 300px;
+          max-height: 300px;
+        }
+      }
   }
 
   .label_pictures{
     color: black;
   }
 
-  
-
   .btn_crop-save{
-    line-height: 0.5;
+    line-height: 0;
     width: 240px;
-    margin: 30px auto;
+    margin: 12px auto;
     color: white;
   }
 
