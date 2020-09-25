@@ -19,21 +19,21 @@
       <tbody>
         <tr>
           <td>% of calories</td>
-          <td :class="[is_daily_breakup_valid? 'green-border': 'red-border']">
+          <td :class="[is_daily_breakup_valid? 'green-border input_size': 'red-border input_size']">
             <NumberInput
               name="fat"
               v-on:input="update_daily_breakup(Number($event),'fat') "
               :value="daily_breakup.fat"
               placeholder="" :min="1" :max="100">
           </NumberInput></td>
-          <td :class="[is_daily_breakup_valid? 'green-border': 'red-border']">
+          <td :class="[is_daily_breakup_valid? 'green-border input_size': 'red-border input_size']">
             <NumberInput
               name="carbohydrates"
               v-on:input="update_daily_breakup(Number($event),'carbohydrates') "
               :value="daily_breakup.carbohydrates"
               placeholder="" :min="1" :max="100">
           </NumberInput></td>
-          <td :class="[is_daily_breakup_valid? 'green-border': 'red-border']">
+          <td :class="[is_daily_breakup_valid? 'green-border input_size': 'red-border input_size']">
             <NumberInput
               name="protein"
               v-on:input="update_daily_breakup(Number($event),'protein')"
@@ -69,25 +69,25 @@
 
       <tbody v-if="status!='loading'">
         <tr v-for="(mb, index) in meal_breakup">
-          <td><input
+          <td class="input_size"><input
                 type="text"
                 v-on:input="update_meal_breakup($event.target.value, 'name', index)"
                 v-bind:value="meal_breakup[index].name"
                 /></td>
-          <td><NumberInput
+          <td class="input_size"><NumberInput
                 placeholder=""
                 :min="1"
                 :max="100"
                 v-on:input="update_meal_breakup(Number($event),'fat', index)"
                 v-bind:value="meal_breakup[index].fat" >
           </NumberInput></td>
-          <td><NumberInput
+          <td class="input_size"><NumberInput
                 placeholder=""
                 :min="1" :max="100"
                 v-on:input="update_meal_breakup(Number($event),'carbohydrates', index)"
                 v-bind:value="meal_breakup[index].carbohydrates" >
           </NumberInput></td>
-          <td><NumberInput
+          <td class="input_size"><NumberInput
                 placeholder=""
                 :min="1" :max="100"
                 v-on:input="update_meal_breakup(Number($event),'protein', index)"
@@ -381,6 +381,11 @@ export default {
         font-size: 12px;
     }
 
+    .input_size > div {
+        height: 100%;
+        line-height: 0em;
+    }
+
     table {
         border-radius: 10px;
         background: #f9f9f9;
@@ -407,8 +412,7 @@ export default {
         }
 
         tr td {
-            height: 30px;
-            padding: 0;
+            height: 50px;
         }
 
         tr td:first-child{
@@ -452,6 +456,9 @@ export default {
 
     .th_rotate{
         transform: rotate(-90deg);
+        width: min-content;
+        margin: 0px auto;
+        padding: 20px 0px;
     }
 
     .admin_addMeal{
