@@ -88,6 +88,7 @@ export default {
                         this.src = this.document.document;
                     })
                     .catch(err => {
+                        var errors = {};
                         err.response.data['errors'].forEach((element, index, array) =>{
                             errors[element['field']] = element['message']
                         });

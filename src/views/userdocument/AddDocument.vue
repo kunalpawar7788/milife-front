@@ -4,12 +4,12 @@
 
     <div class="fc-black fileUploader-center">
       <div class="uploader add_docs_uploader">
-        <p v-if="file">{{csvfile}}</p>
+        <p class="fc-black" v-if="file">{{filename}}</p>
         <input
           class="csvfile"
-          ref="csvfile"
+          ref="file"
           v-on:change="handleFileSelect()"
-          value="csvfile"
+          value="file"
           id="file-upload"
           type="file"
           name="fileUpload"
@@ -22,18 +22,6 @@
           </div>
         </label>
       </div>
-      <!-- <div  iv v-if="file">
-    <p>{{file}}</p>
-
-      </div>-->
-      <!-- <input v-else
-             class="file"
-             type="file"
-             ref="file"
-             id="file"
-             value="file"
-             v-on:change="handleFileSelect()"
-      >  </input>-->
     </div>
 
     <div>
@@ -114,10 +102,17 @@ export default {
         this.doc.notes = value;
       }
     },
+    filename: {
+        get() {            
+            if (typeof this.doc.file == "object"){
+                return this.doc.file.name;
+            }
+            return this.doc.file.split('?')[0].split('/').pop()
+        }
+    },
     file: {
       get() {
-        console.log("reading from here, ", this.doc.document);
-        return this.doc.document;
+        return this.doc.file;
       },
       set(value) {
         this.doc.file = value;
