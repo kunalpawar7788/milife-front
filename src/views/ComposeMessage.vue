@@ -26,6 +26,7 @@ export default {
             message_kind_options: [
                 {'label': 'Miscellaneous', value:"misc"},
                 {'label': 'Weekly Commentry', value: "weekly-commentry"},
+                {'label': "Checkin Commentary", value: "checkin-commentry"}
             ],
             data: {
                 kind: "",
