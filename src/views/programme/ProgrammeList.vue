@@ -5,9 +5,10 @@
     class="middle-column"
     :fobj_user="fobj_user">
   </SelectedUserDisplay>
-  <div v-for="programme in programmes"
+  <div v-for="(programme, index) in programmes"
+       :key="index"
        class="programme-item middle-column"
-       >
+  >
     <div class ="top-half">
       <h2>  {{programme.name}} </h2>
       <div class="align-left mt-15"> Start <strong>{{programme.start_date | moment('DD/MM/YYYY')}}</strong></div>
@@ -27,11 +28,12 @@
 
   </div>
 
-  <div
+  <button
     v-if="is_admin"
     class="button middle-column mt-20"
-    v-on:click="goto_add_programme()"> Add Programme
-  </div>
+    v-on:click="goto_add_programme()">
+    Add Programme
+  </button>
 </div>
 
 </template>
@@ -177,13 +179,6 @@ export default {
             color: $milife-magenta;
         }
     }
-
-    .button {
-        font-size: 12pt;
-        color: white;
-        padding: 20px;
-    }
-
     .mr-15 {
         margin-right: 15px;
     }

@@ -1,7 +1,7 @@
 <template>
 <section class="weight-log-container">
   <div>
-    <LogWeightInput class="m-30p" v-model="weight.magnitude_si" :unit="user.weight_unit" />
+    <LogWeightInput class="m-10p" v-model="weight.magnitude_si" :unit="user.weight_unit" />
     <datepicker
       wrapper-class="datepicker-container"
       input-class="datepicker-input"
@@ -35,7 +35,6 @@ export default {
             else {
                 var d = Object.assign({}, this.$store.state.auth.user);
             }
-            console.log(d);
             return d;
         },
     },
@@ -78,8 +77,8 @@ section.weight-log-container {
     display: block;
     
 
-    .m-30p {
-        margin-top: 20%;
+    .m-10p {
+        margin-top: 10%;
     }
 
     .datepicker-container {
@@ -92,7 +91,7 @@ section.weight-log-container {
         border: none;
         font-family: "Montserrat";
         background: url($milife-dropdown-icon) 92% no-repeat, linear-gradient($milife-green) right no-repeat;
-        background-size: 6%, 20%;
+        background-size: 6%, 20% 100%;
         background-color: white;
         cursor: pointer;
     }
@@ -105,13 +104,38 @@ section.weight-log-container {
         text-align: initial;
     }
 
+    .vdp-datepicker {
+        .vdp-datepicker__calendar {
+            max-width: 300px;
+            width: 100%;
+            left: 0; 
+            right: 0; 
+            margin-left: auto; 
+            margin-right: auto; 
+        }
+    }
+
     button {
         background-color: $milife-green;
         color: white;
         padding: 20px;
         width: 240px;
-        margin-top: 20%;
+        margin-top: 15%;
 
+    }
+}
+@media screen and (max-width: 415px) {
+    section.weight-log-container {
+        .vdp-datepicker .vdp-datepicker__calendar {
+            font-size: 13px;
+        }
+    }
+}
+@media screen and (max-width: 360px) {
+    section.weight-log-container {
+        .vdp-datepicker .vdp-datepicker__calendar {
+            max-width: 260px;
+        }
     }
 }
 </style>

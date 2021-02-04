@@ -95,3 +95,11 @@ export default {
     },
 }
 </script>
+
+<style lang="scss" scoped>
+.end-date {
+    color: black;
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+</style>

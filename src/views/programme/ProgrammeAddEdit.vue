@@ -1,7 +1,7 @@
 <template>
 <div class="programme-add-edit-container grid-layout" v-if="status=='success'">
   <SelectedUserDisplay class="middle-column" :fobj_user="fobj_user"> </SelectedUserDisplay>
-  
+
   <div>
     <input
       type="text"
@@ -36,7 +36,7 @@
       :typeable="false"
       placeholder="Select End Date"
       v-on:input="reload"
-      >
+    >
     </datepicker>
   </div>
   
@@ -81,7 +81,7 @@
 import moment from "moment";
 import Datepicker from 'vuejs-datepicker';
 import Multiselect from 'vue-multiselect';
-import SelectedUserDisplay from '@/components/SelectedUserDisplay';
+import SelectedUserDisplay from '@/components/SelectedUserDisplay.vue';
 
 export default {
     name: 'ProgrammeAddEdit',
@@ -108,20 +108,16 @@ export default {
         },
         
         coach_options_d(){
-            console.log('trying to render coaches');
+            // renders coaches
             var d = {};
             for(var i=0; i<this.coaches.length; i++) {
-                console.log(i, this.coaches[i])
                 d[this.coaches[i]['id']] = this.coaches[i];
             }
-            console.log(d);
             return d;
         },
-        
         coach_options_l() {
             return this.coaches;
         },
-        
         programme_name: {
             get() {
                 return this.programme.name;
@@ -130,7 +126,6 @@ export default {
                 this.programme.name = value;
             },
         },
-        
         start_date: {
             get() {
                 return this.programme.start_date;
@@ -159,7 +154,6 @@ export default {
                 this.programme.coach = value['id'];                
             },
         },
-        
         active: {
             get() {
                 return this.active_options_d[this.programme.active] || {};
@@ -168,9 +162,7 @@ export default {
                 var value = Object.assign({}, value);
                 this.programme.active = value['value'];
             }
-            
         },
-        
     },
     data() {
         return {
@@ -189,7 +181,6 @@ export default {
             coaches: [],
         }
     },
-    
     watch: {
         // call again the method if the route changes
         '$route': 'fetch_programme'
@@ -260,16 +251,12 @@ export default {
             this.status = 'success';
         }
     },
-    
-
-
 }
 </script>
 
 <style lang="scss">
 .grid-layout {
     display: grid;
-    
 }
 .programme-add-edit-container {
     display: grid;
@@ -298,7 +285,7 @@ export default {
         border: none;
         font-family: "Montserrat";
         background: url(../../assets/images/chevron-down-solid.svg) 92% no-repeat, linear-gradient($milife-green) right no-repeat;
-        background-size: 6%, 20%;
+        background-size: 6%, 20% 100%;
         background-color: #efefef;
         cursor: pointer;
     }
@@ -397,8 +384,7 @@ export default {
 
     .save {
         grid-row: 7;
-        height: 0px;
-        line-height: 0;
+        line-height: 3em;
         color: #fff;
         margin-top: 15px;
     }

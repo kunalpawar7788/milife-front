@@ -53,9 +53,6 @@ export default {
         },
         avail_banked_session: function(){
             return new Promise((resolve, reject) => {
-                const url = this.submit_url;
-                var data = this.data;
-                
                 this.$http({url: this.submit_url, method: "POST", data: this.data})
                     .then(resp => {
                         resolve(resp);
@@ -69,7 +66,6 @@ export default {
             });
         },
     },
-    
     mounted(){
         this.$store.dispatch("theme/set_theme_white");
     },

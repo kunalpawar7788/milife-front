@@ -16,14 +16,14 @@
   </div>
   <div class="days_missed mt-10">
     <input name="days_missed" v-model="days_missed" type="text" value=""
-           placeholder="No of Days Missed"
-           class="text-input" readonly
-           />
+        placeholder="No of Days Missed"
+        class="hbs-input hbs-disabled-input" readonly
+    />
   </div>
   
   <div class="description mt-10">
     <input name="description" type="text" value="" placeholder="Comment"
-           class="text-input"
+           class="hbs-input"
            v-model="description"/>
   </div>
   <div class="programme__date mt-10">
@@ -61,7 +61,8 @@ export default {
             var end = moment(this.end_date);
             if(start._isValid && end._isValid) {
                 count = moment.duration(end.diff(start)).asDays()+1;
-              }
+            }
+            count = count + " days missed"
             return count;
         },
         user_pk: function(){
@@ -89,9 +90,6 @@ export default {
         },
         add_holiday: function(){
             return new Promise((resolve, reject) => {
-                const url = this.submit_url;
-                var data = this.data;
-                
                 this.$http({url: this.submit_url, method: "POST", data: this.data})
                     .then(resp => {
                         resolve(resp);
@@ -104,16 +102,26 @@ export default {
             });
         },
     },
-    monuted(){
+    mounted(){
         this.$store.dispatch("theme/set_theme_white");
     },
 }
 </script>
 
 <style lang="scss">
-.add-holiday-container{
-    div{
-
-    }
+.vdp-datepicker input {
+    @extend .text-input;
+    border: none;
+    font-family: "Montserrat";
+    background: url(../../assets/images/chevron-down-solid.svg) 92% no-repeat, linear-gradient($milife-green) right no-repeat;
+    background-size: 6%, 20% 100%;
+    background-color: white;
+    cursor: pointer;
+}
+input.hbs-disabled-input{
+    background:#e8e8e8;
+    text-align: center;
+    padding: 0 !important;
+    font-family: "Montserrat";
 }
 </style>
