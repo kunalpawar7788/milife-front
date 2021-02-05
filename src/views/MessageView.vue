@@ -14,8 +14,8 @@
             </div>
 
             <div class="fn-11 fc-grey ta-left fw-600 mt-0 margin-10">
-                {{ message.modified_at | moment("Do MMM YY") | uppercase }}
-                ({{ message.modified_at | moment("from") | uppercase }})
+                {{ message.created_at | moment("Do MMM YY") | uppercase }}
+                ({{ message.created_at | moment("from") | uppercase }})
             </div>
             <div class="fn-14 fc-bluegrey ta-left fw-700 margin-10 message_kind">
                 {{message_kind_label(message.kind)}}
@@ -134,7 +134,7 @@ export default {
                 });
         },
         mark_read: function(){
-            if(this.is_admin || this.message.read){
+            if(this.message.read){
                 return;
             }
             this.$http({url: this.messages_url, method: 'PATCH', data: {read: true}})
