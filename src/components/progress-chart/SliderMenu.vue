@@ -48,7 +48,7 @@ export default {
                     date: item.format("DD"),
                     month: item.format("MMM"),
                     year: item.format("YYYY"),
-                    id: item.format("YYYY-MM-DD"),
+                    id: item.format("DD-MM-YYYY"),
                 })
             })
             return l;

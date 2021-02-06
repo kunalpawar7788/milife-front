@@ -42,7 +42,7 @@ export default {
         },
         data: function() {
             return {
-                date: moment(this.date).format('YYYY-MM-DD'),
+                date: moment(this.date).format('DD-MM-YYYY'),
                 kind: 'C',
             }
         },

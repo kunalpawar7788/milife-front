@@ -2,7 +2,10 @@
   <div>
     <select v-model="selected">
       <option disabled value="">Please select one</option>
-      <option v-for="option in options" v-bind:value="option.value">
+      <option
+        v-for="(option, index) in options"
+        :key="index"
+        v-bind:value="option.value">
         {{ option.text }}
       </option>
     </select>
@@ -33,8 +36,11 @@
           <th>Weight</th>
           <th>Target Weight</th>
         </tr>
-        <tr v-for="date in weightDates">
-          <td>{{ date }}</td>
+        <tr
+          v-for="(date, index) in weightDates"
+          :key="index"
+        >
+          <td>{{ formatDate(date) }}</td>
           <td>{{ processedWeightData.weight_log[date] || "-" }}</td>
           <td>{{ processedWeightData.target_weight[date] || "-" }}</td>
         </tr>
@@ -45,8 +51,11 @@
           <th>Date</th>
           <th>Value</th>
         </tr>
-        <tr v-for="data in dataToPlot">
-          <td>{{ data.date.format("DD-MM-YYYY") }}</td>
+        <tr
+          v-for="(data, index) in dataToPlot"
+          :key="index"
+        >
+          <td>{{ formatDate(data.date) }}</td>
           <td>{{ data.value }}</td>
         </tr>
       </table>
@@ -58,12 +67,13 @@
 import GenericChart from "@/components/progress-chart/GenericChart.vue";
 import MiniWeightChart from "@/components/MiniWeightChart.vue";
 import moment from "moment";
+import formatDate from "@/mixins/formatDate.js";
 
 export default {
   name: "VisualizeDataComponent",
   props: ["fobj_user"],
   components: { GenericChart, MiniWeightChart },
-
+  mixins: [formatDate],
   data() {
     return {
       selected: "",
@@ -97,7 +107,6 @@ export default {
         { text: "Right Arm", value: "right_arm" },
         { text: "Left Leg", value: "left_leg" },
         { text: "Right Leg", value: "right_leg" },
-
         { text: "Weight", value: "weight" },
       ],
     };
@@ -130,7 +139,7 @@ export default {
       for (var idx in this.checkinData) {
         let checkin = this.checkinData[idx];
         data.push({
-          date: moment(checkin["date_of_checkin"], "YYYY-MM-DD"),
+          date: moment(checkin["date_of_checkin"], "DD-MM-YYYY"),
           value: checkin[this.selected],
         });
       }
@@ -164,7 +173,6 @@ export default {
       this.weightDates = dates;
       this.processedWeightData = newWeightData;
     },
-
     fetchCheckinData: function() {
       const url =
         process.env.VUE_APP_BASE_URL +
@@ -178,7 +186,6 @@ export default {
         }
       );
     },
-
     fetchWeightData: function() {
       const url =
         process.env.VUE_APP_BASE_URL +
@@ -191,7 +198,7 @@ export default {
           this.weightData = resp.data;
         })
         .then(this.processWeightData);
-    },
+    }
   },
 };
 </script>
