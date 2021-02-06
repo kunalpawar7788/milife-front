@@ -40,11 +40,14 @@
 <script lang="js">
 import Datepicker from 'vuejs-datepicker';
 import moment from 'moment';
+import formatDate from "@/mixins/formatDate.js";
+
 export default {
     name: "AddHoliday",
     props: [
         'session_days',
     ],
+    mixins: [formatDate],
     data() {
         return {
             start_date: '',
@@ -76,10 +79,10 @@ export default {
         },
         data: function() {
             return {
-                start: moment(this.start_date).format("YYYY-MM-DD"),
-                end: moment(this.end_date).format("YYYY-MM-DD"),
+                start: this.backEndDateFormat(this.start_date),
+                end: this.backEndDateFormat(this.end_date),
                 comment: this.description,
-                programme_end_date: moment(this.programme_end_date).format("YYYY-MM-DD"),
+                programme_end_date: this.backEndDateFormat(this.programme_end_date),
             }
         },
     },

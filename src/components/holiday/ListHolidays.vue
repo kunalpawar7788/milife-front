@@ -6,11 +6,11 @@
           <div class="holiday_list-dates">
               <div class="holiday_list-startdate">
                   <p class="margin-0 fnt-bold">Start</p>
-                  <p class="margin-0">{{ record.start }}</p>
+                  <p class="margin-0">{{ record.start | moment('DD-MM-YYYY') }}</p>
               </div>
               <div class="holiday_list-enddate">
                   <p class="margin-0 fnt-bold">End</p>
-                  <p  class="margin-0">{{ record.end }}</p>
+                  <p  class="margin-0">{{ record.end | moment('DD-MM-YYYY') }}</p>
               </div>
           </div>
           <div class="holiday_list-comment">
@@ -41,7 +41,7 @@ export default {
         },
         url: function(){
             return `${process.env.VUE_APP_BASE_URL}/api/users/${this.user_pk}/programmes/${this.programme_pk}/holiday`;
-        },
+        }
     },
     methods: {
         fetch_holidays: function(){

@@ -38,7 +38,10 @@
     
     <div class="table-wrapper">
       <table class="table_wrapper-weights">
-        <tr v-for="field in formfields">
+        <tr
+          v-for="(field, index) in formfields"
+          :key="index"
+        >
           <td> {{field.label}}</td>
           <td> <NumberInput
                  class="checkin_dataInput"
@@ -62,13 +65,14 @@
 import Datepicker from 'vuejs-datepicker'
 import NumberInput from "vue-number-input"
 import CheckinPictureSelector from '@/components/CheckinPictureSelector'
-import moment from 'moment'
 import ErrorMessage from '@/components/ErrorMessage.vue'
+import formatDate from "@/mixins/formatDate.js";
 
 export default {
     name: "CheckinForm",
     props: ['fobj_user', ],
     components: {Datepicker, CheckinPictureSelector, NumberInput, ErrorMessage},
+    mixins: [formatDate],
     data() {
         return {
             formfields: [
@@ -120,12 +124,12 @@ export default {
             return process.env.VUE_APP_BASE_URL+'/api/users/' + this.user_pk + "/checkin";
         },
         submit_url: function(){
-            var date_str = moment(this.checkin_date).format("YYYY-MM-DD");
+            var date_str = this.backEndDateFormat(this.checkin_date);
             return this.id? this.base_url + '/' + date_str: this.base_url;
         },
         computed_form_data: function(){
             var payload = {...this.formdata},
-                formatted_date = moment(this.checkin_date).format("YYYY-MM-DD");
+                formatted_date = this.backEndDateFormat(this.checkin_date);
             
             payload['date_of_checkin'] = formatted_date;
             
@@ -209,7 +213,7 @@ export default {
         },
         
         fetch_checkin: function(){
-            var url = this.base_url + "/" + moment(this.checkin_date).format("YYYY-MM-DD")
+            var url = this.base_url + "/" + this.backEndDateFormat(this.checkin_date)
             this.fetching=true;
             
             return new Promise((resolve, reject) => {

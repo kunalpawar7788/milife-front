@@ -13,7 +13,6 @@
 
 <script lang="js">
 import Datepicker from 'vuejs-datepicker';
-import moment from 'moment';
 
 export default {
     name: "AvailBankedSession",
@@ -42,7 +41,7 @@ export default {
         },
         data: function() {
             return {
-                date: moment(this.date).format('YYYY-MM-DD'),
+                date: this.backendDateFormat(this.date),
                 kind: 'D',
             }
         },

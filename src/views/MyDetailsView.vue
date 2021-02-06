@@ -26,7 +26,7 @@
       <div class="pd-10">
         <label for="height" class="fc-magenta">HEIGHT</label>
         <div class="fc-black fn-14 fw-500" v-if="profile.height_cm">
-          <template v-if="height_unit=='metric'">
+          <template v-if="profile.height_unit=='metric'">
             {{Math.round(profile.height_cm)}} cm
           </template>
           <template v-else>
@@ -38,7 +38,7 @@
 
       <div class="pd-10">
         <label for="dob" class="fc-magenta">DATE OF BIRTH</label>
-        <div class="fc-black fn-14 fw-500"> {{display_date(profile.date_of_birth)}}</div>
+        <div class="fc-black fn-14 fw-500">{{ profile.date_of_birth | moment('DD-MM-YYYY') }}</div>
       </div>
 
       <div class="pd-10">
@@ -79,7 +79,7 @@
 
 <script>
 import MessageCountBubble from '@/components/MessageCountBubble.vue';
-import moment from "moment";
+
 export default {
     name: "MyDetailsView",
     components: {MessageCountBubble, },
@@ -110,9 +110,6 @@ export default {
     },
     
     methods: {
-        display_date: function(date_str){
-            return moment(date_str).format("Do MMM YYYY");
-        },
         get_feet_from_cm: function(cm){
             return Math.floor(cm / this.feet2cm);
             
