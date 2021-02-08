@@ -13,6 +13,7 @@
       >
     </datepicker>
   </div>
+  <p class="warning-text">Warning: This will overwrite data for conflicting dates.</p>  
   <button class="br-50" v-on:click="add_weight_to_log"> Log Weight </button>
 </section>
 </template>
@@ -104,14 +105,16 @@ section.weight-log-container {
         margin-left: auto;
         text-align: initial;
     }
-
+    .warning-text {
+        color: white;
+        margin-top: 20%;
+        font-size: calc(14px + 0.5vmin);
+    }
     button {
         background-color: $milife-green;
         color: white;
         padding: 20px;
         width: 240px;
-        margin-top: 20%;
-
     }
 }
 </style>
