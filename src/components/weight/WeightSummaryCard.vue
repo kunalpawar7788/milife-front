@@ -32,7 +32,7 @@
 
 <script>
 import MiniWeightChart from "@/components/MiniWeightChart.vue";
-import moment from 'moment';
+
 export default {
     name: "WeightSummaryCard",
     components: {MiniWeightChart, },
@@ -64,36 +64,26 @@ export default {
         current_weight: function(){
             return this.$_.last(this.weight_log);
         },
-
         target_weights: function(){
             return this.$_.orderBy(this.data.target_weight, 'target_date');
         },
-
         current_target: function(){
             return this.$_.last(this.target_weights);
         },
-
     },
     methods: {
         goto_detailed_weight_chart: function(){
-
             if (this.is_admin) {
-                console.log('detiled weight chart');
                 this.$router.push({name: "weight-progress-chart-admin-view", params: ""});
-
             }
             else {
                 this.$router.push({name: "weight-progress-chart-self", params: ""});
             }
-
-
         },
-
         set_weight_chart_data: function() {
             this.data = this.data_dashboard;
             this.status = "ready";
         },
-
     },
     created: function() {
         this.set_weight_chart_data();
