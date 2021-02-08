@@ -42,10 +42,21 @@
 
       <div class="comment">
         <p class="comment_heading pd-10 fc-green fn-14 fw-500" >Coach's Commentary</p>
-
-        <p class="comment_content pd-10 fc-white fn-12" v-if="comments[0]">
-          {{comments[0].content}}
-        </p>
+        <div v-if="comments">
+          <div
+            v-for="(comment, index) in comments"
+            :key="index"
+            class="comment_content pd-10 fc-white fn-12"
+          >
+            <p>{{ comment.content }}</p>
+            <p class="align-left">
+              By <strong>{{ comment.sender.first_name + ' ' + comment.sender.last_name }}</strong>
+            </p>
+            <p class="align-right">
+              On <strong>{{ formatDate(comment.created_at) }}</strong>
+            </p>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -175,6 +186,7 @@ export default {
             this.$http({url: url, params: params, method: 'GET'})
                 .then(resp => {
                     this.comments = resp.data.results;
+                    console.log("cc", this.comments)
                     //this.status = "ready";
                 })
                 .catch(err => {
@@ -207,8 +219,10 @@ export default {
             this.status = 'error';
             this.error_msg = 'No target weight entries exist';
           }
+        },
+        formatDate: function (date_value) {
+           return moment(date_value).format("DD-MM-YYYY");
         }
-
     },
     filters: {
         uppercase: function(v) {
@@ -244,8 +258,37 @@ export default {
         }
 
         .comment_content {
-            margin-top: 0;
-            padding-top: 0
+            color: white;
+            background-color: darken($milife-blue, 5%);
+            padding-top: 0.1em;
+            padding-bottom: 3em;
+            padding-left: 15px;
+            padding-right: 15px;
+            border-radius: 10px;
+            margin: 10px 0px;
+
+            .align-left {
+                font-size: 10pt;
+                margin-left: 0;
+                padding-right: 15px;
+                float: left;
+
+                strong {
+                    font-weight: 600;
+                }
+            }
+
+            .align-right{
+                font-size: 10pt;
+                margin-right: 0;
+                padding-left: 15px;
+                float: right;
+                margin-bottom: 14px;
+
+                strong {
+                    font-weight: 600;
+                }
+            }
         }
     }
 }
