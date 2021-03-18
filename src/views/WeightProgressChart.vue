@@ -26,18 +26,22 @@
 
     <div class="pd-10">
       <p class="pd-10 fn-12 fc-white fw-500">
-        You have
-        <template v-if="weight_delta>0">lost {{weight_delta}} kg</template>
-        <template v-else>gained {{-weight_delta}} kg</template><br>
+        Your starting weight was {{ starting_weight.weight }} kg.<br>
+
+        Your current target weight is {{ current_target.target_weight }} kg.<br>
 
         You have
-        <template v-if="left_to_lose>0">{{left_to_lose}} kg left to lose</template>
-        <template v-else> {{-left_to_lose}} left to gain </template>
+        <template v-if="weight_delta>0">lost {{weight_delta}} kg.</template>
+        <template v-else>gained {{-weight_delta}} kg.</template><br>
+
+        You have
+        <template v-if="left_to_lose>0">{{left_to_lose}} kg left to lose.</template>
+        <template v-else> {{-left_to_lose}} left to gain.</template>
         <br>
 
         To achieve that, you need to
-        <template v-if="weekly_loss_target>0">lose {{weekly_loss_target}} kg per week</template>
-        <template v-else>gain {{-weekly_loss_target}} kg per week</template>
+        <template v-if="weekly_loss_target>0">lose {{weekly_loss_target}} kg per week.</template>
+        <template v-else>gain {{-weekly_loss_target}} kg per week.</template>
       </p>
 
       <div class="comment">
@@ -122,20 +126,17 @@ export default {
         weight_log: function(){
             return this.$_.orderBy(this.data.weight_log, 'measured_on');
         },
+        starting_weight: function(){
+            return this.$_.first(this.weight_log);
+        },
         current_weight: function(){
             return this.$_.last(this.weight_log);
         },
-
         target_weights: function(){
             return this.$_.orderBy(this.data.target_weight, 'target_date');
         },
-
         current_target: function(){
-            var d = {};
-            for(var i=0; i<this.target_weights.length; i++){
-                d[this.target_weights[i].target_date] = this.target_weights[i].target_weight;
-            }
-            return  d[new Date()];
+            return this.$_.last(this.target_weights);
         },
 
         weight_delta: function(){
