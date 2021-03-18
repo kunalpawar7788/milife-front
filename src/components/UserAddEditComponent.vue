@@ -182,7 +182,7 @@ export default {
 
         date_of_birth: {
             get() {return this.data.date_of_birth || this.fobj_user.date_of_birth;},
-            set(value) {this.data.date_of_birth =  formatDate(value);}
+            set(value) {this.data.date_of_birth =  this.formatDate(value);}
         },
 
         height_retrieved: {
@@ -265,12 +265,11 @@ export default {
                 if (key=="image") {continue;}
                 if(this.data[key]){
                     formData.append(key, this.data[key]);
-                };
-
-            };
+                }
+            }
             if(this.data.image && typeof this.data.image != 'string'){
                 formData.append('image', this.data.image, 'something.png');
-            };
+            }
             return new Promise((resolve, reject) => {
                 this.$http({url: this.upsert_url, data:formData, method: this.upsert_method})
                     .then(resp => {
@@ -296,8 +295,7 @@ export default {
         var fobj_user = Object.assign({}, this.fobj_user);
         if(fobj_user.id) {
             this.data=fobj_user;
-        };
-
+        }
     },
 
 }
