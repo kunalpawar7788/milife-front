@@ -248,92 +248,101 @@ export default {
 
 <style lang="scss">
 .measurementsform-container{
-        color: black;
-        font-size: calc(12px + 0.1em);
-        padding-bottom: 20px;
+    color: black;
+    font-size: calc(12px + 0.1em);
+    padding-bottom: 20px;
 
+    
+    h3{
+        text-align: center;
+        color: black;
+    }
+
+    .checkin-date{
+        display: flex;
+        justify-content: center;
+
+        .checkin-datepicker input {
+            @extend .text-input;
+            border: none;
+            font-family: "Montserrat";
+            background: url($milife-dropdown-icon) 92% no-repeat, linear-gradient($milife-green) right no-repeat;
+            background-size: 6%, 20% 100%;
+            background-color: #efefef;
+            cursor: pointer;
+        }
+    }
+
+    .picturelog{
+        margin: 10px 0px;
+        display: flex;
+        padding-bottom: 20px;
+        flex-flow: column;
+        background-color: #f5f5f5d4;
+    }
+
+    .picturelog_profiles{
+        display: grid;
+        grid-gap: 10px;
+        grid-template-columns: auto auto;
+        text-align: -webkit-center;
+        padding: 10px;
+    }
+
+    .picturelog_sideProfile{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .picturelog_frontProfile{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .table-wrapper{
+        padding: 20px;
         
-        h3{
-            text-align: center;
+    }
+
+    .table_wrapper-weights{
+        width: 100%;
+        border-collapse: collapse;
+
+        td{
+            line-height: 3em;
+            font-weight: 500;
             color: black;
         }
 
-        .checkin-date{
-            display: flex;
-            justify-content: center;
-        }
-
-        .picturelog{
-            margin: 10px 0px;
-            display: flex;
-            padding-bottom: 20px;
-            flex-flow: column;
+        tr:nth-child(odd){
             background-color: #f5f5f5d4;
         }
-
-        .picturelog_profiles{
-            display: grid;
-            grid-gap: 10px;
-            grid-template-columns: auto auto;
-            text-align: -webkit-center;
-            padding: 10px;
-        }
-
-        .picturelog_sideProfile{
-            width: 100%;
-            display: flex;
-            justify-content: center;
-        }
-
-        .picturelog_frontProfile{
-            width: 100%;
-            display: flex;
-            justify-content: center;
-        }
-
-        .table-wrapper{
-            padding: 20px;
-            
-        }
-
-        .table_wrapper-weights{
-            width: 100%;
-            border-collapse: collapse;
-
-            td{
-                line-height: 3em;
-                font-weight: 500;
-                color: black;
-            }
-
-            tr:nth-child(odd){
-                background-color: #f5f5f5d4;
-            }
-        }
-
-        .checkin_dataInput{
-            input{
-                border: none;
-                background: inherit;
-                text-align: center;
-            }
-        }
-
-        .checking_save-btn{
-            line-height: 0em;
-            width: 200px;
-            color: white;
-        }
-
-        #error-box{
-            text-align: right;
-            margin: 15px;
-            .errormessage{
-                color: red;
-            }
-        }
-
     }
+
+    .checkin_dataInput{
+        input{
+            border: none;
+            background: inherit;
+            text-align: center;
+        }
+    }
+
+    .checking_save-btn{
+        line-height: 0em;
+        width: 200px;
+        color: white;
+    }
+
+    #error-box{
+        text-align: right;
+        margin: 15px;
+        .errormessage{
+            color: red;
+        }
+    }
+}
 
 
 </style>

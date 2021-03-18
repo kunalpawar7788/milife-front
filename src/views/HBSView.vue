@@ -1,6 +1,6 @@
 <template>
 <div class="holiday-banked-session-container">
-  <div class="header fn-18 width-100 pd-10">
+  <div class="header pd-10">
     <span
       :class="[selected=='holiday'? 'selected': '']"
       v-on:click="selected='holiday'">Holidays</span>
@@ -32,13 +32,11 @@ export default {
     methods: {
 
     },
-    mounted: function() {
+    mounted () {
         this.$store.dispatch("theme/set_theme_white");
         //this.$store.dispatch("checkin/fetch_checkin_for_user_by_date", this.user_id, this.checkin_date);
         //this.$store.dispatch("checkin/fetch_checkin_for_user_by_date", this.user_id, new Date());
-
     },
-
 }
 
 </script>
@@ -46,8 +44,30 @@ export default {
 <style lang="scss">
 .holiday-banked-session-container {
     color: black;
+    padding-bottom: 20px;
+
+    input {
+        color: black;
+        border: none;
+        border-radius: 50px;
+        height: 50px;
+        font-size: 18px;
+        max-width: 400px;
+        width: 100%;
+        outline: none;
+
+        &::placeholder {
+            color: #232323;
+        }
+    }
+
+    .hbs-input {
+        padding-left: 20px;
+        max-width: 380px;
+    }
 
     div.header {
+        font-size: calc(16pt + 0.5vmin);
         display: block;
         height:20px;
 
@@ -67,20 +87,35 @@ export default {
         text-align: center;
         padding-top: 5px;
 
-        color: #8AC53F;
+        color: $milife-green;
 
+        .vdp-datepicker__calendar {
+            max-width: 300px;
+            width: 100%;
+            left: 0; 
+            right: 0; 
+            margin-left: auto; 
+            margin-right: auto; 
+        }
+    }
+}
+@media screen and (max-width: 415px) {
+    .holiday-banked-session-container {
         input {
-            color: red;
-            border: 1px solid grey;
-            border-radius: 50px;
-            color: grey;
-            height: 50px;
-            padding-left: 20px;
-            font-size: 15pt;
-            font-family: Monteserrat Regular;
-            width: 300px;
-            outline: none;
-
+            font-size: 16px;
+        }
+        .hbs-input {
+            max-width: calc(100vw - 80px);
+        }
+        .vdp-datepicker .vdp-datepicker__calendar {
+            font-size: 13px;
+        }
+    }
+}
+@media screen and (max-width: 330px) {
+    .holiday-banked-session-container {
+        input {
+            font-size: 13px;
         }
     }
 }
