@@ -124,12 +124,12 @@ export default {
             return process.env.VUE_APP_BASE_URL+'/api/users/' + this.user_pk + "/checkin";
         },
         submit_url: function(){
-            var date_str = formatDate(this.checkin_date);
+            var date_str = this.formatDate(this.checkin_date);
             return this.id? this.base_url + '/' + date_str: this.base_url;
         },
         computed_form_data: function(){
             var payload = {...this.formdata},
-                formatted_date = formatDate(this.checkin_date);
+                formatted_date = this.formatDate(this.checkin_date);
             
             payload['date_of_checkin'] = formatted_date;
             
@@ -213,8 +213,8 @@ export default {
         },
         
         fetch_checkin: function(){
-            var url = this.base_url + "/" + formatDate(this.checkin_date)
-            this.fetching=true;
+            var url = this.base_url + "/" + this.formatDate(this.checkin_date)
+            this.fetching = true;
             
             return new Promise((resolve, reject) => {
                 this.$http({url: url, method: 'GET'})
@@ -225,7 +225,7 @@ export default {
                     }).catch(err => {
                         this.initialize();
                         this.fetching=false;
-                        // reject(err);
+                        reject(err);
                     });
             });
             
