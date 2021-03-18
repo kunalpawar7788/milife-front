@@ -49,14 +49,28 @@
     <span class="arrow"> + </span>
   </div>
 
+  <div class="last-line flex-spacebetween">
+    <section
+      class="message-button bg-green fc-white br-50 flex-spacebetween"
+      v-on:click="goto_message_list">
+      <span class="message-button-span fn-14"> Messages </span>
+      <span class="mr-20 mt-10">
+        <MessageCountBubble> {{data.messages_count}} </MessageCountBubble>
+      </span>
+    </section>
+  </div>
+
 </div>
 </template>
 
 <script>
+import MessageCountBubble from '@/components/MessageCountBubble.vue';
+
 export default {
     name: 'TrainerDashboard',
     data() {
         return {
+            data:{},
             status_d: {},
             email: null,
             errors: null,
@@ -64,6 +78,13 @@ export default {
         }
     },
     components: {
+        MessageCountBubble,
+    },
+    computed: {
+        user: function(){
+            var d = Object.assign({}, this.$store.state.auth.user);
+            return d;
+        },
     },
     methods: {
         goto_upload_csv: function(){
@@ -85,6 +106,9 @@ export default {
         goto_active_users: function(){
             this.$router.push({name: 'active-users'});
         },
+        goto_message_list: function(){
+            this.$router.push({name: 'message-list-view'});
+        },
         invitation_status_count: function(){
             const url = process.env.VUE_APP_BASE_URL+'/api/counts/email_verification_status';
             return new Promise((resolve, reject) => {
@@ -102,10 +126,22 @@ export default {
                         this.errors = errors;
                     });
             });
-        }
+        },
+        fetch_dashboard_data: function() {
+            const url = process.env.VUE_APP_BASE_URL+'/api/dashboard/' + this.user.id;
+            this.$http({url: url, params:this.params, method: 'GET'})
+                .then(resp => {
+                    this.data = resp.data;
+                    this.status = "ready";
+                })
+                .catch(err => {
+                    this.status='error';
+                });
+        },
     },
     mounted() {
         this.invitation_status_count();
+        this.fetch_dashboard_data();
     }
 }
 </script>
@@ -120,6 +156,9 @@ export default {
         background-color: $milife-blue;
         border-radius: 20px;
         padding: 10px;
+    }
+    section.message-button {
+        width: 100%;
     }
 
     /* .slab1 { */
