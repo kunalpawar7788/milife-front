@@ -46,6 +46,9 @@
         <router-link :to="{name: 'log-weight-view-self'}">Log Weight</router-link>
       </li>
       <li class="menu-item" v-on:click="hide_menu">
+        <router-link :to="{name: 'weight-progress-chart-self', params: ''}">Detailed Weight Chart</router-link>
+      </li>
+      <li class="menu-item" v-on:click="hide_menu">
         <router-link :to="{name: 'my-progress-chart'}">Charts and Stats</router-link>
       </li>
       <li class="menu-item" v-on:click="hide_menu" >
@@ -105,7 +108,7 @@ export default {
         theme: {
             get() {return this.$store.state.theme.theme;},
         },
-        sidebar_menu_icon:{
+        sidebar_menu_icon: {
             get() {
                 if (this.sidebar_visible)
                     return require("@/assets/images/menu-dark-close.svg");
@@ -113,8 +116,6 @@ export default {
                     return require("@/assets/images/menu-white.svg");
                 else
                     return require("@/assets/images/menu-dark.svg");
-
-
             }
         },
         dashboard_icon: {
