@@ -110,13 +110,13 @@ import HeightInput from "@/components/HeightInput.vue";
 import WeightInput from "@/components/WeightInput.vue";
 import PictureSelector from "@/components/PictureSelector.vue";
 import ErrorMessage from '@/components/ErrorMessage.vue';
-
-import moment from 'moment';
+import formatDate from "@/mixins/formatDate.js";
 
 export default {
     name: "UserAddEditComponent",
     components: { Multiselect, Datepicker, HeightInput, PictureSelector, WeightInput, ErrorMessage },
     props: ['fobj_user', ],
+    mixins: [formatDate],
     data() {
         return {
             data: {
@@ -182,7 +182,7 @@ export default {
 
         date_of_birth: {
             get() {return this.data.date_of_birth || this.fobj_user.date_of_birth;},
-            set(value) {this.data.date_of_birth =  moment(value).format("YYYY-MM-DD");}
+            set(value) {this.data.date_of_birth =  formatDate(value);}
         },
 
         height_retrieved: {

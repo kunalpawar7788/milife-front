@@ -96,7 +96,7 @@ export default {
         checkin_dates_frequency_d: function(){
             var counts = {}
             this.$_.forEach(this.progress_report, function(o){
-                var month_year = moment(o.date_of_checkin, "YYYY-MM-DD").format("MM-YYYY");
+                var month_year = moment(o.date_of_checkin, "DD-MM-YYYY").format("MM-YYYY");
                 if (counts[month_year] == null){
                     counts[month_year] = 1;
                 }
@@ -109,12 +109,12 @@ export default {
         checkin_dates: function(){
             var d = []
             this.$_.forEach(this.progress_report, function(o){
-                var mobj = moment(o.date_of_checkin, "YYYY-MM-DD"),
+                var mobj = moment(o.date_of_checkin, "DD-MM-YYYY"),
                     month_year = mobj.format("MM-YYYY");
                 d.push({
                     mobj: mobj,
                     frequency: this.checkin_dates_frequency_d[month_year],
-                    id: mobj.format("YYYY-MM-DD"),
+                    id: mobj.format("DD-MM-YYYY"),
                 })
             }.bind(this))
 

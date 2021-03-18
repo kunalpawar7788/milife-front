@@ -2,7 +2,7 @@
 <div>
   <div class="end-date" v-if="is_admin">
     <span class="label width-100"> PROGRAMME END DATE </span>:
-    <span class="date width-100 fc-black fw-500"> {{programme.end_date}}</span>
+    <span class="date width-100 fc-black fw-500"> {{ formatDate(programme.end_date) }}</span>
   </div>
 
   <FoldableContainer v-if="is_admin" label="Add Holiday">
@@ -16,6 +16,7 @@
 </template>
 
 <script lang='js'>
+import formatDate from "@/mixins/formatDate.js";
 import AddHoliday from '@/components/holiday/AddHoliday.vue';
 import ListHolidays from '@/components/holiday/ListHolidays.vue';
 import FoldableContainer from '@/components/FoldableContainer';
@@ -24,6 +25,7 @@ export default {
     name: 'Holiday',
     props: {},
     components: {AddHoliday, ListHolidays, FoldableContainer},
+    mixins: [formatDate],
     computed:{
         user_pk: function() {
             return this.$route.params.pk;
@@ -87,7 +89,7 @@ export default {
                 .catch(err => {
                     this.status="error";
                 });
-        },
+        }
     },
     mounted() {
         this.fetch_programme(this.$route.params.pk, this.$route.params.programme_pk);

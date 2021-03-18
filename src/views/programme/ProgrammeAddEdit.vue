@@ -78,7 +78,7 @@
 </template>
 
 <script>
-import moment from "moment";
+import formatDate from "@/mixins/formatDate.js";
 import Datepicker from 'vuejs-datepicker';
 import Multiselect from 'vue-multiselect';
 import SelectedUserDisplay from '@/components/SelectedUserDisplay.vue';
@@ -87,6 +87,7 @@ export default {
     name: 'ProgrammeAddEdit',
     components: {Datepicker, Multiselect, SelectedUserDisplay},
     props: ['fobj_user'],
+    mixins: [formatDate],
     computed: {
         user() {return this.fobj_user;},
         full_name() {
@@ -222,8 +223,8 @@ export default {
             return new Promise((resolve, reject) => {
                 var data = this.programme;
                 data['user'] = this.user_pk;
-                data['start_date'] =  moment(this.programme.start_date).format("YYYY-MM-DD");
-                data['end_date'] =  moment(this.programme.end_date).format("YYYY-MM-DD");
+                data['start_date'] =  formatDate(this.programme.start_date);
+                data['end_date'] =  formatDate(this.programme.end_date);
                 
                 this.$http({url: this.upsert_url, method: this.upsert_method, data: this.programme})
                     .then(resp => {

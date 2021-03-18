@@ -3,7 +3,7 @@
   <div class="start_date">
     <datepicker
       v-model="start_date"
-      format="dd/MM/yyyy"
+      format="dd/mm/yyyy"
       placeholder="Start Date"
       ></datepicker>
   </div>
@@ -11,7 +11,7 @@
     <datepicker
       v-model="end_date"
       placeholder="End Date"
-      format="dd/MM/yyyy"
+      format="dd/mm/yyyy"
       ></datepicker>
   </div>
   <div class="days_missed mt-10">
@@ -30,7 +30,7 @@
     <datepicker
       v-model="programme_end_date"
       placeholder="New Programme End Date"
-      format="dd/MM/yyyy"
+      format="dd/mm/yyyy"
       ></datepicker>
   </div>
   <button class="button mt-10" v-on:click="add_holiday"> Add Holiday </button>
@@ -40,11 +40,14 @@
 <script lang="js">
 import Datepicker from 'vuejs-datepicker';
 import moment from 'moment';
+import formatDate from "@/mixins/formatDate.js";
+
 export default {
     name: "AddHoliday",
     props: [
         'session_days',
     ],
+    mixins: [formatDate],
     data() {
         return {
             start_date: '',
@@ -77,10 +80,10 @@ export default {
         },
         data: function() {
             return {
-                start: moment(this.start_date).format("YYYY-MM-DD"),
-                end: moment(this.end_date).format("YYYY-MM-DD"),
+                start: formatDate(this.start_date),
+                end: formatDate(this.end_date),
                 comment: this.description,
-                programme_end_date: moment(this.programme_end_date).format("YYYY-MM-DD"),
+                programme_end_date: formatDate(this.programme_end_date),
             }
         },
     },

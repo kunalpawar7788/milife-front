@@ -6,11 +6,11 @@
           <div class="holiday_list-dates">
               <div class="holiday_list-startdate">
                   <p class="margin-0 fnt-bold">Start</p>
-                  <p class="margin-0">{{ record.start }}</p>
+                  <p class="margin-0">{{ formatDate(record.start) }}</p>
               </div>
               <div class="holiday_list-enddate">
                   <p class="margin-0 fnt-bold">End</p>
-                  <p  class="margin-0">{{ record.end }}</p>
+                  <p  class="margin-0">{{ formatDate(record.end) }}</p>
               </div>
           </div>
           <div class="holiday_list-comment">
@@ -23,9 +23,11 @@
 </template>
 
 <script lang="js">
+import formatDate from "@/mixins/formatDate.js";
 
 export default {
     name:"ListHolidays",
+    mixins: [formatDate],
     data(){
         return {
             status: '',
@@ -41,7 +43,7 @@ export default {
         },
         url: function(){
             return `${process.env.VUE_APP_BASE_URL}/api/users/${this.user_pk}/programmes/${this.programme_pk}/holiday`;
-        },
+        }
     },
     methods: {
         fetch_holidays: function(){

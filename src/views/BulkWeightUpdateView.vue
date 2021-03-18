@@ -12,11 +12,11 @@
   <textarea
     rows=15
     v-model="textbox_content"
-    placeholder="date as YYYY-MM-DD,weight in kg, eg
-2018-01-10,64.30
-2018-01-11,64.20"
+    placeholder="date as DD-MM-YYYY,weight in kg, e.g.
+    10-01-2018,64.30
+    11-01-2018,64.20"
     > </textarea>
-  <p>Warning: This will overwrite data for conflicting dates. </p>  
+  <p>Warning: This will overwrite data for conflicting dates.</p>  
   <div class="button" v-on:click="bulk_upsert_weights">
     <template v-if="mode=='target'">Update Weight Target</template>
     <template v-else>Update Weight Log</template>
@@ -28,6 +28,7 @@
 
 <script>
 import moment from "moment";
+import formatDate from "@/mixins/formatDate.js";
 import Datepicker from 'vuejs-datepicker';
 import Multiselect from 'vue-multiselect';
 import SelectedUserDisplay from '@/components/SelectedUserDisplay';
@@ -36,6 +37,7 @@ export default {
     name: "BulkWeightUpdateView",
     components: {Datepicker, Multiselect, SelectedUserDisplay},
     props: ['fobj_user'],
+    mixins: [formatDate],
     data() {
         return {
             textbox_content: "",
@@ -77,16 +79,14 @@ export default {
                 if (tuple.length !=2){
                     return;
                 }
-                const date = tuple[0],
-                      weight = tuple[1];
-                if (date !=null && !moment(date, "YYYY-MM-DD").isValid()){
+                const date = tuple[0]
+                if (date !=null && !moment(date, "DD-MM-YYYY").isValid()){
                     return;
                 }
-                
                 data.push({
                     user: this.user_pk,
                     weight: tuple[1],
-                    measured_on : tuple[0],
+                    measured_on : this.formatDate(date, "YYYY-MM-DD"),
                 });
                 
             }.bind(this));
@@ -99,16 +99,15 @@ export default {
                 if (tuple.length !=2){
                     return;
                 }
-                const date = tuple[0],
-                      weight = tuple[1];
-                if (date !=null && !moment(date, "YYYY-MM-DD").isValid()){
+                const date = tuple[0]
+                if (date !=null && !moment(date, "DD-MM-YYYY").isValid()){
                     return;
                 }
                 
                 data.push({
                     user: this.user_pk,
                     target_weight: tuple[1],
-                    target_date : tuple[0],
+                    target_date : this.formatDate(date, "YYYY-MM-DD"),
                 });                
             }.bind(this));
             return data;

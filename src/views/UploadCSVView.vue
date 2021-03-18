@@ -55,7 +55,7 @@ export default {
 
     methods: {
         timestamp_to_display: function(timestamp){
-            return moment(timestamp).format("YYYY-MM-DD HH:mm");
+            return moment(timestamp).format("DD-MM-YYYY HH:mm");
         },
         handleFileSelect: function(){
             this.csvfile = this.$refs.csvfile.files[0]
