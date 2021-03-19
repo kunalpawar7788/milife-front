@@ -1,7 +1,7 @@
 <template>
 <div id="my-profile-edit-container"
-     v-if="profile_api_status=='success'"
-     >
+  v-if="profile_api_status=='success'"
+>
   <h3 class="fc-white"> Edit Profile Details </h3>
   <div class="cropped-profile-photo">
     <img class="profile-photo" :src="profile.image" v-if="profile.image!=null"/>
@@ -10,7 +10,8 @@
   
   <div class="pd-10"
     v-on:click="goto_update_profile_picture">
-    Update Profile Picture <div class="arr-right fc-green"> </div>
+    Update Profile Picture 
+    <div class="arr-right fc-green"> </div>
   </div>
 
   <div class="genderselect">
@@ -24,7 +25,8 @@
     </multiselect>
   </div>
 
-  <div>
+  <div class="pd-10">
+    <label for="dob" class="fc-magenta">DATE OF BIRTH</label>
     <datepicker
       wrapper-class="datepicker"
       input-class="text-input date_input"
@@ -32,8 +34,23 @@
       format="dd/MM/yyyy"
       :typeable="false"
       placeholder="Select Date of Birth"
-      >
-    </datepicker>
+    />
+  </div>
+
+  <div class="pd-10 edit-row">
+    <label for="number" class="fc-magenta">MOBILE</label>
+    <input
+        class="fc-black fn-14 fw-500 text-input date_input"
+        v-model="number"
+    />
+  </div>
+
+  <div class="pd-10 edit-row">
+    <label for="email" class="fc-magenta">EMAIL</label>
+    <input
+        class="fc-black fn-14 fw-500 text-input date_input"
+        v-model="email"
+    />
   </div>
 
   <HeightInput 
@@ -95,7 +112,6 @@ export default {
         };
     },
     computed: {
-
         gender_options_d() {
             var d = {};
             for(var i=0; i < this.gender_options.length; i++) {
@@ -118,6 +134,20 @@ export default {
         date_of_birth: {
             get() {return this.profile.date_of_birth ;},
             set(value) {this.profile.date_of_birth =  moment(value).format("YYYY-MM-DD");}
+        },
+
+        number: {
+            get() {
+                return this.profile.number;
+            },
+            set(value) {
+                this.profile.number = value;
+            }
+        },
+
+        email: {
+            get() {return this.profile.email ;},
+            set(value) {this.profile.email =  value}
         },
 
         height_retrieved: {
@@ -150,13 +180,14 @@ export default {
             return {
                 gender: this.profile.gender,
                 date_of_birth: this.profile.date_of_birth,
+                number: this.profile.number,
+                email: this.profile.email,
                 height_cm: this.profile.height_cm,
                 height_unit: this.profile.height_unit,
                 weight_kg: this.profile.weight_kg,
                 weight_unit: this.profile.weight_unit,
             }
         },
-
     },
     methods: {
         goto_update_profile_picture: function() {
@@ -226,6 +257,43 @@ export default {
         .multiselect__single {
             line-height: 30px;
         }
+        .multiselect--active .multiselect__select{
+            transform:none!important;
+        }
+        .multiselect__select {
+            background: $milife_green;
+            color: #fff;
+            content: url('~@/assets/images/chevron-down-solid.svg');
+            width: 50px;
+            height: 50px;
+            padding: 13px;
+            border-radius: 0 50px 50px 0;
+            top: 0;
+            right: 0;
+        }
+        div.multiselect__tags {
+            height: 50px;
+            border: none;
+            border-top-left-radius: 50px;
+            border-bottom-left-radius: 50px;
+
+            .multiselect__single {
+                line-height: 30px;
+            }
+            span.multiselect__placeholder,
+            span.multiselect__single {
+                font-size: 15px;
+                font-family: Montserrat;
+                margin-left: 0;
+                margin-right: 0;
+            }
+            input.multiselect__input {
+                display: none;
+            }
+        }
+        div.multiselect__content-wrapper {
+            min-width: 120px;
+        }
     }
 
     *.datepicker {
@@ -246,6 +314,10 @@ export default {
         margin: 10px 0px;
         height: 45px;
         font-size: calc(15px + 0.5vmin);
+    }
+    .edit-row {
+        display: inherit;
+        padding: 0;
     }
     .profile-photo {
         height: 200px;
