@@ -8,7 +8,8 @@
   <div v-if="status=='success'">
     <div
       class="message-card bg-white margin-10 fc-black width-90 br-10 pd-10"
-      v-for="message in display_messages"
+      v-for="(message, index) in display_messages"
+      :key="index"
       v-on:click="goto_view_message(message.id)"
       >
       <div class="sender-image">
@@ -23,8 +24,8 @@
           {{message.sender.first_name}} {{message.sender.last_name}}
         </div>
         <span class="fn-11 fc-grey fw-500 ta-left">
-          {{ message.modified_at | moment("Do MMM YY") | uppercase }}
-          ({{ message.modified_at | moment('from') | uppercase }})
+          {{ message.created_at | moment("Do MMM YY") | uppercase }}
+          ({{ message.created_at | moment('from') | uppercase }})
         </span>
       </div>
       <div class="grid-span-both-columns float-left fc-bluegrey fw-700">{{message_kind_label(message.kind)}}</div>
