@@ -83,6 +83,7 @@ import MessageCountBubble from '@/components/MessageCountBubble.vue';
 export default {
     name: "MyDetailsView",
     components: {MessageCountBubble, },
+    mixins: [formatDate],
     data() {
         return {
             profile_api_status: 'initial',

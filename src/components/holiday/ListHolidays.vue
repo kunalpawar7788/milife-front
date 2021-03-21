@@ -23,9 +23,11 @@
 </template>
 
 <script lang="js">
+import formatDate from "@/mixins/formatDate.js";
 
 export default {
     name:"ListHolidays",
+    mixins: [formatDate],
     data(){
         return {
             status: '',

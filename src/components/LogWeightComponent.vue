@@ -13,6 +13,7 @@
       >
     </datepicker>
   </div>
+  <p class="warning-text">Warning: This will overwrite data for conflicting dates.</p>  
   <button class="br-50" v-on:click="add_weight_to_log"> Log Weight </button>
 </section>
 </template>
@@ -50,7 +51,7 @@ export default {
     methods: {
         add_weight_to_log: function(){
             var data = {
-                measured_on: moment(this.measured_on).format('YYYY-MM-DD'),
+                measured_on: moment(this.measured_on).format('DD-MM-YYYY'),
                 weight: this.weight.magnitude_si,
             };
             const url = process.env.VUE_APP_BASE_URL+'/api/users/' + this.fobj_user.id + "/weight";

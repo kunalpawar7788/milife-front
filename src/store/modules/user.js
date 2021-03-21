@@ -1,6 +1,6 @@
 import axios from "axios";
-import moment from "moment";
 import { getField, updateField, createHelpers } from 'vuex-map-fields';
+import formatDate from "@/mixins/formatDate.js";
 
 //const state = {
 // user: {},
@@ -85,7 +85,7 @@ const mutations = {
     updateField,
 
     update_date_of_birth_field(state, field){
-        state.user.date_of_birth = moment(field).format("YYYY-MM-DD");
+        state.user.date_of_birth = formatDate(field);
     },
     update_gender_field(state, field){
         state.user.gender = field['value'];

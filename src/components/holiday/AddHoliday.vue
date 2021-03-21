@@ -3,7 +3,7 @@
   <div class="start_date">
     <datepicker
       v-model="start_date"
-      format="dd/MM/yyyy"
+      format="dd/mm/yyyy"
       placeholder="Start Date"
       ></datepicker>
   </div>
@@ -11,7 +11,7 @@
     <datepicker
       v-model="end_date"
       placeholder="End Date"
-      format="dd/MM/yyyy"
+      format="dd/mm/yyyy"
       ></datepicker>
   </div>
   <div class="days_missed mt-10">
@@ -30,7 +30,7 @@
     <datepicker
       v-model="programme_end_date"
       placeholder="New Programme End Date"
-      format="dd/MM/yyyy"
+      format="dd/mm/yyyy"
       ></datepicker>
   </div>
   <button class="button mt-10" v-on:click="add_holiday"> Add Holiday </button>

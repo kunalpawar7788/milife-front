@@ -16,6 +16,7 @@
 </template>
 
 <script lang='js'>
+import formatDate from "@/mixins/formatDate.js";
 import AddHoliday from '@/components/holiday/AddHoliday.vue';
 import ListHolidays from '@/components/holiday/ListHolidays.vue';
 import FoldableContainer from '@/components/FoldableContainer';
@@ -24,6 +25,7 @@ export default {
     name: 'Holiday',
     props: {},
     components: {AddHoliday, ListHolidays, FoldableContainer},
+    mixins: [formatDate],
     computed:{
         user_pk: function() {
             return this.$route.params.pk;

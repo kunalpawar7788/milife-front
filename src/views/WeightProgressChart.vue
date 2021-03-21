@@ -151,7 +151,7 @@ export default {
 
         weekly_loss_target: function(){
             var today = moment();
-            var target_date = moment(this.$_.last(this.target_weights).target_date, 'YYYY-MM-DD');
+            var target_date = moment(this.$_.last(this.target_weights).target_date, 'DD-MM-YYYY');
             var days_left = target_date.diff(today, 'days')
             if (days_left <=0) {
                 days_left = 7;
@@ -220,6 +220,9 @@ export default {
             this.status = 'error';
             this.error_msg = 'No target weight entries exist';
           }
+        },
+        formatDate: function (date_value) {
+           return moment(date_value).format("DD-MM-YYYY");
         }
     },
     filters: {

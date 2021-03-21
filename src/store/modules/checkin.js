@@ -1,6 +1,6 @@
 import axios from "axios";
-import moment from "moment";
 import { getField, updateField, createHelpers } from 'vuex-map-fields';
+import formatDate from "@/mixins/formatDate.js";
 
 const getDefaultCheckinState = () => {
     return {
@@ -32,7 +32,7 @@ const getters = {
 
 const actions = {
     fetch_checkin_for_user_by_date({state, commit}){
-        const endpoint = "/api/users/" + state.user_id + "/checkin/" + moment(state.checkin_date).format("YYYY-MM-DD");
+        const endpoint = "/api/users/" + state.user_id + "/checkin/" + formatDate(state.checkin_date);
         const url = process.env.VUE_APP_BASE_URL + endpoint;
         axios.defaults.headers.common['Authorization'] = "Token " + localStorage.getItem('token');
         return new Promise((resolve, reject) => {
@@ -50,7 +50,7 @@ const actions = {
     upsert_checkin({commit, state}){
         axios.defaults.headers.common['Authorization'] = "Token " + localStorage.getItem('token');
         var payload = {...state.measurements};
-        var formatted_date = moment(state.checkin_date).format("YYYY-MM-DD");
+        var formatted_date = formatDate(state.checkin_date);
         payload['date_of_checkin'] = formatted_date;
 
         var method = 'POST';
@@ -95,7 +95,7 @@ const mutations = {
     updateField,
 
     update_checkin_date_field(state, field){
-        state.checkin_date = moment(field).format("YYYY-MM-DD");
+        state.checkin_date = formatDate(field);
     },
 
     CHECKIN_FETCH_SUCCESS(state, data){
@@ -118,7 +118,7 @@ const mutations = {
     },
 
     INITIALIZE(state, payload) {
-        state.checkin_date = moment(payload.date).format("YYYY-MM-DD");
+        state.checkin_date = formatDate(payload.date);
         Object.assign(state, {
             user_id:  payload.user_id,
             measurements: {
