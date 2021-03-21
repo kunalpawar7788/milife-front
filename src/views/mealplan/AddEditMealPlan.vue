@@ -143,7 +143,7 @@
 
   </div>
 
-<div class="button admin_addMeal-saveBtn" v-on:click="submit_mealplan">Save</div>
+<button class="button admin_addMeal-saveBtn" v-on:click="submit_mealplan">Save</button>
 
 </section>
 </template>
@@ -470,7 +470,6 @@ export default {
     .admin_addMeal-saveBtn{
         color: #fff;
         line-height: 0;
-        width: 220px;
         margin: auto;
     }
 }

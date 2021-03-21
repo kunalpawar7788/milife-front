@@ -14,7 +14,7 @@
     </timepicker>
 
   </div>
-  <div class="button mt-15" v-on:click="upsert_programme()">save </div>
+  <button class="button save mt-15 mb-15" v-on:click="upsert_programme()">save </button>
 </div>
 
 </template>
@@ -155,6 +155,9 @@ div.programme-edit-sessions-container {
         div.time{
             grid-column: 3;
         }
+    }
+    button.save {
+        max-width: 300px;
     }
 }
 </style>

@@ -55,7 +55,7 @@
   </div>
   <div class="charts" v-if="representation=='charts'">
     <Multiselect
-      :class="StatsCharts_list"
+      class="StatsCharts_list"
       v-model="field_to_plot"
       :options="fields_options_l"
       label="label"
@@ -80,10 +80,12 @@ import Multiselect from 'vue-multiselect';
 import GenericChart from '@/components/progress-chart/GenericChart.vue';
 import moment from 'moment';
 import { classify, classifyBodyType } from '@/lib/measurement_range.js';
+import formatDate from "@/mixins/formatDate.js";
 
 export default{
     name: "StatsAndCharts",
     components: {Multiselect, GenericChart},
+    mixins: [formatDate],
     props: ['progress_report', 'selected_checkin_date', 'checkin_dates', 'fobj_user'],
     data() {
         return {

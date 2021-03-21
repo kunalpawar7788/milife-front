@@ -12,6 +12,7 @@
 </template>
 
 <script lang="js">
+import formatDate from "@/mixins/formatDate.js";
 import Datepicker from 'vuejs-datepicker';
 
 export default {
@@ -25,6 +26,7 @@ export default {
     components: {
         Datepicker,
     },
+    mixins: [formatDate],
     props: [
         'reload_balance',
     ],
@@ -41,7 +43,7 @@ export default {
         },
         data: function() {
             return {
-                date: this.backendDateFormat(this.date),
+                date: this.backEndDateFormat(this.date),
                 kind: 'D',
             }
         },

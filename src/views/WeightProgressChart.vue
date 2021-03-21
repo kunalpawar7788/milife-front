@@ -57,7 +57,7 @@
               By <strong>{{ comment.sender.first_name + ' ' + comment.sender.last_name }}</strong>
             </p>
             <p class="align-right">
-              On <strong>{{ comment.created_at | display_date }}</strong>
+              On <strong>{{ comment.created_at | moment('DD-MM-YYYY') }}</strong>
             </p>
           </div>
         </div>
@@ -151,7 +151,7 @@ export default {
 
         weekly_loss_target: function(){
             var today = moment();
-            var target_date = this.backEndDateFormat(this.$_.last(this.target_weights).target_date);
+            var target_date = moment(this.$_.last(this.target_weights).target_date, 'YYYY-MM-DD');
             var days_left = target_date.diff(today, 'days')
             if (days_left <=0) {
                 days_left = 7;

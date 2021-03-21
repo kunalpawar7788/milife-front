@@ -335,7 +335,7 @@ export default {
 
     .checking_save-btn{
         line-height: 0em;
-        width: 200px;
+        max-width: 300px;
         color: white;
     }
 

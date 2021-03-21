@@ -69,7 +69,7 @@
   </div>
   
   
-  <div class="button save" v-on:click="upsert_programme()"> Save </div>
+  <button class="button save mb-15" v-on:click="upsert_programme()"> Save </button>
 </div>
 <div v-else>
   {{status}}
@@ -384,10 +384,14 @@ export default {
     }
 
     .save {
-        grid-row: 7;
         line-height: 3em;
         color: #fff;
-        margin-top: 15px;
+        grid-row: 7;
+        grid-column: 1/-1;
+        color: #fff;
+        font-size: calc(15px + 0.5vmin);
+        max-width: 300px;
+        margin-top: 0;
     }
 }
 div {

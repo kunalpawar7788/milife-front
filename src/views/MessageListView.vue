@@ -7,7 +7,7 @@
     v-on:keyup="fetch_messages">
   <div v-if="status=='success'">
     <div
-      class="message-card bg-white margin-10 fc-black width-90 br-10 pd-10"
+      class="message-card bg-white margin-10 fc-black br-10 pd-10"
       v-for="(message, index) in display_messages"
       :key="index"
       v-on:click="goto_view_message(message.id)"

@@ -2,14 +2,15 @@
 <section class="filtered-checkin-list">
    <h3 class="middle-column"> Check in details for {{fobj_user.first_name}}</h3>
     <div class="userinfo"
-      v-for="checkin of checkins"
+      v-for="(checkin, index) of checkins"
+      :key="index"
       :id="checkin.id"
       v-on:click="manage_checkin(checkin.id, !checkin.deleted)"
       >
       <div class="checkininfo-grid">
         <span> {{checkin.date_of_checkin}}</span>
-        <button class="button" v-if="!checkin.deleted"> Hide </button>
-        <button class="button" v-else> Show </button>
+        <button class="button hide-button" v-if="!checkin.deleted"> Hide </button>
+        <button class="button show-button" v-else> Show </button>
       </div>
     </div>
 
@@ -112,7 +113,11 @@ section.filtered-checkin-list {
             padding: 10px;
             color: black;
         }
-        
+        .hide-button, .show-button {
+            min-height: 2em;
+            margin: 0 30px;
+            padding: 5px 0px;
+        }
     }
     
     .userinfo{

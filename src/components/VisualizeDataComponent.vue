@@ -66,7 +66,6 @@
 <script>
 import GenericChart from "@/components/progress-chart/GenericChart.vue";
 import MiniWeightChart from "@/components/MiniWeightChart.vue";
-import moment from "moment";
 import formatDate from "@/mixins/formatDate.js";
 
 export default {

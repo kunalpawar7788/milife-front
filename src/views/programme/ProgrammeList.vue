@@ -30,7 +30,7 @@
 
   <button
     v-if="is_admin"
-    class="button middle-column mt-20"
+    class="button middle-column mt-20 mb-15"
     v-on:click="goto_add_programme()">
     Add Programme
   </button>

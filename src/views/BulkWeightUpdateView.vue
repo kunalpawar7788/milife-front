@@ -17,10 +17,10 @@
     11-01-2018,64.20"
     > </textarea>
   <p>Warning: This will overwrite data for conflicting dates.</p>  
-  <div class="button" v-on:click="bulk_upsert_weights">
+  <button class="button" v-on:click="bulk_upsert_weights">
     <template v-if="mode=='target'">Update Weight Target</template>
     <template v-else>Update Weight Log</template>
-  </div>
+  </button>
 
 </div>
 
