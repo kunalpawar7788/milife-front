@@ -3,7 +3,8 @@
   <div id="slider" class="months">
     <div
       :id="element.id"
-      v-for="element in checkin_dates"
+      v-for="(element, index) in checkin_dates"
+      :key="index"
       :class="['month', selected_value==element.id ? 'selected': '' ]"
       v-on:click="selected_value=element.id"
       >

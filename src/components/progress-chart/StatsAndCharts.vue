@@ -237,7 +237,7 @@ export default{
             }
             this.$_.forEach(this.progress_report, function(obj, date){
                 l.push({
-                    date: moment(date, 'YYYY-MM-DD'),
+                    date: this.backEndDateFormat(date),
                     value: obj[this.field_to_plot.value],
 
                 });

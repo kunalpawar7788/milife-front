@@ -65,6 +65,7 @@
 import WeightChart from "@/components/WeightChart.vue";
 import MiniWeightChart from "@/components/MiniWeightChart.vue";
 import AddCoachCommentComponent from "@/components/AddCoachCommentComponent.vue";
+import formatDate from "@/mixins/formatDate.js";
 
 import moment from 'moment';
 export default {
@@ -74,7 +75,6 @@ export default {
         AddCoachCommentComponent,
         MiniWeightChart,
     },
-
     props: ['fobj_user', ],
     data() {
         return {
@@ -84,7 +84,7 @@ export default {
             error_msg: "",
         };
     },
-
+    mixins: [formatDate],
     computed: {
         is_admin: function() {
             return this.$store.state.auth.user.is_staff;
@@ -139,7 +139,7 @@ export default {
 
         weekly_loss_target: function(){
             var today = moment();
-            var target_date = moment(this.$_.last(this.target_weights).target_date, 'YYYY-MM-DD');
+            var target_date = this.backEndDateFormat(this.$_.last(this.target_weights).target_date);
             var days_left = target_date.diff(today, 'days')
             if (days_left <=0) {
                 days_left = 7;

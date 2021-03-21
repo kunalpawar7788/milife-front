@@ -75,11 +75,12 @@ import Multiselect from 'vue-multiselect';
 import Datepicker from 'vuejs-datepicker';
 import HeightInput from "@/components/HeightInput.vue";
 import WeightInput from "@/components/WeightInput.vue";
+import formatDate from "@/mixins/formatDate.js";
 
-import moment from 'moment';
 export default {
     name: "MyProfile",
     components: { Multiselect, Datepicker, HeightInput, WeightInput },
+    mixins: [formatDate],
     props: [],
     data() {
         return {
@@ -132,8 +133,8 @@ export default {
         },
 
         date_of_birth: {
-            get() {return this.profile.date_of_birth ;},
-            set(value) {this.profile.date_of_birth =  moment(value).format("YYYY-MM-DD");}
+            get() { return this.profile.date_of_birth ; },
+            set(value) { this.profile.date_of_birth =  this.backEndDateFormat(value); }
         },
 
         number: {
