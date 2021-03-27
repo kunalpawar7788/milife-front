@@ -3,7 +3,7 @@
   <div class="start_date">
     <datepicker
       v-model="start_date"
-      format="dd/mm/yyyy"
+      format="dd/MM/yyyy"
       placeholder="Start Date"
       ></datepicker>
   </div>
@@ -11,7 +11,7 @@
     <datepicker
       v-model="end_date"
       placeholder="End Date"
-      format="dd/mm/yyyy"
+      format="dd/MM/yyyy"
       ></datepicker>
   </div>
   <div class="days_missed mt-10">
@@ -30,7 +30,7 @@
     <datepicker
       v-model="programme_end_date"
       placeholder="New Programme End Date"
-      format="dd/mm/yyyy"
+      format="dd/MM/yyyy"
       ></datepicker>
   </div>
   <button class="button mt-10" v-on:click="add_holiday"> Add Holiday </button>
@@ -75,7 +75,7 @@ export default {
             return this.$route.params.programme_pk;
         },
         submit_url: function(){
-            const base_url = process.env.VUE_APP_BASE_URL+'/api/users/' + this.user_pk;
+            //const base_url = process.env.VUE_APP_BASE_URL+'/api/users/' + this.user_pk;
             return `${process.env.VUE_APP_BASE_URL}/api/programmes/${this.programme_pk}/holiday`
         },
         data: function() {
