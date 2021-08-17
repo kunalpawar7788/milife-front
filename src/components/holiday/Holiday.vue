@@ -2,7 +2,7 @@
 <div>
   <div class="end-date" v-if="is_admin">
     <span class="label width-100"> PROGRAMME END DATE </span>:
-    <span class="date width-100 fc-black fw-500"> {{ formatDate(programme.end_date) }}</span>
+    <span class="date width-100 fc-black fw-500"> {{ programme.end_date | moment('DD-MM-YYYY') }}</span>
   </div>
 
   <FoldableContainer v-if="is_admin" label="Add Holiday">

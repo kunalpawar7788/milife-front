@@ -102,6 +102,7 @@ section.compose-message-container {
         height: 0px;
         line-height: 0;
         color: #fff;
+        max-width: 300px;
     }
 }
 </style>

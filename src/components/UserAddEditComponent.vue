@@ -181,8 +181,8 @@ export default {
         },
 
         date_of_birth: {
-            get() {return this.data.date_of_birth || this.fobj_user.date_of_birth;},
-            set(value) {this.data.date_of_birth =  this.formatDate(value);}
+            get() { return this.data.date_of_birth || this.fobj_user.date_of_birth; },
+            set(value) { this.data.date_of_birth =  this.backEndDateFormat(value); }
         },
 
         height_retrieved: {

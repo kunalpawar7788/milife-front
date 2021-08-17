@@ -69,7 +69,7 @@
   </div>
   
   
-  <div class="button save" v-on:click="upsert_programme()"> Save </div>
+  <button class="button save mb-15" v-on:click="upsert_programme()"> Save </button>
 </div>
 <div v-else>
   {{status}}
@@ -226,6 +226,10 @@ export default {
             data['end_date'] =  this.formatDate(this.programme.end_date);
             console.log(data)
             return new Promise((resolve, reject) => {
+                var data = this.programme;
+                data['user'] = this.user_pk;
+                data['start_date'] =  this.backEndDateFormat(this.programme.start_date);
+                data['end_date'] =  this.backEndDateFormat(this.programme.end_date);
                 
                 this.$http({url: this.upsert_url, method: this.upsert_method, data: data})
                     .then(resp => {
@@ -385,10 +389,14 @@ export default {
     }
 
     .save {
-        grid-row: 7;
         line-height: 3em;
         color: #fff;
-        margin-top: 15px;
+        grid-row: 7;
+        grid-column: 1/-1;
+        color: #fff;
+        font-size: calc(15px + 0.5vmin);
+        max-width: 300px;
+        margin-top: 0;
     }
 }
 div {

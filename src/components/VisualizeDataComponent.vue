@@ -40,7 +40,7 @@
           v-for="(date, index) in weightDates"
           :key="index"
         >
-          <td>{{ formatDate(date) }}</td>
+          <td>{{ date | moment('DD-MM-YYYY') }}</td>
           <td>{{ processedWeightData.weight_log[date] || "-" }}</td>
           <td>{{ processedWeightData.target_weight[date] || "-" }}</td>
         </tr>
@@ -55,7 +55,7 @@
           v-for="(data, index) in dataToPlot"
           :key="index"
         >
-          <td>{{ formatDate(data.date) }}</td>
+          <td>{{ data.date | moment('DD-MM-YYYY') }}</td>
           <td>{{ data.value }}</td>
         </tr>
       </table>
@@ -66,7 +66,6 @@
 <script>
 import GenericChart from "@/components/progress-chart/GenericChart.vue";
 import MiniWeightChart from "@/components/MiniWeightChart.vue";
-import moment from "moment";
 import formatDate from "@/mixins/formatDate.js";
 
 export default {
@@ -139,7 +138,7 @@ export default {
       for (var idx in this.checkinData) {
         let checkin = this.checkinData[idx];
         data.push({
-          date: moment(checkin["date_of_checkin"], "DD-MM-YYYY"),
+          date: this.backEndDateFormat(checkin["date_of_checkin"]),
           value: checkin[this.selected],
         });
       }

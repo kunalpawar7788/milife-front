@@ -13,7 +13,7 @@
 
 <script lang="js">
 import Datepicker from 'vuejs-datepicker';
-import moment from 'moment';
+import formatDate from "@/mixins/formatDate.js";
 
 export default {
     name: "AddBankedSession",
@@ -26,6 +26,7 @@ export default {
     components: {
         Datepicker,
     },
+    mixins: [formatDate],
     props: [
         'reload_balance',
     ],
@@ -42,7 +43,7 @@ export default {
         },
         data: function() {
             return {
-                date: moment(this.date).format('DD-MM-YYYY'),
+                date: this.backEndDateFormat(this.date),
                 kind: 'C',
             }
         },

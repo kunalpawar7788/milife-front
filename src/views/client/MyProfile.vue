@@ -133,8 +133,8 @@ export default {
         },
 
         date_of_birth: {
-            get() {return this.profile.date_of_birth ;},
-            set(value) {this.profile.date_of_birth =  this.formatDate(value);}
+            get() { return this.profile.date_of_birth ; },
+            set(value) { this.profile.date_of_birth =  this.backEndDateFormat(value); }
         },
 
         number: {

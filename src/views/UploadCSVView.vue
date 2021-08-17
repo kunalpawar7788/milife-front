@@ -13,19 +13,19 @@
     </label>
   </div>
 
-  <div class="button btn_csv-save" v-on:click="upload_csv"> Save</div>
+  <button class="button save btn_csv-save" v-on:click="upload_csv">Save</button>
 
   <table id="history-table">
     <thead>
-      <th>uploaded at</th>
+      <th class="fc-white">uploaded at</th>
       <th></th>
     </thead>
     <tbody>
-      <tr v-for="row in records">
-        <td>{{timestamp_to_display(row.created_at)}}</td>
-        <td> <div class="button btn_csv-save" v-on:click="patch(row.id)">
+      <tr v-for="(row, index) in records" :key="index">
+        <td class="fc-white">{{timestamp_to_display(row.created_at)}}</td>
+        <td> <button class="button btn_csv-save" v-on:click="patch(row.id)">
             Reprocess
-        </div> </td>
+        </button> </td>
       </tr>
     </tbody>
 
@@ -183,6 +183,9 @@ section.upload-csv-container {
       border-color: $milife-magenta;
       cursor: pointer;
     }
+  }
+  .save {
+    width: 300px;
   }
   .btn_csv-save{
     min-width: 50%;

@@ -15,9 +15,9 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="wl in weight_logs">
-          <td style="border-right: 2px solid grey">{{wl.measured_on}}</td>
-          <td>{{wl.weight}}</td>
+        <tr v-for="(wl, index) in weight_logs" :key="index">
+          <td style="border-right: 2px solid grey">{{ wl.measured_on | moment('DD-MM-YYYY') }}</td>
+          <td>{{ wl.weight }}</td>
         </tr>
       </tbody>
     </table>

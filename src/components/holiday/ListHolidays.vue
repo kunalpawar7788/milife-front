@@ -6,11 +6,11 @@
           <div class="holiday_list-dates">
               <div class="holiday_list-startdate">
                   <p class="margin-0 fnt-bold">Start</p>
-                  <p class="margin-0">{{ formatDate(record.start) }}</p>
+                  <p class="margin-0">{{ record.start | moment('DD-MM-YYYY') }}</p>
               </div>
               <div class="holiday_list-enddate">
                   <p class="margin-0 fnt-bold">End</p>
-                  <p  class="margin-0">{{ formatDate(record.end) }}</p>
+                  <p  class="margin-0">{{ record.end | moment('DD-MM-YYYY') }}</p>
               </div>
           </div>
           <div class="holiday_list-comment">

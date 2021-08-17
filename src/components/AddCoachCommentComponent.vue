@@ -10,7 +10,7 @@
       class="br-20 width-80 border-box pd-10">
     </textarea>
 
-    <div class="button margin-auto pd-10 br-10 width-80" v-on:click="submit_comment()"> Save </div>
+    <button class="button margin-auto pd-10 br-10 width-80" v-on:click="submit_comment()"> Save </button>
   </div>
 </section>
 </template>
@@ -76,6 +76,5 @@ export default {
 </script>
 
 <style lang="scss">
-
 </style>
              

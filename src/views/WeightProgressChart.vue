@@ -57,7 +57,7 @@
               By <strong>{{ comment.sender.first_name + ' ' + comment.sender.last_name }}</strong>
             </p>
             <p class="align-right">
-              On <strong>{{ formatDate(comment.created_at) }}</strong>
+              On <strong>{{ comment.created_at | moment('DD-MM-YYYY') }}</strong>
             </p>
           </div>
         </div>
@@ -80,6 +80,7 @@
 import WeightChart from "@/components/WeightChart.vue";
 import MiniWeightChart from "@/components/MiniWeightChart.vue";
 import AddCoachCommentComponent from "@/components/AddCoachCommentComponent.vue";
+import formatDate from "@/mixins/formatDate.js";
 
 import moment from 'moment';
 export default {
@@ -89,7 +90,6 @@ export default {
         AddCoachCommentComponent,
         MiniWeightChart,
     },
-
     props: ['fobj_user', ],
     data() {
         return {
@@ -99,7 +99,7 @@ export default {
             error_msg: "",
         };
     },
-
+    mixins: [formatDate],
     computed: {
         is_admin: function() {
             return this.$store.state.auth.user.is_staff;

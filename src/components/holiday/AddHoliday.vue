@@ -80,10 +80,10 @@ export default {
         },
         data: function() {
             return {
-                start: this.formatDate(this.start_date),
-                end: this.formatDate(this.end_date),
+                start: this.backEndDateFormat(this.start_date),
+                end: this.backEndDateFormat(this.end_date),
                 comment: this.description,
-                programme_end_date: this.formatDate(this.programme_end_date),
+                programme_end_date: this.backEndDateFormat(this.programme_end_date),
             }
         },
     },
