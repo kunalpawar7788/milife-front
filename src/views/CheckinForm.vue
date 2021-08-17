@@ -225,7 +225,7 @@ export default {
                     }).catch(err => {
                         this.initialize();
                         this.fetching=false;
-                        // reject(err);
+                        reject(err);
                     });
             });
             

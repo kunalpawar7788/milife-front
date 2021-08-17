@@ -151,8 +151,8 @@ export default {
                 return this.coach_options_d[this.programme.coach] || {};
             },
             set(value) {
-                var value = Object.assign({}, value)
-                this.programme.coach = value['id'];                
+                var x = Object.assign({}, value)
+                this.programme.coach = x['id'];
             },
         },
         active: {
@@ -160,8 +160,8 @@ export default {
                 return this.active_options_d[this.programme.active] || {};
             },
             set (value) {
-                var value = Object.assign({}, value);
-                this.programme.active = value['value'];
+                var x = Object.assign({}, value);
+                this.programme.active = x['value'];
             }
         },
     },
@@ -219,14 +219,19 @@ export default {
             console.log('reloading ...');
         },
         
-        upsert_programme: function(){
+        upsert_programme: function() {
+            var data =  Object.assign({}, this.programme);
+            data['user'] = this.user_pk;
+            data['start_date'] =  this.formatDate(this.programme.start_date);
+            data['end_date'] =  this.formatDate(this.programme.end_date);
+            console.log(data)
             return new Promise((resolve, reject) => {
                 var data = this.programme;
                 data['user'] = this.user_pk;
                 data['start_date'] =  this.backEndDateFormat(this.programme.start_date);
                 data['end_date'] =  this.backEndDateFormat(this.programme.end_date);
                 
-                this.$http({url: this.upsert_url, method: this.upsert_method, data: this.programme})
+                this.$http({url: this.upsert_url, method: this.upsert_method, data: data})
                     .then(resp => {
                         resolve(resp);
                         this.$router.go('-1');

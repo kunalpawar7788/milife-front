@@ -89,7 +89,10 @@ export default {
     },
     methods: {
         reset: function() {
-            this.date = '';
+            this.start_date = '';
+            this.end_date = '';
+            this.description = "";
+            this.programme_end_date = '';
         },
         add_holiday: function(){
             return new Promise((resolve, reject) => {

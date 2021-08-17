@@ -265,12 +265,11 @@ export default {
                 if (key=="image") {continue;}
                 if(this.data[key]){
                     formData.append(key, this.data[key]);
-                };
-
-            };
+                }
+            }
             if(this.data.image && typeof this.data.image != 'string'){
                 formData.append('image', this.data.image, 'something.png');
-            };
+            }
             return new Promise((resolve, reject) => {
                 this.$http({url: this.upsert_url, data:formData, method: this.upsert_method})
                     .then(resp => {
@@ -296,8 +295,7 @@ export default {
         var fobj_user = Object.assign({}, this.fobj_user);
         if(fobj_user.id) {
             this.data=fobj_user;
-        };
-
+        }
     },
 
 }
