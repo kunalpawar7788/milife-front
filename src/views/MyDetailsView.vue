@@ -79,6 +79,7 @@
 
 <script>
 import MessageCountBubble from '@/components/MessageCountBubble.vue';
+import formatDate from "@/mixins/formatDate.js";
 
 export default {
     name: "MyDetailsView",

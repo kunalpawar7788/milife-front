@@ -80,7 +80,7 @@ export default {
         },
         pictures: function(){
             if (this.progress_report.length>0 && this.selected_checkin_date !=null){
-                var first_checkin_date = this.checkin_dates[0].id;
+                var first_checkin_date = this.checkin_dates[0].mobj.format("YYYY-MM-DD");
                 console.log(this.progress_report, this.progress_report_by_date, this.selected_checkin_date, first_checkin_date);
 
                 return {
